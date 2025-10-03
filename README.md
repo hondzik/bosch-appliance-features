@@ -1,0 +1,1 @@
+# bosch-appliance-features
