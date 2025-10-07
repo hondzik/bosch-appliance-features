@@ -1,7 +1,10 @@
 {
     "dishwasher": {
-        "controls": {
+        "programs": {
             "feature-name": "Dishwasher controls"
+        },
+        "options": {
+            "feature-name": "Dishwasher options"
         },
         "time-remaining": {
             "feature-name": "Dishwasher time remaining"
