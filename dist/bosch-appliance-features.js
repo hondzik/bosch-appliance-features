@@ -1449,7 +1449,7 @@ const $984290e23ab38a6e$var$supportsBoschDishwasherProgramsFeature = (stateObj)=
     const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || "";
     return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("bosch") && friendlyName.includes("dishwasher");
 };
-class $984290e23ab38a6e$export$2abebcf1e6123836 extends (0, $528e4332d1e3099e$export$3f2f9f5909897157) {
+class $984290e23ab38a6e$var$BoschDishwasherProgramsFeature extends (0, $528e4332d1e3099e$export$3f2f9f5909897157) {
     setConfig(config) {
         // If entity_prefix is not set, try to derive it from the entity name
         if (config.entity_prefix === undefined && config.entity) {
@@ -1476,16 +1476,16 @@ class $984290e23ab38a6e$export$2abebcf1e6123836 extends (0, $528e4332d1e3099e$ex
         return this._hass;
     }
     /**
-         * Programs
-         * - Eco 50°C: Dishcare.Dishwasher.Program.Eco50
-         * - Auto 45-65°C: Dishcare.Dishwasher.Program.Auto2
-         * - Intensive 70°C: Dishcare.Dishwasher.Program.Intensiv70
-         * - Express 60°C Dishcare.Dishwasher.Program.Kurz60
-         * - Quick 45°C: Dishcare.Dishwasher.Program.Quick45
-         * - Glass 40°C: Dishcare.Dishwasher.Program.Glas40
-         * - Silent 50°C: Dishcare.Dishwasher.Program.NightWash
-         * - Machine Care: Dishcare.Dishwasher.Program.MachineCare
-         */ render() {
+     * Programs
+     * - Eco 50°C: Dishcare.Dishwasher.Program.Eco50
+     * - Auto 45-65°C: Dishcare.Dishwasher.Program.Auto2
+     * - Intensive 70°C: Dishcare.Dishwasher.Program.Intensiv70
+     * - Express 60°C Dishcare.Dishwasher.Program.Kurz60
+     * - Quick 45°C: Dishcare.Dishwasher.Program.Quick45
+     * - Glass 40°C: Dishcare.Dishwasher.Program.Glas40
+     * - Silent 50°C: Dishcare.Dishwasher.Program.NightWash
+     * - Machine Care: Dishcare.Dishwasher.Program.MachineCare
+     */ render() {
         if (!this.config || !this.hass || !this.stateObj || !$984290e23ab38a6e$var$supportsBoschDishwasherProgramsFeature(this.stateObj)) return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
                 <div class="toners">
                     <div>Unsupported feature</div>
@@ -1551,20 +1551,20 @@ class $984290e23ab38a6e$export$2abebcf1e6123836 extends (0, $528e4332d1e3099e$ex
 }
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
     (0, $0ede0742a0fa7bbd$export$ca000e230c0caa3e)()
-], $984290e23ab38a6e$export$2abebcf1e6123836.prototype, "_hass", void 0);
+], $984290e23ab38a6e$var$BoschDishwasherProgramsFeature.prototype, "_hass", void 0);
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
     (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
         attribute: false
     })
-], $984290e23ab38a6e$export$2abebcf1e6123836.prototype, "config", void 0);
+], $984290e23ab38a6e$var$BoschDishwasherProgramsFeature.prototype, "config", void 0);
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
     (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
         attribute: false
     })
-], $984290e23ab38a6e$export$2abebcf1e6123836.prototype, "stateObj", void 0);
-$984290e23ab38a6e$export$2abebcf1e6123836 = (0, $bb166217b384746d$export$29e00dfd3077644b)([
+], $984290e23ab38a6e$var$BoschDishwasherProgramsFeature.prototype, "stateObj", void 0);
+$984290e23ab38a6e$var$BoschDishwasherProgramsFeature = (0, $bb166217b384746d$export$29e00dfd3077644b)([
     (0, $4af75e4a7ed8f584$export$da64fc29f17f9d0e)("bosch-dishwasher-programs-feature")
-], $984290e23ab38a6e$export$2abebcf1e6123836);
+], $984290e23ab38a6e$var$BoschDishwasherProgramsFeature);
 window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: "bosch-dishwasher-programs-feature",
@@ -1574,4 +1574,3 @@ window.customCardFeatures.push({
 });
 
 
-export {$984290e23ab38a6e$export$2abebcf1e6123836 as BoschDishwasherProgramsFeature};

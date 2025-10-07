@@ -15,7 +15,7 @@ const supportsBoschDishwasherProgramsFeature = (stateObj: HassEntity): boolean =
 };
 
 @customElement("bosch-dishwasher-programs-feature")
-export class BoschDishwasherProgramsFeature extends LitElement {
+class BoschDishwasherProgramsFeature extends LitElement {
     @state() _hass?: HomeAssistant;
     @property({ attribute: false }) config?: any;
     @property({ attribute: false }) stateObj?: HassEntity;
@@ -59,18 +59,18 @@ export class BoschDishwasherProgramsFeature extends LitElement {
         return this._hass;
     }
 
-        /**
-         * Programs
-         * - Eco 50°C: Dishcare.Dishwasher.Program.Eco50
-         * - Auto 45-65°C: Dishcare.Dishwasher.Program.Auto2
-         * - Intensive 70°C: Dishcare.Dishwasher.Program.Intensiv70
-         * - Express 60°C Dishcare.Dishwasher.Program.Kurz60
-         * - Quick 45°C: Dishcare.Dishwasher.Program.Quick45
-         * - Glass 40°C: Dishcare.Dishwasher.Program.Glas40
-         * - Silent 50°C: Dishcare.Dishwasher.Program.NightWash
-         * - Machine Care: Dishcare.Dishwasher.Program.MachineCare
-         */
-        render(): TemplateResult {
+    /**
+     * Programs
+     * - Eco 50°C: Dishcare.Dishwasher.Program.Eco50
+     * - Auto 45-65°C: Dishcare.Dishwasher.Program.Auto2
+     * - Intensive 70°C: Dishcare.Dishwasher.Program.Intensiv70
+     * - Express 60°C Dishcare.Dishwasher.Program.Kurz60
+     * - Quick 45°C: Dishcare.Dishwasher.Program.Quick45
+     * - Glass 40°C: Dishcare.Dishwasher.Program.Glas40
+     * - Silent 50°C: Dishcare.Dishwasher.Program.NightWash
+     * - Machine Care: Dishcare.Dishwasher.Program.MachineCare
+     */
+    render(): TemplateResult {
         if (!this.config || !this.hass || !this.stateObj || !supportsBoschDishwasherProgramsFeature(this.stateObj)) {
             return html`
                 <div class="toners">
