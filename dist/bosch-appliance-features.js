@@ -1,5 +1,5 @@
 var $b06602ab53bd58a3$exports = {};
-$b06602ab53bd58a3$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"A Home Assistant Lovelace custom card feature to display printer toner levels","keywords":["home-assistant","lovelace","custom-card","feature","printer","toner","ink"],"version":"0.0.0","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build && node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"typescript":"^5.9.3","parcel":"^2.16.0","svgo":"^4.0.0"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$b06602ab53bd58a3$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.6","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build && node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"typescript":"^5.9.3","parcel":"^2.16.0","svgo":"^4.0.0"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1409,21 +1409,7 @@ class $a84e25c854c18310$var$BoschDishwasherControlsFeature extends (0, $ab210b2d
           <div>Unsupported feature</div>
         </div>
       `;
-        return (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)`
-      <div class="switches">
-        ${this.switches.map((sw)=>(0, $f58f44579a4747ac$export$c0bb0b647f701bb5)`
-              <ha-icon-button
-                .label=${sw.attributes.friendly_name}   // popis pro screen reader
-                title=${sw.attributes.friendly_name}   // tooltip jako v HA
-                @click=${()=>this._toggle(sw.entity_id)}
-              >
-                <svg slot="icon" viewBox="0 0 24 24">
-                  <use href="/local/icons.svg#icon-power"></use>
-                </svg>
-              </ha-icon-button>
-            `)}
-      </div>
-    `;
+        return (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)``;
     }
     getEntity(type, suffix) {
         return `${type}.${this.config?.entity_prefix}_${suffix}`;
