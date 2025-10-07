@@ -3,7 +3,7 @@ import { customElement, property, state } from "lit/decorators";
 import type { HomeAssistant } from "custom-card-helpers";
 import type { HassEntities, HassEntity } from "home-assistant-js-websocket";
 import { BoschDishwasherProgramsFeatureStyles } from "./bosch-dishwasher-programs.styles";
-import "./bosch-dishwasher-controls-editor";
+import "./bosch-dishwasher-programs-editor";
 
 const supportsBoschDishwasherProgramsFeature = (stateObj: HassEntity): boolean => {
     if (!stateObj?.attributes) return false;

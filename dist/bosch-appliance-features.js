@@ -1,5 +1,5 @@
 var $b06602ab53bd58a3$exports = {};
-$b06602ab53bd58a3$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.8","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build && node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"typescript":"^5.9.3","parcel":"^2.16.0","svgo":"^4.0.0"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$b06602ab53bd58a3$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.12","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build && node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"typescript":"^5.9.3","parcel":"^2.16.0","svgo":"^4.0.0"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1352,7 +1352,139 @@ const $a22aa82abb861f38$export$864cc654a388aa38 = (0, $def2de46b9306e8a$export$d
 const $a22aa82abb861f38$export$af47e28c29f4440b = (0, $def2de46b9306e8a$export$dbf350e5966cf602)``;
 
 
-// import "./bosch-dishwasher-controls-editor";
+
+
+
+
+
+
+
+// import { IntlMessageFormat } from "intl-messageformat";
+var $9a28a77a5af263d9$exports = {};
+$9a28a77a5af263d9$exports = JSON.parse("{\"dishwasher\":{\"programs\":{\"feature-name\":\"Dishwasher controls\"},\"options\":{\"feature-name\":\"Dishwasher options\"},\"time-remaining\":{\"feature-name\":\"Dishwasher time remaining\"}},\"oven\":{\"controls\":{\"feature-name\":\"Oven controls\"},\"time-remaining\":{\"feature-name\":\"Oven time remaining\"}}}");
+
+
+//import * as es from "./translations/es.json";
+//import * as fr from "./translations/fr.json";
+//import * as it from "./translations/it.json";
+//import * as pt from "./translations/pt.json";
+//import * as sk from "./translations/sk.json";
+const $405177f8a3c8228b$var$languages = {
+    en: //  cs,
+    //  de,
+    $9a28a77a5af263d9$exports
+};
+const $405177f8a3c8228b$var$DEFAULT_LANG = "en";
+function $405177f8a3c8228b$var$getTranslatedString(key, lang) {
+    try {
+        return key.split(".").reduce((o, i)=>o[i], $405177f8a3c8228b$var$languages[lang]);
+    } catch (_) {
+        return undefined;
+    }
+}
+function $405177f8a3c8228b$export$2e2bcd8739ae039(hass) {
+    return function(key, argObject = {}) {
+        const lang = hass?.locale.language ?? $405177f8a3c8228b$var$DEFAULT_LANG;
+        let translated = $405177f8a3c8228b$var$getTranslatedString(key, lang);
+        if (!translated) translated = $405177f8a3c8228b$var$getTranslatedString(key, $405177f8a3c8228b$var$DEFAULT_LANG);
+        if (!translated) return key;
+        /* formated messages are not used at the moment
+    try {
+      const translatedMessage = new IntlMessageFormat(translated, lang);
+      return translatedMessage.format<string>(argObject) as string;
+    } catch (e) {
+      console.error(
+        `Error formatting message for key "${key}" with lang "${lang}":`,
+        e
+      );
+      return translated;
+    }
+    */ return translated;
+    };
+}
+
+
+
+class $148563b70b9c41e0$export$5ad3d821964e0a36 extends (0, $ab210b2da7b39b9d$export$3f2f9f5909897157) {
+    setConfig(config) {
+        this.config = {
+            ...config
+        };
+    }
+    getBoolConfigVal(key, defaultValue) {
+        return this.config && this.config[key] !== undefined ? !!this.config[key] : defaultValue;
+    }
+    render() {
+        const customLocalize = (0, $405177f8a3c8228b$export$2e2bcd8739ae039)(this.hass);
+        return (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)`
+            <ha-settings-row>
+                <span slot="heading" data-for="show_percent">${customLocalize("editor.show_percent.label")}</span>
+                <span slot="description" data-for="show_percent">${customLocalize("editor.show_percent.description")}</span>
+                <ha-switch
+                    id="show_percent" 
+                    @change=${this._onShowPercentChange}
+                    .checked=${this.getBoolConfigVal("show_percent", true)} 
+                    name="show_percent"
+                ></ha-switch>
+            </ha-settings-row>
+            <ha-settings-row>
+                <span slot="heading" data-for="show_percent">${customLocalize("editor.black_as_white.label")}</span>
+                <span slot="description" data-for="show_percent">${customLocalize("editor.black_as_white.description")}</span>
+                <ha-switch
+                    id="black_as_white" 
+                    @change=${this._onBlackAsWhiteChange}
+                    .checked=${this.getBoolConfigVal("black_as_white", true)} 
+                    name="black_as_white"
+                ></ha-switch>
+            </ha-settings-row>
+        `;
+    }
+    _onShowPercentChange(e) {
+        const checked = e.target.checked;
+        this._updateConfig({
+            ...this.config,
+            show_percent: checked
+        });
+    }
+    _onBlackAsWhiteChange(e) {
+        const checked = e.target.checked;
+        this._updateConfig({
+            ...this.config,
+            black_as_white: checked
+        });
+    }
+    _updateConfig(newConfig) {
+        this.config = newConfig;
+        this.dispatchEvent(new CustomEvent("config-changed", {
+            detail: {
+                config: this.config
+            },
+            bubbles: true,
+            composed: true
+        }));
+    }
+    static get styles() {
+        return 0, $a22aa82abb861f38$export$af47e28c29f4440b;
+    }
+    constructor(...args){
+        super(...args), this.config = {};
+    }
+}
+(0, $24c52f343453d62d$export$29e00dfd3077644b)([
+    (0, $9cd908ed2625c047$export$d541bacb2bda4494)({
+        attribute: false
+    })
+], $148563b70b9c41e0$export$5ad3d821964e0a36.prototype, "hass", void 0);
+(0, $24c52f343453d62d$export$29e00dfd3077644b)([
+    (0, $9cd908ed2625c047$export$d541bacb2bda4494)({
+        type: Object
+    })
+], $148563b70b9c41e0$export$5ad3d821964e0a36.prototype, "config", void 0);
+$148563b70b9c41e0$export$5ad3d821964e0a36 = (0, $24c52f343453d62d$export$29e00dfd3077644b)([
+    (0, $14742f68afc766d6$export$da64fc29f17f9d0e)("bosch-dishwasher-programs-editor")
+], $148563b70b9c41e0$export$5ad3d821964e0a36);
+
+
 const $f53ee031e9d6b773$var$supportsBoschDishwasherProgramsFeature = (stateObj)=>{
     if (!stateObj?.attributes) return false;
     const deviceClass = stateObj.attributes.device_class?.toLowerCase() || "";
@@ -1386,33 +1518,33 @@ class $f53ee031e9d6b773$var$BoschDishwasherProgramsFeature extends (0, $ab210b2d
         return this._hass;
     }
     /**
-     * Programs
-     * - Eco 50°C: Dishcare.Dishwasher.Program.Eco50
-     * - Auto 45-65°C: Dishcare.Dishwasher.Program.Auto2
-     * - Intensive 70°C: Dishcare.Dishwasher.Program.Intensiv70
-     * - Express 60°C Dishcare.Dishwasher.Program.Kurz60
-     * - Quick 45°C: Dishcare.Dishwasher.Program.Quick45
-     * - Glass 40°C: Dishcare.Dishwasher.Program.Glas40
-     * - Silent 50°C: Dishcare.Dishwasher.Program.NightWash
-     * - Machine Care: Dishcare.Dishwasher.Program.MachineCare
-     */ render() {
+         * Programs
+         * - Eco 50°C: Dishcare.Dishwasher.Program.Eco50
+         * - Auto 45-65°C: Dishcare.Dishwasher.Program.Auto2
+         * - Intensive 70°C: Dishcare.Dishwasher.Program.Intensiv70
+         * - Express 60°C Dishcare.Dishwasher.Program.Kurz60
+         * - Quick 45°C: Dishcare.Dishwasher.Program.Quick45
+         * - Glass 40°C: Dishcare.Dishwasher.Program.Glas40
+         * - Silent 50°C: Dishcare.Dishwasher.Program.NightWash
+         * - Machine Care: Dishcare.Dishwasher.Program.MachineCare
+         */ render() {
         if (!this.config || !this.hass || !this.stateObj || !$f53ee031e9d6b773$var$supportsBoschDishwasherProgramsFeature(this.stateObj)) return (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)`
-        <div class="toners">
-            <div>Unsupported feature</div>
-        </div>
-        `;
+                <div class="toners">
+                    <div>Unsupported feature</div>
+                </div>
+            `;
         return (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)`
-        <div class="switches">
-        ${this.getHaIconButton("Eco 50\xb0C", "Eco_50", "Dishcare.Dishwasher.Program.Eco50")}
-        ${this.getHaIconButton("Auto 45-65\xb0C", "Auto_45-65", "Dishcare.Dishwasher.Program.Auto2")}
-        ${this.getHaIconButton("Intensive 70\xb0C", "Intensive_70", "Dishcare.Dishwasher.Program.Intensiv70")}
-        ${this.getHaIconButton("Express 60\xb0C", "Express_60", "Dishcare.Dishwasher.Program.Kurz60")}
-        ${this.getHaIconButton("Quick 45\xb0C", "Quick_45", "Dishcare.Dishwasher.Program.Quick45")}
-        ${this.getHaIconButton("Glass 40\xb0C", "Glass_40", "Dishcare.Dishwasher.Program.Glas40")}
-        ${this.getHaIconButton("Silent 50\xb0C", "Silent_50", "Dishcare.Dishwasher.Program.NightWash")}
-        ${this.getHaIconButton("Machine Care", "Machine_Care", "Dishcare.Dishwasher.Program.MachineCare")}
-        </div>
-    `;
+            <div class="switches">
+            ${this.getHaIconButton("Eco 50\xb0C", "Eco_50", "Dishcare.Dishwasher.Program.Eco50")}
+            ${this.getHaIconButton("Auto 45-65\xb0C", "Auto_45-65", "Dishcare.Dishwasher.Program.Auto2")}
+            ${this.getHaIconButton("Intensive 70\xb0C", "Intensive_70", "Dishcare.Dishwasher.Program.Intensiv70")}
+            ${this.getHaIconButton("Express 60\xb0C", "Express_60", "Dishcare.Dishwasher.Program.Kurz60")}
+            ${this.getHaIconButton("Quick 45\xb0C", "Quick_45", "Dishcare.Dishwasher.Program.Quick45")}
+            ${this.getHaIconButton("Glass 40\xb0C", "Glass_40", "Dishcare.Dishwasher.Program.Glas40")}
+            ${this.getHaIconButton("Silent 50\xb0C", "Silent_50", "Dishcare.Dishwasher.Program.NightWash")}
+            ${this.getHaIconButton("Machine Care", "Machine_Care", "Dishcare.Dishwasher.Program.MachineCare")}
+            </div>
+        `;
     }
     setProgram(programName) {
         console.log("Selectiong", programName);
@@ -1420,10 +1552,10 @@ class $f53ee031e9d6b773$var$BoschDishwasherProgramsFeature extends (0, $ab210b2d
     }
     getHaIconButton(label, iconName, programName) {
         return (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)`
-        <ha-icon-button .label=${label} title=${label} @click=${()=>this.setProgram(programName)}>
-        <svg slot="icon" viewBox="0 0 24 24"><use href=${this.getIcon(iconName)}></use></svg>
-        </ha-icon-button>
-    `;
+            <ha-icon-button .label=${label} title=${label} @click=${()=>this.setProgram(programName)}>
+            <svg slot="icon" viewBox="0 0 24 24"><use href=${this.getIcon(iconName)}></use></svg>
+            </ha-icon-button>
+        `;
     }
     getIcon(name) {
         return `/local/${name}.svg`;
@@ -1480,7 +1612,7 @@ window.customCardFeatures.push({
     type: "bosch-dishwasher-programs-feature",
     name: "Bosch Dishwasher Programs Panel",
     supported: $f53ee031e9d6b773$var$supportsBoschDishwasherProgramsFeature,
-    configurable: false
+    configurable: true
 });
 
 
@@ -1494,54 +1626,6 @@ const $120a76be5d7ad6bd$export$1726954ff531d1cc = (0, $def2de46b9306e8a$export$d
 
 
 
-
-
-
-
-
-// import { IntlMessageFormat } from "intl-messageformat";
-var $9a28a77a5af263d9$exports = {};
-$9a28a77a5af263d9$exports = JSON.parse("{\"dishwasher\":{\"programs\":{\"feature-name\":\"Dishwasher controls\"},\"options\":{\"feature-name\":\"Dishwasher options\"},\"time-remaining\":{\"feature-name\":\"Dishwasher time remaining\"}},\"oven\":{\"controls\":{\"feature-name\":\"Oven controls\"},\"time-remaining\":{\"feature-name\":\"Oven time remaining\"}}}");
-
-
-//import * as es from "./translations/es.json";
-//import * as fr from "./translations/fr.json";
-//import * as it from "./translations/it.json";
-//import * as pt from "./translations/pt.json";
-//import * as sk from "./translations/sk.json";
-const $405177f8a3c8228b$var$languages = {
-    en: //  cs,
-    //  de,
-    $9a28a77a5af263d9$exports
-};
-const $405177f8a3c8228b$var$DEFAULT_LANG = "en";
-function $405177f8a3c8228b$var$getTranslatedString(key, lang) {
-    try {
-        return key.split(".").reduce((o, i)=>o[i], $405177f8a3c8228b$var$languages[lang]);
-    } catch (_) {
-        return undefined;
-    }
-}
-function $405177f8a3c8228b$export$2e2bcd8739ae039(hass) {
-    return function(key, argObject = {}) {
-        const lang = hass?.locale.language ?? $405177f8a3c8228b$var$DEFAULT_LANG;
-        let translated = $405177f8a3c8228b$var$getTranslatedString(key, lang);
-        if (!translated) translated = $405177f8a3c8228b$var$getTranslatedString(key, $405177f8a3c8228b$var$DEFAULT_LANG);
-        if (!translated) return key;
-        /* formated messages are not used at the moment
-    try {
-      const translatedMessage = new IntlMessageFormat(translated, lang);
-      return translatedMessage.format<string>(argObject) as string;
-    } catch (e) {
-      console.error(
-        `Error formatting message for key "${key}" with lang "${lang}":`,
-        e
-      );
-      return translated;
-    }
-    */ return translated;
-    };
-}
 
 
 
@@ -1657,8 +1741,7 @@ class $fe7ac53b3c4f1499$var$BoschDishwasherOptionsFeature extends (0, $ab210b2da
     get hass() {
         return this._hass;
     }
-    render() {
-        /**
+    /**
      * Programs
      * - Eco 50°C: Dishcare.Dishwasher.Program.Eco50
      * - Auto 45-65°C: Dishcare.Dishwasher.Program.Auto2
@@ -1675,11 +1758,12 @@ class $fe7ac53b3c4f1499$var$BoschDishwasherOptionsFeature extends (0, $ab210b2da
      * - Intensive Zone: switch.*_dishcare_dishwasher_option_intensivzone
      * - HygienePlus: switch.*_dishcare_dishwasher_option_hygieneplus
      * - PerfectSpeed+: switch.*_dishcare_dishwasher_option_variospeedplus
-     */ if (!this.config || !this.hass || !this.stateObj || !$fe7ac53b3c4f1499$var$supportsBoschDishwasherOptionsFeature(this.stateObj)) return (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)`
-        <div class="toners">
-            <div>Unsupported feature</div>
-        </div>
-        `;
+     */ render() {
+        if (!this.config || !this.hass || !this.stateObj || !$fe7ac53b3c4f1499$var$supportsBoschDishwasherOptionsFeature(this.stateObj)) return (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)`
+                <div class="toners">
+                    <div>Unsupported feature</div>
+                </div>
+            `;
         return (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)``;
     }
     getEntity(type, suffix) {
@@ -1738,7 +1822,7 @@ window.customCardFeatures.push({
 });
 
 
-// import "./features/bosch-dishwasher-time/bosch-dishwasher-time-feature";
+//import "./features/bosch-dishwasher-time/bosch-dishwasher-time-feature";
 console.info(`Home Connect Alt Features for Tile cards - ${(0, $b06602ab53bd58a3$exports.version)}`, "color: #ee5500; font-weight: 200;");
 
 
