@@ -1,6 +1,6 @@
 {
-  "name": "Custom Printer Toner Level Feature for Tile cards",
+  "name": "Bosch Home Connect Alt features for Home Assistant Tile card",
   "render_readme": true,
-  "filename": "printer-toner-level-feature.js",
+  "filename": "bosch-appliance-features.js",
   "content_in_root": false
 }
