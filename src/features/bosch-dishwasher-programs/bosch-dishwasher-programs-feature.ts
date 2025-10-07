@@ -2,8 +2,8 @@ import { LitElement, html, TemplateResult, CSSResultGroup, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators";
 import type { HomeAssistant } from "custom-card-helpers";
 import type { HassEntities, HassEntity } from "home-assistant-js-websocket";
-import { BoschDishwasherProgramsFeatureStyles } from "./features/bosch-dishwasher-programs/bosch-dishwasher-programs.styles";
-import "./features/bosch-dishwasher-programs/bosch-dishwasher-programs-editor";
+import { BoschDishwasherProgramsFeatureStyles } from "./bosch-dishwasher-programs.styles";
+import "./bosch-dishwasher-programs-editor";
 
 const supportsBoschDishwasherProgramsFeature = (stateObj: HassEntity): boolean => {
     if (!stateObj?.attributes) return false;
@@ -79,7 +79,8 @@ class BoschDishwasherProgramsFeature extends LitElement {
             `;
         }
 
-        /**
+        return html`
+            <div class="switches">
                 ${this.getHaIconButton("Eco 50°C", "Eco_50", "Dishcare.Dishwasher.Program.Eco50")}
                 ${this.getHaIconButton("Auto 45-65°C", "Auto_45-65", "Dishcare.Dishwasher.Program.Auto2")}
                 ${this.getHaIconButton("Intensive 70°C", "Intensive_70", "Dishcare.Dishwasher.Program.Intensiv70")}
@@ -88,10 +89,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
                 ${this.getHaIconButton("Glass 40°C", "Glass_40", "Dishcare.Dishwasher.Program.Glas40")}
                 ${this.getHaIconButton("Silent 50°C", "Silent_50", "Dishcare.Dishwasher.Program.NightWash")}
                 ${this.getHaIconButton("Machine Care", "Machine_Care", "Dishcare.Dishwasher.Program.MachineCare")}
-         */
-
-        return html`
-            <div class="switches">Ok?</div>
+            </div>
         `;
     }
 
@@ -117,17 +115,17 @@ class BoschDishwasherProgramsFeature extends LitElement {
     }
 
     static get properties(): { [key: string]: any } {
-    return {
-        hass: { type: Object },
-        config: { type: Object },
-        stateObj: { type: Object },
-    };
+        return {
+            hass: { type: Object },
+            config: { type: Object },
+            stateObj: { type: Object },
+        };
     }
-/*
+
     static getConfigElement(): HTMLElement {
         return document.createElement('bosch-dishwasher-programs-editor');
     }
-*/
+
     static getStubConfig(): any {
         return {
             type: 'custom:bosch-dishwasher-programs-feature'
