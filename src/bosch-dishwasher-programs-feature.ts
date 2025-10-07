@@ -130,7 +130,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
 */
     static getStubConfig(): any {
         return {
-            type: 'bosch-dishwasher-programs-feature'
+            type: 'custom:bosch-dishwasher-programs-feature'
         };
     }
 

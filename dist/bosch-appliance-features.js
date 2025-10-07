@@ -1540,7 +1540,7 @@ class $984290e23ab38a6e$var$BoschDishwasherProgramsFeature extends (0, $528e4332
     }
 */ static getStubConfig() {
         return {
-            type: 'bosch-dishwasher-programs-feature'
+            type: 'custom:bosch-dishwasher-programs-feature'
         };
     }
     static get styles() {
