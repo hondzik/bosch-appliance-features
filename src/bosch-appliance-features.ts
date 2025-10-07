@@ -1,6 +1,7 @@
 import { version } from "../package.json";
 
 import "./features/bosch-dishwasher-controls/bosch-dishwasher-controls-feature";
+import "./features/bosch-dishwasher-programs/bosch-dishwasher-programs-feature";
 
 
 

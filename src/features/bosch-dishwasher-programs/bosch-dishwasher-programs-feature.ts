@@ -140,7 +140,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
 window.customCardFeatures ||= [];
 window.customCardFeatures.push({
   type: "bosch-dishwasher-programs-feature",
-  name: "Bosch Dishwasher Programs Control Panel",
+  name: "Bosch Dishwasher Programs Panel",
   supported: supportsBoschDishwasherProgramsFeature,
   configurable: true,
 });
