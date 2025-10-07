@@ -27,7 +27,7 @@
   },
   "scripts": {
     "watch": "parcel watch",
-    "build": "parcel build && node optimize-icons.mjs",
+    "build": "parcel build --no-source-maps && node optimize-icons.mjs",
     "version MAJOR": "npm version major",
     "version MINOR": "npm version minor",
     "version PATCH": "npm version patch"

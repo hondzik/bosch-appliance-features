@@ -15,7 +15,7 @@ const supportsBoschDishwasherOptionsFeature = (stateObj: HassEntity): boolean =>
 };
 
 @customElement("bosch-dishwasher-options-feature")
-class BoschDishwasherOptionsFeature extends LitElement {
+export class BoschDishwasherOptionsFeature extends LitElement {
     @state() _hass?: HomeAssistant;
     @property({ attribute: false }) config?: any;
     @property({ attribute: false }) stateObj?: HassEntity;

@@ -15,38 +15,7 @@ export class BoschDishwasherOptionsEditor extends LitElement {
 
     render(): TemplateResult {
         const customLocalize = setupCustomLocalize(this.hass);
-        return html`
-            <ha-settings-row>
-                <span slot="heading" data-for="show_percent">${customLocalize("editor.show_percent.label")}</span>
-                <span slot="description" data-for="show_percent">${customLocalize("editor.show_percent.description")}</span>
-                <ha-switch
-                    id="show_percent" 
-                    @change=${this._onShowPercentChange}
-                    .checked=${this.getBoolConfigVal("show_percent", true)} 
-                    name="show_percent"
-                ></ha-switch>
-            </ha-settings-row>
-            <ha-settings-row>
-                <span slot="heading" data-for="show_percent">${customLocalize("editor.black_as_white.label")}</span>
-                <span slot="description" data-for="show_percent">${customLocalize("editor.black_as_white.description")}</span>
-                <ha-switch
-                    id="black_as_white" 
-                    @change=${this._onBlackAsWhiteChange}
-                    .checked=${this.getBoolConfigVal("black_as_white", true)} 
-                    name="black_as_white"
-                ></ha-switch>
-            </ha-settings-row>
-        `;
-    }
-
-    private _onShowPercentChange(e: Event) {
-        const checked = (e.target as HTMLInputElement).checked;
-        this._updateConfig({ ...this.config, show_percent: checked });
-    }
-
-    private _onBlackAsWhiteChange(e: Event) {
-        const checked = (e.target as HTMLInputElement).checked;
-        this._updateConfig({ ...this.config, black_as_white: checked });
+        return html`config editor not implemented yet`;
     }
 
     private _updateConfig(newConfig: any) {
@@ -61,10 +30,6 @@ export class BoschDishwasherOptionsEditor extends LitElement {
                 }
             )
         );
-    }
-
-    private getBoolConfigVal(key: string, defaultValue: boolean): boolean  {
-        return this.config && this.config[key] !== undefined ? !!this.config[key] : defaultValue;
     }
 
     static get styles(): CSSResultGroup {

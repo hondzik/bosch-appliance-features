@@ -15,7 +15,7 @@ const supportsBoschDishwasherProgramsFeature = (stateObj: HassEntity): boolean =
 };
 
 @customElement("bosch-dishwasher-programs-feature")
-class BoschDishwasherProgramsFeature extends LitElement {
+export class BoschDishwasherProgramsFeature extends LitElement {
     @state() _hass?: HomeAssistant;
     @property({ attribute: false }) config?: any;
     @property({ attribute: false }) stateObj?: HassEntity;
@@ -79,17 +79,19 @@ class BoschDishwasherProgramsFeature extends LitElement {
             `;
         }
 
+        /**
+                ${this.getHaIconButton("Eco 50°C", "Eco_50", "Dishcare.Dishwasher.Program.Eco50")}
+                ${this.getHaIconButton("Auto 45-65°C", "Auto_45-65", "Dishcare.Dishwasher.Program.Auto2")}
+                ${this.getHaIconButton("Intensive 70°C", "Intensive_70", "Dishcare.Dishwasher.Program.Intensiv70")}
+                ${this.getHaIconButton("Express 60°C", "Express_60", "Dishcare.Dishwasher.Program.Kurz60")}
+                ${this.getHaIconButton("Quick 45°C", "Quick_45", "Dishcare.Dishwasher.Program.Quick45")}
+                ${this.getHaIconButton("Glass 40°C", "Glass_40", "Dishcare.Dishwasher.Program.Glas40")}
+                ${this.getHaIconButton("Silent 50°C", "Silent_50", "Dishcare.Dishwasher.Program.NightWash")}
+                ${this.getHaIconButton("Machine Care", "Machine_Care", "Dishcare.Dishwasher.Program.MachineCare")}
+         */
+
         return html`
-            <div class="switches">
-            ${this.getHaIconButton("Eco 50°C", "Eco_50", "Dishcare.Dishwasher.Program.Eco50")}
-            ${this.getHaIconButton("Auto 45-65°C", "Auto_45-65", "Dishcare.Dishwasher.Program.Auto2")}
-            ${this.getHaIconButton("Intensive 70°C", "Intensive_70", "Dishcare.Dishwasher.Program.Intensiv70")}
-            ${this.getHaIconButton("Express 60°C", "Express_60", "Dishcare.Dishwasher.Program.Kurz60")}
-            ${this.getHaIconButton("Quick 45°C", "Quick_45", "Dishcare.Dishwasher.Program.Quick45")}
-            ${this.getHaIconButton("Glass 40°C", "Glass_40", "Dishcare.Dishwasher.Program.Glas40")}
-            ${this.getHaIconButton("Silent 50°C", "Silent_50", "Dishcare.Dishwasher.Program.NightWash")}
-            ${this.getHaIconButton("Machine Care", "Machine_Care", "Dishcare.Dishwasher.Program.MachineCare")}
-            </div>
+            <div class="switches">Ok?</div>
         `;
     }
 
@@ -101,7 +103,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
     getHaIconButton(label: string, iconName: string, programName): TemplateResult {
         return html`
             <ha-icon-button .label=${label} title=${label} @click=${() => this.setProgram(programName)}>
-            <svg slot="icon" viewBox="0 0 24 24"><use href=${this.getIcon(iconName)}></use></svg>
+                <svg slot="icon" viewBox="0 0 24 24"><use href=${this.getIcon(iconName)}></use></svg>
             </ha-icon-button>
         `;
     }
