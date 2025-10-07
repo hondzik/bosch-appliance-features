@@ -2,8 +2,8 @@ import { LitElement, html, TemplateResult, CSSResultGroup, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators";
 import type { HomeAssistant } from "custom-card-helpers";
 import type { HassEntities, HassEntity } from "home-assistant-js-websocket";
-import { BoschDishwasherProgramsFeatureStyles } from "./bosch-dishwasher-programs.styles";
-import "./bosch-dishwasher-programs-editor";
+import { BoschDishwasherProgramsFeatureStyles } from "./features/bosch-dishwasher-programs/bosch-dishwasher-programs.styles";
+import "./features/bosch-dishwasher-programs/bosch-dishwasher-programs-editor";
 
 const supportsBoschDishwasherProgramsFeature = (stateObj: HassEntity): boolean => {
     if (!stateObj?.attributes) return false;
