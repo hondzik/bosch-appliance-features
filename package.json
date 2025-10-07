@@ -1,0 +1,44 @@
+{
+  "author": {
+    "name": "Jakub Kropáč",
+    "email": "honza@kropac.net"
+  },
+  "license": "MIT",
+  "name": "bosch-appliance-features",
+  "description": "A Home Assistant Lovelace custom card feature to display printer toner levels",
+  "keywords": [
+    "home-assistant",
+    "lovelace",
+    "custom-card",
+    "feature",
+    "printer",
+    "toner",
+    "ink"
+  ],
+  "version": "0.0.0",
+  "source": "./src/bosch-appliance-features.ts",
+  "module": "./dist/bosch-appliance-features.js",
+  "targets": {
+    "module": {
+      "includeNodeModules": true,
+      "outputFormat": "esmodule"
+    }
+  },
+  "scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build && node optimize-icons.mjs",
+    "version MAJOR": "npm version major",
+    "version MINOR": "npm version minor",
+    "version PATCH": "npm version patch"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "parcel": "^2.16.0",
+    "svgo": "^4.0.0"
+  },
+  "dependencies": {
+    "custom-card-helpers": "^1.9.0",
+    "home-assistant-js-websocket": "^9.5.0",
+    "lit": "^3.3.1"
+  }
+}

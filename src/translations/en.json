@@ -1,0 +1,18 @@
+{
+    "dishwasher": {
+        "controls": {
+            "feature-name": "Dishwasher controls"
+        },
+        "time-remaining": {
+            "feature-name": "Dishwasher time remaining"
+        }
+    },
+	"oven": {
+        "controls": {
+            "feature-name": "Oven controls"
+        },
+        "time-remaining": {
+            "feature-name": "Oven time remaining"
+        }
+	}
+}
