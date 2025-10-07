@@ -23,44 +23,43 @@ class BoschDishwasherOptionsFeature extends LitElement {
     switches: HassEntities = {};
 
     setConfig(config: BoschDishwasherOptionsFeatureConfig) {
-    // If entity_prefix is not set, try to derive it from the entity name
-    if (config.entity_prefix === undefined && config.entity) {
-        const entityName = config.entity.split(".")[1];
-        config.entity_prefix = entityName.split("_").slice(0, -2).join("_");
-    }
-    this.config = config;
-    if (config && config.entity) {
-        this.stateObj = this.hass?.states?.[config.entity];
-    } else {
-        this.stateObj = undefined;
-    }
+        // If entity_prefix is not set, try to derive it from the entity name
+        if (config.entity_prefix === undefined && config.entity) {
+            const entityName = config.entity.split(".")[1];
+            config.entity_prefix = entityName.split("_").slice(0, -2).join("_");
+        }
+        this.config = config;
+        if (config && config.entity) {
+            this.stateObj = this.hass?.states?.[config.entity];
+        } else {
+            this.stateObj = undefined;
+        }
     }
 
     set hass(hass: HomeAssistant | undefined) {
-    this._hass = hass;
-    if (this.config && this.config.entity) {
-        this.stateObj = hass?.states?.[this.config.entity];
-        const entityPrefix = this.stateObj?.attributes?.common_prefix;
-        if (entityPrefix) {
-        this.switches = Object.values(hass?.states || {}).reduce((acc, entity) => {
-            if (entity.entity_id.startsWith(`switch.${entityPrefix}_`)) {
-            acc[entity.entity_id] = entity;
+        this._hass = hass;
+        if (this.config && this.config.entity) {
+            this.stateObj = hass?.states?.[this.config.entity];
+            const entityPrefix = this.stateObj?.attributes?.common_prefix;
+            if (entityPrefix) {
+                this.switches = Object.values(hass?.states || {}).reduce((acc, entity) => {
+                    if (entity.entity_id.startsWith(`switch.${entityPrefix}_`)) {
+                    acc[entity.entity_id] = entity;
+                    }
+                    return acc;
+                }, {} as HassEntities);
+            } else {
+                this.switches = {};
             }
-            return acc;
-        }, {} as HassEntities);
-        } else {
-        this.switches = {};
-        }
 
-    }
+        }
     }
 
     get hass(): HomeAssistant | undefined {
-    return this._hass;
+        return this._hass;
     }
 
 
-    render(): TemplateResult {
     /**
      * Programs
      * - Eco 50°C: Dishcare.Dishwasher.Program.Eco50
@@ -79,41 +78,42 @@ class BoschDishwasherOptionsFeature extends LitElement {
      * - HygienePlus: switch.*_dishcare_dishwasher_option_hygieneplus
      * - PerfectSpeed+: switch.*_dishcare_dishwasher_option_variospeedplus
      */
-    if (!this.config || !this.hass || !this.stateObj || !supportsBoschDishwasherOptionsFeature(this.stateObj)) {
-        return html`
-        <div class="toners">
-            <div>Unsupported feature</div>
-        </div>
-        `;
-    }
+    render(): TemplateResult {
+        if (!this.config || !this.hass || !this.stateObj || !supportsBoschDishwasherOptionsFeature(this.stateObj)) {
+            return html`
+                <div class="toners">
+                    <div>Unsupported feature</div>
+                </div>
+            `;
+        }
 
-    return html``;
+        return html``;
     }
 
     getEntity(type: string, suffix: string): string {
-    return `${type}.${this.config?.entity_prefix}_${suffix}`;
+        return `${type}.${this.config?.entity_prefix}_${suffix}`;
     }
 
     static get properties(): { [key: string]: any } {
-    return {
-        hass: { type: Object },
-        config: { type: Object },
-        stateObj: { type: Object },
-    };
+        return {
+            hass: { type: Object },
+            config: { type: Object },
+            stateObj: { type: Object },
+        };
     }
 
     static getConfigElement(): HTMLElement {
-    return document.createElement('bosch-dishwasher-options-editor');
+        return document.createElement('bosch-dishwasher-options-editor');
     }
 
     static getStubConfig(): any {
-    return {
-        type: 'bosch-dishwasher-options-feature'
-    };
+        return {
+            type: 'bosch-dishwasher-options-feature'
+        };
     }
 
     static get styles(): CSSResultGroup {
-    return BoschDishwasherOptionsFeatureStyles
+        return BoschDishwasherOptionsFeatureStyles
     }
 }
 
