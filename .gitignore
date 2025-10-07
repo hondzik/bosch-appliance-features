@@ -13,4 +13,3 @@ coverage
 *.tmp
 *.old
 *.orig
-*.js.map
