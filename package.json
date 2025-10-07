@@ -5,15 +5,16 @@
   },
   "license": "MIT",
   "name": "bosch-appliance-features",
-  "description": "A Home Assistant Lovelace custom card feature to display printer toner levels",
+  "description": "Bosch Home Connect Alt features for Home Assistant Tile card",
   "keywords": [
     "home-assistant",
     "lovelace",
     "custom-card",
     "feature",
-    "printer",
-    "toner",
-    "ink"
+    "home_connect_alt",
+    "apppliance",
+    "dishwasher",
+    "oven"
   ],
   "version": "0.0.6",
   "source": "./src/bosch-appliance-features.ts",

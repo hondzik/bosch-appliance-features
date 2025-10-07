@@ -87,23 +87,7 @@ class BoschDishwasherControlsFeature extends LitElement {
       `;
     }
 
-    return html`
-      <div class="switches">
-        ${this.switches.map(
-            (sw) => html`
-              <ha-icon-button
-                .label=${sw.attributes.friendly_name}   // popis pro screen reader
-                title=${sw.attributes.friendly_name}   // tooltip jako v HA
-                @click=${() => this._toggle(sw.entity_id)}
-              >
-                <svg slot="icon" viewBox="0 0 24 24">
-                  <use href="/local/icons.svg#icon-power"></use>
-                </svg>
-              </ha-icon-button>
-            `
-        )}
-      </div>
-    `;
+    return html``;
   }
 
   getEntity(type: string, suffix: string): string {
