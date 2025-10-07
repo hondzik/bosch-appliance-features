@@ -123,11 +123,11 @@ class BoschDishwasherProgramsFeature extends LitElement {
         stateObj: { type: Object },
     };
     }
-
+/*
     static getConfigElement(): HTMLElement {
         return document.createElement('bosch-dishwasher-programs-editor');
     }
-
+*/
     static getStubConfig(): any {
         return {
             type: 'bosch-dishwasher-programs-feature'
@@ -144,6 +144,6 @@ window.customCardFeatures.push({
     type: "bosch-dishwasher-programs-feature",
     name: "Bosch Dishwasher Programs Panel",
     supported: supportsBoschDishwasherProgramsFeature,
-    configurable: true,
+    configurable: false,
 });
 

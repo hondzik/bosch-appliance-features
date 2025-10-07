@@ -1534,10 +1534,11 @@ class $984290e23ab38a6e$var$BoschDishwasherProgramsFeature extends (0, $528e4332
             }
         };
     }
-    static getConfigElement() {
+    /*
+    static getConfigElement(): HTMLElement {
         return document.createElement('bosch-dishwasher-programs-editor');
     }
-    static getStubConfig() {
+*/ static getStubConfig() {
         return {
             type: 'bosch-dishwasher-programs-feature'
         };
@@ -1570,7 +1571,7 @@ window.customCardFeatures.push({
     type: "bosch-dishwasher-programs-feature",
     name: "Bosch Dishwasher Programs Panel",
     supported: $984290e23ab38a6e$var$supportsBoschDishwasherProgramsFeature,
-    configurable: true
+    configurable: false
 });
 
 
