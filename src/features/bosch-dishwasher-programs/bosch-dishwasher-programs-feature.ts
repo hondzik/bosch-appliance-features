@@ -134,7 +134,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
     }
 
     static getIcon(name: string): string {
-        return `/hacsfiles/bosch-appliance-features/icons/${name}.svg`;
+        return `/hacsfiles/bosch-appliance-features/${name}.svg`;
     }
 
     static get properties(): { [key: string]: any } {
