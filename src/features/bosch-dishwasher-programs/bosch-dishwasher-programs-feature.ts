@@ -83,6 +83,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
             `;
         }
 
+        const showMachineCare = this.getBoolConfigVal("show_machine_care", true);
         return html`
             <div class="switches">
                 ${this.getHaIconButton("Eco 50°C", "Eco_50", "Dishcare.Dishwasher.Program.Eco50")}
@@ -92,13 +93,14 @@ class BoschDishwasherProgramsFeature extends LitElement {
                 ${this.getHaIconButton("Quick 45°C", "Express_45", "Dishcare.Dishwasher.Program.Quick45")}
                 ${this.getHaIconButton("Glass 40°C", "Glass_40", "Dishcare.Dishwasher.Program.Glas40")}
                 ${this.getHaIconButton("Silent 50°C", "Silent_50", "Dishcare.Dishwasher.Program.NightWash")}
-                ${this.getHaIconButton("Machine Care", "MachineCare", "Dishcare.Dishwasher.Program.MachineCare")}
+                ${showMachineCare ? this.getHaIconButton("Machine Care", "MachineCare", "Dishcare.Dishwasher.Program.MachineCare") : nothing}
             </div>
         `;
     }
 
     getHaIconButton(label: string, iconName: string, programName: string): TemplateResult {
-        const svgPromise = BoschDishwasherProgramsFeature.getInlineSVG(iconName).then(svg => unsafeHTML(svg));
+        const iconSuffix = this.getBoolConfigVal("icons_with_text", false) ? "_text" : "";
+        const svgPromise = BoschDishwasherProgramsFeature.getInlineSVG(iconName, iconSuffix).then(svg => unsafeHTML(svg));
         return html`
             <ha-icon-button .label=${label} title=${label} @click=${() => this.setProgram(programName)}>
             ${until(svgPromise, html`<span>⏳</span>`)}
@@ -106,9 +108,18 @@ class BoschDishwasherProgramsFeature extends LitElement {
         `;
     }
 
-    static async getInlineSVG(iconName: string): Promise<string> {
+    private getBoolConfigVal(key: string, defaultValue: boolean): boolean  {
+        return this.config && this.config[key] !== undefined ? !!this.config[key] : defaultValue;
+    }
+    
+    private setProgram(programName: string) {
+        console.log("Selectiong", programName);
+        // this.hass?.callService("switch", "toggle", { entity_id: entityId });
+    }
+
+    private static async getInlineSVG(iconName: string, iconSuffix: string): Promise<string> {
         if (!this.iconCache.has(iconName)) {
-            const iconPath = `/hacsfiles/bosch-appliance-features/${iconName}.svg`;
+            const iconPath = `/hacsfiles/bosch-appliance-features/${iconName}${iconSuffix}.svg`;
             console.log("Loading icon:", iconPath);
             const res = await fetch(iconPath);
             const svgText = (await res.text())
@@ -119,11 +130,6 @@ class BoschDishwasherProgramsFeature extends LitElement {
         }
         return this.iconCache.get(iconName)!;
     }    
-
-    setProgram(programName: string) {
-        console.log("Selectiong", programName);
-        // this.hass?.callService("switch", "toggle", { entity_id: entityId });
-    }
 
     static get properties(): { [key: string]: any } {
         return {
@@ -153,6 +159,6 @@ window.customCardFeatures.push({
     type: "bosch-dishwasher-programs-feature",
     name: "Bosch Dishwasher Programs Panel",
     supported: supportsBoschDishwasherProgramsFeature,
-    configurable: false,
+    configurable: true,
 });
 

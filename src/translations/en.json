@@ -1,7 +1,17 @@
 {
     "dishwasher": {
         "programs": {
-            "feature-name": "Dishwasher controls"
+            "feature-name": "Dishwasher programs",
+            "editor": {
+                "icons_with_text": {
+                    "title": "Show icons with text",
+                    "description": "Show program icons with text labels below them. (Default: disabled)"
+                },
+                "show_machine_care": {
+                    "title": "Show Machine Care program",
+                    "description": "Show the Machine Care program in the list of available programs. (Default: enabled)"
+                }
+            }
         },
         "options": {
             "feature-name": "Dishwasher options"
@@ -11,8 +21,8 @@
         }
     },
 	"oven": {
-        "controls": {
-            "feature-name": "Oven controls"
+        "programs": {
+            "feature-name": "Oven programs"
         },
         "time-remaining": {
             "feature-name": "Oven time remaining"

@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.29","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.35","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1634,7 +1634,7 @@ const $f35354e62b171f38$export$a40009bd2c363351 = (0, $f62b4c9bce56f3ae$export$9
 
 // import { IntlMessageFormat } from "intl-messageformat";
 var $12255719fcb5db94$exports = {};
-$12255719fcb5db94$exports = JSON.parse("{\"dishwasher\":{\"programs\":{\"feature-name\":\"Dishwasher controls\"},\"options\":{\"feature-name\":\"Dishwasher options\"},\"time-remaining\":{\"feature-name\":\"Dishwasher time remaining\"}},\"oven\":{\"controls\":{\"feature-name\":\"Oven controls\"},\"time-remaining\":{\"feature-name\":\"Oven time remaining\"}}}");
+$12255719fcb5db94$exports = JSON.parse("{\"dishwasher\":{\"programs\":{\"feature-name\":\"Dishwasher programs\",\"editor\":{\"icons_with_text\":{\"title\":\"Show icons with text\",\"description\":\"Show program icons with text labels below them. (Default: disabled)\"},\"show_machine_care\":{\"title\":\"Show Machine Care program\",\"description\":\"Show the Machine Care program in the list of available programs. (Default: enabled)\"}}},\"options\":{\"feature-name\":\"Dishwasher options\"},\"time-remaining\":{\"feature-name\":\"Dishwasher time remaining\"}},\"oven\":{\"programs\":{\"feature-name\":\"Oven programs\"},\"time-remaining\":{\"feature-name\":\"Oven time remaining\"}}}");
 
 
 //import * as es from "./translations/es.json";
@@ -1686,7 +1686,50 @@ class $a3d36398cbb8abc5$export$5ad3d821964e0a36 extends (0, $528e4332d1e3099e$ex
     }
     render() {
         const customLocalize = (0, $f7e2ebf6156dc08b$export$2e2bcd8739ae039)(this.hass);
-        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`config editor not implemented yet`;
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
+            <ha-settings-row>
+                <span slot="heading" data-for="icons_with_text">
+                    ${customLocalize("dishwasher.programs.editor.icons_with_text.title")}
+                </span>
+                <span slot="description" data-for="icons_with_text">
+                    ${customLocalize("dishwasher.programs.editor.icons_with_text.description")}
+                    
+                </span>
+                <ha-switch
+                    id="icons_with_text" 
+                    @change=${this._onSettingChange}
+                    .checked=${this.getBoolConfigVal("icons_with_text", false)} 
+                    name="icons_with_text"
+                ></ha-switch>
+            </ha-settings-row>
+
+            <ha-settings-row>
+                <span slot="heading" data-for="show_machine_care">
+                    ${customLocalize("dishwasher.programs.editor.show_machine_care.title")}
+                </span>
+                <span slot="description" data-for="show_machine_care">
+                    ${customLocalize("dishwasher.programs.editor.show_machine_care.description")}
+                </span>
+                <ha-switch
+                    id="show_machine_care" 
+                    @change=${this._onSettingChange}
+                    .checked=${this.getBoolConfigVal("show_machine_care", true)} 
+                    name="show_machine_care"
+                ></ha-switch>
+            </ha-settings-row>
+        `;
+    }
+    _onSettingChange(e) {
+        const target = e.target;
+        const key = target.id;
+        const value = target.checked ?? target.value;
+        this._updateConfig({
+            ...this.config,
+            [key]: value
+        });
+    }
+    getBoolConfigVal(key, defaultValue) {
+        return this.config && this.config[key] !== undefined ? !!this.config[key] : defaultValue;
     }
     _updateConfig(newConfig) {
         this.config = newConfig;
@@ -1771,6 +1814,7 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
                     <div>Unsupported feature</div>
                 </div>
             `;
+        const showMachineCare = this.getBoolConfigVal("show_machine_care", true);
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
             <div class="switches">
                 ${this.getHaIconButton("Eco 50\xb0C", "Eco_50", "Dishcare.Dishwasher.Program.Eco50")}
@@ -1780,41 +1824,35 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
                 ${this.getHaIconButton("Quick 45\xb0C", "Express_45", "Dishcare.Dishwasher.Program.Quick45")}
                 ${this.getHaIconButton("Glass 40\xb0C", "Glass_40", "Dishcare.Dishwasher.Program.Glas40")}
                 ${this.getHaIconButton("Silent 50\xb0C", "Silent_50", "Dishcare.Dishwasher.Program.NightWash")}
-                ${this.getHaIconButton("Machine Care", "MachineCare", "Dishcare.Dishwasher.Program.MachineCare")}
+                ${showMachineCare ? this.getHaIconButton("Machine Care", "MachineCare", "Dishcare.Dishwasher.Program.MachineCare") : (0, $d33ef1320595a3ac$export$45b790e32b2810ee)}
             </div>
         `;
     }
     getHaIconButton(label, iconName, programName) {
-        const svgPromise = $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.getInlineSVG(iconName).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
+        const iconSuffix = this.getBoolConfigVal("icons_with_text", false) ? "_text" : "";
+        const svgPromise = $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.getInlineSVG(iconName, iconSuffix).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
             <ha-icon-button .label=${label} title=${label} @click=${()=>this.setProgram(programName)}>
             ${(0, $f35354e62b171f38$export$a40009bd2c363351)(svgPromise, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<span>⏳</span>`)}
             </ha-icon-button>
         `;
     }
-    static async getInlineSVG(iconName) {
+    getBoolConfigVal(key, defaultValue) {
+        return this.config && this.config[key] !== undefined ? !!this.config[key] : defaultValue;
+    }
+    setProgram(programName) {
+        console.log("Selectiong", programName);
+    // this.hass?.callService("switch", "toggle", { entity_id: entityId });
+    }
+    static async getInlineSVG(iconName, iconSuffix) {
         if (!this.iconCache.has(iconName)) {
-            const iconPath = `/hacsfiles/bosch-appliance-features/${name}.svg`;
+            const iconPath = `/hacsfiles/bosch-appliance-features/${iconName}${iconSuffix}.svg`;
             console.log("Loading icon:", iconPath);
             const res = await fetch(iconPath);
             const svgText = (await res.text()).replace(/(["'\s:])#000000(["'\s;>])/gi, '$1currentColor$2').replace(/(["'\s:])#000(["'\s;>])/gi, '$1currentColor$2');
             this.iconCache.set(iconName, svgText);
         }
         return this.iconCache.get(iconName);
-    }
-    setProgram(programName) {
-        console.log("Selectiong", programName);
-    // this.hass?.callService("switch", "toggle", { entity_id: entityId });
-    }
-    getHaIconButton_(label, iconName, programName) {
-        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
-            <ha-icon-button .label=${label} title=${label} @click=${()=>this.setProgram(programName)}>
-                <svg slot="icon" viewBox="0 0 24 24"><use href=${$3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.getIcon(iconName)}></use></svg>
-            </ha-icon-button>
-        `;
-    }
-    static getIcon(name1) {
-        return `/hacsfiles/bosch-appliance-features/${name1}.svg`;
     }
     static get properties() {
         return {
@@ -1865,7 +1903,7 @@ window.customCardFeatures.push({
     type: "bosch-dishwasher-programs-feature",
     name: "Bosch Dishwasher Programs Panel",
     supported: $3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature,
-    configurable: false
+    configurable: true
 });
 
 
