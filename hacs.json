@@ -2,9 +2,5 @@
   "name": "Bosch Home Connect Alt features for Home Assistant Tile card",
   "render_readme": true,
   "filename": "bosch-appliance-features.js",
-  "content_in_root": false,
-  "type": "plugin",
-  "assets": [
-    "dist/icons/*"
-  ]
+  "content_in_root": false
 }
