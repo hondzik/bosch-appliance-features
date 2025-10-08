@@ -5,6 +5,7 @@ import type { HassEntities, HassEntity } from "home-assistant-js-websocket";
 import { BoschDishwasherProgramsFeatureStyles } from "./bosch-dishwasher-programs.styles";
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
+import { version } from "../../../package.json";
 import "./bosch-dishwasher-programs-editor";
 
 const supportsBoschDishwasherProgramsFeature = (stateObj: HassEntity): boolean => {
@@ -119,7 +120,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
 
     private static async getInlineSVG(iconName: string): Promise<string> {
         if (!this.iconCache.has(iconName)) {
-            const iconPath = `/hacsfiles/bosch-appliance-features/${iconName}.svg`;
+            const iconPath = `/hacsfiles/bosch-appliance-features/${iconName}.svg?v=${version}`;
             console.log("Loading icon:", iconPath);
             const res = await fetch(iconPath);
             const svgText = (await res.text())

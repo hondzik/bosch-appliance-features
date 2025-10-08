@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.36","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.37","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1632,6 +1632,7 @@ const $f35354e62b171f38$export$a40009bd2c363351 = (0, $f62b4c9bce56f3ae$export$9
 
 
 
+
 // import { IntlMessageFormat } from "intl-messageformat";
 var $12255719fcb5db94$exports = {};
 $12255719fcb5db94$exports = JSON.parse("{\"dishwasher\":{\"programs\":{\"feature-name\":\"Dishwasher programs\",\"editor\":{\"icons_with_text\":{\"title\":\"Show icons with text\",\"description\":\"Show program icons with text labels below them. (Default: disabled)\"},\"show_machine_care\":{\"title\":\"Show Machine Care program\",\"description\":\"Show the Machine Care program in the list of available programs. (Default: enabled)\"}}},\"options\":{\"feature-name\":\"Dishwasher options\"},\"time-remaining\":{\"feature-name\":\"Dishwasher time remaining\"}},\"oven\":{\"programs\":{\"feature-name\":\"Oven programs\"},\"time-remaining\":{\"feature-name\":\"Oven time remaining\"}}}");
@@ -1846,7 +1847,7 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
     }
     static async getInlineSVG(iconName) {
         if (!this.iconCache.has(iconName)) {
-            const iconPath = `/hacsfiles/bosch-appliance-features/${iconName}.svg`;
+            const iconPath = `/hacsfiles/bosch-appliance-features/${iconName}.svg?v=${(0, $db183fbae05d6b51$exports.version)}`;
             console.log("Loading icon:", iconPath);
             const res = await fetch(iconPath);
             const svgText = (await res.text()).replace(/(["'\s:])#000000(["'\s;>])/gi, '$1currentColor$2').replace(/(["'\s:])#000(["'\s;>])/gi, '$1currentColor$2');
