@@ -4,6 +4,7 @@ import type { HomeAssistant } from "custom-card-helpers";
 import type { HassEntities, HassEntity } from "home-assistant-js-websocket";
 import { BoschDishwasherProgramsFeatureStyles } from "./bosch-dishwasher-programs.styles";
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { until } from 'lit/directives/until.js';
 import "./bosch-dishwasher-programs-editor";
 
 const supportsBoschDishwasherProgramsFeature = (stateObj: HassEntity): boolean => {
@@ -94,6 +95,23 @@ class BoschDishwasherProgramsFeature extends LitElement {
         `;
     }
 
+    getHaIconButton(label: string, iconName: string, programName: string): TemplateResult {
+        const iconPath = BoschDishwasherProgramsFeature.getIcon(iconName);
+        console.log("Loading icon:", iconPath);
+        const svgPromise = this.getInlineSVG(iconPath).then(svg => unsafeHTML(svg));
+        
+        return html`
+            <ha-icon-button .label=${label} title=${label} @click=${() => this.setProgram(programName)}>
+            ${until(svgPromise, html`<span>⏳</span>`)}
+            </ha-icon-button>
+        `;
+    }    
+
+    async getInlineSVG(iconPath: string): Promise<string> {
+        const res = await fetch(iconPath);
+        return await res.text();
+    }
+
     setProgram(programName: string) {
         console.log("Selectiong", programName);
         // this.hass?.callService("switch", "toggle", { entity_id: entityId });
@@ -105,22 +123,6 @@ class BoschDishwasherProgramsFeature extends LitElement {
                 <svg slot="icon" viewBox="0 0 24 24"><use href=${BoschDishwasherProgramsFeature.getIcon(iconName)}></use></svg>
             </ha-icon-button>
         `;
-    }
-
-    async getHaIconButton(label: string, iconName: string, programName: string): Promise<TemplateResult> {
-        const iconPath = BoschDishwasherProgramsFeature.getIcon(iconName);
-        console.log("Loading icon:", iconPath);        
-        const svg = await this.getInlineSVG(iconName);
-        return html`
-            <ha-icon-button .label=${label} title=${label} @click=${() => this.setProgram(programName)}>
-            ${unsafeHTML(svg)}
-            </ha-icon-button>
-        `;
-    }    
-
-    async getInlineSVG(iconPath: string): Promise<string> {
-        const res = await fetch(iconPath);
-        return await res.text();
     }
 
     getEntity(type: string, suffix: string): string {
