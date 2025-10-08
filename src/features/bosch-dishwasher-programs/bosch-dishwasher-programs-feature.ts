@@ -101,17 +101,17 @@ class BoschDishwasherProgramsFeature extends LitElement {
     getHaIconButton(label: string, iconName: string, programName): TemplateResult {
         return html`
             <ha-icon-button .label=${label} title=${label} @click=${() => this.setProgram(programName)}>
-                <svg slot="icon" viewBox="0 0 24 24"><use href=${this.getIcon(iconName)}></use></svg>
+                <svg slot="icon" viewBox="0 0 24 24"><use href=${BoschDishwasherProgramsFeature.getIcon(iconName)}></use></svg>
             </ha-icon-button>
         `;
     }
 
-    getIcon(name: string): string {
-        return `/hacsfiles/bosch-appliance-features/${name}.svg`;
-    }
-
     getEntity(type: string, suffix: string): string {
         return `${type}.${this.config?.entity_prefix}_${suffix}`;
+    }
+
+    static getIcon(name: string): string {
+        return `/hacsfiles/bosch-appliance-features/${name}.svg`;
     }
 
     static get properties(): { [key: string]: any } {
