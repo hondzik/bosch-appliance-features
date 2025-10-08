@@ -108,7 +108,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
 
     static async getInlineSVG(iconName: string): Promise<string> {
         if (!this.iconCache.has(iconName)) {
-            const iconPath = `/hacsfiles/bosch-appliance-features/${name}.svg`;
+            const iconPath = `/hacsfiles/bosch-appliance-features/${iconName}.svg`;
             console.log("Loading icon:", iconPath);
             const res = await fetch(iconPath);
             const svgText = (await res.text())
@@ -123,18 +123,6 @@ class BoschDishwasherProgramsFeature extends LitElement {
     setProgram(programName: string) {
         console.log("Selectiong", programName);
         // this.hass?.callService("switch", "toggle", { entity_id: entityId });
-    }
-
-    getHaIconButton_(label: string, iconName: string, programName): TemplateResult {
-        return html`
-            <ha-icon-button .label=${label} title=${label} @click=${() => this.setProgram(programName)}>
-                <svg slot="icon" viewBox="0 0 24 24"><use href=${BoschDishwasherProgramsFeature.getIcon(iconName)}></use></svg>
-            </ha-icon-button>
-        `;
-    }
-
-    static getIcon(name: string): string {
-        return `/hacsfiles/bosch-appliance-features/${name}.svg`;
     }
 
     static get properties(): { [key: string]: any } {
