@@ -28,14 +28,15 @@
   "scripts": {
     "watch": "parcel watch",
     "build": "parcel build --no-source-maps && node optimize-icons.mjs",
+    "optimize-icons": "node optimize-icons.mjs",
     "version MAJOR": "npm version major",
     "version MINOR": "npm version minor",
     "version PATCH": "npm version patch"
   },
   "devDependencies": {
-    "typescript": "^5.9.3",
     "parcel": "^2.16.0",
-    "svgo": "^4.0.0"
+    "svgo": "^4.0.0",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "custom-card-helpers": "^1.9.0",
