@@ -22,6 +22,8 @@ class BoschDishwasherProgramsFeature extends LitElement {
     @property({ attribute: false }) config?: any;
     @property({ attribute: false }) stateObj?: HassEntity;
 
+    static iconCache = new Map<string, string>();
+
     switches: HassEntities = {};
 
     setConfig(config: BoschDishwasherProgramsFeatureConfig) {
@@ -96,21 +98,27 @@ class BoschDishwasherProgramsFeature extends LitElement {
     }
 
     getHaIconButton(label: string, iconName: string, programName: string): TemplateResult {
-        const iconPath = BoschDishwasherProgramsFeature.getIcon(iconName);
-        console.log("Loading icon:", iconPath);
-        const svgPromise = this.getInlineSVG(iconPath).then(svg => unsafeHTML(svg));
-        
+        const svgPromise = BoschDishwasherProgramsFeature.getInlineSVG(iconName).then(svg => unsafeHTML(svg));
         return html`
             <ha-icon-button .label=${label} title=${label} @click=${() => this.setProgram(programName)}>
             ${until(svgPromise, html`<span>⏳</span>`)}
             </ha-icon-button>
         `;
-    }    
-
-    async getInlineSVG(iconPath: string): Promise<string> {
-        const res = await fetch(iconPath);
-        return await res.text();
     }
+
+    static async getInlineSVG(iconName: string): Promise<string> {
+        if (!this.iconCache.has(iconName)) {
+            const iconPath = `/hacsfiles/bosch-appliance-features/${name}.svg`;
+            console.log("Loading icon:", iconPath);
+            const res = await fetch(iconPath);
+            const svgText = (await res.text())
+                .replace(/(["'\s:])#000000(["'\s;>])/gi, '$1currentColor$2')
+                .replace(/(["'\s:])#000(["'\s;>])/gi, '$1currentColor$2')
+
+            this.iconCache.set(iconName, svgText);
+        }
+        return this.iconCache.get(iconName)!;
+    }    
 
     setProgram(programName: string) {
         console.log("Selectiong", programName);
@@ -123,10 +131,6 @@ class BoschDishwasherProgramsFeature extends LitElement {
                 <svg slot="icon" viewBox="0 0 24 24"><use href=${BoschDishwasherProgramsFeature.getIcon(iconName)}></use></svg>
             </ha-icon-button>
         `;
-    }
-
-    getEntity(type: string, suffix: string): string {
-        return `${type}.${this.config?.entity_prefix}_${suffix}`;
     }
 
     static getIcon(name: string): string {

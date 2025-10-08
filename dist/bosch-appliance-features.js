@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.21","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.29","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1348,8 +1348,281 @@ function $fc6586cfa4ad7136$export$dcd0d083aa86c355(r) {
 
 
 
-const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)``;
+const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)`
+    .switches {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+        padding: 8px;
+    }
+
+    ha-icon-button {
+        --mdc-icon-button-size: 48px;
+        --mdc-icon-size: 32px;
+        width: var(--mdc-icon-button-size);
+        height: var(--mdc-icon-button-size);
+        color: var(--primary-text-color);
+    }
+
+    ha-icon-button:hover {
+        color: var(--primary-color);
+    }
+
+    ha-icon-button svg {
+        width: 100%;
+        height: 100%;
+        stroke: currentColor;
+    }
+`;
 const $d9ed75644065a944$export$af47e28c29f4440b = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)``;
+
+
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ const $f62b4c9bce56f3ae$export$9ba3b3f20a85bfa = {
+    ATTRIBUTE: 1,
+    CHILD: 2,
+    PROPERTY: 3,
+    BOOLEAN_ATTRIBUTE: 4,
+    EVENT: 5,
+    ELEMENT: 6
+}, $f62b4c9bce56f3ae$export$99b43ad1ed32e735 = (t)=>(...e)=>({
+            _$litDirective$: t,
+            values: e
+        });
+class $f62b4c9bce56f3ae$export$befdefbdce210f91 {
+    constructor(t){}
+    get _$AU() {
+        return this._$AM._$AU;
+    }
+    _$AT(t, e, i) {
+        this._$Ct = t, this._$AM = e, this._$Ci = i;
+    }
+    _$AS(t, e) {
+        return this.update(t, e);
+    }
+    update(t, e) {
+        return this.render(...e);
+    }
+}
+
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ class $97d09910a4ba4421$export$3bebd1f0e3943985 extends (0, $f62b4c9bce56f3ae$export$befdefbdce210f91) {
+    constructor(i){
+        if (super(i), this.it = (0, $d33ef1320595a3ac$export$45b790e32b2810ee), i.type !== (0, $f62b4c9bce56f3ae$export$9ba3b3f20a85bfa).CHILD) throw Error(this.constructor.directiveName + "() can only be used in child bindings");
+    }
+    render(r) {
+        if (r === (0, $d33ef1320595a3ac$export$45b790e32b2810ee) || null == r) return this._t = void 0, this.it = r;
+        if (r === (0, $d33ef1320595a3ac$export$9c068ae9cc5db4e8)) return r;
+        if ("string" != typeof r) throw Error(this.constructor.directiveName + "() called with a non-string value");
+        if (r === this.it) return this._t;
+        this.it = r;
+        const s = [
+            r
+        ];
+        return s.raw = s, this._t = {
+            _$litType$: this.constructor.resultType,
+            strings: s,
+            values: []
+        };
+    }
+}
+$97d09910a4ba4421$export$3bebd1f0e3943985.directiveName = "unsafeHTML", $97d09910a4ba4421$export$3bebd1f0e3943985.resultType = 1;
+const $97d09910a4ba4421$export$b6e69390c23686fb = (0, $f62b4c9bce56f3ae$export$99b43ad1ed32e735)($97d09910a4ba4421$export$3bebd1f0e3943985);
+
+
+
+
+
+
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ const { I: $f856e4b28630779e$var$t } = (0, $d33ef1320595a3ac$export$8613d1ca9052b22e), $f856e4b28630779e$export$c3825b437cbdea5c = (o)=>null === o || "object" != typeof o && "function" != typeof o, $f856e4b28630779e$export$80c36ae3cab9881d = {
+    HTML: 1,
+    SVG: 2,
+    MATHML: 3
+}, $f856e4b28630779e$export$6b6d145ec2a44ca9 = (o, t)=>void 0 === t ? void 0 !== o?._$litType$ : o?._$litType$ === t, $f856e4b28630779e$export$6a0e8de894d2fcca = (o)=>null != o?._$litType$?.h, $f856e4b28630779e$export$2f448fec17d50a3e = (o)=>void 0 !== o?._$litDirective$, $f856e4b28630779e$export$f28e31de6a6eaf32 = (o)=>o?._$litDirective$, $f856e4b28630779e$export$7f431ad0fff82fd9 = (o)=>void 0 === o.strings, $f856e4b28630779e$var$r = ()=>document.createComment(""), $f856e4b28630779e$export$291b2338ad9b0b30 = (o, i, n)=>{
+    const e = o._$AA.parentNode, l = void 0 === i ? o._$AB : i._$AA;
+    if (void 0 === n) {
+        const i = e.insertBefore($f856e4b28630779e$var$r(), l), d = e.insertBefore($f856e4b28630779e$var$r(), l);
+        n = new $f856e4b28630779e$var$t(i, d, o, o.options);
+    } else {
+        const t = n._$AB.nextSibling, i = n._$AM, d = i !== o;
+        if (d) {
+            let t;
+            n._$AQ?.(o), n._$AM = o, void 0 !== n._$AP && (t = o._$AU) !== i._$AU && n._$AP(t);
+        }
+        if (t !== l || d) {
+            let o = n._$AA;
+            for(; o !== t;){
+                const t = o.nextSibling;
+                e.insertBefore(o, l), o = t;
+            }
+        }
+    }
+    return n;
+}, $f856e4b28630779e$export$cb8bf9562088e9f4 = (o, t, i = o)=>(o._$AI(t, i), o), $f856e4b28630779e$var$u = {}, $f856e4b28630779e$export$ea70d9dd5965b1c8 = (o, t = $f856e4b28630779e$var$u)=>o._$AH = t, $f856e4b28630779e$export$59e9bce518cde500 = (o)=>o._$AH, $f856e4b28630779e$export$3133b3144bbba267 = (o)=>{
+    o._$AR(), o._$AA.remove();
+}, $f856e4b28630779e$export$7f600b8138c094dc = (o)=>{
+    o._$AR();
+};
+
+
+
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ const $fb7afed61c741777$var$s = (i, t)=>{
+    const e = i._$AN;
+    if (void 0 === e) return !1;
+    for (const i of e)i._$AO?.(t, !1), $fb7afed61c741777$var$s(i, t);
+    return !0;
+}, $fb7afed61c741777$var$o = (i)=>{
+    let t, e;
+    do {
+        if (void 0 === (t = i._$AM)) break;
+        e = t._$AN, e.delete(i), i = t;
+    }while (0 === e?.size);
+}, $fb7afed61c741777$var$r = (i)=>{
+    for(let t; t = i._$AM; i = t){
+        let e = t._$AN;
+        if (void 0 === e) t._$AN = e = new Set;
+        else if (e.has(i)) break;
+        e.add(i), $fb7afed61c741777$var$c(t);
+    }
+};
+function $fb7afed61c741777$var$h(i) {
+    void 0 !== this._$AN ? ($fb7afed61c741777$var$o(this), this._$AM = i, $fb7afed61c741777$var$r(this)) : this._$AM = i;
+}
+function $fb7afed61c741777$var$n(i, t = !1, e = 0) {
+    const r = this._$AH, h = this._$AN;
+    if (void 0 !== h && 0 !== h.size) {
+        if (t) {
+            if (Array.isArray(r)) for(let i = e; i < r.length; i++)$fb7afed61c741777$var$s(r[i], !1), $fb7afed61c741777$var$o(r[i]);
+            else null != r && ($fb7afed61c741777$var$s(r, !1), $fb7afed61c741777$var$o(r));
+        } else $fb7afed61c741777$var$s(this, i);
+    }
+}
+const $fb7afed61c741777$var$c = (i)=>{
+    i.type == (0, $f62b4c9bce56f3ae$export$9ba3b3f20a85bfa).CHILD && (i._$AP ??= $fb7afed61c741777$var$n, i._$AQ ??= $fb7afed61c741777$var$h);
+};
+class $fb7afed61c741777$export$7d025501802325e extends (0, $f62b4c9bce56f3ae$export$befdefbdce210f91) {
+    constructor(){
+        super(...arguments), this._$AN = void 0;
+    }
+    _$AT(i, t, e) {
+        super._$AT(i, t, e), $fb7afed61c741777$var$r(this), this.isConnected = i._$AU;
+    }
+    _$AO(i, t = !0) {
+        i !== this.isConnected && (this.isConnected = i, i ? this.reconnected?.() : this.disconnected?.()), t && ($fb7afed61c741777$var$s(this, i), $fb7afed61c741777$var$o(this));
+    }
+    setValue(t) {
+        if ((0, $f856e4b28630779e$export$7f431ad0fff82fd9)(this._$Ct)) this._$Ct._$AI(t, this);
+        else {
+            const i = [
+                ...this._$Ct._$AH
+            ];
+            i[this._$Ci] = t, this._$Ct._$AI(i, this, 0);
+        }
+    }
+    disconnected() {}
+    reconnected() {}
+}
+
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ const $7bf3a4ad37d148a6$export$74673a32c6041f3e = async (t, s)=>{
+    for await (const i of t)if (!1 === await s(i)) return;
+};
+class $7bf3a4ad37d148a6$export$71341b9b69479007 {
+    constructor(t){
+        this.G = t;
+    }
+    disconnect() {
+        this.G = void 0;
+    }
+    reconnect(t) {
+        this.G = t;
+    }
+    deref() {
+        return this.G;
+    }
+}
+class $7bf3a4ad37d148a6$export$193ea5a420bb5c41 {
+    constructor(){
+        this.Y = void 0, this.Z = void 0;
+    }
+    get() {
+        return this.Y;
+    }
+    pause() {
+        this.Y ??= new Promise((t)=>this.Z = t);
+    }
+    resume() {
+        this.Z?.(), this.Y = this.Z = void 0;
+    }
+}
+
+
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ const $f35354e62b171f38$var$n = (t)=>!(0, $f856e4b28630779e$export$c3825b437cbdea5c)(t) && "function" == typeof t.then, $f35354e62b171f38$var$h = 1073741823;
+class $f35354e62b171f38$export$51c6edf8ee19b71a extends (0, $fb7afed61c741777$export$7d025501802325e) {
+    constructor(){
+        super(...arguments), this._$Cwt = $f35354e62b171f38$var$h, this._$Cbt = [], this._$CK = new (0, $7bf3a4ad37d148a6$export$71341b9b69479007)(this), this._$CX = new (0, $7bf3a4ad37d148a6$export$193ea5a420bb5c41);
+    }
+    render(...s) {
+        return s.find((t)=>!$f35354e62b171f38$var$n(t)) ?? (0, $d33ef1320595a3ac$export$9c068ae9cc5db4e8);
+    }
+    update(s, i) {
+        const e = this._$Cbt;
+        let r = e.length;
+        this._$Cbt = i;
+        const o = this._$CK, c = this._$CX;
+        this.isConnected || this.disconnected();
+        for(let t = 0; t < i.length && !(t > this._$Cwt); t++){
+            const s = i[t];
+            if (!$f35354e62b171f38$var$n(s)) return this._$Cwt = t, s;
+            t < r && s === e[t] || (this._$Cwt = $f35354e62b171f38$var$h, r = 0, Promise.resolve(s).then(async (t)=>{
+                for(; c.get();)await c.get();
+                const i = o.deref();
+                if (void 0 !== i) {
+                    const e = i._$Cbt.indexOf(s);
+                    e > -1 && e < i._$Cwt && (i._$Cwt = e, i.setValue(t));
+                }
+            }));
+        }
+        return 0, $d33ef1320595a3ac$export$9c068ae9cc5db4e8;
+    }
+    disconnected() {
+        this._$CK.disconnect(), this._$CX.pause();
+    }
+    reconnected() {
+        this._$CK.reconnect(this), this._$CX.resume();
+    }
+}
+const $f35354e62b171f38$export$a40009bd2c363351 = (0, $f62b4c9bce56f3ae$export$99b43ad1ed32e735)($f35354e62b171f38$export$51c6edf8ee19b71a);
+
+
 
 
 
@@ -1454,6 +1727,9 @@ const $3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature = (stateObj)=
     return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("bosch") && friendlyName.includes("dishwasher");
 };
 class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332d1e3099e$export$3f2f9f5909897157) {
+    static{
+        this.iconCache = new Map();
+    }
     setConfig(config) {
         // If entity_prefix is not set, try to derive it from the entity name
         if (config.entity_prefix === undefined && config.entity) {
@@ -1501,29 +1777,44 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
                 ${this.getHaIconButton("Auto 45-65\xb0C", "Auto_45-65", "Dishcare.Dishwasher.Program.Auto2")}
                 ${this.getHaIconButton("Intensive 70\xb0C", "Intensive_70", "Dishcare.Dishwasher.Program.Intensiv70")}
                 ${this.getHaIconButton("Express 60\xb0C", "Express_60", "Dishcare.Dishwasher.Program.Kurz60")}
-                ${this.getHaIconButton("Quick 45\xb0C", "Quick_45", "Dishcare.Dishwasher.Program.Quick45")}
+                ${this.getHaIconButton("Quick 45\xb0C", "Express_45", "Dishcare.Dishwasher.Program.Quick45")}
                 ${this.getHaIconButton("Glass 40\xb0C", "Glass_40", "Dishcare.Dishwasher.Program.Glas40")}
                 ${this.getHaIconButton("Silent 50\xb0C", "Silent_50", "Dishcare.Dishwasher.Program.NightWash")}
-                ${this.getHaIconButton("Machine Care", "Machine_Care", "Dishcare.Dishwasher.Program.MachineCare")}
+                ${this.getHaIconButton("Machine Care", "MachineCare", "Dishcare.Dishwasher.Program.MachineCare")}
             </div>
         `;
+    }
+    getHaIconButton(label, iconName, programName) {
+        const svgPromise = $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.getInlineSVG(iconName).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
+            <ha-icon-button .label=${label} title=${label} @click=${()=>this.setProgram(programName)}>
+            ${(0, $f35354e62b171f38$export$a40009bd2c363351)(svgPromise, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<span>⏳</span>`)}
+            </ha-icon-button>
+        `;
+    }
+    static async getInlineSVG(iconName) {
+        if (!this.iconCache.has(iconName)) {
+            const iconPath = `/hacsfiles/bosch-appliance-features/${name}.svg`;
+            console.log("Loading icon:", iconPath);
+            const res = await fetch(iconPath);
+            const svgText = (await res.text()).replace(/(["'\s:])#000000(["'\s;>])/gi, '$1currentColor$2').replace(/(["'\s:])#000(["'\s;>])/gi, '$1currentColor$2');
+            this.iconCache.set(iconName, svgText);
+        }
+        return this.iconCache.get(iconName);
     }
     setProgram(programName) {
         console.log("Selectiong", programName);
     // this.hass?.callService("switch", "toggle", { entity_id: entityId });
     }
-    getHaIconButton(label, iconName, programName) {
+    getHaIconButton_(label, iconName, programName) {
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
             <ha-icon-button .label=${label} title=${label} @click=${()=>this.setProgram(programName)}>
-                <svg slot="icon" viewBox="0 0 24 24"><use href=${this.getIcon(iconName)}></use></svg>
+                <svg slot="icon" viewBox="0 0 24 24"><use href=${$3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.getIcon(iconName)}></use></svg>
             </ha-icon-button>
         `;
     }
-    getIcon(name) {
-        return `/local/${name}.svg`;
-    }
-    getEntity(type, suffix) {
-        return `${type}.${this.config?.entity_prefix}_${suffix}`;
+    static getIcon(name1) {
+        return `/hacsfiles/bosch-appliance-features/${name1}.svg`;
     }
     static get properties() {
         return {
