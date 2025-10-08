@@ -1,7 +1,7 @@
-<svg width="24" height="24" viewBox="0 0 24 24" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" stroke="currentColor">
+<svg width="24" height="24" viewBox="0 0 24 24" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
   <g transform="translate(-19.86 -1.565)scale(.30884)">
-    <path d="M122.583 50.932v15.922c0 4.432-3.568 8-8 8H82.465c-4.432 0-8-3.568-8-8v-39c0-4.433 3.568-8 8-8h18.334" stroke="#000" stroke-width="2.9" stroke-linejoin="round"/>
-    <path d="M81.5 33.697V42.5h22.689M81.5 57.226V66H115v-8.774" stroke="#000" stroke-width="2.865" stroke-linejoin="round"/>
-    <path d="m116.583 12.394 3.292 11.523 12.588-5.713-8.812 9.877 7.166 4.647-8.715 1.065 2.711 12.201-7.359-9.973-6.1 6.1 1.259-8.618-9.683-.387 8.23-4.842-5.519-7.552 8.908 3.098z" stroke="#000" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M122.583 50.932v15.922c0 4.432-3.568 8-8 8H82.465c-4.432 0-8-3.568-8-8v-39c0-4.433 3.568-8 8-8h18.334" stroke-width="2.9" stroke-linejoin="round"/>
+    <path d="M81.5 33.697V42.5h22.689M81.5 57.226V66H115v-8.774" stroke-width="2.865" stroke-linejoin="round"/>
+    <path d="m116.583 12.394 3.292 11.523 12.588-5.713-8.812 9.877 7.166 4.647-8.715 1.065 2.711 12.201-7.359-9.973-6.1 6.1 1.259-8.618-9.683-.387 8.23-4.842-5.519-7.552 8.908 3.098z" stroke-width="1.7" stroke-linejoin="round"/>
   </g>
 </svg>

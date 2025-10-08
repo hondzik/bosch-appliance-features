@@ -75,7 +75,8 @@ svgData = svgData
         params: {
           attributes: [
             { viewBox: "0 0 24 24" },     // doplní viewBox pokud chybí
-            { stroke: "currentColor" }    // sjednotí barvu tahu
+            { stroke: "currentColor" },   // sjednotí barvu tahu
+            { fill: "none" }              // odstran9 fill
           ]
         }
       },
