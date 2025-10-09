@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.39","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.40","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1376,6 +1376,32 @@ const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
         stroke: currentColor;
     }
 
+
+    .programs-list ha-control-button .icon-wrapper {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+    }
+
+    .programs-list ha-control-button .icon-wrapper svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .programs-list .icon-wrapper {
+        background: white;
+        color: var(--primary-color);
+    }
+
+    .programs-list .icon-wrapper.active {
+        background: var(--primary-color);
+        color: white;
+    }
+
+
   .program-bar {
     display: flex;
     flex-wrap: wrap;
@@ -1819,7 +1845,12 @@ $a3d36398cbb8abc5$export$5ad3d821964e0a36 = (0, $bb166217b384746d$export$29e00df
 ], $a3d36398cbb8abc5$export$5ad3d821964e0a36);
 
 
-const $3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature = (stateObj)=>{
+/**
+ * Check if the given entity supports the Bosch Dishwasher Programs feature.
+ * The check is based on the entity's device_class and friendly_name attributes.
+ * @param stateObj HassEntity
+ * @returns Boolean indicating whether the given entity supports the Bosch Dishwasher Programs feature.
+ */ const $3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature = (stateObj)=>{
     if (!stateObj?.attributes) return false;
     const deviceClass = stateObj.attributes.device_class?.toLowerCase() || "";
     const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || "";
@@ -1853,7 +1884,7 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
             },
             {
                 name: "Quick 45\xb0C",
-                icon: "Quick_45",
+                icon: "Express_45",
                 program: "Dishcare.Dishwasher.Program.Quick45"
             },
             {
@@ -1868,7 +1899,7 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
             },
             {
                 name: "Machine Care",
-                icon: "Machine_Care",
+                icon: "MachineCare",
                 program: "Dishcare.Dishwasher.Program.MachineCare"
             }
         ];
@@ -1899,17 +1930,13 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
         return this._hass;
     }
     render() {
-        if (!this.config || !this.hass || !this.stateObj || !$3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature(this.stateObj)) return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
-                <div class="toners">
-                    <div>Unsupported feature</div>
-                </div>
-            `;
+        if (!this.config || !this.hass || !this.stateObj || !$3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature(this.stateObj)) return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div>Unsupported card feature</div>`;
         // Filter programs based on config
         // expect config keys like "show_eco_50", "show_auto_45_65", etc.
         // if key is missing, default to true (show the program)
         // keys are derived from program names by lowercasing and replacing spaces and special chars with underscores
         const filteredPrograms = $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.programs.filter((p)=>this.getBoolConfigVal("show_" + p.name.toLowerCase().replace(/-/g, "_"), true));
-        return this.config.show_as_button_bar === true ? (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div class="switches">${filteredPrograms.map((p)=>this.getHaIconButton(p))}</div>` : (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div class="programs-list">${filteredPrograms.map((p)=>this.renderProgramButton(p))}</div>`;
+        return this.config.show_as_button_bar === true ? (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div class="programs-list">${filteredPrograms.map((p)=>this.getHaControlButton(p))}</div>` : (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div class="switches">${filteredPrograms.map((p)=>this.getHaIconButton(p))}</div>`;
     }
     /**
      * Renders a ha-icon-button for the given program.
@@ -1927,14 +1954,35 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
      * Renders a button for the given program.
      * @param program BoschDishwasherProgram
      * @returns TemplateResult containing a button with the program icon and name.
+     * @obsolete Use getHaControlButton() instead (for consistency with other features).
      */ renderProgramButton(program) {
-        const isActive = this.stateObj?.attributes?.selected_program === program.program;
+        const isActive = this.isProgramActive(program);
         const svg = this.getIconForProgram(program).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
             <button class="program-btn ${isActive ? "active" : ""}" title=${program.name} @click=${()=>this.setProgram(program.program)}>
                 ${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<span>⏳</span>`)}
             </button>
         `;
+    }
+    getHaControlButton(program) {
+        const isActive = this.isProgramActive(program);
+        const svg = this.getIconForProgram(program).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
+            <ha-control-button .value=${program.program} ?active=${isActive} @click=${()=>this.setProgram(program.program)}>
+                <div class="icon-wrapper${isActive ? " active" : ""}">${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<span>⏳</span>`)}</div>
+                <span class="label">${program.name}</span>
+            </ha-control-button>
+        `;
+    }
+    /**
+     * Checks if the given program is currently active (selected) on the dishwasher.
+     * @param program BoschDishwasherProgram
+     * @returns True if the given program is currently active (selected) on the dishwasher.
+     */ isProgramActive(program) {
+        return this.selectedProgram === program.program;
+    }
+    get selectedProgram() {
+        return this.stateObj?.attributes?.selected_program || null;
     }
     /**
      * Retrieves the inline SVG for the given program icon.

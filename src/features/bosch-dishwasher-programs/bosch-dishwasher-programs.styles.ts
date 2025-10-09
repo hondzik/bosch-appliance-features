@@ -28,6 +28,32 @@ export const BoschDishwasherProgramsFeatureStyles = css`
         stroke: currentColor;
     }
 
+
+    .programs-list ha-control-button .icon-wrapper {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+    }
+
+    .programs-list ha-control-button .icon-wrapper svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .programs-list .icon-wrapper {
+        background: white;
+        color: var(--primary-color);
+    }
+
+    .programs-list .icon-wrapper.active {
+        background: var(--primary-color);
+        color: white;
+    }
+
+
   .program-bar {
     display: flex;
     flex-wrap: wrap;
