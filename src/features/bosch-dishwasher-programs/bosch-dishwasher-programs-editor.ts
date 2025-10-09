@@ -7,17 +7,18 @@ import { BoschDishwasherProgramsEditorStyles } from "./bosch-dishwasher-programs
 @customElement("bosch-dishwasher-programs-editor")
 export class BoschDishwasherProgramsEditor extends LitElement {
     @property({ attribute: false }) hass?: HomeAssistant;
-    @property({ type: Object }) config: any = {};
+    @property({ type: Object }) config: BoschDishwasherProgramsFeatureConfig;
 
-    setConfig(config: any) {
+    setConfig(config: BoschDishwasherProgramsFeatureConfig) {
         this.config = { ...config };
     }
 
     render(): TemplateResult {
         return html`
             <div class="settings">
+                ${this.getBoolHaSettingsRow("show_as_button_bar", false)}
                 ${this.getBoolHaSettingsRow("icons_with_text", false)}
-                ${this.getBoolHaSettingsRow("show_machine_care", true)}
+                ${this.getBoolHaSettingsRow("show_machinecare", true)}
             </div>
         `;
     }

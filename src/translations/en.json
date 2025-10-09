@@ -3,11 +3,15 @@
         "programs": {
             "feature-name": "Dishwasher programs",
             "editor": {
+                "show_as_button_bar": {
+                    "title": "Show as button bar",
+                    "description": "Show the programs as a horizontal button bar instead of a grid of icons. (Default: disabled)"
+                },
                 "icons_with_text": {
                     "title": "Show icons with text",
                     "description": "Show program icons with text labels below them. (Default: disabled)"
                 },
-                "show_machine_care": {
+                "show_machinecare": {
                     "title": "Show Machine Care program",
                     "description": "Show the Machine Care program in the list of available programs. (Default: enabled)"
                 }

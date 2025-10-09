@@ -27,7 +27,54 @@ export const BoschDishwasherProgramsFeatureStyles = css`
         height: 100%;
         stroke: currentColor;
     }
+
+  .program-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .program-bar .program-btn {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .program-bar .program-btn:hover {
+    filter: brightness(0.95);
+  }
+
+  .program-bar .program-btn.active {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .program-bar .program-btn svg {
+    width: 28px;
+    height: 28px;
+    stroke: currentColor;
+    fill: none;
+  }
+
+  .label {
+    font-size: 11px;
+    text-align: center;
+    margin-top: 4px;
+    line-height: 1.2;
+  }
 `;
+
 
 const CommonEditorStyles = css`
     .settings {

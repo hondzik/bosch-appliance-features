@@ -1,4 +1,4 @@
-import { LitElement, html, TemplateResult, CSSResultGroup, nothing } from "lit";
+import { LitElement, html, TemplateResult, CSSResultGroup } from "lit";
 import { customElement, property, state } from "lit/decorators";
 import type { HomeAssistant } from "custom-card-helpers";
 import type { HassEntities, HassEntity } from "home-assistant-js-websocket";
@@ -20,11 +20,22 @@ const supportsBoschDishwasherProgramsFeature = (stateObj: HassEntity): boolean =
 @customElement("bosch-dishwasher-programs-feature")
 class BoschDishwasherProgramsFeature extends LitElement {
     @state() _hass?: HomeAssistant;
-    @property({ attribute: false }) config?: any;
+    @property({ attribute: false }) config?: BoschDishwasherProgramsFeatureConfig;
     @property({ attribute: false }) stateObj?: HassEntity;
 
     static iconCache = new Map<string, string>();
 
+    static programs: BoschDishwasherProgram[] = [
+        { name: "Eco 50°C", icon: "Eco_50", program: "Dishcare.Dishwasher.Program.Eco50" },
+        { name: "Auto 45-65°C", icon: "Auto_45-65", program: "Dishcare.Dishwasher.Program.Auto2" },
+        { name: "Intensive 70°C", icon: "Intensive_70", program: "Dishcare.Dishwasher.Program.Intensiv70" },
+        { name: "Express 60°C", icon: "Express_60", program: "Dishcare.Dishwasher.Program.Kurz60" },
+        { name: "Quick 45°C", icon: "Quick_45", program: "Dishcare.Dishwasher.Program.Quick45" },
+        { name: "Glass 40°C", icon: "Glass_40", program: "Dishcare.Dishwasher.Program.Glas40" },
+        { name: "Silent 50°C", icon: "Silent_50", program: "Dishcare.Dishwasher.Program.NightWash" },
+        { name: "Machine Care", icon: "Machine_Care", program: "Dishcare.Dishwasher.Program.MachineCare" }
+    ];
+    
     switches: HassEntities = {};
 
     setConfig(config: BoschDishwasherProgramsFeatureConfig) {
@@ -64,17 +75,6 @@ class BoschDishwasherProgramsFeature extends LitElement {
         return this._hass;
     }
 
-    /**
-     * Programs
-     * - Eco 50°C: Dishcare.Dishwasher.Program.Eco50
-     * - Auto 45-65°C: Dishcare.Dishwasher.Program.Auto2
-     * - Intensive 70°C: Dishcare.Dishwasher.Program.Intensiv70
-     * - Express 60°C Dishcare.Dishwasher.Program.Kurz60
-     * - Quick 45°C: Dishcare.Dishwasher.Program.Quick45
-     * - Glass 40°C: Dishcare.Dishwasher.Program.Glas40
-     * - Silent 50°C: Dishcare.Dishwasher.Program.NightWash
-     * - Machine Care: Dishcare.Dishwasher.Program.MachineCare
-     */
     render(): TemplateResult {
         if (!this.config || !this.hass || !this.stateObj || !supportsBoschDishwasherProgramsFeature(this.stateObj)) {
             return html`
@@ -84,31 +84,65 @@ class BoschDishwasherProgramsFeature extends LitElement {
             `;
         }
 
-        const showMachineCare = this.getBoolConfigVal("show_machine_care", true);
-        return html`
-            <div class="switches">
-                ${this.getHaIconButton("Eco 50°C", "Eco_50", "Dishcare.Dishwasher.Program.Eco50")}
-                ${this.getHaIconButton("Auto 45-65°C", "Auto_45-65", "Dishcare.Dishwasher.Program.Auto2")}
-                ${this.getHaIconButton("Intensive 70°C", "Intensive_70", "Dishcare.Dishwasher.Program.Intensiv70")}
-                ${this.getHaIconButton("Express 60°C", "Express_60", "Dishcare.Dishwasher.Program.Kurz60")}
-                ${this.getHaIconButton("Quick 45°C", "Express_45", "Dishcare.Dishwasher.Program.Quick45")}
-                ${this.getHaIconButton("Glass 40°C", "Glass_40", "Dishcare.Dishwasher.Program.Glas40")}
-                ${this.getHaIconButton("Silent 50°C", "Silent_50", "Dishcare.Dishwasher.Program.NightWash")}
-                ${showMachineCare ? this.getHaIconButton("Machine Care", "MachineCare", "Dishcare.Dishwasher.Program.MachineCare") : nothing}
-            </div>
-        `;
+        // Filter programs based on config
+        // expect config keys like "show_eco_50", "show_auto_45_65", etc.
+        // if key is missing, default to true (show the program)
+        // keys are derived from program names by lowercasing and replacing spaces and special chars with underscores
+        const filteredPrograms = BoschDishwasherProgramsFeature.programs.filter(
+            p => this.getBoolConfigVal("show_"+p.name.toLowerCase().replace(/-/g, "_"), true)
+        );
+
+        return this.config.show_as_button_bar === true 
+            ? html`<div class="switches">${filteredPrograms.map(p => this.getHaIconButton(p))}</div>`
+            : html`<div class="programs-list">${filteredPrograms.map(p => this.renderProgramButton(p))}</div>`;
     }
 
-    getHaIconButton(label: string, iconName: string, programName: string): TemplateResult {
-        const iconSuffix = this.getBoolConfigVal("icons_with_text", false) ? "_text" : "";
-        const svgPromise = BoschDishwasherProgramsFeature.getInlineSVG(`${iconName}${iconSuffix}`).then(svg => unsafeHTML(svg));
+    /**
+     * Renders a ha-icon-button for the given program.
+     * @param program BoschDishwasherProgram
+     * @returns TemplateResult containing a ha-icon-button with the program icon and name.
+     */
+    private getHaIconButton(program: BoschDishwasherProgram): TemplateResult {
+        const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
         return html`
-            <ha-icon-button .label=${label} title=${label} @click=${() => this.setProgram(programName)}>
-            ${until(svgPromise, html`<span>⏳</span>`)}
+            <ha-icon-button .label=${program.name} title=${program.name} @click=${() => this.setProgram(program.program)}>
+                ${until(svg, html`<span>⏳</span>`)}
             </ha-icon-button>
         `;
     }
 
+    /**
+     * Renders a button for the given program.
+     * @param program BoschDishwasherProgram
+     * @returns TemplateResult containing a button with the program icon and name.
+     */
+    private renderProgramButton(program: BoschDishwasherProgram): TemplateResult {
+        const isActive = this.stateObj?.attributes?.selected_program === program.program;
+        const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
+        return html`
+            <button class="program-btn ${isActive ? "active" : ""}" title=${program.name} @click=${() => this.setProgram(program.program)}>
+                ${until(svg, html`<span>⏳</span>`)}
+            </button>
+        `;
+    }
+
+    /**
+     * Retrieves the inline SVG for the given program icon.
+     * Takes into account the "icons_with_text" configuration option.
+     * @param program BoschDishwasherProgram
+     * @returns Promise<string> containing the SVG markup.
+     */
+    private getIconForProgram(program: BoschDishwasherProgram): Promise<string> {
+        const iconSuffix = this.getBoolConfigVal("icons_with_text", false) ? "_text" : "";
+        return BoschDishwasherProgramsFeature.getInlineSVG(`${program.icon}${iconSuffix}`);
+    }
+
+    /**
+     * Retrieves a boolean configuration value, with a default if not set.
+     * @param key Config key to look for
+     * @param defaultValue Default value if key is not set
+     * @returns Boolean value of the config key, or defaultValue if not set
+     */
     private getBoolConfigVal(key: string, defaultValue: boolean): boolean  {
         return this.config && this.config[key] !== undefined ? !!this.config[key] : defaultValue;
     }
@@ -118,6 +152,11 @@ class BoschDishwasherProgramsFeature extends LitElement {
         // this.hass?.callService("switch", "toggle", { entity_id: entityId });
     }
 
+    /**
+     * Retrieves the inline SVG for the given icon name, using a cache to avoid redundant fetches.
+     * @param iconName Name of the icon (without path and .svg extension)
+     * @returns Promise<string> containing the inline SVG markup
+     */
     private static async getInlineSVG(iconName: string): Promise<string> {
         if (!this.iconCache.has(iconName)) {
             const iconPath = `/hacsfiles/bosch-appliance-features/${iconName}.svg?v=${version}`;
@@ -132,6 +171,10 @@ class BoschDishwasherProgramsFeature extends LitElement {
         return this.iconCache.get(iconName)!;
     }    
 
+    /**
+     * Implements the LitElement method.
+     * Returns component properties (observed attributes).
+     */
     static get properties(): { [key: string]: any } {
         return {
             hass: { type: Object },
@@ -140,21 +183,33 @@ class BoschDishwasherProgramsFeature extends LitElement {
         };
     }
 
+    /**
+     * Implements the CustomCardFeature interface method.
+     * @returns HTMLElement for configuring this feature (used in Lovelace UI editor).
+     */
     static getConfigElement(): HTMLElement {
         return document.createElement('bosch-dishwasher-programs-editor');
     }
 
+    /**
+     * Implements the CustomCardFeature interface method.
+     * @returns Default configuration for this feature (used in Lovelace UI editor).
+     */
     static getStubConfig(): any {
         return {
             type: 'custom:bosch-dishwasher-programs-feature'
         };
     }
 
+    /**
+     * Component styles (CSS-in-JS).
+     */
     static get styles(): CSSResultGroup {
         return BoschDishwasherProgramsFeatureStyles
     }
 }
 
+// Register the feature in the global customCardFeatures array
 window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: "bosch-dishwasher-programs-feature",
