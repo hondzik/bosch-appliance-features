@@ -97,7 +97,7 @@ files.forEach(file => {
     );
 
     const outputPath = path.join(outputDir, file);
-    fs.writeFileSync(outputPath, flattened, 'utf8');
+    fs.writeFileSync(outputPath, result.data, 'utf8');
     console.log(`✅ Optimized: ${file}`);
 });
 

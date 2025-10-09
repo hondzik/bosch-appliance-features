@@ -1,16 +1,10 @@
 <svg width="24" height="24" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-  <g transform="translate(-3.77 1.58)scale(.16103)">
+  <g transform="translate(-6.923 -.503)scale(.19322)" stroke-width="8.28">
     <g transform="translate(-13.169 56.548)">
-      <path d="M78.82 35.851h-2.757a8.48 8.48 0 0 1-8.5-8.5v-40.178c0-9.937-2.213-8.5 8.5-8.5h62.255c10.125 0 8.5-1.657 8.5 8.5v25.802" fill="none" stroke="#000" stroke-width="3.468" stroke-linejoin="round"/>
-      <path d="M146.987-4.75h18" fill="none" stroke="#000" stroke-width="3.618" stroke-linejoin="round"/>
-      <path d="M96.67-20.816c0-5.918 4.798-10.715 10.716-10.715S118.1-26.734 118.1-20.816" fill="none" stroke="#000" stroke-width="3.57" stroke-linejoin="round"/>
-      <path d="M66.43-4.75H49" fill="none" stroke="#010000" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M78.82 35.851h-2.757a8.48 8.48 0 0 1-8.5-8.5v-40.178c0-9.937-2.213-8.5 8.5-8.5h62.255c10.125 0 8.5-1.657 8.5 8.5v25.802m.169-17.725h18" fill="none" stroke="#000" stroke-linejoin="round"/>
+      <path d="M96.67-20.816c0-5.918 4.798-10.715 10.716-10.715S118.1-26.734 118.1-20.816" fill="none" stroke="#000" stroke-linejoin="round"/>
+      <path d="M66.43-4.75H49" fill="none" stroke="#010000" stroke-linejoin="round"/>
     </g>
-    <g transform="matrix(1.00238 0 0 .9997 -13.38 56.188)">
-      <path d="m89.004 36.211 83.992-.187" fill="none" stroke="#000" stroke-width="3.507" stroke-linejoin="round"/>
-      <path d="m161.318 36.602-9.759 11.619H110.44l-9.35-11.813" fill="none" stroke="#000" stroke-width="3.588" stroke-linejoin="round"/>
-      <path d="M154.004 45.7l83.992 -0.187" fill="none" stroke="#000" stroke-width="3.507" stroke-linejoin="round"/>
-      <path d="M226.318 46.09l-9.759 11.62m-41.119 0l-9.35 -11.813" fill="none" stroke="#000" stroke-width="3.588" stroke-linejoin="round"/>
-    </g>
+    <path d="m89.004 36.211 83.992-.187m-11.678.578-9.759 11.619H110.44l-9.35-11.813M89.004 22.503l83.792-.187m-11.65.578-9.735 11.623m-41.022 0L101.061 22.7" fill="none" stroke="#000" stroke-linejoin="round" transform="matrix(1.00238 0 0 .9997 -13.38 56.188)" stroke-width="8.272"/>
   </g>
 </svg>

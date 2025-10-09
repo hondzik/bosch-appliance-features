@@ -10,8 +10,8 @@
     <g transform="matrix(1.00238 0 0 .9997 -13.38 56.188)">
       <path d="m89.004 36.211 83.992-.187" fill="none" stroke="#000" stroke-width="3.507" stroke-linejoin="round"/>
       <path d="m161.318 36.602-9.759 11.619H110.44l-9.35-11.813" fill="none" stroke="#000" stroke-width="3.588" stroke-linejoin="round"/>
-      <path d="M154.004 45.7l83.992 -0.187" fill="none" stroke="#000" stroke-width="3.507" stroke-linejoin="round"/>
-      <path d="M226.318 46.09l-9.759 11.62m-41.119 0l-9.35 -11.813" fill="none" stroke="#000" stroke-width="3.588" stroke-linejoin="round"/>
+      <path d="m154.004 45.7 83.992-.187" transform="matrix(.99762 0 0 1.0003 -64.634 -21.656)" fill="none" stroke="#000" stroke-width="3.507" stroke-linejoin="round"/>
+      <path d="m226.318 46.09-9.759 11.62m-41.119 0-9.35-11.813" transform="matrix(.99762 0 0 1.0003 -64.634 -21.656)" fill="none" stroke="#000" stroke-width="3.588" stroke-linejoin="round"/>
     </g>
   </g>
 </svg>

@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.37","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.38","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1376,7 +1376,35 @@ const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
         stroke: currentColor;
     }
 `;
-const $d9ed75644065a944$export$af47e28c29f4440b = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)``;
+const $d9ed75644065a944$var$CommonEditorStyles = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)`
+    .settings {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .settings ha-settings-row {
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .settings ha-settings-row [slot="heading"] {
+        font-weight: 500;
+    }
+
+    .settings ha-settings-row [slot="description"] {
+        color: var(--secondary-text-color);
+        max-width: 70%; /* zabrání, aby text přetékal pod přepínač */
+        white-space: normal;
+    }
+
+    .settings ha-switch {
+        margin-left: auto; /* udrží přepínač vpravo */
+    }
+`;
+const $d9ed75644065a944$export$af47e28c29f4440b = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)`
+    ${$d9ed75644065a944$var$CommonEditorStyles}
+`;
 
 
 
@@ -1686,43 +1714,26 @@ class $a3d36398cbb8abc5$export$5ad3d821964e0a36 extends (0, $528e4332d1e3099e$ex
         };
     }
     render() {
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
+            <div class="settings">
+                ${this.getBoolHaSettingsRow("icons_with_text", false)}
+                ${this.getBoolHaSettingsRow("show_machine_care", true)}
+            </div>
+        `;
+    }
+    getBoolHaSettingsRow(key, defaultVal) {
         const customLocalize = (0, $f7e2ebf6156dc08b$export$2e2bcd8739ae039)(this.hass);
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
             <ha-settings-row>
-                <span slot="heading" data-for="icons_with_text">
-                    ${customLocalize("dishwasher.programs.editor.icons_with_text.title")}
-                </span>
-                <span slot="description" data-for="icons_with_text">
-                    ${customLocalize("dishwasher.programs.editor.icons_with_text.description")}
-                    
-                </span>
-                <ha-switch
-                    id="icons_with_text" 
-                    @change=${this._onSettingChange}
-                    .checked=${this.getBoolConfigVal("icons_with_text", false)} 
-                    name="icons_with_text"
-                ></ha-switch>
-            </ha-settings-row>
-
-            <ha-settings-row>
-                <span slot="heading" data-for="show_machine_care">
-                    ${customLocalize("dishwasher.programs.editor.show_machine_care.title")}
-                </span>
-                <span slot="description" data-for="show_machine_care">
-                    ${customLocalize("dishwasher.programs.editor.show_machine_care.description")}
-                </span>
-                <ha-switch
-                    id="show_machine_care" 
-                    @change=${this._onSettingChange}
-                    .checked=${this.getBoolConfigVal("show_machine_care", true)} 
-                    name="show_machine_care"
-                ></ha-switch>
+                <div slot="heading" data-for="${key}">${customLocalize(`dishwasher.programs.editor.${key}.title`)}</div>
+                <div slot="description" data-for="${key}">${customLocalize(`dishwasher.programs.editor.${key}.description`)}</div>
+                <ha-switch id="${key}" name="${key}" @change=${this._onSettingChange} .checked=${this.getBoolConfigVal(key, defaultVal)} />
             </ha-settings-row>
         `;
     }
     _onSettingChange(e) {
         const target = e.target;
-        const key = target.id;
+        const key = target.id || target.name;
         const value = target.checked ?? target.value;
         this._updateConfig({
             ...this.config,

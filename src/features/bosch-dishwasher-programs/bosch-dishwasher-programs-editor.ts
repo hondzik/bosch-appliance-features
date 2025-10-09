@@ -14,44 +14,28 @@ export class BoschDishwasherProgramsEditor extends LitElement {
     }
 
     render(): TemplateResult {
+        return html`
+            <div class="settings">
+                ${this.getBoolHaSettingsRow("icons_with_text", false)}
+                ${this.getBoolHaSettingsRow("show_machine_care", true)}
+            </div>
+        `;
+    }
+
+    private getBoolHaSettingsRow(key: string, defaultVal: boolean): TemplateResult {
         const customLocalize = setupCustomLocalize(this.hass);
         return html`
             <ha-settings-row>
-                <span slot="heading" data-for="icons_with_text">
-                    ${customLocalize("dishwasher.programs.editor.icons_with_text.title")}
-                </span>
-                <span slot="description" data-for="icons_with_text">
-                    ${customLocalize("dishwasher.programs.editor.icons_with_text.description")}
-                    
-                </span>
-                <ha-switch
-                    id="icons_with_text" 
-                    @change=${this._onSettingChange}
-                    .checked=${this.getBoolConfigVal("icons_with_text", false)} 
-                    name="icons_with_text"
-                ></ha-switch>
-            </ha-settings-row>
-
-            <ha-settings-row>
-                <span slot="heading" data-for="show_machine_care">
-                    ${customLocalize("dishwasher.programs.editor.show_machine_care.title")}
-                </span>
-                <span slot="description" data-for="show_machine_care">
-                    ${customLocalize("dishwasher.programs.editor.show_machine_care.description")}
-                </span>
-                <ha-switch
-                    id="show_machine_care" 
-                    @change=${this._onSettingChange}
-                    .checked=${this.getBoolConfigVal("show_machine_care", true)} 
-                    name="show_machine_care"
-                ></ha-switch>
+                <div slot="heading" data-for="${key}">${customLocalize(`dishwasher.programs.editor.${key}.title`)}</div>
+                <div slot="description" data-for="${key}">${customLocalize(`dishwasher.programs.editor.${key}.description`)}</div>
+                <ha-switch id="${key}" name="${key}" @change=${this._onSettingChange} .checked=${this.getBoolConfigVal(key, defaultVal)} />
             </ha-settings-row>
         `;
     }
 
     private _onSettingChange(e: Event) {
         const target = e.target as HTMLInputElement;
-        const key = target.id;
+        const key = target.id || target.name;
         const value = target.checked ?? target.value;
 
         this._updateConfig({ ...this.config, [key]: value});
