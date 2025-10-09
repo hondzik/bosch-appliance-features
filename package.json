@@ -16,7 +16,7 @@
     "dishwasher",
     "oven"
   ],
-  "version": "0.0.40",
+  "version": "0.0.41",
   "source": "./src/bosch-appliance-features.ts",
   "module": "./dist/bosch-appliance-features.js",
   "targets": {
