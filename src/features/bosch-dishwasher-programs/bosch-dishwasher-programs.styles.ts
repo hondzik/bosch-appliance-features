@@ -1,6 +1,36 @@
 import { css } from "lit";
 
 export const BoschDishwasherProgramsFeatureStyles = css`
+    :host {
+        height: var(--feature-height, 40px);
+        width: 100%;
+        border-radius: var(--feature-border-radius, 12px);
+        padding: 0px;
+        outline: 0px;
+        overflow: hidden;
+        font-size: inherit;
+        color: inherit;
+        background: var(--disabled-color);
+    }
+
+    ha-control-button-group {
+        flex-flow: column;
+        place-content: center space-evenly;
+        align-items: center;
+        position: relative;
+        height: var(--feature-height, 40px);
+        width: 100%;
+        border: none;
+        border-radius: var(--feature-border-radius, 12px);
+        padding: 0px;
+        outline: 0px;
+        overflow: hidden;
+        font-size: inherit;
+        color: inherit;
+        flex-basis: 100%;
+        --mdc-theme-primary: var(--primary-color);
+    }
+
     .switches {
         display: flex;
         flex-wrap: wrap;

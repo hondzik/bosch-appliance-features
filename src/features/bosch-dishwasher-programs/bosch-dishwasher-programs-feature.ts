@@ -59,6 +59,9 @@ class BoschDishwasherProgramsFeature extends LitElement {
         } else {
             this.stateObj = undefined;
         }
+
+        this.classList.toggle("buttons", this.config.show_as_button_bar === true);
+        this.classList.toggle("icons", this.config.show_as_button_bar !== true);
     }
 
 
@@ -99,10 +102,10 @@ class BoschDishwasherProgramsFeature extends LitElement {
         const filteredPrograms = BoschDishwasherProgramsFeature.programs.filter(
             p => this.getBoolConfigVal("show_"+p.name.toLowerCase().replace(/-/g, "_"), true)
         );
-
+     
         return this.config.show_as_button_bar === true 
-            ? html`<div class="programs-list">${filteredPrograms.map(p => this.getHaControlButton(p))}</div>`
-            : html`<div class="switches">${filteredPrograms.map(p => this.getHaIconButton(p))}</div>`;
+            ? html`<ha-control-button-group direction="row" .value=${this.selectedProgram}>${filteredPrograms.map(p => this.getHaControlButton(p))}</<ha-control-button-group>`
+            : html`<div>${filteredPrograms.map(p => this.getHaIconButton(p))}</div>`;
     }
 
 
@@ -144,7 +147,6 @@ class BoschDishwasherProgramsFeature extends LitElement {
         return html`
             <ha-control-button .value=${program.program} ?active=${isActive} @click=${() => this.setProgram(program.program)}>
                 <div class="icon-wrapper${isActive ? " active" : ""}">${until(svg, html`<span>⏳</span>`)}</div>
-                <span class="label">${program.name}</span>
             </ha-control-button>
         `;
     }
