@@ -184,12 +184,14 @@ class BoschDishwasherProgramsFeature extends LitElement {
             const entityId = `${entity.type}.${this.config.entity_prefix}_${entity.suffix}`;
             return this.hass?.states?.[entityId];   
         } 
+        console.error(`Entity for ${name} not found (prefix: ${this.config?.entity_prefix})`);  
         return undefined;  
     }
 
 
     private get selectedProgram(): string | null {
         if (this.getLinkedEntity("selected_program")) {
+            console.log("Selected program:", this.getLinkedEntity("selected_program")?.state);
             return this.getLinkedEntity("selected_program")?.state || null;
         }
         return null;
@@ -198,6 +200,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
     private set selectedProgram(value: string) {
         const entity = this.getLinkedEntity("selected_program");
         if (entity && this.hass) {
+            console.log("Setting selected program to", value);
             this.hass.callService("select", "select_option", { entity_id: entity.entity_id, option: value });
         }
     }
