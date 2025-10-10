@@ -17,3 +17,8 @@ type BoschDishwasherProgram = {
     icon: string;
     program: string;
 }
+
+type BoschEntities = {
+    type: string;
+    suffix: string;
+}

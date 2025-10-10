@@ -43,6 +43,35 @@ class BoschDishwasherProgramsFeature extends LitElement {
         { name: "Silent 50°C", icon: "Silent_50", program: "Dishcare.Dishwasher.Program.NightWash" },
         { name: "Machine Care", icon: "MachineCare", program: "Dishcare.Dishwasher.Program.MachineCare" }
     ];
+
+    static entities: Map<string, BoschEntities> = new Map([
+        ["remaining_program_time_is_estimated", { type: "binary_sensor", suffix: "bsh_common_option_remainingprogramtimeisestimated" }],
+        ["door_state", { type: "binary_sensor", suffix: "bsh_common_status_doorstate" }],
+        ["remote_control_active", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolactive" }],
+        ["remote_control_start_allowed", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolstartallowed" }],
+        ["connected", { type: "binary_sensor", suffix: "connected" }],
+
+        ["start_pause", { type: "button", suffix: "start_pause" }],
+        ["stop", { type: "button", suffix: "stop" }],
+
+        ["start_in_relative", { type: "select", suffix: "bsh_common_option_startinrelative" }],
+        ["programs", { type: "select", suffix: "programs" }],
+
+        ["active_program", { type: "sensor", suffix: "active_program" }],
+        ["base_program", { type: "sensor", suffix: "bsh_common_option_baseprogram" }],
+        ["program_name", { type: "sensor", suffix: "bsh_common_option_programname" }],
+        ["program_progress", { type: "sensor", suffix: "bsh_common_option_programprogress" }],
+        ["remaining_program_time", { type: "sensor", suffix: "bsh_common_option_remainingprogramtime" }],
+        ["operation_state", { type: "sensor", suffix: "bsh_common_status_operationstate" }],
+        ["selected_program", { type: "sensor", suffix: "selected_program" }],
+
+        ["power_state", { type: "switch", suffix: "bsh_common_setting_powerstate" }],
+        ["extra_dry", { type: "switch", suffix: "dishcare_dishwasher_option_extradry" }],
+        ["hygiene_plus", { type: "switch", suffix: "dishcare_dishwasher_option_hygieneplus" }],
+        ["intensive_zone", { type: "switch", suffix: "dishcare_dishwasher_option_intensivzone" }],
+        ["silence_on_demand", { type: "switch", suffix: "dishcare_dishwasher_option_silenceondemand" }],
+        ["vario_speed_plus", { type: "switch", suffix: "dishcare_dishwasher_option_variospeedplus" }],
+    ]);
     
     switches: HassEntities = {};
 
@@ -130,8 +159,17 @@ class BoschDishwasherProgramsFeature extends LitElement {
      * @returns TemplateResult containing a button with the program icon
      */
     private getHaControlButton(program: BoschDishwasherProgram): TemplateResult {
-        const isActive = this.isProgramActive(program);
         const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
+        /*
+        TODO: 
+        <ha-tooltip position="top" .text=${tooltipText}>
+            <ha-control-button .value=${program.program} title=${program.name} @click=${() => this.setProgram}>
+          <div slot="content">
+                <strong>${program.name}</strong><br />
+                <small>${program.description}</small>
+            </div>
+        </div>
+        */
         return html`
             <ha-control-button .value=${program.program} title=${program.name}>
                 <div class="icon-wrapper">${until(svg, html`<span>⏳</span>`)}</div>
@@ -140,18 +178,28 @@ class BoschDishwasherProgramsFeature extends LitElement {
     }
 
 
-    /**
-     * Checks if the given program is currently active (selected) on the dishwasher.
-     * @param program BoschDishwasherProgram
-     * @returns True if the given program is currently active (selected) on the dishwasher.
-     */
-    private isProgramActive(program: BoschDishwasherProgram): boolean {
-        return this.selectedProgram === program.program;
+    private getLinkedEntity(name: string): HassEntity | undefined {
+        if (BoschDishwasherProgramsFeature.entities.has(name) && this.config && this.config.entity_prefix) {
+            const entity = BoschDishwasherProgramsFeature.entities.get(name)!;
+            const entityId = `${entity.type}.${this.config.entity_prefix}_${entity.suffix}`;
+            return this.hass?.states?.[entityId];   
+        } 
+        return undefined;  
     }
 
 
     private get selectedProgram(): string | null {
-        return this.stateObj?.attributes?.selected_program || null;
+        if (this.getLinkedEntity("selected_program")) {
+            return this.getLinkedEntity("selected_program")?.state || null;
+        }
+        return null;
+    }
+
+    private set selectedProgram(value: string) {
+        const entity = this.getLinkedEntity("selected_program");
+        if (entity && this.hass) {
+            this.hass.callService("select", "select_option", { entity_id: entity.entity_id, option: value });
+        }
     }
 
 
@@ -180,7 +228,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
     
     private setProgram(e: CustomEvent<{ value: string }>) {
         console.log("Selectiong", e.detail.value);
-        // this.hass?.callService("switch", "toggle", { entity_id: entityId });
+        this.selectedProgram = e.detail.value;
     }
 
 
