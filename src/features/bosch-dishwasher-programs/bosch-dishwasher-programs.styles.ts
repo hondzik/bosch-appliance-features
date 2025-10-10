@@ -35,9 +35,9 @@ export const BoschDishwasherProgramsFeatureStyles = css`
 
 
     ha-control-button {
-        margin-left: calc(var(--feature-border-radius, 12px) /  * -0.5);
-        margin-right: calc(var(--feature-border-radius, 12px) /  * -0.5);
-        //margin: 0px calc(var(--feature-border-radius, 12px) * -0.5) 0px calc(var(--feature-border-radius, 12px) /  * -0.5);
+        margin-left: calc(var(--feature-border-radius, 12px) * -1);
+        margin-right: calc(var(--feature-border-radius, 12px) * -1);
+        //margin: 0px calc(var(--feature-border-radius, 12px) * -0.5) 0px calc(var(--feature-border-radius, 12px) * -0.5);
         border: 1px solid red;
         background-color: var(--disabled-color);
         color: var(--primary-text-color);
