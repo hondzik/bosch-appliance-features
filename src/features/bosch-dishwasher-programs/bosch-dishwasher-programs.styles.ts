@@ -14,38 +14,39 @@ export const BoschDishwasherProgramsFeatureStyles = css`
     }
 
     ha-control-button-group {
-        gap: 0;
+        gap: 0px!important;
         display: flex;
         flex-flow: column;
         place-content: center space-evenly;
         justify-content: space-evenly;
         align-items: center;
         position: relative;
-        height: var(--feature-height, 42px);
+        height: height: 100%;
         width: 100%;
         border: none;
         border-radius: var(--feature-border-radius, 12px);
         padding: 0px;
+        margin: 0px;
+        outline: 0px;
         overflow: hidden;
-        font-size: inherit;
-        color: inherit;
-        background-color: inherit
         flex-basis: 100%;
+        background-color: var(--card-background-color);
     }
 
 
     ha-control-button {
         margin: 0px calc(var(--feature-border-radius, 12px) / 2) 0px calc(var(--feature-border-radius, 12px) / 2);
-
+        border: 1px solid red;
         background-color: var(--card-background-color);
         color: var(--primary-text-color);
         border-radius: var(--feature-border-radius, 12px);
         height:  var(--feature-height, 42px);
-        display: flex-item;
+        display: flex;
         align-items: center;
         justify-content: center;
         transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
         z-idnex: 1;
+        flex: 1;
     }
 
     ha-control-button:hover {

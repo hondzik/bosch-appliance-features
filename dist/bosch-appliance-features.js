@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.44","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.45","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1362,38 +1362,39 @@ const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
     }
 
     ha-control-button-group {
-        gap: 0;
+        gap: 0px!important;
         display: flex;
         flex-flow: column;
         place-content: center space-evenly;
         justify-content: space-evenly;
         align-items: center;
         position: relative;
-        height: var(--feature-height, 42px);
+        height: height: 100%;
         width: 100%;
         border: none;
         border-radius: var(--feature-border-radius, 12px);
         padding: 0px;
+        margin: 0px;
+        outline: 0px;
         overflow: hidden;
-        font-size: inherit;
-        color: inherit;
-        background-color: inherit
         flex-basis: 100%;
+        background-color: var(--card-background-color);
     }
 
 
     ha-control-button {
         margin: 0px calc(var(--feature-border-radius, 12px) / 2) 0px calc(var(--feature-border-radius, 12px) / 2);
-
+        border: 1px solid red;
         background-color: var(--card-background-color);
         color: var(--primary-text-color);
         border-radius: var(--feature-border-radius, 12px);
         height:  var(--feature-height, 42px);
-        display: flex-item;
+        display: flex;
         align-items: center;
         justify-content: center;
         transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
         z-idnex: 1;
+        flex: 1;
     }
 
     ha-control-button:hover {
