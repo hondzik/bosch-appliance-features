@@ -191,13 +191,8 @@ class BoschDishwasherProgramsFeature extends LitElement {
      */
     private static async getInlineSVG(iconName: string): Promise<string> {
         if (!this.iconCache.has(iconName)) {
-            const iconPath = `/hacsfiles/bosch-appliance-features/${iconName}.svg?v=${version}`;
-            console.log("Loading icon:", iconPath);
-            const res = await fetch(iconPath);
-            const svgText = (await res.text())
-                .replace(/(["'\s:])#000000(["'\s;>])/gi, '$1currentColor$2')
-                .replace(/(["'\s:])#000(["'\s;>])/gi, '$1currentColor$2')
-
+            const res = await fetch(`/hacsfiles/bosch-appliance-features/${iconName}.svg?v=${version}`);
+            const svgText = (await res.text()).replace(/#000000|#000/g, 'currentColor')
             this.iconCache.set(iconName, svgText);
         }
         return this.iconCache.get(iconName)!;
