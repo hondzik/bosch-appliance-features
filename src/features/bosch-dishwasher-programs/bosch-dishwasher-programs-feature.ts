@@ -104,7 +104,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
         );
      
         return this.config.show_as_button_bar === true 
-            ? html`<ha-control-button-group direction="row" .value=${this.selectedProgram}>${filteredPrograms.map(p => this.getHaControlButton(p))}</<ha-control-button-group>`
+            ? html`<ha-control-button-group direction="row" .value=${this.selectedProgram} @value-changed=${this.setProgram}>${filteredPrograms.map(p => this.getHaControlButton(p))}</<ha-control-button-group>`
             : html`<div>${filteredPrograms.map(p => this.getHaIconButton(p))}</div>`;
     }
 
@@ -117,7 +117,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
     private getHaIconButton(program: BoschDishwasherProgram): TemplateResult {
         const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
         return html`
-            <ha-icon-button .label=${program.name} title=${program.name} @click=${() => this.setProgram(program.program)}>
+            <ha-icon-button .label=${program.name} title=${program.name} .value=${program.program} @click=${() => this.setProgram}>
                 ${until(svg, html`<span>⏳</span>`)}
             </ha-icon-button>
         `;
@@ -133,7 +133,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
         const isActive = this.isProgramActive(program);
         const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
         return html`
-            <ha-control-button .value=${program.program} ?active=${isActive} title=${program.name} @click=${() => this.setProgram(program.program)}>
+            <ha-control-button .value=${program.program} title=${program.name}>
                 <div class="icon-wrapper">${until(svg, html`<span>⏳</span>`)}</div>
             </ha-control-button>
         `;
@@ -178,8 +178,8 @@ class BoschDishwasherProgramsFeature extends LitElement {
     }
 
     
-    private setProgram(programName: string) {
-        console.log("Selectiong", programName);
+    private setProgram(e: CustomEvent<{ value: string }>) {
+        console.log("Selectiong", e.detail.value);
         // this.hass?.callService("switch", "toggle", { entity_id: entityId });
     }
 

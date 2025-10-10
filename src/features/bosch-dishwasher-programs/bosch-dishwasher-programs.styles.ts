@@ -41,21 +41,19 @@ export const BoschDishwasherProgramsFeatureStyles = css`
         color: var(--primary-text-color);
         border-radius: var(--feature-border-radius, 12px);
         height:  var(--feature-height, 42px);
-        display: flex;
+        display: flex-item;
         align-items: center;
         justify-content: center;
         transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
         z-idnex: 1;
     }
 
-    /* Hover efekt — světlejší pozadí než aktivní */
     ha-control-button:hover {
         background-color: rgba(var(--rgb-primary-color), 0.1);
         color: var(--primary-color);
         z-index: 2;
     }
 
-    /* Aktivní tlačítko — barvy jako aktivní tile */
     ha-control-button[active],
     ha-control-button[active]:hover {
         background-color: rgba(var(--rgb-primary-color), 0.2);

@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.43","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.44","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1389,21 +1389,19 @@ const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
         color: var(--primary-text-color);
         border-radius: var(--feature-border-radius, 12px);
         height:  var(--feature-height, 42px);
-        display: flex;
+        display: flex-item;
         align-items: center;
         justify-content: center;
         transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
         z-idnex: 1;
     }
 
-    /* Hover efekt — světlejší pozadí než aktivní */
     ha-control-button:hover {
         background-color: rgba(var(--rgb-primary-color), 0.1);
         color: var(--primary-color);
         z-index: 2;
     }
 
-    /* Aktivní tlačítko — barvy jako aktivní tile */
     ha-control-button[active],
     ha-control-button[active]:hover {
         background-color: rgba(var(--rgb-primary-color), 0.2);
@@ -1971,7 +1969,7 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
         // if key is missing, default to true (show the program)
         // keys are derived from program names by lowercasing and replacing spaces and special chars with underscores
         const filteredPrograms = $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.programs.filter((p)=>this.getBoolConfigVal("show_" + p.name.toLowerCase().replace(/-/g, "_"), true));
-        return this.config.show_as_button_bar === true ? (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<ha-control-button-group direction="row" .value=${this.selectedProgram}>${filteredPrograms.map((p)=>this.getHaControlButton(p))}</<ha-control-button-group>` : (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div>${filteredPrograms.map((p)=>this.getHaIconButton(p))}</div>`;
+        return this.config.show_as_button_bar === true ? (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<ha-control-button-group direction="row" .value=${this.selectedProgram} @value-changed=${this.setProgram}>${filteredPrograms.map((p)=>this.getHaControlButton(p))}</<ha-control-button-group>` : (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div>${filteredPrograms.map((p)=>this.getHaIconButton(p))}</div>`;
     }
     /**
      * Renders a ha-icon-button for the given program.
@@ -1980,7 +1978,7 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
      */ getHaIconButton(program) {
         const svg = this.getIconForProgram(program).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
-            <ha-icon-button .label=${program.name} title=${program.name} @click=${()=>this.setProgram(program.program)}>
+            <ha-icon-button .label=${program.name} title=${program.name} .value=${program.program} @click=${()=>this.setProgram}>
                 ${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<span>⏳</span>`)}
             </ha-icon-button>
         `;
@@ -1993,7 +1991,7 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
         const isActive = this.isProgramActive(program);
         const svg = this.getIconForProgram(program).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
-            <ha-control-button .value=${program.program} ?active=${isActive} title=${program.name} @click=${()=>this.setProgram(program.program)}>
+            <ha-control-button .value=${program.program} title=${program.name}>
                 <div class="icon-wrapper">${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<span>⏳</span>`)}</div>
             </ha-control-button>
         `;
@@ -2025,8 +2023,8 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
      */ getBoolConfigVal(key, defaultValue) {
         return this.config && this.config[key] !== undefined ? !!this.config[key] : defaultValue;
     }
-    setProgram(programName) {
-        console.log("Selectiong", programName);
+    setProgram(e) {
+        console.log("Selectiong", e.detail.value);
     // this.hass?.callService("switch", "toggle", { entity_id: entityId });
     }
     /**
