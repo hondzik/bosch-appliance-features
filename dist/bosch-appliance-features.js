@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.42","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.43","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1362,7 +1362,7 @@ const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
     }
 
     ha-control-button-group {
-        gap: 0.5rem;
+        gap: 0;
         display: flex;
         flex-flow: column;
         place-content: center space-evenly;
@@ -1382,49 +1382,49 @@ const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
     }
 
 
-  ha-control-button {
-    background-color: var(--card-background-color);
-    color: var(--primary-text-color);
-    border-radius: var(--feature-border-radius, 12px);
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
-  }
+    ha-control-button {
+        margin: 0px calc(var(--feature-border-radius, 12px) / 2) 0px calc(var(--feature-border-radius, 12px) / 2);
 
-  /* Aktivní tlačítko — barvy jako aktivní tile */
-  ha-control-button[active] {
-    background-color: rgba(var(--rgb-primary-color), 0.2);
-    color: var(--primary-color);
-  }
+        background-color: var(--card-background-color);
+        color: var(--primary-text-color);
+        border-radius: var(--feature-border-radius, 12px);
+        height:  var(--feature-height, 42px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+        z-idnex: 1;
+    }
 
-  /* Hover efekt — světlejší pozadí než aktivní */
-  ha-control-button:hover {
-    background-color: rgba(var(--rgb-primary-color), 0.15);
-    color: var(--primary-color);
-  }
+    /* Hover efekt — světlejší pozadí než aktivní */
+    ha-control-button:hover {
+        background-color: rgba(var(--rgb-primary-color), 0.1);
+        color: var(--primary-color);
+        z-index: 2;
+    }
 
-  /* Hover na aktivním tlačítku — ještě světlejší */
-  ha-control-button[active]:hover {
-    background-color: rgba(var(--rgb-primary-color), 0.3);
-  }
+    /* Aktivní tlačítko — barvy jako aktivní tile */
+    ha-control-button[active],
+    ha-control-button[active]:hover {
+        background-color: rgba(var(--rgb-primary-color), 0.2);
+        color: var(--primary-color);
+        z-index: 3;
+    }
 
-  .icon-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-  }
+    .icon-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+    }
 
-  svg {
-    width: 100%;
-    height: 100%;
-    stroke: currentColor;
-    fill: currentColor;
-  }
+    svg {
+        width: 100%;
+        height: 100%;
+        stroke: currentColor;
+        fill: currentColor;
+    }
 
 
  
@@ -1480,53 +1480,6 @@ const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
         background: var(--primary-color);
         color: white;
     }
-
-
-  .program-bar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    padding: 8px;
-  }
-
-  .program-bar .program-btn {
-    width: 72px;
-    height: 72px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .program-bar .program-btn:hover {
-    filter: brightness(0.95);
-  }
-
-  .program-bar .program-btn.active {
-    background: var(--primary-color);
-    color: white;
-  }
-
-  .program-bar .program-btn svg {
-    width: 28px;
-    height: 28px;
-    stroke: currentColor;
-    fill: none;
-  }
-
-  .label {
-    font-size: 11px;
-    text-align: center;
-    margin-top: 4px;
-    line-height: 1.2;
-  }
 `;
 const $d9ed75644065a944$var$CommonEditorStyles = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)`
     .settings {

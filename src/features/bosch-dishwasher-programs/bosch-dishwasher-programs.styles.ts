@@ -14,7 +14,7 @@ export const BoschDishwasherProgramsFeatureStyles = css`
     }
 
     ha-control-button-group {
-        gap: 0.5rem;
+        gap: 0;
         display: flex;
         flex-flow: column;
         place-content: center space-evenly;
@@ -34,49 +34,49 @@ export const BoschDishwasherProgramsFeatureStyles = css`
     }
 
 
-  ha-control-button {
-    background-color: var(--card-background-color);
-    color: var(--primary-text-color);
-    border-radius: var(--feature-border-radius, 12px);
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
-  }
+    ha-control-button {
+        margin: 0px calc(var(--feature-border-radius, 12px) / 2) 0px calc(var(--feature-border-radius, 12px) / 2);
 
-  /* Aktivní tlačítko — barvy jako aktivní tile */
-  ha-control-button[active] {
-    background-color: rgba(var(--rgb-primary-color), 0.2);
-    color: var(--primary-color);
-  }
+        background-color: var(--card-background-color);
+        color: var(--primary-text-color);
+        border-radius: var(--feature-border-radius, 12px);
+        height:  var(--feature-height, 42px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+        z-idnex: 1;
+    }
 
-  /* Hover efekt — světlejší pozadí než aktivní */
-  ha-control-button:hover {
-    background-color: rgba(var(--rgb-primary-color), 0.15);
-    color: var(--primary-color);
-  }
+    /* Hover efekt — světlejší pozadí než aktivní */
+    ha-control-button:hover {
+        background-color: rgba(var(--rgb-primary-color), 0.1);
+        color: var(--primary-color);
+        z-index: 2;
+    }
 
-  /* Hover na aktivním tlačítku — ještě světlejší */
-  ha-control-button[active]:hover {
-    background-color: rgba(var(--rgb-primary-color), 0.3);
-  }
+    /* Aktivní tlačítko — barvy jako aktivní tile */
+    ha-control-button[active],
+    ha-control-button[active]:hover {
+        background-color: rgba(var(--rgb-primary-color), 0.2);
+        color: var(--primary-color);
+        z-index: 3;
+    }
 
-  .icon-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-  }
+    .icon-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+    }
 
-  svg {
-    width: 100%;
-    height: 100%;
-    stroke: currentColor;
-    fill: currentColor;
-  }
+    svg {
+        width: 100%;
+        height: 100%;
+        stroke: currentColor;
+        fill: currentColor;
+    }
 
 
  
@@ -132,53 +132,6 @@ export const BoschDishwasherProgramsFeatureStyles = css`
         background: var(--primary-color);
         color: white;
     }
-
-
-  .program-bar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    padding: 8px;
-  }
-
-  .program-bar .program-btn {
-    width: 72px;
-    height: 72px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .program-bar .program-btn:hover {
-    filter: brightness(0.95);
-  }
-
-  .program-bar .program-btn.active {
-    background: var(--primary-color);
-    color: white;
-  }
-
-  .program-bar .program-btn svg {
-    width: 28px;
-    height: 28px;
-    stroke: currentColor;
-    fill: none;
-  }
-
-  .label {
-    font-size: 11px;
-    text-align: center;
-    margin-top: 4px;
-    line-height: 1.2;
-  }
 `;
 
 
