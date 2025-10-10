@@ -127,26 +127,14 @@ class BoschDishwasherProgramsFeature extends LitElement {
     /**
      * Renders a button for the given program.
      * @param program BoschDishwasherProgram
-     * @returns TemplateResult containing a button with the program icon and name.
-     * @obsolete Use getHaControlButton() instead (for consistency with other features).
+     * @returns TemplateResult containing a button with the program icon
      */
-    private renderProgramButton(program: BoschDishwasherProgram): TemplateResult {
-        const isActive = this.isProgramActive(program);
-        const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
-        return html`
-            <button class="program-btn ${isActive ? "active" : ""}" title=${program.name} @click=${() => this.setProgram(program.program)}>
-                ${until(svg, html`<span>⏳</span>`)}
-            </button>
-        `;
-    }
-
-
     private getHaControlButton(program: BoschDishwasherProgram): TemplateResult {
         const isActive = this.isProgramActive(program);
         const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
         return html`
-            <ha-control-button .value=${program.program} ?active=${isActive} @click=${() => this.setProgram(program.program)}>
-                <div class="icon-wrapper${isActive ? " active" : ""}">${until(svg, html`<span>⏳</span>`)}</div>
+            <ha-control-button .value=${program.program} ?active=${isActive} title=${program.name} @click=${() => this.setProgram(program.program)}>
+                <div class="icon-wrapper">${until(svg, html`<span>⏳</span>`)}</div>
             </ha-control-button>
         `;
     }

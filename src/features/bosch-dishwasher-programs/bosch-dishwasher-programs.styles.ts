@@ -2,7 +2,7 @@ import { css } from "lit";
 
 export const BoschDishwasherProgramsFeatureStyles = css`
     :host {
-        height: var(--feature-height, 40px);
+        height: var(--feature-height, 42px);
         width: 100%;
         border-radius: var(--feature-border-radius, 12px);
         padding: 0px;
@@ -10,27 +10,76 @@ export const BoschDishwasherProgramsFeatureStyles = css`
         overflow: hidden;
         font-size: inherit;
         color: inherit;
-        background: var(--disabled-color);
+        background-color: var(--disabled-color);
     }
 
     ha-control-button-group {
+        gap: 0.5rem;
+        display: flex;
         flex-flow: column;
         place-content: center space-evenly;
+        justify-content: space-evenly;
         align-items: center;
         position: relative;
-        height: var(--feature-height, 40px);
+        height: var(--feature-height, 42px);
         width: 100%;
         border: none;
         border-radius: var(--feature-border-radius, 12px);
         padding: 0px;
-        outline: 0px;
         overflow: hidden;
         font-size: inherit;
         color: inherit;
+        background-color: inherit
         flex-basis: 100%;
-        --mdc-theme-primary: var(--primary-color);
     }
 
+
+  ha-control-button {
+    background-color: var(--card-background-color);
+    color: var(--primary-text-color);
+    border-radius: var(--feature-border-radius, 12px);
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  /* Aktivní tlačítko — barvy jako aktivní tile */
+  ha-control-button[active] {
+    background-color: rgba(var(--rgb-primary-color), 0.2);
+    color: var(--primary-color);
+  }
+
+  /* Hover efekt — světlejší pozadí než aktivní */
+  ha-control-button:hover {
+    background-color: rgba(var(--rgb-primary-color), 0.15);
+    color: var(--primary-color);
+  }
+
+  /* Hover na aktivním tlačítku — ještě světlejší */
+  ha-control-button[active]:hover {
+    background-color: rgba(var(--rgb-primary-color), 0.3);
+  }
+
+  .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    fill: currentColor;
+  }
+
+
+ 
     .switches {
         display: flex;
         flex-wrap: wrap;
@@ -52,7 +101,8 @@ export const BoschDishwasherProgramsFeatureStyles = css`
         color: var(--primary-color);
     }
 
-    ha-icon-button svg {
+    ha-icon-button 
+    svg {
         width: 100%;
         height: 100%;
         stroke: currentColor;

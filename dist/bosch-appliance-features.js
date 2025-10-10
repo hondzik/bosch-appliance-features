@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.41","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.42","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1350,7 +1350,7 @@ function $fc6586cfa4ad7136$export$dcd0d083aa86c355(r) {
 
 const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)`
     :host {
-        height: var(--feature-height, 40px);
+        height: var(--feature-height, 42px);
         width: 100%;
         border-radius: var(--feature-border-radius, 12px);
         padding: 0px;
@@ -1358,27 +1358,76 @@ const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
         overflow: hidden;
         font-size: inherit;
         color: inherit;
-        background: var(--disabled-color);
+        background-color: var(--disabled-color);
     }
 
     ha-control-button-group {
+        gap: 0.5rem;
+        display: flex;
         flex-flow: column;
         place-content: center space-evenly;
+        justify-content: space-evenly;
         align-items: center;
         position: relative;
-        height: var(--feature-height, 40px);
+        height: var(--feature-height, 42px);
         width: 100%;
         border: none;
         border-radius: var(--feature-border-radius, 12px);
         padding: 0px;
-        outline: 0px;
         overflow: hidden;
         font-size: inherit;
         color: inherit;
+        background-color: inherit
         flex-basis: 100%;
-        --mdc-theme-primary: var(--primary-color);
     }
 
+
+  ha-control-button {
+    background-color: var(--card-background-color);
+    color: var(--primary-text-color);
+    border-radius: var(--feature-border-radius, 12px);
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  /* Aktivní tlačítko — barvy jako aktivní tile */
+  ha-control-button[active] {
+    background-color: rgba(var(--rgb-primary-color), 0.2);
+    color: var(--primary-color);
+  }
+
+  /* Hover efekt — světlejší pozadí než aktivní */
+  ha-control-button:hover {
+    background-color: rgba(var(--rgb-primary-color), 0.15);
+    color: var(--primary-color);
+  }
+
+  /* Hover na aktivním tlačítku — ještě světlejší */
+  ha-control-button[active]:hover {
+    background-color: rgba(var(--rgb-primary-color), 0.3);
+  }
+
+  .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    fill: currentColor;
+  }
+
+
+ 
     .switches {
         display: flex;
         flex-wrap: wrap;
@@ -1400,7 +1449,8 @@ const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
         color: var(--primary-color);
     }
 
-    ha-icon-button svg {
+    ha-icon-button 
+    svg {
         width: 100%;
         height: 100%;
         stroke: currentColor;
@@ -1985,23 +2035,13 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
     /**
      * Renders a button for the given program.
      * @param program BoschDishwasherProgram
-     * @returns TemplateResult containing a button with the program icon and name.
-     * @obsolete Use getHaControlButton() instead (for consistency with other features).
-     */ renderProgramButton(program) {
+     * @returns TemplateResult containing a button with the program icon
+     */ getHaControlButton(program) {
         const isActive = this.isProgramActive(program);
         const svg = this.getIconForProgram(program).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
-            <button class="program-btn ${isActive ? "active" : ""}" title=${program.name} @click=${()=>this.setProgram(program.program)}>
-                ${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<span>⏳</span>`)}
-            </button>
-        `;
-    }
-    getHaControlButton(program) {
-        const isActive = this.isProgramActive(program);
-        const svg = this.getIconForProgram(program).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
-        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
-            <ha-control-button .value=${program.program} ?active=${isActive} @click=${()=>this.setProgram(program.program)}>
-                <div class="icon-wrapper${isActive ? " active" : ""}">${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<span>⏳</span>`)}</div>
+            <ha-control-button .value=${program.program} ?active=${isActive} title=${program.name} @click=${()=>this.setProgram(program.program)}>
+                <div class="icon-wrapper">${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<span>⏳</span>`)}</div>
             </ha-control-button>
         `;
     }
