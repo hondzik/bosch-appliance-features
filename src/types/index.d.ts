@@ -20,4 +20,10 @@ declare global {
         name: string;
         description: string;
     }
+
+    interface TileWithConfig extends HTMLElement {
+        config?: { 
+            entity?: string 
+        };
+    }    
 }

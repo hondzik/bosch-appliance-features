@@ -91,18 +91,24 @@ class BoschDishwasherProgramsFeature extends LitElement {
 
     private setStateAndPrefix() {
         console.log("setStateAndPrefix:"); 
-        if (this.config && this.config.entity) {
-            const entity = this.config.entity;
+        if (this.config) {
+            const entity = this.config?.entity || this.getParentEntity();
             console.log("Setting stateObj for", entity);
+            this.stateObj = this._hass?.states?.[entity];
             // If entity_prefix is not set, derive it from the entity ID    
             if (this.config.entity_prefix === undefined) {
                 this.config.entity_prefix = entity.split(".")[1].split("_").slice(0, 2).join("_");
             }
-            this.stateObj = this._hass?.states?.[entity];
         } else {
             this.stateObj = undefined;
         }
     }
+
+    private getParentEntity(): string | undefined {
+        const tile = this.closest("hui-tile-card") as TileWithConfig | null;// || this.closest("ha-tile");
+        const entityId = tile?.config?.entity;
+        return entityId;
+    }    
 
 
 
