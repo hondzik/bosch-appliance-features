@@ -73,45 +73,37 @@ class BoschDishwasherProgramsFeature extends LitElement {
         ["vario_speed_plus", { type: "switch", suffix: "dishcare_dishwasher_option_variospeedplus" }],
     ]);
     
-    switches: HassEntities = {};
-
-    
     setConfig(config: BoschDishwasherProgramsFeatureConfig) {
-        // If entity_prefix is not set, try to derive it from the entity name
-        if (config.entity_prefix === undefined && config.entity) {
-            const entityName = config.entity.split(".")[1];
-            config.entity_prefix = entityName.split("_").slice(0, -2).join("_");
-        }
+        console.log("setConfig:", config);
         this.config = config;
-        if (config && config.entity) {
-            this.stateObj = this.hass?.states?.[config.entity];
-        } else {
-            this.stateObj = undefined;
-        }
-
+        this.setStateAndPrefix();
         this.classList.toggle("buttons", this.config.show_as_button_bar === true);
         this.classList.toggle("icons", this.config.show_as_button_bar !== true);
     }
 
 
     set hass(hass: HomeAssistant | undefined) {
+        console.log("set hass:");
         this._hass = hass;
-        if (this.config && this.config.entity) {
-            this.stateObj = hass?.states?.[this.config.entity];
-            const entityPrefix = this.stateObj?.attributes?.common_prefix;
-            if (entityPrefix) {
-                this.switches = Object.values(hass?.states || {}).reduce((acc, entity) => {
-                    if (entity.entity_id.startsWith(`switch.${entityPrefix}_`)) {
-                        acc[entity.entity_id] = entity;
-                    }
-                    return acc;
-                }, {} as HassEntities);
-            } else {
-                this.switches = {};
-            }
+        this.setStateAndPrefix();
+    }
 
+
+    private setStateAndPrefix() {
+        console.log("setStateAndPrefix:"); 
+        if (this.config && this.config.entity) {
+            const entity = this.config.entity;
+            console.log("Setting stateObj for", entity);
+            // If entity_prefix is not set, derive it from the entity ID    
+            if (this.config.entity_prefix === undefined) {
+                this.config.entity_prefix = entity.split(".")[1].split("_").slice(0, 2).join("_");
+            }
+            this.stateObj = this._hass?.states?.[entity];
+        } else {
+            this.stateObj = undefined;
         }
     }
+
 
 
     get hass(): HomeAssistant | undefined {
