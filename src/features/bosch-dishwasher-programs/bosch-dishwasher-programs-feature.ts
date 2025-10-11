@@ -73,7 +73,7 @@ class BoschDishwasherProgramsFeature extends LitElement {
         ["vario_speed_plus", { type: "switch", suffix: "dishcare_dishwasher_option_variospeedplus" }],
     ]);
     
-    setConfig(config: BoschDishwasherProgramsFeatureConfig) {
+    setConfig(config: any) {
         console.log("setConfig:", config);
         this.config = config;
         this.setStateAndPrefix();
