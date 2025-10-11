@@ -28,7 +28,7 @@ const supportsBoschDishwasherProgramsFeature = (stateObj: HassEntity): boolean =
 @customElement("bosch-dishwasher-programs-feature")
 class BoschDishwasherProgramsFeature extends LitElement {
     @state() _hass?: HomeAssistant;
-    @property({ attribute: false }) config?: BoschDishwasherProgramsFeatureConfig;
+    @property({ attribute: false }) config?: any; //BoschDishwasherProgramsFeatureConfig;
     @property({ attribute: false }) stateObj?: HassEntity;
 
     static iconCache = new Map<string, string>();
@@ -104,10 +104,10 @@ class BoschDishwasherProgramsFeature extends LitElement {
         }
     }
 
+
     private getParentEntity(): string | undefined {
         const tile = this.closest("hui-tile-card") as TileWithConfig | null;// || this.closest("ha-tile");
-        const entityId = tile?.config?.entity;
-        return entityId;
+        return tile?.config?.entity;
     }    
 
 
