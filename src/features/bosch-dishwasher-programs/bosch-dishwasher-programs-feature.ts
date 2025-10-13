@@ -99,7 +99,8 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
 
 
     private setPrefix() {
-        console.log("setPrefix:"); 
+        console.log("setPrefix:");
+        console.log(this.context);
         if (this._config) {
             const entity = this.context?.entity_id
             console.log("Setting prefix for entity: ", entity);
@@ -217,7 +218,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
      * @returns Boolean value of the config key, or defaultValue if not set
      */
     private getBoolConfigVal(key: string, defaultValue: boolean): boolean  {
-        return this._config && this._config[key] !== undefined 
+        return (this._config && this._config[key] !== undefined )
             ? !!this._config[key] 
             : defaultValue;
     }

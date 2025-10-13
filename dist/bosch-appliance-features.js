@@ -1,44 +1,7 @@
+var $db183fbae05d6b51$exports = {};
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.59","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
-function $parcel$export(e, n, v, s) {
-  Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
-}
 
-      var $parcel$global = globalThis;
-    
-var $parcel$modules = {};
-var $parcel$inits = {};
-
-var parcelRequire = $parcel$global["parcelRequireeb14"];
-
-if (parcelRequire == null) {
-  parcelRequire = function(id) {
-    if (id in $parcel$modules) {
-      return $parcel$modules[id].exports;
-    }
-    if (id in $parcel$inits) {
-      var init = $parcel$inits[id];
-      delete $parcel$inits[id];
-      var module = {id: id, exports: {}};
-      $parcel$modules[id] = module;
-      init.call(module.exports, module, module.exports);
-      return module.exports;
-    }
-    var err = new Error("Cannot find module '" + id + "'");
-    err.code = 'MODULE_NOT_FOUND';
-    throw err;
-  };
-
-  parcelRequire.register = function register(id, init) {
-    $parcel$inits[id] = init;
-  };
-
-  $parcel$global["parcelRequireeb14"] = parcelRequire;
-}
-
-var parcelRegister = parcelRequire.register;
-parcelRegister("g3RrC", function(module, exports) {
-
-$parcel$export(module.exports, "__decorate", () => $bb166217b384746d$export$29e00dfd3077644b);
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -577,93 +540,50 @@ var $bb166217b384746d$export$2e2bcd8739ae039 = {
     __rewriteRelativeImportExtension: $bb166217b384746d$export$889dfb5d17574b0b
 };
 
-});
 
-parcelRegister("egQhz", function(module, exports) {
-$parcel$export(module.exports, "customElement", () => (parcelRequire("6r2Id")).customElement);
-$parcel$export(module.exports, "property", () => (parcelRequire("b3FW2")).property);
-$parcel$export(module.exports, "state", () => (parcelRequire("1h8zx")).state);
-parcelRequire("6r2Id");
-parcelRequire("b3FW2");
-parcelRequire("1h8zx");
-parcelRequire("7FvEy");
-parcelRequire("8YwXB");
-parcelRequire("lFv4i");
-parcelRequire("fyuqn");
-parcelRequire("9E5Yw");
-parcelRequire("8xBDG");
-
-});
-parcelRegister("6r2Id", function(module, exports) {
-
-$parcel$export(module.exports, "customElement", () => $4af75e4a7ed8f584$export$da64fc29f17f9d0e);
 /**
  * @license
- * Copyright 2017 Google LLC
+ * Copyright 2019 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */ const $4af75e4a7ed8f584$export$da64fc29f17f9d0e = (t)=>(e, o)=>{
-        void 0 !== o ? o.addInitializer(()=>{
-            customElements.define(t, e);
-        }) : customElements.define(t, e);
-    };
-
-});
-
-parcelRegister("b3FW2", function(module, exports) {
-
-$parcel$export(module.exports, "property", () => $80d080f0d3adcf1c$export$d541bacb2bda4494);
-
-var $4KF1D = parcelRequire("4KF1D");
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */ const $80d080f0d3adcf1c$var$o = {
-    attribute: !0,
-    type: String,
-    converter: (0, $4KF1D.defaultConverter),
-    reflect: !1,
-    hasChanged: (0, $4KF1D.notEqual)
-}, $80d080f0d3adcf1c$export$8d623b1670eb40f4 = (t = $80d080f0d3adcf1c$var$o, e, r)=>{
-    const { kind: n, metadata: i } = r;
-    let s = globalThis.litPropertyMetadata.get(i);
-    if (void 0 === s && globalThis.litPropertyMetadata.set(i, s = new Map), "setter" === n && ((t = Object.create(t)).wrapped = !0), s.set(r.name, t), "accessor" === n) {
-        const { name: o } = r;
-        return {
-            set (r) {
-                const n = e.get.call(this);
-                e.set.call(this, r), this.requestUpdate(o, n, t);
-            },
-            init (e) {
-                return void 0 !== e && this.C(o, void 0, t, e), e;
-            }
-        };
+ */ const $06bdd16cbb4a41b3$var$t = globalThis, $06bdd16cbb4a41b3$export$b4d10f6001c083c2 = $06bdd16cbb4a41b3$var$t.ShadowRoot && (void 0 === $06bdd16cbb4a41b3$var$t.ShadyCSS || $06bdd16cbb4a41b3$var$t.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, $06bdd16cbb4a41b3$var$s = Symbol(), $06bdd16cbb4a41b3$var$o = new WeakMap;
+class $06bdd16cbb4a41b3$export$505d1e8739bad805 {
+    constructor(t, e, o){
+        if (this._$cssResult$ = !0, o !== $06bdd16cbb4a41b3$var$s) throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
+        this.cssText = t, this.t = e;
     }
-    if ("setter" === n) {
-        const { name: o } = r;
-        return function(r) {
-            const n = this[o];
-            e.call(this, r), this.requestUpdate(o, n, t);
-        };
+    get styleSheet() {
+        let t = this.o;
+        const s = this.t;
+        if ($06bdd16cbb4a41b3$export$b4d10f6001c083c2 && void 0 === t) {
+            const e = void 0 !== s && 1 === s.length;
+            e && (t = $06bdd16cbb4a41b3$var$o.get(s)), void 0 === t && ((this.o = t = new CSSStyleSheet).replaceSync(this.cssText), e && $06bdd16cbb4a41b3$var$o.set(s, t));
+        }
+        return t;
     }
-    throw Error("Unsupported decorator location: " + n);
-};
-function $80d080f0d3adcf1c$export$d541bacb2bda4494(t) {
-    return (e, o)=>"object" == typeof o ? $80d080f0d3adcf1c$export$8d623b1670eb40f4(t, e, o) : ((t, e, o)=>{
-            const r = e.hasOwnProperty(o);
-            return e.constructor.createProperty(o, t), r ? Object.getOwnPropertyDescriptor(e, o) : void 0;
-        })(t, e, o);
+    toString() {
+        return this.cssText;
+    }
 }
+const $06bdd16cbb4a41b3$export$8d80f9cac07cdb3 = (t)=>new $06bdd16cbb4a41b3$export$505d1e8739bad805("string" == typeof t ? t : t + "", void 0, $06bdd16cbb4a41b3$var$s), $06bdd16cbb4a41b3$export$dbf350e5966cf602 = (t, ...e)=>{
+    const o = 1 === t.length ? t[0] : e.reduce((e, s, o)=>e + ((t)=>{
+            if (!0 === t._$cssResult$) return t.cssText;
+            if ("number" == typeof t) return t;
+            throw Error("Value passed to 'css' function must be a 'css' function result: " + t + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
+        })(s) + t[o + 1], t[0]);
+    return new $06bdd16cbb4a41b3$export$505d1e8739bad805(o, t, $06bdd16cbb4a41b3$var$s);
+}, $06bdd16cbb4a41b3$export$2ca4a66ec4cecb90 = (s, o)=>{
+    if ($06bdd16cbb4a41b3$export$b4d10f6001c083c2) s.adoptedStyleSheets = o.map((t)=>t instanceof CSSStyleSheet ? t : t.styleSheet);
+    else for (const e of o){
+        const o = document.createElement("style"), n = $06bdd16cbb4a41b3$var$t.litNonce;
+        void 0 !== n && o.setAttribute("nonce", n), o.textContent = e.cssText, s.appendChild(o);
+    }
+}, $06bdd16cbb4a41b3$export$ee69dfd951e24778 = $06bdd16cbb4a41b3$export$b4d10f6001c083c2 ? (t)=>t : (t)=>t instanceof CSSStyleSheet ? ((t)=>{
+        let e = "";
+        for (const s of t.cssRules)e += s.cssText;
+        return $06bdd16cbb4a41b3$export$8d80f9cac07cdb3(e);
+    })(t) : t;
 
-});
-parcelRegister("4KF1D", function(module, exports) {
 
-$parcel$export(module.exports, "defaultConverter", () => $375b48187e686ca2$export$7312b35fbf521afb);
-$parcel$export(module.exports, "notEqual", () => $375b48187e686ca2$export$53a6892c50694894);
-$parcel$export(module.exports, "ReactiveElement", () => $375b48187e686ca2$export$c7c07a37856565d);
-$parcel$export(module.exports, "css", () => (parcelRequire("zSQSf")).css);
-
-var $zSQSf = parcelRequire("zSQSf");
 /**
  * @license
  * Copyright 2017 Google LLC
@@ -777,8 +697,8 @@ class $375b48187e686ca2$export$c7c07a37856565d extends HTMLElement {
         const i = [];
         if (Array.isArray(s)) {
             const e = new Set(s.flat(1 / 0).reverse());
-            for (const s of e)i.unshift((0, $zSQSf.getCompatibleStyle)(s));
-        } else void 0 !== s && i.push((0, $zSQSf.getCompatibleStyle)(s));
+            for (const s of e)i.unshift((0, $06bdd16cbb4a41b3$export$ee69dfd951e24778)(s));
+        } else void 0 !== s && i.push((0, $06bdd16cbb4a41b3$export$ee69dfd951e24778)(s));
         return i;
     }
     static _$Eu(t, s) {
@@ -804,7 +724,7 @@ class $375b48187e686ca2$export$c7c07a37856565d extends HTMLElement {
     }
     createRenderRoot() {
         const t = this.shadowRoot ?? this.attachShadow(this.constructor.shadowRootOptions);
-        return (0, $zSQSf.adoptStyles)(t, this.constructor.elementStyles), t;
+        return (0, $06bdd16cbb4a41b3$export$2ca4a66ec4cecb90)(t, this.constructor.elementStyles), t;
     }
     connectedCallback() {
         this.renderRoot ??= this.createRenderRoot(), this.enableUpdating(!0), this._$EO?.forEach((t)=>t.hostConnected?.());
@@ -908,412 +828,7 @@ $375b48187e686ca2$export$c7c07a37856565d.elementStyles = [], $375b48187e686ca2$e
     ReactiveElement: $375b48187e686ca2$export$c7c07a37856565d
 }), ($375b48187e686ca2$var$a.reactiveElementVersions ??= []).push("2.1.1");
 
-});
-parcelRegister("zSQSf", function(module, exports) {
 
-$parcel$export(module.exports, "css", () => $06bdd16cbb4a41b3$export$dbf350e5966cf602);
-$parcel$export(module.exports, "adoptStyles", () => $06bdd16cbb4a41b3$export$2ca4a66ec4cecb90);
-$parcel$export(module.exports, "getCompatibleStyle", () => $06bdd16cbb4a41b3$export$ee69dfd951e24778);
-/**
- * @license
- * Copyright 2019 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */ const $06bdd16cbb4a41b3$var$t = globalThis, $06bdd16cbb4a41b3$export$b4d10f6001c083c2 = $06bdd16cbb4a41b3$var$t.ShadowRoot && (void 0 === $06bdd16cbb4a41b3$var$t.ShadyCSS || $06bdd16cbb4a41b3$var$t.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, $06bdd16cbb4a41b3$var$s = Symbol(), $06bdd16cbb4a41b3$var$o = new WeakMap;
-class $06bdd16cbb4a41b3$export$505d1e8739bad805 {
-    constructor(t, e, o){
-        if (this._$cssResult$ = !0, o !== $06bdd16cbb4a41b3$var$s) throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
-        this.cssText = t, this.t = e;
-    }
-    get styleSheet() {
-        let t = this.o;
-        const s = this.t;
-        if ($06bdd16cbb4a41b3$export$b4d10f6001c083c2 && void 0 === t) {
-            const e = void 0 !== s && 1 === s.length;
-            e && (t = $06bdd16cbb4a41b3$var$o.get(s)), void 0 === t && ((this.o = t = new CSSStyleSheet).replaceSync(this.cssText), e && $06bdd16cbb4a41b3$var$o.set(s, t));
-        }
-        return t;
-    }
-    toString() {
-        return this.cssText;
-    }
-}
-const $06bdd16cbb4a41b3$export$8d80f9cac07cdb3 = (t)=>new $06bdd16cbb4a41b3$export$505d1e8739bad805("string" == typeof t ? t : t + "", void 0, $06bdd16cbb4a41b3$var$s), $06bdd16cbb4a41b3$export$dbf350e5966cf602 = (t, ...e)=>{
-    const o = 1 === t.length ? t[0] : e.reduce((e, s, o)=>e + ((t)=>{
-            if (!0 === t._$cssResult$) return t.cssText;
-            if ("number" == typeof t) return t;
-            throw Error("Value passed to 'css' function must be a 'css' function result: " + t + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
-        })(s) + t[o + 1], t[0]);
-    return new $06bdd16cbb4a41b3$export$505d1e8739bad805(o, t, $06bdd16cbb4a41b3$var$s);
-}, $06bdd16cbb4a41b3$export$2ca4a66ec4cecb90 = (s, o)=>{
-    if ($06bdd16cbb4a41b3$export$b4d10f6001c083c2) s.adoptedStyleSheets = o.map((t)=>t instanceof CSSStyleSheet ? t : t.styleSheet);
-    else for (const e of o){
-        const o = document.createElement("style"), n = $06bdd16cbb4a41b3$var$t.litNonce;
-        void 0 !== n && o.setAttribute("nonce", n), o.textContent = e.cssText, s.appendChild(o);
-    }
-}, $06bdd16cbb4a41b3$export$ee69dfd951e24778 = $06bdd16cbb4a41b3$export$b4d10f6001c083c2 ? (t)=>t : (t)=>t instanceof CSSStyleSheet ? ((t)=>{
-        let e = "";
-        for (const s of t.cssRules)e += s.cssText;
-        return $06bdd16cbb4a41b3$export$8d80f9cac07cdb3(e);
-    })(t) : t;
-
-});
-
-
-
-parcelRegister("1h8zx", function(module, exports) {
-
-$parcel$export(module.exports, "state", () => $0ede0742a0fa7bbd$export$ca000e230c0caa3e);
-
-var $b3FW2 = parcelRequire("b3FW2");
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */ function $0ede0742a0fa7bbd$export$ca000e230c0caa3e(r) {
-    return (0, $b3FW2.property)({
-        ...r,
-        state: !0,
-        attribute: !1
-    });
-}
-
-});
-
-parcelRegister("7FvEy", function(module, exports) {
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */ function $5954ea5dd4cf850a$export$b2b799818fbabcf3(t) {
-    return (n, o)=>{
-        const c = "function" == typeof n ? n : n[o];
-        Object.assign(c, t);
-    };
-}
-
-});
-
-parcelRegister("8YwXB", function(module, exports) {
-
-var $6T8Kb = parcelRequire("6T8Kb");
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */ function $688d7e93c42be25f$export$2fa187e846a241c4(e, r) {
-    return (n, s, i)=>{
-        const o = (t)=>t.renderRoot?.querySelector(e) ?? null;
-        if (r) {
-            const { get: e, set: r } = "object" == typeof s ? n : i ?? (()=>{
-                const t = Symbol();
-                return {
-                    get () {
-                        return this[t];
-                    },
-                    set (e) {
-                        this[t] = e;
-                    }
-                };
-            })();
-            return (0, $6T8Kb.desc)(n, s, {
-                get () {
-                    let t = e.call(this);
-                    return void 0 === t && (t = o(this), (null !== t || this.hasUpdated) && r.call(this, t)), t;
-                }
-            });
-        }
-        return (0, $6T8Kb.desc)(n, s, {
-            get () {
-                return o(this);
-            }
-        });
-    };
-}
-
-});
-parcelRegister("6T8Kb", function(module, exports) {
-
-$parcel$export(module.exports, "desc", () => $503ea9824f18064f$export$51987bb50e1f6752);
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */ const $503ea9824f18064f$export$51987bb50e1f6752 = (e, t, c)=>(c.configurable = !0, c.enumerable = !0, Reflect.decorate && "object" != typeof t && Object.defineProperty(e, t, c), c);
-
-});
-
-
-parcelRegister("lFv4i", function(module, exports) {
-
-var $6T8Kb = parcelRequire("6T8Kb");
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */ let $fc6586cfa4ad7136$var$e;
-function $fc6586cfa4ad7136$export$dcd0d083aa86c355(r) {
-    return (n, o)=>(0, $6T8Kb.desc)(n, o, {
-            get () {
-                return (this.renderRoot ?? ($fc6586cfa4ad7136$var$e ??= document.createDocumentFragment())).querySelectorAll(r);
-            }
-        });
-}
-
-});
-
-parcelRegister("fyuqn", function(module, exports) {
-
-var $6T8Kb = parcelRequire("6T8Kb");
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */ function $b531a1a0aa7c0890$export$163dfc35cc43f240(r) {
-    return (n, e)=>(0, $6T8Kb.desc)(n, e, {
-            async get () {
-                return await this.updateComplete, this.renderRoot?.querySelector(r) ?? null;
-            }
-        });
-}
-
-});
-
-parcelRegister("9E5Yw", function(module, exports) {
-
-var $6T8Kb = parcelRequire("6T8Kb");
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */ function $705c7c046c2578b3$export$4682af2d9ee91415(o) {
-    return (e, n)=>{
-        const { slot: r, selector: s } = o ?? {}, c = "slot" + (r ? `[name=${r}]` : ":not([name])");
-        return (0, $6T8Kb.desc)(e, n, {
-            get () {
-                const t = this.renderRoot?.querySelector(c), e = t?.assignedElements(o) ?? [];
-                return void 0 === s ? e : e.filter((t)=>t.matches(s));
-            }
-        });
-    };
-}
-
-});
-
-parcelRegister("8xBDG", function(module, exports) {
-
-var $6T8Kb = parcelRequire("6T8Kb");
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */ function $637e9a1da54d3961$export$1bdbe53f9df1b8(n) {
-    return (o, r)=>{
-        const { slot: e } = n ?? {}, s = "slot" + (e ? `[name=${e}]` : ":not([name])");
-        return (0, $6T8Kb.desc)(o, r, {
-            get () {
-                const t = this.renderRoot?.querySelector(s);
-                return t?.assignedNodes(n) ?? [];
-            }
-        });
-    };
-}
-
-});
-
-
-parcelRegister("eDJg6", function(module, exports) {
-
-$parcel$export(module.exports, "BoschDishwasherProgramsFeatureStyles", () => $d9ed75644065a944$export$864cc654a388aa38);
-$parcel$export(module.exports, "BoschDishwasherProgramsEditorStyles", () => $d9ed75644065a944$export$af47e28c29f4440b);
-parcelRequire("34CWa");
-var $zSQSf = parcelRequire("zSQSf");
-const $d9ed75644065a944$export$864cc654a388aa38 = (0, $zSQSf.css)`
-    :host {
-        height: var(--feature-height, 42px);
-        width: 100%;
-        border-radius: var(--feature-border-radius, 12px);
-        padding: 0px;
-        outline: 0px;
-        overflow: hidden;
-        font-size: inherit;
-        color: inherit;
-        background-color: var(--disabled-color);
-    }
-
-    ha-control-button-group {
-        gap: 0px!important;
-        display: flex;
-        flex-flow: column;
-        place-content: center space-evenly;
-        justify-content: space-evenly;
-        align-items: center;
-        position: relative;
-        height: height: 100%;
-        width: 100%;
-        border: none;
-        border-radius: var(--feature-border-radius, 12px);
-        padding: 0px;
-        margin: 0px;
-        outline: 0px;
-        overflow: hidden;
-        flex-basis: 100%;
-        background-color: var(--disabled-color);
-    }
-
-
-    ha-control-button {
-        margin-left: calc(var(--feature-border-radius, 12px) * -0.5);
-        margin-right: calc(var(--feature-border-radius, 12px) * -0.5);
-        background-color: var(--disabled-color);
-        border-radius: var(--feature-border-radius, 12px);
-        height:  var(--feature-height, 42px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
-        z-idnex: 1;
-        flex: 1;
-    }
-    
-    ha-control-button:first-child {
-        margin-left: 0px;
-    }   
-    ha-control-button:last-child {
-        margin-right: 0px;
-    }   
-
-    ha-control-button:hover {
-        background-color: rgba(var(--rgb-primary-color), 0.1);
-        color: var(--primary-color);
-        z-index: 2;
-    }
-
-    ha-control-button[active],
-    ha-control-button[active]:hover {
-        background-color: rgba(var(--rgb-primary-color), 0.2);
-        color: var(--primary-color);
-        z-index: 3;
-    }
-
-    .icon-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-    }
-
-    svg {
-        width: 100%;
-        height: 100%;
-        stroke: currentColor;
-        fill: currentColor;
-    }
-
-
- 
-    .switches {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: center;
-        align-items: center;
-        padding: 8px;
-    }
-
-    ha-icon-button {
-        --mdc-icon-button-size: 48px;
-        --mdc-icon-size: 32px;
-        width: var(--mdc-icon-button-size);
-        height: var(--mdc-icon-button-size);
-        color: var(--primary-text-color);
-    }
-
-    ha-icon-button:hover {
-        color: var(--primary-color);
-    }
-
-    ha-icon-button 
-    svg {
-        width: 100%;
-        height: 100%;
-        stroke: currentColor;
-    }
-
-
-    .programs-list ha-control-button .icon-wrapper {
-        width: 48px;
-        height: 48px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 8px;
-    }
-
-    .programs-list ha-control-button .icon-wrapper svg {
-        width: 24px;
-        height: 24px;
-    }
-
-    .programs-list .icon-wrapper {
-        background: white;
-        color: var(--primary-color);
-    }
-
-    .programs-list .icon-wrapper.active {
-        background: var(--primary-color);
-        color: white;
-    }
-`;
-const $d9ed75644065a944$var$CommonEditorStyles = (0, $zSQSf.css)`
-    .settings {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .settings ha-settings-row {
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    .settings ha-settings-row [slot="heading"] {
-        font-weight: 500;
-    }
-
-    .settings ha-settings-row [slot="description"] {
-        color: var(--secondary-text-color);
-        max-width: 70%; /* zabrání, aby text přetékal pod přepínač */
-        white-space: normal;
-    }
-
-    .settings ha-switch {
-        margin-left: auto; /* udrží přepínač vpravo */
-    }
-`;
-const $d9ed75644065a944$export$af47e28c29f4440b = (0, $zSQSf.css)`
-    ${$d9ed75644065a944$var$CommonEditorStyles}
-`;
-
-});
-parcelRegister("34CWa", function(module, exports) {
-$parcel$export(module.exports, "css", () => (parcelRequire("zSQSf")).css);
-$parcel$export(module.exports, "html", () => (parcelRequire("i8sjV")).html);
-$parcel$export(module.exports, "LitElement", () => (parcelRequire("75rpw")).LitElement);
-$parcel$export(module.exports, "nothing", () => (parcelRequire("i8sjV")).nothing);
-parcelRequire("4KF1D");
-parcelRequire("i8sjV");
-parcelRequire("75rpw");
-parcelRequire("7ow0K");
-
-});
-parcelRegister("i8sjV", function(module, exports) {
-
-$parcel$export(module.exports, "html", () => $d33ef1320595a3ac$export$c0bb0b647f701bb5);
-$parcel$export(module.exports, "noChange", () => $d33ef1320595a3ac$export$9c068ae9cc5db4e8);
-$parcel$export(module.exports, "nothing", () => $d33ef1320595a3ac$export$45b790e32b2810ee);
-$parcel$export(module.exports, "_$LH", () => $d33ef1320595a3ac$export$8613d1ca9052b22e);
-$parcel$export(module.exports, "render", () => $d33ef1320595a3ac$export$b3890eb0ae9dca99);
 /**
  * @license
  * Copyright 2017 Google LLC
@@ -1586,27 +1101,15 @@ const $d33ef1320595a3ac$export$b3890eb0ae9dca99 = (t, i, s)=>{
     return h._$AI(t), h;
 };
 
-});
 
-parcelRegister("75rpw", function(module, exports) {
-$parcel$export(module.exports, "css", () => (parcelRequire("zSQSf")).css);
-$parcel$export(module.exports, "ReactiveElement", () => (parcelRequire("4KF1D")).ReactiveElement);
-$parcel$export(module.exports, "html", () => (parcelRequire("i8sjV")).html);
-$parcel$export(module.exports, "noChange", () => (parcelRequire("i8sjV")).noChange);
-$parcel$export(module.exports, "nothing", () => (parcelRequire("i8sjV")).nothing);
-$parcel$export(module.exports, "render", () => (parcelRequire("i8sjV")).render);
 
-$parcel$export(module.exports, "LitElement", () => $528e4332d1e3099e$export$3f2f9f5909897157);
 
-var $4KF1D = parcelRequire("4KF1D");
-
-var $i8sjV = parcelRequire("i8sjV");
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */ const $528e4332d1e3099e$var$s = globalThis;
-class $528e4332d1e3099e$export$3f2f9f5909897157 extends (0, $4KF1D.ReactiveElement) {
+class $528e4332d1e3099e$export$3f2f9f5909897157 extends (0, $375b48187e686ca2$export$c7c07a37856565d) {
     constructor(){
         super(...arguments), this.renderOptions = {
             host: this
@@ -1618,7 +1121,7 @@ class $528e4332d1e3099e$export$3f2f9f5909897157 extends (0, $4KF1D.ReactiveEleme
     }
     update(t) {
         const r = this.render();
-        this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(t), this._$Do = (0, $i8sjV.render)(r, this.renderRoot, this.renderOptions);
+        this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(t), this._$Do = (0, $d33ef1320595a3ac$export$b3890eb0ae9dca99)(r, this.renderRoot, this.renderOptions);
     }
     connectedCallback() {
         super.connectedCallback(), this._$Do?.setConnected(!0);
@@ -1627,7 +1130,7 @@ class $528e4332d1e3099e$export$3f2f9f5909897157 extends (0, $4KF1D.ReactiveEleme
         super.disconnectedCallback(), this._$Do?.setConnected(!1);
     }
     render() {
-        return 0, $i8sjV.noChange;
+        return 0, $d33ef1320595a3ac$export$9c068ae9cc5db4e8;
     }
 }
 $528e4332d1e3099e$export$3f2f9f5909897157._$litElement$ = !0, $528e4332d1e3099e$export$3f2f9f5909897157["finalized"] = !0, $528e4332d1e3099e$var$s.litElementHydrateSupport?.({
@@ -1645,104 +1148,376 @@ const $528e4332d1e3099e$export$f5c524615a7708d6 = {
 };
 ($528e4332d1e3099e$var$s.litElementVersions ??= []).push("4.2.1");
 
-});
 
-parcelRegister("7ow0K", function(module, exports) {
 /**
  * @license
  * Copyright 2022 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */ const $56239b0c931b817c$export$6acf61af03e62db = !1;
 
-});
 
 
 
-parcelRegister("iInhm", function(module, exports) {
-module.exports = import("./bosch-dishwasher-programs-editor.8fc00652.js").then(()=>parcelRequire('8nEhd'));
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ const $4af75e4a7ed8f584$export$da64fc29f17f9d0e = (t)=>(e, o)=>{
+        void 0 !== o ? o.addInitializer(()=>{
+            customElements.define(t, e);
+        }) : customElements.define(t, e);
+    };
 
-});
 
-parcelRegister("lWzv2", function(module, exports) {
-$parcel$export(module.exports, "html", () => (parcelRequire("i8sjV")).html);
 
-$parcel$export(module.exports, "LitElement", () => (parcelRequire("75rpw")).LitElement);
-parcelRequire("4KF1D");
-parcelRequire("i8sjV");
-
-var $75rpw = parcelRequire("75rpw");
-
-});
-
-parcelRegister("fmsP2", function(module, exports) {
-
-$parcel$export(module.exports, "default", () => $f7e2ebf6156dc08b$export$2e2bcd8739ae039);
-// import { IntlMessageFormat } from "intl-messageformat";
-
-var $1yAzU = parcelRequire("1yAzU");
-//import * as es from "./translations/es.json";
-//import * as fr from "./translations/fr.json";
-//import * as it from "./translations/it.json";
-//import * as pt from "./translations/pt.json";
-//import * as sk from "./translations/sk.json";
-const $f7e2ebf6156dc08b$var$languages = {
-    en: //  cs,
-    //  de,
-    $1yAzU
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ const $80d080f0d3adcf1c$var$o = {
+    attribute: !0,
+    type: String,
+    converter: (0, $375b48187e686ca2$export$7312b35fbf521afb),
+    reflect: !1,
+    hasChanged: (0, $375b48187e686ca2$export$53a6892c50694894)
+}, $80d080f0d3adcf1c$export$8d623b1670eb40f4 = (t = $80d080f0d3adcf1c$var$o, e, r)=>{
+    const { kind: n, metadata: i } = r;
+    let s = globalThis.litPropertyMetadata.get(i);
+    if (void 0 === s && globalThis.litPropertyMetadata.set(i, s = new Map), "setter" === n && ((t = Object.create(t)).wrapped = !0), s.set(r.name, t), "accessor" === n) {
+        const { name: o } = r;
+        return {
+            set (r) {
+                const n = e.get.call(this);
+                e.set.call(this, r), this.requestUpdate(o, n, t);
+            },
+            init (e) {
+                return void 0 !== e && this.C(o, void 0, t, e), e;
+            }
+        };
+    }
+    if ("setter" === n) {
+        const { name: o } = r;
+        return function(r) {
+            const n = this[o];
+            e.call(this, r), this.requestUpdate(o, n, t);
+        };
+    }
+    throw Error("Unsupported decorator location: " + n);
 };
-const $f7e2ebf6156dc08b$var$DEFAULT_LANG = "en";
-function $f7e2ebf6156dc08b$var$getTranslatedString(key, lang) {
-    try {
-        return key.split(".").reduce((o, i)=>o[i], $f7e2ebf6156dc08b$var$languages[lang]);
-    } catch (_) {
-        return undefined;
-    }
+function $80d080f0d3adcf1c$export$d541bacb2bda4494(t) {
+    return (e, o)=>"object" == typeof o ? $80d080f0d3adcf1c$export$8d623b1670eb40f4(t, e, o) : ((t, e, o)=>{
+            const r = e.hasOwnProperty(o);
+            return e.constructor.createProperty(o, t), r ? Object.getOwnPropertyDescriptor(e, o) : void 0;
+        })(t, e, o);
 }
-function $f7e2ebf6156dc08b$export$2e2bcd8739ae039(hass) {
-    return function(key, argObject = {}) {
-        const lang = hass?.locale.language ?? $f7e2ebf6156dc08b$var$DEFAULT_LANG;
-        let translated = $f7e2ebf6156dc08b$var$getTranslatedString(key, lang);
-        if (!translated) translated = $f7e2ebf6156dc08b$var$getTranslatedString(key, $f7e2ebf6156dc08b$var$DEFAULT_LANG);
-        if (!translated) return key;
-        /* formated messages are not used at the moment
-    try {
-      const translatedMessage = new IntlMessageFormat(translated, lang);
-      return translatedMessage.format<string>(argObject) as string;
-    } catch (e) {
-      console.error(
-        `Error formatting message for key "${key}" with lang "${lang}":`,
-        e
-      );
-      return translated;
-    }
-    */ return translated;
+
+
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ function $0ede0742a0fa7bbd$export$ca000e230c0caa3e(r) {
+    return (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
+        ...r,
+        state: !0,
+        attribute: !1
+    });
+}
+
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ function $5954ea5dd4cf850a$export$b2b799818fbabcf3(t) {
+    return (n, o)=>{
+        const c = "function" == typeof n ? n : n[o];
+        Object.assign(c, t);
     };
 }
 
-});
-parcelRegister("1yAzU", function(module, exports) {
-module.exports = JSON.parse("{\"dishwasher\":{\"programs\":{\"feature-name\":\"Dishwasher programs\",\"editor\":{\"show_as_button_bar\":{\"title\":\"Show as button bar\",\"description\":\"Show the programs as a horizontal button bar instead of a grid of icons. (Default: disabled)\"},\"icons_with_text\":{\"title\":\"Show icons with text\",\"description\":\"Show program icons with text labels below them. (Default: disabled)\"},\"show_machinecare\":{\"title\":\"Show Machine Care program\",\"description\":\"Show the Machine Care program in the list of available programs. (Default: enabled)\"}}},\"options\":{\"feature-name\":\"Dishwasher options\"},\"time-remaining\":{\"feature-name\":\"Dishwasher time remaining\"}},\"oven\":{\"programs\":{\"feature-name\":\"Oven programs\"},\"time-remaining\":{\"feature-name\":\"Oven time remaining\"}}}");
 
-});
-
-
-var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.57","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ const $503ea9824f18064f$export$51987bb50e1f6752 = (e, t, c)=>(c.configurable = !0, c.enumerable = !0, Reflect.decorate && "object" != typeof t && Object.defineProperty(e, t, c), c);
 
 
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ function $688d7e93c42be25f$export$2fa187e846a241c4(e, r) {
+    return (n, s, i)=>{
+        const o = (t)=>t.renderRoot?.querySelector(e) ?? null;
+        if (r) {
+            const { get: e, set: r } = "object" == typeof s ? n : i ?? (()=>{
+                const t = Symbol();
+                return {
+                    get () {
+                        return this[t];
+                    },
+                    set (e) {
+                        this[t] = e;
+                    }
+                };
+            })();
+            return (0, $503ea9824f18064f$export$51987bb50e1f6752)(n, s, {
+                get () {
+                    let t = e.call(this);
+                    return void 0 === t && (t = o(this), (null !== t || this.hasUpdated) && r.call(this, t)), t;
+                }
+            });
+        }
+        return (0, $503ea9824f18064f$export$51987bb50e1f6752)(n, s, {
+            get () {
+                return o(this);
+            }
+        });
+    };
+}
 
-var $g3RrC = parcelRequire("g3RrC");
-parcelRequire("34CWa");
-var $i8sjV = parcelRequire("i8sjV");
-var $75rpw = parcelRequire("75rpw");
-parcelRequire("egQhz");
-var $b3FW2 = parcelRequire("b3FW2");
-var $1h8zx = parcelRequire("1h8zx");
-var $6r2Id = parcelRequire("6r2Id");
 
-var $eDJg6 = parcelRequire("eDJg6");
 
-var $i8sjV = parcelRequire("i8sjV");
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ let $fc6586cfa4ad7136$var$e;
+function $fc6586cfa4ad7136$export$dcd0d083aa86c355(r) {
+    return (n, o)=>(0, $503ea9824f18064f$export$51987bb50e1f6752)(n, o, {
+            get () {
+                return (this.renderRoot ?? ($fc6586cfa4ad7136$var$e ??= document.createDocumentFragment())).querySelectorAll(r);
+            }
+        });
+}
+
+
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ function $b531a1a0aa7c0890$export$163dfc35cc43f240(r) {
+    return (n, e)=>(0, $503ea9824f18064f$export$51987bb50e1f6752)(n, e, {
+            async get () {
+                return await this.updateComplete, this.renderRoot?.querySelector(r) ?? null;
+            }
+        });
+}
+
+
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ function $705c7c046c2578b3$export$4682af2d9ee91415(o) {
+    return (e, n)=>{
+        const { slot: r, selector: s } = o ?? {}, c = "slot" + (r ? `[name=${r}]` : ":not([name])");
+        return (0, $503ea9824f18064f$export$51987bb50e1f6752)(e, n, {
+            get () {
+                const t = this.renderRoot?.querySelector(c), e = t?.assignedElements(o) ?? [];
+                return void 0 === s ? e : e.filter((t)=>t.matches(s));
+            }
+        });
+    };
+}
+
+
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */ function $637e9a1da54d3961$export$1bdbe53f9df1b8(n) {
+    return (o, r)=>{
+        const { slot: e } = n ?? {}, s = "slot" + (e ? `[name=${e}]` : ":not([name])");
+        return (0, $503ea9824f18064f$export$51987bb50e1f6752)(o, r, {
+            get () {
+                const t = this.renderRoot?.querySelector(s);
+                return t?.assignedNodes(n) ?? [];
+            }
+        });
+    };
+}
+
+
+
+
+
+const $d9ed75644065a944$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)`
+    :host {
+        height: var(--feature-height, 42px);
+        width: 100%;
+        border-radius: var(--feature-border-radius, 12px);
+        padding: 0px;
+        outline: 0px;
+        overflow: hidden;
+        font-size: inherit;
+        color: inherit;
+        background-color: var(--disabled-color);
+    }
+
+    ha-control-button-group {
+        gap: 0px!important;
+        display: flex;
+        flex-flow: column;
+        place-content: center space-evenly;
+        justify-content: space-evenly;
+        align-items: center;
+        position: relative;
+        height: height: 100%;
+        width: 100%;
+        border: none;
+        border-radius: var(--feature-border-radius, 12px);
+        padding: 0px;
+        margin: 0px;
+        outline: 0px;
+        overflow: hidden;
+        flex-basis: 100%;
+        background-color: var(--disabled-color);
+    }
+
+
+    ha-control-button {
+        margin-left: calc(var(--feature-border-radius, 12px) * -0.5);
+        margin-right: calc(var(--feature-border-radius, 12px) * -0.5);
+        background-color: var(--disabled-color);
+        border-radius: var(--feature-border-radius, 12px);
+        height:  var(--feature-height, 42px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+        z-idnex: 1;
+        flex: 1;
+    }
+    
+    ha-control-button:first-child {
+        margin-left: 0px;
+    }   
+    ha-control-button:last-child {
+        margin-right: 0px;
+    }   
+
+    ha-control-button:hover {
+        background-color: rgba(var(--rgb-primary-color), 0.1);
+        color: var(--primary-color);
+        z-index: 2;
+    }
+
+    ha-control-button[active],
+    ha-control-button[active]:hover {
+        background-color: rgba(var(--rgb-primary-color), 0.2);
+        color: var(--primary-color);
+        z-index: 3;
+    }
+
+    .icon-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+    }
+
+    svg {
+        width: 100%;
+        height: 100%;
+        stroke: currentColor;
+        fill: currentColor;
+    }
+
+
+ 
+    .switches {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+        padding: 8px;
+    }
+
+    ha-icon-button {
+        --mdc-icon-button-size: 48px;
+        --mdc-icon-size: 32px;
+        width: var(--mdc-icon-button-size);
+        height: var(--mdc-icon-button-size);
+        color: var(--primary-text-color);
+    }
+
+    ha-icon-button:hover {
+        color: var(--primary-color);
+    }
+
+    ha-icon-button 
+    svg {
+        width: 100%;
+        height: 100%;
+        stroke: currentColor;
+    }
+
+
+    .programs-list ha-control-button .icon-wrapper {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+    }
+
+    .programs-list ha-control-button .icon-wrapper svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .programs-list .icon-wrapper {
+        background: white;
+        color: var(--primary-color);
+    }
+
+    .programs-list .icon-wrapper.active {
+        background: var(--primary-color);
+        color: white;
+    }
+`;
+const $d9ed75644065a944$var$CommonEditorStyles = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)`
+    .settings {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .settings ha-settings-row {
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .settings ha-settings-row [slot="heading"] {
+        font-weight: 500;
+    }
+
+    .settings ha-settings-row [slot="description"] {
+        color: var(--secondary-text-color);
+        max-width: 70%; /* zabrání, aby text přetékal pod přepínač */
+        white-space: normal;
+    }
+
+    .settings ha-switch {
+        margin-left: auto; /* udrží přepínač vpravo */
+    }
+`;
+const $d9ed75644065a944$export$af47e28c29f4440b = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)`
+    ${$d9ed75644065a944$var$CommonEditorStyles}
+`;
+
+
+
 /**
  * @license
  * Copyright 2017 Google LLC
@@ -1781,11 +1556,11 @@ class $f62b4c9bce56f3ae$export$befdefbdce210f91 {
  * SPDX-License-Identifier: BSD-3-Clause
  */ class $97d09910a4ba4421$export$3bebd1f0e3943985 extends (0, $f62b4c9bce56f3ae$export$befdefbdce210f91) {
     constructor(i){
-        if (super(i), this.it = (0, $i8sjV.nothing), i.type !== (0, $f62b4c9bce56f3ae$export$9ba3b3f20a85bfa).CHILD) throw Error(this.constructor.directiveName + "() can only be used in child bindings");
+        if (super(i), this.it = (0, $d33ef1320595a3ac$export$45b790e32b2810ee), i.type !== (0, $f62b4c9bce56f3ae$export$9ba3b3f20a85bfa).CHILD) throw Error(this.constructor.directiveName + "() can only be used in child bindings");
     }
     render(r) {
-        if (r === (0, $i8sjV.nothing) || null == r) return this._t = void 0, this.it = r;
-        if (r === (0, $i8sjV.noChange)) return r;
+        if (r === (0, $d33ef1320595a3ac$export$45b790e32b2810ee) || null == r) return this._t = void 0, this.it = r;
+        if (r === (0, $d33ef1320595a3ac$export$9c068ae9cc5db4e8)) return r;
         if ("string" != typeof r) throw Error(this.constructor.directiveName + "() called with a non-string value");
         if (r === this.it) return this._t;
         this.it = r;
@@ -1806,14 +1581,12 @@ const $97d09910a4ba4421$export$b6e69390c23686fb = (0, $f62b4c9bce56f3ae$export$9
 
 
 
-var $i8sjV = parcelRequire("i8sjV");
 
-var $i8sjV = parcelRequire("i8sjV");
 /**
  * @license
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */ const { I: $f856e4b28630779e$var$t } = (0, $i8sjV._$LH), $f856e4b28630779e$export$c3825b437cbdea5c = (o)=>null === o || "object" != typeof o && "function" != typeof o, $f856e4b28630779e$export$80c36ae3cab9881d = {
+ */ const { I: $f856e4b28630779e$var$t } = (0, $d33ef1320595a3ac$export$8613d1ca9052b22e), $f856e4b28630779e$export$c3825b437cbdea5c = (o)=>null === o || "object" != typeof o && "function" != typeof o, $f856e4b28630779e$export$80c36ae3cab9881d = {
     HTML: 1,
     SVG: 2,
     MATHML: 3
@@ -1956,7 +1729,7 @@ class $f35354e62b171f38$export$51c6edf8ee19b71a extends (0, $fb7afed61c741777$ex
         super(...arguments), this._$Cwt = $f35354e62b171f38$var$h, this._$Cbt = [], this._$CK = new (0, $7bf3a4ad37d148a6$export$71341b9b69479007)(this), this._$CX = new (0, $7bf3a4ad37d148a6$export$193ea5a420bb5c41);
     }
     render(...s) {
-        return s.find((t)=>!$f35354e62b171f38$var$n(t)) ?? (0, $i8sjV.noChange);
+        return s.find((t)=>!$f35354e62b171f38$var$n(t)) ?? (0, $d33ef1320595a3ac$export$9c068ae9cc5db4e8);
     }
     update(s, i) {
         const e = this._$Cbt;
@@ -1976,7 +1749,7 @@ class $f35354e62b171f38$export$51c6edf8ee19b71a extends (0, $fb7afed61c741777$ex
                 }
             }));
         }
-        return 0, $i8sjV.noChange;
+        return 0, $d33ef1320595a3ac$export$9c068ae9cc5db4e8;
     }
     disconnected() {
         this._$CK.disconnect(), this._$CX.pause();
@@ -1992,7 +1765,124 @@ const $f35354e62b171f38$export$a40009bd2c363351 = (0, $f62b4c9bce56f3ae$export$9
 
 
 
-(parcelRequire("iInhm"));
+
+
+
+
+
+
+// import { IntlMessageFormat } from "intl-messageformat";
+var $12255719fcb5db94$exports = {};
+$12255719fcb5db94$exports = JSON.parse("{\"dishwasher\":{\"programs\":{\"feature-name\":\"Dishwasher programs\",\"editor\":{\"show_as_button_bar\":{\"title\":\"Show as button bar\",\"description\":\"Show the programs as a horizontal button bar instead of a grid of icons. (Default: disabled)\"},\"icons_with_text\":{\"title\":\"Show icons with text\",\"description\":\"Show program icons with text labels below them. (Default: disabled)\"},\"show_machinecare\":{\"title\":\"Show Machine Care program\",\"description\":\"Show the Machine Care program in the list of available programs. (Default: enabled)\"}}},\"options\":{\"feature-name\":\"Dishwasher options\"},\"time-remaining\":{\"feature-name\":\"Dishwasher time remaining\"}},\"oven\":{\"programs\":{\"feature-name\":\"Oven programs\"},\"time-remaining\":{\"feature-name\":\"Oven time remaining\"}}}");
+
+
+//import * as es from "./translations/es.json";
+//import * as fr from "./translations/fr.json";
+//import * as it from "./translations/it.json";
+//import * as pt from "./translations/pt.json";
+//import * as sk from "./translations/sk.json";
+const $f7e2ebf6156dc08b$var$languages = {
+    en: //  cs,
+    //  de,
+    $12255719fcb5db94$exports
+};
+const $f7e2ebf6156dc08b$var$DEFAULT_LANG = "en";
+function $f7e2ebf6156dc08b$var$getTranslatedString(key, lang) {
+    try {
+        return key.split(".").reduce((o, i)=>o[i], $f7e2ebf6156dc08b$var$languages[lang]);
+    } catch (_) {
+        return undefined;
+    }
+}
+function $f7e2ebf6156dc08b$export$2e2bcd8739ae039(hass) {
+    return function(key, argObject = {}) {
+        const lang = hass?.locale.language ?? $f7e2ebf6156dc08b$var$DEFAULT_LANG;
+        let translated = $f7e2ebf6156dc08b$var$getTranslatedString(key, lang);
+        if (!translated) translated = $f7e2ebf6156dc08b$var$getTranslatedString(key, $f7e2ebf6156dc08b$var$DEFAULT_LANG);
+        if (!translated) return key;
+        /* formated messages are not used at the moment
+    try {
+      const translatedMessage = new IntlMessageFormat(translated, lang);
+      return translatedMessage.format<string>(argObject) as string;
+    } catch (e) {
+      console.error(
+        `Error formatting message for key "${key}" with lang "${lang}":`,
+        e
+      );
+      return translated;
+    }
+    */ return translated;
+    };
+}
+
+
+
+class $a3d36398cbb8abc5$export$5ad3d821964e0a36 extends (0, $528e4332d1e3099e$export$3f2f9f5909897157) {
+    setConfig(config) {
+        this.config = {
+            ...config
+        };
+    }
+    render() {
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
+            <div class="settings">
+                ${this.getBoolHaSettingsRow("show_as_button_bar", false)}
+                ${this.getBoolHaSettingsRow("icons_with_text", false)}
+                ${this.getBoolHaSettingsRow("show_machinecare", true)}
+            </div>
+        `;
+    }
+    getBoolHaSettingsRow(key, defaultVal) {
+        const customLocalize = (0, $f7e2ebf6156dc08b$export$2e2bcd8739ae039)(this.hass);
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
+            <ha-settings-row>
+                <div slot="heading" data-for="${key}">${customLocalize(`dishwasher.programs.editor.${key}.title`)}</div>
+                <div slot="description" data-for="${key}">${customLocalize(`dishwasher.programs.editor.${key}.description`)}</div>
+                <ha-switch id="${key}" name="${key}" @change=${this._onSettingChange} .checked=${this.getBoolConfigVal(key, defaultVal)} />
+            </ha-settings-row>
+        `;
+    }
+    _onSettingChange(e) {
+        const target = e.target;
+        const key = target.id || target.name;
+        const value = target.checked ?? target.value;
+        this._updateConfig({
+            ...this.config,
+            [key]: value
+        });
+    }
+    getBoolConfigVal(key, defaultValue) {
+        return this.config && this.config[key] !== undefined ? !!this.config[key] : defaultValue;
+    }
+    _updateConfig(newConfig) {
+        this.config = newConfig;
+        this.dispatchEvent(new CustomEvent("config-changed", {
+            detail: {
+                config: this.config
+            },
+            bubbles: true,
+            composed: true
+        }));
+    }
+    static get styles() {
+        return 0, $d9ed75644065a944$export$af47e28c29f4440b;
+    }
+}
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
+        attribute: false
+    })
+], $a3d36398cbb8abc5$export$5ad3d821964e0a36.prototype, "hass", void 0);
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
+        type: Object
+    })
+], $a3d36398cbb8abc5$export$5ad3d821964e0a36.prototype, "config", void 0);
+$a3d36398cbb8abc5$export$5ad3d821964e0a36 = (0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $4af75e4a7ed8f584$export$da64fc29f17f9d0e)("bosch-dishwasher-programs-editor")
+], $a3d36398cbb8abc5$export$5ad3d821964e0a36);
+
+
 /**
  * Check if the given entity supports the Bosch Dishwasher Programs feature.
  * The check is based on the entity's device_class and friendly_name attributes.
@@ -2005,7 +1895,7 @@ const $f35354e62b171f38$export$a40009bd2c363351 = (0, $f62b4c9bce56f3ae$export$9
     const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || "";
     return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("bosch") && friendlyName.includes("dishwasher");
 };
-class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $75rpw.LitElement) {
+class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332d1e3099e$export$3f2f9f5909897157) {
     static{
         this.iconCache = new Map();
     }
@@ -2221,21 +2111,22 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $75rpw.Li
     }
     setPrefix() {
         console.log("setPrefix:");
+        console.log(this.context);
         if (this._config) {
             const entity = this.context?.entity_id;
             console.log("Setting prefix for entity: ", entity);
             // If entity_prefix is not set, derive it from the entity ID    
-            if (this._config.entity_prefix === undefined) this._config.entity_prefix = entity.split(".")[1].split("_").slice(0, 2).join("_");
+            if (this._config.entity_prefix === undefined) this._config.entity_prefix = entity?.split(".")[1]?.split("_").slice(0, 2).join("_");
         }
     }
     render() {
-        if (!this._config || !this.hass || !this.context || !$3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature(this.hass, this.context)) return 0, $i8sjV.nothing;
+        if (!this._config || !this.hass || !this.context || !$3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature(this.hass, this.context)) return 0, $d33ef1320595a3ac$export$45b790e32b2810ee;
         // Filter programs based on config
         // expect config keys like "show_eco_50", "show_auto_45_65", etc.
         // if key is missing, default to true (show the program)
         // keys are derived from program names by lowercasing and replacing spaces and special chars with underscores
         const filteredPrograms = $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.programs.filter((p)=>this.getBoolConfigVal("show_" + p.name.toLowerCase().replace(/-/g, "_"), true) === true);
-        return this._config.show_as_button_bar === true ? (0, $i8sjV.html)`<ha-control-button-group direction="row" .value=${this.selectedProgram} @value-changed=${this.setProgram}>${filteredPrograms.map((p)=>this.getHaControlButton(p))}</<ha-control-button-group>` : (0, $i8sjV.html)`<div>${filteredPrograms.map((p)=>this.getHaIconButton(p))}</div>`;
+        return this._config.show_as_button_bar === true ? (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<ha-control-button-group direction="row" .value=${this.selectedProgram} @value-changed=${this.setProgram}>${filteredPrograms.map((p)=>this.getHaControlButton(p))}</<ha-control-button-group>` : (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div>${filteredPrograms.map((p)=>this.getHaIconButton(p))}</div>`;
     }
     /**
      * Renders a ha-icon-button for the given program.
@@ -2243,9 +2134,9 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $75rpw.Li
      * @returns TemplateResult containing a ha-icon-button with the program icon and name.
      */ getHaIconButton(program) {
         const svg = this.getIconForProgram(program).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
-        return (0, $i8sjV.html)`
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
             <ha-icon-button .label=${program.name} title=${program.name} .value=${program.program} @click=${()=>this.setProgram}>
-                ${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $i8sjV.html)`<ha-spinner size="small"></ha-spinner>`)}
+                ${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<ha-spinner size="small"></ha-spinner>`)}
             </ha-icon-button>
         `;
     }
@@ -2264,9 +2155,9 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $75rpw.Li
                 <small>${program.description}</small>
             </div>
         </div>
-        */ return (0, $i8sjV.html)`
+        */ return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
             <ha-control-button .value=${program.program} title=${program.name}>
-                <div class="icon-wrapper">${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $i8sjV.html)`<ha-spinner size="small"></ha-spinner>`)}</div>
+                <div class="icon-wrapper">${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<ha-spinner size="small"></ha-spinner>`)}</div>
             </ha-control-button>
         `;
     }
@@ -2357,13 +2248,15 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $75rpw.Li
      * @returns Default configuration for this feature (used in Lovelace UI editor).
      */ static getStubConfig() {
         return {
-            type: 'custom:bosch-dishwasher-programs-feature'
+            type: 'custom:bosch-dishwasher-programs-feature',
+            icons_with_text: true,
+            show_as_button_bar: true
         };
     }
     /**
      * Component styles (CSS-in-JS).
      */ static get styles() {
-        return 0, $eDJg6.BoschDishwasherProgramsFeatureStyles;
+        return 0, $d9ed75644065a944$export$864cc654a388aa38;
     }
     getGridOptions() {
         return {
@@ -2373,22 +2266,22 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $75rpw.Li
         };
     }
 }
-(0, $g3RrC.__decorate)([
-    (0, $b3FW2.property)({
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
         attribute: false,
         hasChanged: ()=>false
     })
 ], $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.prototype, "hass", void 0);
-(0, $g3RrC.__decorate)([
-    (0, $b3FW2.property)({
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
         attribute: false
     })
 ], $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.prototype, "context", void 0);
-(0, $g3RrC.__decorate)([
-    (0, $1h8zx.state)()
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $0ede0742a0fa7bbd$export$ca000e230c0caa3e)()
 ], $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.prototype, "_config", void 0);
-$3fccb9d4d2156306$var$BoschDishwasherProgramsFeature = (0, $g3RrC.__decorate)([
-    (0, $6r2Id.customElement)("bosch-dishwasher-programs-feature")
+$3fccb9d4d2156306$var$BoschDishwasherProgramsFeature = (0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $4af75e4a7ed8f584$export$da64fc29f17f9d0e)("bosch-dishwasher-programs-feature")
 ], $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature);
 // Register the feature in the global customCardFeatures array
 window.customCardFeatures ||= [];
@@ -2401,40 +2294,27 @@ window.customCardFeatures.push({
 
 
 
-var $g3RrC = parcelRequire("g3RrC");
-parcelRequire("34CWa");
-var $i8sjV = parcelRequire("i8sjV");
-var $75rpw = parcelRequire("75rpw");
-parcelRequire("egQhz");
-var $1h8zx = parcelRequire("1h8zx");
-var $b3FW2 = parcelRequire("b3FW2");
-var $6r2Id = parcelRequire("6r2Id");
-parcelRequire("34CWa");
-var $zSQSf = parcelRequire("zSQSf");
-const $8b1647a9ad59d584$export$f0eb0d6ee1da2bba = (0, $zSQSf.css)``;
-const $8b1647a9ad59d584$export$1726954ff531d1cc = (0, $zSQSf.css)``;
 
 
 
-var $g3RrC = parcelRequire("g3RrC");
-parcelRequire("lWzv2");
-var $i8sjV = parcelRequire("i8sjV");
-var $75rpw = parcelRequire("75rpw");
-parcelRequire("egQhz");
-var $b3FW2 = parcelRequire("b3FW2");
-var $6r2Id = parcelRequire("6r2Id");
+const $8b1647a9ad59d584$export$f0eb0d6ee1da2bba = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)``;
+const $8b1647a9ad59d584$export$1726954ff531d1cc = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)``;
 
-var $fmsP2 = parcelRequire("fmsP2");
 
-class $c45b3a62a020e969$export$777b72c3156c0d7d extends (0, $75rpw.LitElement) {
+
+
+
+
+
+class $c45b3a62a020e969$export$777b72c3156c0d7d extends (0, $528e4332d1e3099e$export$3f2f9f5909897157) {
     setConfig(config) {
         this.config = {
             ...config
         };
     }
     render() {
-        const customLocalize = (0, $fmsP2.default)(this.hass);
-        return (0, $i8sjV.html)`config editor not implemented yet`;
+        const customLocalize = (0, $f7e2ebf6156dc08b$export$2e2bcd8739ae039)(this.hass);
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`config editor not implemented yet`;
     }
     _updateConfig(newConfig) {
         this.config = newConfig;
@@ -2453,18 +2333,18 @@ class $c45b3a62a020e969$export$777b72c3156c0d7d extends (0, $75rpw.LitElement) {
         super(...args), this.config = {};
     }
 }
-(0, $g3RrC.__decorate)([
-    (0, $b3FW2.property)({
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
         attribute: false
     })
 ], $c45b3a62a020e969$export$777b72c3156c0d7d.prototype, "hass", void 0);
-(0, $g3RrC.__decorate)([
-    (0, $b3FW2.property)({
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
         type: Object
     })
 ], $c45b3a62a020e969$export$777b72c3156c0d7d.prototype, "config", void 0);
-$c45b3a62a020e969$export$777b72c3156c0d7d = (0, $g3RrC.__decorate)([
-    (0, $6r2Id.customElement)("bosch-dishwasher-options-editor")
+$c45b3a62a020e969$export$777b72c3156c0d7d = (0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $4af75e4a7ed8f584$export$da64fc29f17f9d0e)("bosch-dishwasher-options-editor")
 ], $c45b3a62a020e969$export$777b72c3156c0d7d);
 
 
@@ -2474,7 +2354,7 @@ const $77c64735a69c1828$var$supportsBoschDishwasherOptionsFeature = (stateObj)=>
     const friendlyName = stateObj.attributes.friendly_name.toLowerCase() || "";
     return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("dishwasher") && friendlyName.includes("dishwasher");
 };
-class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $75rpw.LitElement) {
+class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $528e4332d1e3099e$export$3f2f9f5909897157) {
     setConfig(config) {
         // If entity_prefix is not set, try to derive it from the entity name
         if (config.entity_prefix === undefined && config.entity) {
@@ -2518,12 +2398,12 @@ class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $75rpw.LitElement) {
      * - HygienePlus: switch.*_dishcare_dishwasher_option_hygieneplus
      * - PerfectSpeed+: switch.*_dishcare_dishwasher_option_variospeedplus
      */ render() {
-        if (!this.config || !this.hass || !this.stateObj || !$77c64735a69c1828$var$supportsBoschDishwasherOptionsFeature(this.stateObj)) return (0, $i8sjV.html)`
+        if (!this.config || !this.hass || !this.stateObj || !$77c64735a69c1828$var$supportsBoschDishwasherOptionsFeature(this.stateObj)) return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
                 <div class="toners">
                     <div>Unsupported feature</div>
                 </div>
             `;
-        return (0, $i8sjV.html)``;
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)``;
     }
     getEntity(type, suffix) {
         return `${type}.${this.config?.entity_prefix}_${suffix}`;
@@ -2556,21 +2436,21 @@ class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $75rpw.LitElement) {
         super(...args), this.switches = {};
     }
 }
-(0, $g3RrC.__decorate)([
-    (0, $1h8zx.state)()
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $0ede0742a0fa7bbd$export$ca000e230c0caa3e)()
 ], $77c64735a69c1828$export$80a2f62778bb11ea.prototype, "_hass", void 0);
-(0, $g3RrC.__decorate)([
-    (0, $b3FW2.property)({
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
         attribute: false
     })
 ], $77c64735a69c1828$export$80a2f62778bb11ea.prototype, "config", void 0);
-(0, $g3RrC.__decorate)([
-    (0, $b3FW2.property)({
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
         attribute: false
     })
 ], $77c64735a69c1828$export$80a2f62778bb11ea.prototype, "stateObj", void 0);
-$77c64735a69c1828$export$80a2f62778bb11ea = (0, $g3RrC.__decorate)([
-    (0, $6r2Id.customElement)("bosch-dishwasher-options-feature")
+$77c64735a69c1828$export$80a2f62778bb11ea = (0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $4af75e4a7ed8f584$export$da64fc29f17f9d0e)("bosch-dishwasher-options-feature")
 ], $77c64735a69c1828$export$80a2f62778bb11ea);
 window.customCardFeatures ||= [];
 window.customCardFeatures.push({
