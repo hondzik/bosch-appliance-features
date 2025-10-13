@@ -105,7 +105,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
             console.log("Setting prefix for entity: ", entity);
             // If entity_prefix is not set, derive it from the entity ID    
             if (this._config.entity_prefix === undefined) {
-                this._config.entity_prefix = entity.split(".")[1].split("_").slice(0, 2).join("_");
+                this._config.entity_prefix = entity?.split(".")[1]?.split("_").slice(0, 2).join("_");
             }
         }
     }
@@ -272,7 +272,9 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
      */
     static getStubConfig(): BoschDishwasherProgramsFeatureConfig {
         return {
-            type: 'custom:bosch-dishwasher-programs-feature'
+            type: 'custom:bosch-dishwasher-programs-feature',
+            icons_with_text: true, 
+            show_as_button_bar: true 
         };
     }
 
