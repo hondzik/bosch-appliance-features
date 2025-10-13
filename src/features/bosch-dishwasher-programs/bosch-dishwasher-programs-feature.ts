@@ -64,7 +64,31 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
     protected shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
-        console.log("Should Update" + Array.from(changedProperties.keys()));
+        console.log("Should Update: " + Array.from(changedProperties.keys()));
+
+        if (changedProperties.has('context') || changedProperties.has('_config')) {
+            console.log("Context or Config has changed => render")
+            return true;
+        }
+        
+        if (!changedProperties.has('hass')) return false;
+
+        const oldHass = changedProperties.get('hass') as HomeAssistant | undefined;
+        if (!oldHass) return true; // první render
+
+        // porovnání starého a nového stavu entity
+        for (const entity of BoschDishwasherProgramsFeature.entities.values()) {
+            const entityId = `${entity.type}.${this.entityPrefix}_${entity.suffix}`;
+            if (oldHass.states[entityId] !== this.hass.states[entityId]) {
+                console.log("Entity " + entityId + " has changed => render");
+                return true; // konkrétní entita se změnila
+            }
+        }
+
+
+        return false;
+
+
 //        if (!changedProperties.has('hass') && !changedProperties.has('context') && !changedProperties.has('config'))
         return true;
     }
@@ -81,7 +105,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         );
      
         return this._config.show_as_button_bar === true 
-            ? html`<ha-control-button-group direction="row" .value=${this.program} @value-changed=${this.changeProgram}>${filteredPrograms.map(p => this.getHaControlButton(p))}<ha-control-button-group>`
+            ? html`<ha-control-button-group direction="row" .value=${this.program} @value-changed=${this.changeProgram}>${filteredPrograms.map(p => this.getHaControlButton(p))}</ha-control-button-group>`
             : html`<div>${filteredPrograms.map(p => this.getHaIconButton(p))}</div>`;
     }
 
