@@ -22,14 +22,20 @@ declare global {
     }
 
     export type BoschApplianceCustomFeatureConfig = 
-        BoschDishwasherProgramsFeatureConfig
+        | BoschDishwasherProgramsFeatureConfig
         | BoschDishwasherOptionsFeatureConfig
 
     export interface LovelaceCardFeature extends HTMLElement {
         hass?: HomeAssistant;
+        /** @deprecated Use `context` instead */
+        stateObj?: HassEntity
         context?: LovelaceCardFeatureContext;
         setConfig(config: BoschApplianceCustomFeatureConfig): void;
+        color?: string;
+        position?: LovelaceCardFeaturePosition;        
     }
+
+    export type LovelaceCardFeaturePosition = "bottom" | "inline";
 
     export interface LovelaceCardFeatureContext {
         entity_id?: string;

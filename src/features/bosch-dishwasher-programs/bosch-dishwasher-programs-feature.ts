@@ -13,10 +13,10 @@ import "./bosch-dishwasher-programs-editor";
 class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardFeature {
 
     @property({ attribute: false })
-    public hass!: HomeAssistant;
+    public hass?: HomeAssistant;
 
     @property({ attribute: false })
-    public context!: LovelaceCardFeatureContext;
+    public context?: LovelaceCardFeatureContext;
 
     @state() 
     private _config?: BoschDishwasherProgramsFeatureConfig;

@@ -6,6 +6,8 @@ type FeatureConfig = {
 
 type BoschDishwasherOptionsFeatureConfig = FeatureConfig & {};
 
+type BoschDishwasherTimeFeatureConfig = FeatureConfig & {};
+
 type BoschDishwasherProgramsFeatureConfig = FeatureConfig & {
     show_as_button_bar?: boolean;
     icons_with_text?: boolean;
