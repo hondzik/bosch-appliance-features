@@ -64,7 +64,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
     protected shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
-        console.log("Should Update" + changedProperties);
+        console.log("Should Update" + changedProperties.keys);
 //        if (!changedProperties.has('hass') && !changedProperties.has('context') && !changedProperties.has('config'))
         return true;
     }
@@ -77,7 +77,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         }
 
         const filteredPrograms = BoschDishwasherProgramsFeature.programs.filter(
-            p => this.getBoolConfigVal("show_" + p.name.toLowerCase().replace(/-/g, "_"), true) === true
+            p => this.getBoolConfigVal("show_" + p.icon.toLowerCase().replace(/-/g, "_"), true) === true
         );
      
         return this._config.show_as_button_bar === true 
@@ -94,7 +94,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     private getHaIconButton(program: BoschDishwasherProgram): TemplateResult {
         const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
         return html`
-            <ha-icon-button .label=${program.name} title=${program.name} .value=${program.program} @click=${() => this.setProgram}>
+            <ha-icon-button .label=${program.name} title=${program.name} .value=${program.program} @click=${() => this.changeProgram}>
                 ${until(svg, html`<ha-spinner size="small"></ha-spinner>`)}
             </ha-icon-button>
         `;
@@ -175,12 +175,11 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
      * @returns Boolean value of the config key, or defaultValue if not set
      */
     private getBoolConfigVal(key: string, defaultValue: boolean): boolean  {
-        console.log("GetBoolConfigVal " + key);
         return (this._config && this._config[key] !== undefined ) ? !!this._config[key] : defaultValue;
     }
 
     
-    private setProgram(e: CustomEvent<{ value: string }>) {
+    private changeProgram(e: CustomEvent<{ value: string }>) {
         console.log("Selecting program: ", e.detail.value);
         this.program = e.detail.value;
     }
