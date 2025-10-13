@@ -6,7 +6,6 @@ export {};
 declare global {
     interface Window {
         customCardFeatures: CustomCardFeature[];
-        customCards: CustomCard[];
     }
 
     interface CustomCardFeature {
@@ -16,31 +15,20 @@ declare global {
         supported?: (hass: HomeAssistant, context: LovelaceCardFeatureContext ) => boolean;
     }
 
-    interface CustomCard {
-        type: string;
-        name: string;
-        description: string;
-    }
-
     interface TileWithConfig extends HTMLElement {
         config?: { 
             entity?: string 
         };
     }
 
-
-
-    export type BoschApplianceCustomFeatureConfig = BoschDishwasherProgramsFeatureConfig
-
-    export type LovelaceCardFeaturePosition = "bottom" | "inline";
-
+    export type BoschApplianceCustomFeatureConfig = 
+        BoschDishwasherProgramsFeatureConfig
+        | BoschDishwasherOptionsFeatureConfig
 
     export interface LovelaceCardFeature extends HTMLElement {
         hass?: HomeAssistant;
         context?: LovelaceCardFeatureContext;
         setConfig(config: BoschApplianceCustomFeatureConfig): void;
-        color?: string;
-        position?: LovelaceCardFeaturePosition;
     }
 
     export interface LovelaceCardFeatureContext {
@@ -48,17 +36,9 @@ declare global {
         area_id?: string;
     }
 
-    export interface LovelaceCardFeatureEditor
-        extends LovelaceGenericElementEditor {
+    export interface LovelaceCardFeatureEditor extends HTMLElement {
+        hass?: HomeAssistant;
+        context?: LovelaceCardFeatureContext;
         setConfig(config: BoschApplianceCustomFeatureConfig): void;
     }    
-
-    export interface LovelaceGenericElementEditor<C = any> extends HTMLElement {
-        hass?: HomeAssistant;
-        lovelace?: any;
-        context?: C;
-        schema?: any;
-        setConfig(config: any): void;
-        focusYamlEditor?: () => void;
-    }
 }
