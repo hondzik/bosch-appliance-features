@@ -7,9 +7,9 @@ import { BoschDishwasherProgramsEditorStyles } from "./bosch-dishwasher-programs
 @customElement("bosch-dishwasher-programs-editor")
 export class BoschDishwasherProgramsEditor extends LitElement {
     @property({ attribute: false }) hass?: HomeAssistant;
-    @property({ type: Object }) config: any;
+    @property({ type: Object }) config: BoschDishwasherProgramsFeatureConfig;
 
-    setConfig(config: any) {
+    setConfig(config: BoschDishwasherProgramsFeatureConfig) {
         this.config = { ...config };
     }
 
