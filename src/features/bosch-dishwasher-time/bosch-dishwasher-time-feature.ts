@@ -10,19 +10,31 @@ class BoschDishwasherTimeFeature extends LitElement implements LovelaceCardFeatu
     @property({ attribute: false })
     public context?: LovelaceCardFeatureContext;
 
-    @state() 
-    private _config?: BoschDishwasherTimeFeatureConfig;
+    @property({ attribute: false })
+    private config?: BoschDishwasherTimeFeatureConfig;
+
+    private static entities: Map<string, BoschEntities> = new Map([
+        ["remaining_program_time_is_estimated", { type: "binary_sensor", suffix: "bsh_common_option_remainingprogramtimeisestimated" }],
+        ["remote_control_active", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolactive" }],
+        ["remote_control_start_allowed", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolstartallowed" }],
+        ["connected", { type: "binary_sensor", suffix: "connected" }],
+
+        ["start_pause", { type: "button", suffix: "start_pause" }],
+        ["stop", { type: "button", suffix: "stop" }],
+
+        ["start_in_relative", { type: "select", suffix: "bsh_common_option_startinrelative" }],
+    ]);     
 
     public setConfig(config: BoschDishwasherTimeFeatureConfig): void {
         if (!config) {
             throw new Error("Invalid configuration");
         }
-        this._config = config;
+        this.config = config;
     }
 
     protected render(): TemplateResult | typeof nothing {
-        console.log("Rendering Bosch Dishwasher Time feature with config:", this._config, "and context:", this.context);
-        if (!this._config || !this.hass || !this.context || !BoschDishwasherTimeFeature.isSupported(this.hass, this.context)) {
+        console.log("Rendering Bosch Dishwasher Time feature with config:", this.config, "and context:", this.context);
+        if (!this.config || !this.hass || !this.context || !BoschDishwasherTimeFeature.isSupported(this.hass, this.context)) {
             html`<div>something is missing</div>`;
         }
         return html`<div>TIME</div>`;

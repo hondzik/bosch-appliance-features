@@ -17,6 +17,35 @@ export class BoschDishwasherOptionsFeature extends LitElement {
     @property({ attribute: false })
     public context?: LovelaceCardFeatureContext;
 
+    private static entities: Map<string, BoschEntities> = new Map([
+        ["remaining_program_time_is_estimated", { type: "binary_sensor", suffix: "bsh_common_option_remainingprogramtimeisestimated" }],
+        ["door_state", { type: "binary_sensor", suffix: "bsh_common_status_doorstate" }],
+        ["remote_control_active", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolactive" }],
+        ["remote_control_start_allowed", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolstartallowed" }],
+        ["connected", { type: "binary_sensor", suffix: "connected" }],
+
+        ["start_pause", { type: "button", suffix: "start_pause" }],
+        ["stop", { type: "button", suffix: "stop" }],
+
+        ["start_in_relative", { type: "select", suffix: "bsh_common_option_startinrelative" }],
+        ["programs", { type: "select", suffix: "programs" }],
+
+        ["active_program", { type: "sensor", suffix: "active_program" }],
+        ["base_program", { type: "sensor", suffix: "bsh_common_option_baseprogram" }],
+        ["program_name", { type: "sensor", suffix: "bsh_common_option_programname" }],
+        ["program_progress", { type: "sensor", suffix: "bsh_common_option_programprogress" }],
+        ["remaining_program_time", { type: "sensor", suffix: "bsh_common_option_remainingprogramtime" }],
+        ["operation_state", { type: "sensor", suffix: "bsh_common_status_operationstate" }],
+        ["selected_program", { type: "sensor", suffix: "selected_program" }],
+
+        ["power_state", { type: "switch", suffix: "bsh_common_setting_powerstate" }],
+        ["extra_dry", { type: "switch", suffix: "dishcare_dishwasher_option_extradry" }],
+        ["hygiene_plus", { type: "switch", suffix: "dishcare_dishwasher_option_hygieneplus" }],
+        ["intensive_zone", { type: "switch", suffix: "dishcare_dishwasher_option_intensivzone" }],
+        ["silence_on_demand", { type: "switch", suffix: "dishcare_dishwasher_option_silenceondemand" }],
+        ["vario_speed_plus", { type: "switch", suffix: "dishcare_dishwasher_option_variospeedplus" }],
+    ]);    
+
     switches: HassEntities = {};
     private _entityPrefix?: string;
 
