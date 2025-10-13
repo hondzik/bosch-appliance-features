@@ -9,37 +9,14 @@ import { version } from "../../../package.json";
 import "./bosch-dishwasher-programs-editor";
 
 
-/**
- * Check if the given entity supports the Bosch Dishwasher Programs feature.
- * The check is based on the entity's device_class and friendly_name attributes.
- * @param hass HomeAssistant instance
- * @param context LovelaceCardFeatureContext containing the entity_id to check  
- * @returns Boolean indicating whether the given entity supports the Bosch Dishwasher Programs feature.
- */
-const supportsBoschDishwasherProgramsFeature = (
-    hass: HomeAssistant,
-    context: LovelaceCardFeatureContext    
-): boolean => {
-    console.log("Checking support for Bosch Dishwasher Programs feature with context:", context);
-
-    const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
-    if (!stateObj) return false;
-
-    const deviceClass = stateObj.attributes.device_class?.toLowerCase() || "";
-    const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || "";
-
-    return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("bosch") && friendlyName.includes("dishwasher");
-};
-
-
 @customElement("bosch-dishwasher-programs-feature")
 class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardFeature {
 
     @property({ attribute: false })
-    public hass?: HomeAssistant;
+    public hass!: HomeAssistant;
 
     @property({ attribute: false })
-    public context?: LovelaceCardFeatureContext;
+    public context!: LovelaceCardFeatureContext;
 
     @state() 
     private _config?: BoschDishwasherProgramsFeatureConfig;
@@ -290,6 +267,29 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
             min_rows: 12,
         };
     }
+
+    /**
+     * Check if the given entity supports the Bosch Dishwasher Programs feature.
+     * The check is based on the entity's device_class and friendly_name attributes.
+     * @param hass HomeAssistant instance
+     * @param context LovelaceCardFeatureContext containing the entity_id to check  
+     * @returns Boolean indicating whether the given entity supports the Bosch Dishwasher Programs feature.
+     */
+    public static isSupported(
+        hass: HomeAssistant,
+        context: LovelaceCardFeatureContext    
+    ): boolean {
+        console.log("Checking support for Bosch Dishwasher Programs feature with context:", context);
+
+        const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
+        if (!stateObj) return false;
+
+        const deviceClass = stateObj.attributes.device_class?.toLowerCase() || "";
+        const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || "";
+
+        return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("bosch") && friendlyName.includes("dishwasher");
+    };
+
 }
 
 
@@ -298,8 +298,7 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: "bosch-dishwasher-programs-feature",
     name: "Bosch Dishwasher Programs Panel",
-    supported: supportsBoschDishwasherProgramsFeature,
-    configurable: true,
+    configurable: true
 });
 
 declare global {
