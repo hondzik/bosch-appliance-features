@@ -275,10 +275,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
      * @param context LovelaceCardFeatureContext containing the entity_id to check  
      * @returns Boolean indicating whether the given entity supports the Bosch Dishwasher Programs feature.
      */
-    public static isSupported(
-        hass: HomeAssistant,
-        context: LovelaceCardFeatureContext    
-    ): boolean {
+    public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
         console.log("Checking support for Bosch Dishwasher Programs feature with context:", context);
 
         const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
