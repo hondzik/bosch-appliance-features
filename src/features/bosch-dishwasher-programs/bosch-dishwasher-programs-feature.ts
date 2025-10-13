@@ -64,8 +64,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
     protected shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
-        console.log("Should Update: " + Array.from(changedProperties.keys()));
-
         if (changedProperties.has('context') || changedProperties.has('_config')) {
             console.log("Context or Config has changed => render")
             return true;
@@ -118,7 +116,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     private getHaIconButton(program: BoschDishwasherProgram): TemplateResult {
         const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
         return html`
-            <ha-icon-button .label=${program.name} title=${program.name} .value=${program.program} @click=${() => this.changeProgram}>
+            <ha-icon-button .label=${program.name} title=${program.name} value=${program.program} @click=${() => this.changeProgram}>
                 ${until(svg, html`<ha-spinner size="small"></ha-spinner>`)}
             </ha-icon-button>
         `;
