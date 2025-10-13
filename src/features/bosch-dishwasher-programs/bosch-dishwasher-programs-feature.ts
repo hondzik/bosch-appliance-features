@@ -85,10 +85,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
 
 
         return false;
-
-
-//        if (!changedProperties.has('hass') && !changedProperties.has('context') && !changedProperties.has('config'))
-        return true;
     }
 
 
@@ -99,11 +95,11 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         }
 
         const filteredPrograms = BoschDishwasherProgramsFeature.programs.filter(
-            p => this.getBoolConfigVal("show_" + p.icon.toLowerCase().replace(/-/g, "_"), true) === true
+            p => this.getBoolConfigVal("show_" + p.icon.toLowerCase().replace(/-/g, "_"), true)
         );
      
         return this._config.show_as_button_bar === true 
-            ? html`<ha-control-button-group direction="row" .value=${this.program} @value-changed=${this.changeProgram}>${filteredPrograms.map(p => this.getHaControlButton(p))}</ha-control-button-group>`
+            ? this.getHaControlButtonGroup(filteredPrograms)
             : html`<div>${filteredPrograms.map(p => this.getHaIconButton(p))}</div>`;
     }
 
@@ -133,6 +129,18 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         return this._entityPrefix;
     }
 
+    private getHaControlButtonGroup(filteredPrograms: BoschDishwasherProgram[]): TemplateResult {
+        return html`
+            <ha-control-button-group 
+                direction="row" 
+                .value=${this.program} 
+                @value-changed=${(e: CustomEvent<{ value: string }>) => this.changeProgram(e)}
+            >
+                ${filteredPrograms.map(p => this.getHaControlButton(p))}
+            </ha-control-button-group>
+        `;
+    }
+
     /**
      * Renders a button for the given program.
      * @param program BoschDishwasherProgram
@@ -160,15 +168,16 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
 
 
     private get program(): string | null {
-        if (this.getLinkedEntity("selected_program")) {
-            console.log("Selected program:", this.getLinkedEntity("selected_program")?.state);
-            return this.getLinkedEntity("selected_program")?.state || null;
+        const program = this.getLinkedEntity("programs");
+        if (program) {
+            console.log("Selected program:", program.state);
+            return program.state;
         }
         return null;
     }
 
     private set program(value: string) {
-        const entityId = this.getLinkedEntity("selected_program")?.entity_id;
+        const entityId = this.getLinkedEntity("programs")?.entity_id;
         console.log(`Setting ${entityId} to ${value}`)
         if (entityId && this.hass) {
             this.hass.callService("select", "select_option", { entity_id: entityId, option: value });
