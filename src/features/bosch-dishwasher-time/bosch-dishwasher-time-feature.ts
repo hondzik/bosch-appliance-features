@@ -21,10 +21,11 @@ class BoschDishwasherTimeFeature extends LitElement implements LovelaceCardFeatu
     }
 
     protected render(): TemplateResult | typeof nothing {
+        console.log("Rendering Bosch Dishwasher Time feature with config:", this._config, "and context:", this.context);
         if (!this._config || !this.hass || !this.context || !BoschDishwasherTimeFeature.isSupported(this.hass, this.context)) {
-            return nothing;
+            html`<div>something is missing</div>`;
         }
-       return html`<div>TIME</div>`;
+        return html`<div>TIME</div>`;
     }
 
     public static getStubConfig(): BoschDishwasherTimeFeatureConfig {

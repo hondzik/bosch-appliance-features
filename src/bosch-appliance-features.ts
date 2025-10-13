@@ -2,7 +2,7 @@ import { version } from "../package.json";
 
 import "./features/bosch-dishwasher-programs/bosch-dishwasher-programs-feature";
 import "./features/bosch-dishwasher-options/bosch-dishwasher-options-feature";
-//import "./features/bosch-dishwasher-time/bosch-dishwasher-time-feature";
+import "./features/bosch-dishwasher-time/bosch-dishwasher-time-feature";
 
 console.info(
   `Home Connect Alt Features for Tile cards - ${version}`,
