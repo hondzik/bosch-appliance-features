@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.59","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","description":"Bosch Home Connect Alt features for Home Assistant Tile card","keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"version":"0.0.65","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"parcel":"^2.16.0","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1883,18 +1883,6 @@ $a3d36398cbb8abc5$export$5ad3d821964e0a36 = (0, $bb166217b384746d$export$29e00df
 ], $a3d36398cbb8abc5$export$5ad3d821964e0a36);
 
 
-/**
- * Check if the given entity supports the Bosch Dishwasher Programs feature.
- * The check is based on the entity's device_class and friendly_name attributes.
- * @param stateObj HassEntity
- * @returns Boolean indicating whether the given entity supports the Bosch Dishwasher Programs feature.
- */ const $3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature = (hass, context)=>{
-    const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
-    if (!stateObj) return false;
-    const deviceClass = stateObj.attributes.device_class?.toLowerCase() || "";
-    const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || "";
-    return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("bosch") && friendlyName.includes("dishwasher");
-};
 class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332d1e3099e$export$3f2f9f5909897157) {
     static{
         this.iconCache = new Map();
@@ -2102,25 +2090,14 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
         ]);
     }
     setConfig(config) {
-        console.log("setConfig:", config);
         if (!config) throw new Error("Invalid configuration");
         this._config = config;
-        this.setPrefix();
         this.classList.toggle("buttons", this._config.show_as_button_bar === true);
         this.classList.toggle("icons", this._config.show_as_button_bar !== true);
     }
-    setPrefix() {
-        console.log("setPrefix:");
-        console.log(this.context);
-        if (this._config) {
-            const entity = this.context?.entity_id;
-            console.log("Setting prefix for entity: ", entity);
-            // If entity_prefix is not set, derive it from the entity ID    
-            if (this._config.entity_prefix === undefined) this._config.entity_prefix = entity?.split(".")[1]?.split("_").slice(0, 2).join("_");
-        }
-    }
     render() {
-        if (!this._config || !this.hass || !this.context || !$3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature(this.hass, this.context)) return 0, $d33ef1320595a3ac$export$45b790e32b2810ee;
+        console.log("Rendering Bosch Dishwasher Programs feature with config:", this._config, "and context:", this.context);
+        if (!this._config || !this.hass || !this.context || !$3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.isSupported(this.hass, this.context)) return 0, $d33ef1320595a3ac$export$45b790e32b2810ee;
         // Filter programs based on config
         // expect config keys like "show_eco_50", "show_auto_45_65", etc.
         // if key is missing, default to true (show the program)
@@ -2139,6 +2116,15 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
                 ${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<ha-spinner size="small"></ha-spinner>`)}
             </ha-icon-button>
         `;
+    }
+    get entityPrefix() {
+        if (this._entityPrefix === undefined) {
+            if (this.context?.entity_id) {
+                this._entityPrefix = this.context.entity_id.split(".")[1]?.split("_").slice(0, 2).join("_");
+                console.log("Derived entityPrefix: ", this._entityPrefix);
+            } else console.warn("Cannot derive entityPrefix: context.entity_id is undefined");
+        }
+        return this._entityPrefix;
     }
     /**
      * Renders a button for the given program.
@@ -2162,13 +2148,13 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
         `;
     }
     getLinkedEntity(name) {
-        if ($3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.entities.has(name) && this._config && this._config.entity_prefix) {
+        if ($3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.entities.has(name) && this._config && this.entityPrefix) {
             const entity = $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.entities.get(name);
-            const entityId = `${entity.type}.${this._config.entity_prefix}_${entity.suffix}`;
+            const entityId = `${entity.type}.${this.entityPrefix}_${entity.suffix}`;
             console.log(`Looking for entity: ${entityId}`);
-            return this.hass?.states?.[entityId];
+            return this.hass?.states?.[entityId] || undefined;
         }
-        console.error(`Entity for ${name} not found (prefix: ${this._config?.entity_prefix})`);
+        console.error(`Entity for ${name} not found (prefix: ${this.entityPrefix})`);
         return undefined;
     }
     get selectedProgram() {
@@ -2181,7 +2167,7 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
     set selectedProgram(value) {
         const entity = this.getLinkedEntity("selected_program");
         if (entity && this.hass) {
-            console.log("Setting selected program to", value);
+            console.log("Setting selected program to: ", value);
             this.hass.callService("select", "select_option", {
                 entity_id: entity.entity_id,
                 option: value
@@ -2206,7 +2192,7 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
         return this._config && this._config[key] !== undefined ? !!this._config[key] : defaultValue;
     }
     setProgram(e) {
-        console.log("Selecting", e.detail.value);
+        console.log("Selecting program: ", e.detail.value);
         this.selectedProgram = e.detail.value;
     }
     /**
@@ -2258,18 +2244,31 @@ class $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature extends (0, $528e4332
      */ static get styles() {
         return 0, $d9ed75644065a944$export$864cc654a388aa38;
     }
-    getGridOptions() {
+    static getGridOptions() {
         return {
             rows: 1,
             columns: 12,
             min_rows: 12
         };
     }
+    /**
+     * Check if the given entity supports the Bosch Dishwasher Programs feature.
+     * The check is based on the entity's device_class and friendly_name attributes.
+     * @param hass HomeAssistant instance
+     * @param context LovelaceCardFeatureContext containing the entity_id to check  
+     * @returns Boolean indicating whether the given entity supports the Bosch Dishwasher Programs feature.
+     */ static isSupported(hass, context) {
+        console.log("Checking support for Bosch Dishwasher Programs feature with context:", context);
+        const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
+        if (!stateObj) return false;
+        const deviceClass = stateObj.attributes.device_class?.toLowerCase() || "";
+        const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || "";
+        return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("bosch") && friendlyName.includes("dishwasher");
+    }
 }
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
     (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
-        attribute: false,
-        hasChanged: ()=>false
+        attribute: false
     })
 ], $3fccb9d4d2156306$var$BoschDishwasherProgramsFeature.prototype, "hass", void 0);
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
@@ -2288,7 +2287,6 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: "bosch-dishwasher-programs-feature",
     name: "Bosch Dishwasher Programs Panel",
-    supported: $3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature,
     configurable: true
 });
 
@@ -2348,22 +2346,10 @@ $c45b3a62a020e969$export$777b72c3156c0d7d = (0, $bb166217b384746d$export$29e00df
 ], $c45b3a62a020e969$export$777b72c3156c0d7d);
 
 
-const $77c64735a69c1828$var$supportsBoschDishwasherOptionsFeature = (stateObj)=>{
-    if (!stateObj?.attributes) return false;
-    const deviceClass = stateObj.attributes.device_class?.toLowerCase() || "";
-    const friendlyName = stateObj.attributes.friendly_name.toLowerCase() || "";
-    return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("dishwasher") && friendlyName.includes("dishwasher");
-};
 class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $528e4332d1e3099e$export$3f2f9f5909897157) {
     setConfig(config) {
-        // If entity_prefix is not set, try to derive it from the entity name
-        if (config.entity_prefix === undefined && config.entity) {
-            const entityName = config.entity.split(".")[1];
-            config.entity_prefix = entityName.split("_").slice(0, -2).join("_");
-        }
-        this.config = config;
-        if (config && config.entity) this.stateObj = this.hass?.states?.[config.entity];
-        else this.stateObj = undefined;
+        if (!config) throw new Error("Invalid configuration");
+        this._config = config;
     }
     set hass(hass) {
         this._hass = hass;
@@ -2398,7 +2384,7 @@ class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $528e4332d1e3099e$ex
      * - HygienePlus: switch.*_dishcare_dishwasher_option_hygieneplus
      * - PerfectSpeed+: switch.*_dishcare_dishwasher_option_variospeedplus
      */ render() {
-        if (!this.config || !this.hass || !this.stateObj || !$77c64735a69c1828$var$supportsBoschDishwasherOptionsFeature(this.stateObj)) return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
+        if (!this.config || !this.hass || !this.stateObj || !$77c64735a69c1828$export$80a2f62778bb11ea.isSupported(this.hass, this.context)) return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
                 <div class="toners">
                     <div>Unsupported feature</div>
                 </div>
@@ -2406,7 +2392,30 @@ class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $528e4332d1e3099e$ex
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)``;
     }
     getEntity(type, suffix) {
-        return `${type}.${this.config?.entity_prefix}_${suffix}`;
+        return `${type}.${this.entityPrefix}_${suffix}`;
+    }
+    get entityPrefix() {
+        if (this._entityPrefix === undefined) {
+            if (this.context?.entity_id) {
+                this._entityPrefix = this.context.entity_id.split(".")[1]?.split("_").slice(0, 2).join("_");
+                console.log("Derived entityPrefix: ", this._entityPrefix);
+            } else console.warn("Cannot derive entityPrefix: context.entity_id is undefined");
+        }
+        return this._entityPrefix;
+    }
+    /**
+     * Check if the given entity supports the Bosch Dishwasher Programs feature.
+     * The check is based on the entity's device_class and friendly_name attributes.
+     * @param hass HomeAssistant instance
+     * @param context LovelaceCardFeatureContext containing the entity_id to check  
+     * @returns Boolean indicating whether the given entity supports the Bosch Dishwasher Programs feature.
+     */ static isSupported(hass, context) {
+        console.log("Checking support for Bosch Dishwasher Programs feature with context:", context);
+        const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
+        if (!stateObj) return false;
+        const deviceClass = stateObj.attributes.device_class?.toLowerCase() || "";
+        const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || "";
+        return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("bosch") && friendlyName.includes("dishwasher");
     }
     static get properties() {
         return {
@@ -2449,6 +2458,14 @@ class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $528e4332d1e3099e$ex
         attribute: false
     })
 ], $77c64735a69c1828$export$80a2f62778bb11ea.prototype, "stateObj", void 0);
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $0ede0742a0fa7bbd$export$ca000e230c0caa3e)()
+], $77c64735a69c1828$export$80a2f62778bb11ea.prototype, "_config", void 0);
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
+        attribute: false
+    })
+], $77c64735a69c1828$export$80a2f62778bb11ea.prototype, "context", void 0);
 $77c64735a69c1828$export$80a2f62778bb11ea = (0, $bb166217b384746d$export$29e00dfd3077644b)([
     (0, $4af75e4a7ed8f584$export$da64fc29f17f9d0e)("bosch-dishwasher-options-feature")
 ], $77c64735a69c1828$export$80a2f62778bb11ea);
@@ -2456,12 +2473,68 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: "bosch-dishwasher-options-feature",
     name: "Bosch Dishwasher Program Options Panel",
-    supported: $77c64735a69c1828$var$supportsBoschDishwasherOptionsFeature,
     configurable: true
 });
 
 
-//import "./features/bosch-dishwasher-time/bosch-dishwasher-time-feature";
+
+
+
+class $e4104b77a0427686$var$BoschDishwasherTimeFeature extends (0, $528e4332d1e3099e$export$3f2f9f5909897157) {
+    setConfig(config) {
+        if (!config) throw new Error("Invalid configuration");
+        this._config = config;
+    }
+    render() {
+        console.log("Rendering Bosch Dishwasher Time feature with config:", this._config, "and context:", this.context);
+        if (!this._config || !this.hass || !this.context || !$e4104b77a0427686$var$BoschDishwasherTimeFeature.isSupported(this.hass, this.context)) (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div>something is missing</div>`;
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div>TIME</div>`;
+    }
+    static getStubConfig() {
+        return {
+            type: 'custom:bosch-dishwasher-time-feature'
+        };
+    }
+    /**
+     * Check if the given entity supports the Bosch Dishwasher Programs feature.
+     * The check is based on the entity's device_class and friendly_name attributes.
+     * @param hass HomeAssistant instance
+     * @param context LovelaceCardFeatureContext containing the entity_id to check  
+     * @returns Boolean indicating whether the given entity supports the Bosch Dishwasher Programs feature.
+     */ static isSupported(hass, context) {
+        console.log("Checking support for Bosch Dishwasher Times feature with context:", context);
+        const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
+        if (!stateObj) return false;
+        const deviceClass = stateObj.attributes.device_class?.toLowerCase() || "";
+        const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || "";
+        return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("bosch") && friendlyName.includes("dishwasher");
+    }
+}
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
+        attribute: false
+    })
+], $e4104b77a0427686$var$BoschDishwasherTimeFeature.prototype, "hass", void 0);
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
+        attribute: false
+    })
+], $e4104b77a0427686$var$BoschDishwasherTimeFeature.prototype, "context", void 0);
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $0ede0742a0fa7bbd$export$ca000e230c0caa3e)()
+], $e4104b77a0427686$var$BoschDishwasherTimeFeature.prototype, "_config", void 0);
+$e4104b77a0427686$var$BoschDishwasherTimeFeature = (0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $4af75e4a7ed8f584$export$da64fc29f17f9d0e)("bosch-dishwasher-time-feature")
+], $e4104b77a0427686$var$BoschDishwasherTimeFeature);
+// Register the feature in the global customCardFeatures array
+window.customCardFeatures ||= [];
+window.customCardFeatures.push({
+    type: "bosch-dishwasher-time-feature",
+    name: "Bosch Dishwasher Time Panel",
+    configurable: true
+});
+
+
 console.info(`Home Connect Alt Features for Tile cards - ${(0, $db183fbae05d6b51$exports.version)}`, "color: #ee5500; font-weight: 200;");
 
 

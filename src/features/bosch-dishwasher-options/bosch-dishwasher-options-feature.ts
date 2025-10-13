@@ -5,35 +5,26 @@ import type { HassEntities, HassEntity } from "home-assistant-js-websocket";
 import { BoschDishwasherOptionsFeatureStyles } from "./bosch-dishwasher-options.styles";
 import "./bosch-dishwasher-options-editor";
 
-const supportsBoschDishwasherOptionsFeature = (stateObj: HassEntity): boolean => {
-    if (!stateObj?.attributes) return false;
-
-    const deviceClass = stateObj.attributes.device_class?.toLowerCase() || "";
-    const friendlyName = stateObj.attributes.friendly_name.toLowerCase() || "";
-
-    return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("dishwasher") && friendlyName.includes("dishwasher");
-};
-
 @customElement("bosch-dishwasher-options-feature")
 export class BoschDishwasherOptionsFeature extends LitElement {
     @state() _hass?: HomeAssistant;
     @property({ attribute: false }) config?: any;
     @property({ attribute: false }) stateObj?: HassEntity;
 
+    @state() 
+    private _config?: BoschDishwasherOptionsFeatureConfig;
+
+    @property({ attribute: false })
+    public context?: LovelaceCardFeatureContext;
+
     switches: HassEntities = {};
+    private _entityPrefix?: string;
 
     setConfig(config: BoschDishwasherOptionsFeatureConfig) {
-        // If entity_prefix is not set, try to derive it from the entity name
-        if (config.entity_prefix === undefined && config.entity) {
-            const entityName = config.entity.split(".")[1];
-            config.entity_prefix = entityName.split("_").slice(0, -2).join("_");
+        if (!config) {
+            throw new Error("Invalid configuration");
         }
-        this.config = config;
-        if (config && config.entity) {
-            this.stateObj = this.hass?.states?.[config.entity];
-        } else {
-            this.stateObj = undefined;
-        }
+        this._config = config;
     }
 
     set hass(hass: HomeAssistant | undefined) {
@@ -79,7 +70,7 @@ export class BoschDishwasherOptionsFeature extends LitElement {
      * - PerfectSpeed+: switch.*_dishcare_dishwasher_option_variospeedplus
      */
     render(): TemplateResult {
-        if (!this.config || !this.hass || !this.stateObj || !supportsBoschDishwasherOptionsFeature(this.stateObj)) {
+        if (!this.config || !this.hass || !this.stateObj || !BoschDishwasherOptionsFeature.isSupported(this.hass, this.context)) {
             return html`
                 <div class="toners">
                     <div>Unsupported feature</div>
@@ -91,8 +82,39 @@ export class BoschDishwasherOptionsFeature extends LitElement {
     }
 
     getEntity(type: string, suffix: string): string {
-        return `${type}.${this.config?.entity_prefix}_${suffix}`;
+        return `${type}.${this.entityPrefix}_${suffix}`;
     }
+
+    private get entityPrefix(): string | undefined {
+        if (this._entityPrefix === undefined) {
+            if (this.context?.entity_id) {
+                this._entityPrefix = this.context.entity_id.split(".")[1]?.split("_").slice(0, 2).join("_")
+                console.log("Derived entityPrefix: ", this._entityPrefix);
+            } else {
+                console.warn("Cannot derive entityPrefix: context.entity_id is undefined");
+            }
+        }
+        return this._entityPrefix;
+    }
+
+    /**
+     * Check if the given entity supports the Bosch Dishwasher Programs feature.
+     * The check is based on the entity's device_class and friendly_name attributes.
+     * @param hass HomeAssistant instance
+     * @param context LovelaceCardFeatureContext containing the entity_id to check  
+     * @returns Boolean indicating whether the given entity supports the Bosch Dishwasher Programs feature.
+     */
+    public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
+        console.log("Checking support for Bosch Dishwasher Programs feature with context:", context);
+
+        const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
+        if (!stateObj) return false;
+
+        const deviceClass = stateObj.attributes.device_class?.toLowerCase() || "";
+        const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || "";
+
+        return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("bosch") && friendlyName.includes("dishwasher");
+    };
 
     static get properties(): { [key: string]: any } {
         return {
@@ -121,6 +143,5 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: "bosch-dishwasher-options-feature",
     name: "Bosch Dishwasher Program Options Panel",
-    supported: supportsBoschDishwasherOptionsFeature,
     configurable: true,
 });

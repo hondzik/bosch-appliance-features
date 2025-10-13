@@ -1,5 +1,5 @@
 import { HomeAssistant } from "custom-card-helpers";
-import { LitElement, html, TemplateResult, CSSResultGroup, nothing } from "lit";
+import { LitElement, html, TemplateResult, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators";
 
 @customElement("bosch-dishwasher-time-feature")

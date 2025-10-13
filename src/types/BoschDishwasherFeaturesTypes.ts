@@ -1,7 +1,5 @@
 type FeatureConfig = {
     type: string;
-    entity?: string;
-    entity_prefix?: string;
 };
 
 type BoschDishwasherOptionsFeatureConfig = FeatureConfig & {};

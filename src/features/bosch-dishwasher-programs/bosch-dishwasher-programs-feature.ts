@@ -20,6 +20,8 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
 
     @state() 
     private _config?: BoschDishwasherProgramsFeatureConfig;
+
+    private _entityPrefix?: string;
     
     private static iconCache = new Map<string, string>();
 
@@ -70,16 +72,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         }
         this._config = config;
 
-        console.log("config:", config);
-        console.log("context: ", this.context);
-        if (this.context && this._config.entity_prefix === undefined) {
-            const entity = this.context.entity_id
-            console.log("Setting prefix for entity: ", entity);
-            // If entity_prefix is not set, derive it from the entity ID    
-            this._config.entity_prefix = entity?.split(".")[1]?.split("_").slice(0, 2).join("_");
-            console.log("Derived entity_prefix: ", this._config.entity_prefix);
-        }
-
         this.classList.toggle("buttons", this._config.show_as_button_bar === true);
         this.classList.toggle("icons", this._config.show_as_button_bar !== true);
     }
@@ -87,6 +79,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
 
 
     protected render(): TemplateResult | typeof nothing {
+        console.log("Rendering Bosch Dishwasher Programs feature with config:", this._config, "and context:", this.context);
         if (!this._config || !this.hass || !this.context || !BoschDishwasherProgramsFeature.isSupported(this.hass, this.context)) {
             return nothing;
         }
@@ -119,6 +112,17 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         `;
     }
 
+    private get entityPrefix(): string | undefined {
+        if (this._entityPrefix === undefined) {
+            if (this.context?.entity_id) {
+                this._entityPrefix = this.context.entity_id.split(".")[1]?.split("_").slice(0, 2).join("_")
+                console.log("Derived entityPrefix: ", this._entityPrefix);
+            } else {
+                console.warn("Cannot derive entityPrefix: context.entity_id is undefined");
+            }
+        }
+        return this._entityPrefix;
+    }
 
     /**
      * Renders a button for the given program.
@@ -146,13 +150,13 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
 
 
     private getLinkedEntity(name: string): HassEntity | undefined {
-        if (BoschDishwasherProgramsFeature.entities.has(name) && this._config && this._config.entity_prefix) {
+        if (BoschDishwasherProgramsFeature.entities.has(name) && this._config && this.entityPrefix) {
             const entity = BoschDishwasherProgramsFeature.entities.get(name)!;
-            const entityId = `${entity.type}.${this._config.entity_prefix}_${entity.suffix}`;
+            const entityId = `${entity.type}.${this.entityPrefix}_${entity.suffix}`;
             console.log(`Looking for entity: ${entityId}`);
             return this.hass?.states?.[entityId] || undefined;   
         } 
-        console.error(`Entity for ${name} not found (prefix: ${this._config?.entity_prefix})`);  
+        console.error(`Entity for ${name} not found (prefix: ${this.entityPrefix})`);  
         return undefined;  
     }
 
