@@ -87,7 +87,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
 
 
     protected render(): TemplateResult | typeof nothing {
-        if (!this._config || !this.hass || !this.context || !supportsBoschDishwasherProgramsFeature(this.hass, this.context)) {
+        if (!this._config || !this.hass || !this.context || !BoschDishwasherProgramsFeature.isSupported(this.hass, this.context)) {
             return nothing;
         }
 
