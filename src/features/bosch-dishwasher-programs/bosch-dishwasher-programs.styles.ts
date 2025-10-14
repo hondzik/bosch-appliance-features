@@ -56,15 +56,15 @@ export const BoschDishwasherProgramsFeatureStyles = css`
     }   
 
     ha-control-button:hover {
-        background-color: rgba(var(--rgb-primary-color), 0.1);
+        background-color: rgba(var(--rgb-primary-color), 0.2);
         color: var(--primary-color);
         z-index: 2;
     }
 
     ha-control-button.active,
     ha-control-button.active:hover {
-        background-color: rgba(var(--rgb-primary-color), 0.2);
-        color: var(--primary-color);
+        background-color: var(--primary-color);
+        color: var(--text-color);
         z-index: 3;
     }
 

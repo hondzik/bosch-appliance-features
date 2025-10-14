@@ -21,87 +21,9 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     @state() 
     private _config?: BoschDishwasherProgramsFeatureConfig;
 
-    private _entityPrefix?: string;
-    
     private static iconCache = new Map<string, string>();
 
-    private static programs: BoschDishwasherProgram[] = [
-        { name: "Eco 50°C", icon: "Eco_50", program: "Dishcare.Dishwasher.Program.Eco50" },
-        { name: "Auto 45-65°C", icon: "Auto_45-65", program: "Dishcare.Dishwasher.Program.Auto2" },
-        { name: "Intensive 70°C", icon: "Intensive_70", program: "Dishcare.Dishwasher.Program.Intensiv70" },
-        { name: "Express 60°C", icon: "Express_60", program: "Dishcare.Dishwasher.Program.Kurz60" },
-        { name: "Quick 45°C", icon: "Express_45", program: "Dishcare.Dishwasher.Program.Quick45" },
-        { name: "Glass 40°C", icon: "Glass_40", program: "Dishcare.Dishwasher.Program.Glas40" },
-        { name: "Silent 50°C", icon: "Silent_50", program: "Dishcare.Dishwasher.Program.NightWash" },
-        { name: "Machine Care", icon: "MachineCare", program: "Dishcare.Dishwasher.Program.MachineCare" }
-    ];
-
-    private static entities: Map<string, BoschEntities> = new Map([
-        ["remaining_program_time_is_estimated", { type: "binary_sensor", suffix: "bsh_common_option_remainingprogramtimeisestimated" }],
-        ["door_state", { type: "binary_sensor", suffix: "bsh_common_status_doorstate" }],
-        ["remote_control_active", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolactive" }],
-        ["remote_control_start_allowed", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolstartallowed" }],
-        ["connected", { type: "binary_sensor", suffix: "connected" }],
-
-        ["programs", { type: "select", suffix: "programs" }],
-
-        ["active_program", { type: "sensor", suffix: "active_program" }],
-        ["base_program", { type: "sensor", suffix: "bsh_common_option_baseprogram" }],
-        ["program_name", { type: "sensor", suffix: "bsh_common_option_programname" }],
-        ["operation_state", { type: "sensor", suffix: "bsh_common_status_operationstate" }],
-        ["selected_program", { type: "sensor", suffix: "selected_program" }],
-    ]);
-    
-
-    public setConfig(config: BoschDishwasherProgramsFeatureConfig): void {
-        if (!config) {
-            throw new Error("Invalid configuration");
-        }
-        this._config = config;
-
-        this.classList.toggle("buttons", this._config.show_as_button_bar === true);
-        this.classList.toggle("icons", this._config.show_as_button_bar !== true);
-    }
-
-    protected shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
-        if (changedProperties.has('context') || changedProperties.has('_config')) {
-            console.log("Context or Config has changed => render")
-            return true;
-        }
-        
-        if (!changedProperties.has('hass')) return false;
-
-        const oldHass = changedProperties.get('hass') as HomeAssistant | undefined;
-        if (!oldHass) return true; // první render
-
-        // porovnání starého a nového stavu entity
-        for (const entity of BoschDishwasherProgramsFeature.entities.values()) {
-            const entityId = `${entity.type}.${this.entityPrefix}_${entity.suffix}`;
-            if (oldHass.states[entityId] !== this.hass.states[entityId]) {
-                console.log("Entity " + entityId + " has changed => render");
-                return true; // konkrétní entita se změnila
-            }
-        }
-
-
-        return false;
-    }
-
-
-    protected render(): TemplateResult | typeof nothing {
-        console.log("Rendering Bosch Dishwasher Programs feature with config:", this._config, "and context:", this.context);
-        if (!this._config || !this.hass || !this.context || !BoschDishwasherProgramsFeature.isSupported(this.hass, this.context)) {
-            return nothing;
-        }
-
-        const filteredPrograms = BoschDishwasherProgramsFeature.programs.filter(
-            p => this.getBoolConfigVal("show_" + p.icon.toLowerCase().replace(/-/g, "_"), true)
-        );
-     
-        return html`<ha-control-button-group>${filteredPrograms.map(p => this.getHaControlButton(p))}</ha-control-button-group>`;
-    }
-
-
+    private _entityPrefix?: string;
     private get entityPrefix(): string | undefined {
         if (this._entityPrefix === undefined) {
             if (this.context?.entity_id) {
@@ -113,13 +35,114 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         return this._entityPrefix;
     }
 
+    public setConfig(config: BoschDishwasherProgramsFeatureConfig): void {
+        if (!config) {
+            throw new Error("Invalid configuration");
+        }
+        this._config = config;
+        this._programs = [];
 
-    /**
-     * Renders a button for the given program.
-     * @param program BoschDishwasherProgram
-     * @returns TemplateResult containing a button with the program icon
-     */
-    private getHaControlButton(program: BoschDishwasherProgram): TemplateResult {
+        this.classList.toggle("buttons", this._config.show_as_button_bar === true);
+        this.classList.toggle("icons", this._config.show_as_button_bar !== true);
+    }
+
+    private get program(): string | null {
+        const program = this.getLinkedEntity(EBoschEntity.programs);
+        return program ? program.state : null;
+    }
+
+
+    private set program(value: string) {
+        const entityId = this.getLinkedEntity(EBoschEntity.programs)?.entity_id;
+        console.log(`Setting ${entityId} to ${value}`)
+        if (entityId && this.hass) {
+            this.hass.callService("select", "select_option", { entity_id: entityId, option: value });
+        } else {
+            console.error(`Cannot set ${entityId} to ${value}`)
+        }
+    }
+
+
+    private _programs: BoschDishwasherProgram[];
+    private get programs(): BoschDishwasherProgram[] {
+        if (this._programs.length == 0) {
+            const modelName = "SMV8YCX01E";
+            const model = (Object.values(EBoschModels).includes(modelName as EBoschModels))
+                ? modelName as EBoschModels
+                : undefined;
+            if (!model) {
+                console.error(`Unsupported dishwasher model ${modelName}`);
+                return [];
+            }
+            this._programs = (boschDishwasherModelProgramsMap.get(model) || []).map(p => boschDishwasherAllProgramsMap.get(p)!).filter(Boolean);           
+            if (this._programs.length == 0) {
+                console.error(`No programs associated with model ${modelName} found`);
+            }
+        }
+        return this._programs;
+    }
+
+
+    private _entities: Map<EBoschEntity, BoschEntity> = new Map();
+    private get entities(): Map<EBoschEntity, BoschEntity> {
+        if (this._entities.size === 0) {
+            const feature = EBoschFeature.dishwasher_programs;
+            const entityEnums = boschFeatureEntitiesMap.get(feature) ?? [];
+
+            this._entities = entityEnums.reduce((mapAcc, enumKey) => {
+                const entity = boschEntitiesMap.get(enumKey);
+                if (entity) {
+                    mapAcc.set(enumKey, entity);
+                }
+                return mapAcc;
+            }, new Map<EBoschEntity, BoschEntity>());
+
+            if (this._entities.size === 0) {
+                console.error(`No entities associated with feature ${feature} found`);
+            }
+        }
+
+        return this._entities;
+    }
+
+
+    protected shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
+        if (changedProperties.has('context') || changedProperties.has('_config')) {
+            return true;
+        }
+        
+        if (!changedProperties.has('hass')) {
+            return false;
+        }
+
+        const oldHass = changedProperties.get('hass') as HomeAssistant | undefined;
+        if (!oldHass) return true; // first render
+
+        for (const entity of this.entities.values()) {
+            const entityId = `${entity.type}.${this.entityPrefix}_${entity.suffix}`;
+            if (oldHass.states[entityId] !== this.hass.states[entityId]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    protected render(): TemplateResult | typeof nothing {
+        if (!this._config || !this.hass || !this.context || !BoschDishwasherProgramsFeature.isSupported(this.hass, this.context)) {
+            return nothing;
+        }
+
+        const filteredPrograms = this.programs.filter(
+            p => this.getBoolConfigVal("show_" + p.icon.toLowerCase().replace(/-/g, "_"), true)
+        );
+     
+        return html`<ha-control-button-group>${filteredPrograms.map(p => this.renderHaControlButton(p))}</ha-control-button-group>`;
+    }
+
+
+    private renderHaControlButton(program: BoschDishwasherProgram): TemplateResult {
         const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
         return html`
             <ha-control-button 
@@ -134,35 +157,16 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
 
-    private getLinkedEntity(name: string): HassEntity | undefined {
-        if (BoschDishwasherProgramsFeature.entities.has(name) && this._config && this.entityPrefix) {
-            const entity = BoschDishwasherProgramsFeature.entities.get(name)!;
-            const entityId = `${entity.type}.${this.entityPrefix}_${entity.suffix}`;
+    private getLinkedEntity(entity: EBoschEntity): HassEntity | undefined {
+        if (this.entities.has(entity) && this._config && this.entityPrefix) {
+            const entityDef = this.entities.get(entity)!;
+            const entityId = `${entityDef.type}.${this.entityPrefix}_${entityDef.suffix}`;
             return this.hass?.states?.[entityId] || undefined;   
         } 
         console.error(`Entity for ${name} not found (prefix: ${this.entityPrefix})`);  
         return undefined;  
     }
 
-
-    private get program(): string | null {
-        const program = this.getLinkedEntity("programs");
-        if (program) {
-            console.log("Selected program:", program.state);
-            return program.state;
-        }
-        return null;
-    }
-
-    private set program(value: string) {
-        const entityId = this.getLinkedEntity("programs")?.entity_id;
-        console.log(`Setting ${entityId} to ${value}`)
-        if (entityId && this.hass) {
-            this.hass.callService("select", "select_option", { entity_id: entityId, option: value });
-        } else {
-            console.log(`Cannot set ${entityId} to ${value}`)
-        }
-    }
 
 
     private getIconForProgram(program: BoschDishwasherProgram): Promise<string> {
@@ -179,7 +183,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     private changeProgram(e: Event) {
         const target = e.currentTarget as any;
         const value = target?.value;
-        console.log("Selecting program:", value);
         if (!value) return;
         this.program = value;
     }
@@ -209,7 +212,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
 
-    static getStubConfig(): BoschDishwasherProgramsFeatureConfig {
+    public static getStubConfig(): BoschDishwasherProgramsFeatureConfig {
         return {
             type: 'custom:bosch-dishwasher-programs-feature',
             icons_with_text: false, 
@@ -219,9 +222,10 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
 
-    static get styles(): CSSResultGroup {
+    public static get styles(): CSSResultGroup {
         return BoschDishwasherProgramsFeatureStyles
     }
+
 
     public static getGridOptions() {
         return {
@@ -230,6 +234,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
             min_rows: 12,
         };
     }
+
 
     public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
         const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
@@ -240,7 +245,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
 
         return deviceClass.startsWith("home_connect_alt_") && friendlyName.includes("bosch") && friendlyName.includes("dishwasher");
     };
-
 }
 
 

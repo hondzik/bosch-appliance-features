@@ -13,7 +13,7 @@ class BoschDishwasherTimeFeature extends LitElement implements LovelaceCardFeatu
     @property({ attribute: false })
     private config?: BoschDishwasherTimeFeatureConfig;
 
-    private static entities: Map<string, BoschEntities> = new Map([
+    private static entities: Map<string, BoschEntity> = new Map([
         ["remaining_program_time_is_estimated", { type: "binary_sensor", suffix: "bsh_common_option_remainingprogramtimeisestimated" }],
         ["remote_control_active", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolactive" }],
         ["remote_control_start_allowed", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolstartallowed" }],

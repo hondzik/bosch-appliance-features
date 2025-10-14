@@ -17,7 +17,7 @@ export class BoschDishwasherOptionsFeature extends LitElement {
     @property({ attribute: false })
     public context?: LovelaceCardFeatureContext;
 
-    private static entities: Map<string, BoschEntities> = new Map([
+    private static entities: Map<string, BoschEntity> = new Map([
         ["remaining_program_time_is_estimated", { type: "binary_sensor", suffix: "bsh_common_option_remainingprogramtimeisestimated" }],
         ["door_state", { type: "binary_sensor", suffix: "bsh_common_status_doorstate" }],
         ["remote_control_active", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolactive" }],

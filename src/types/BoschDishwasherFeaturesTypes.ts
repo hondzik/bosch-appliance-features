@@ -18,7 +18,7 @@ type BoschDishwasherProgram = {
     program: string;
 }
 
-type BoschEntities = {
+type BoschEntity = {
     type: string;
     suffix: string;
 }
