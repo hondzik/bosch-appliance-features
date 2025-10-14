@@ -176,9 +176,12 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
     
-    private changeProgram(e: CustomEvent<{ value: string }>) {
-        console.log("Selecting program: ", e.detail.value);
-        this.program = e.detail.value;
+    private changeProgram(e: Event) {
+        const target = e.currentTarget as any;
+        const value = target?.value;
+        console.log("Selecting program:", value);
+        if (!value) return;
+        this.program = value;
     }
 
 
