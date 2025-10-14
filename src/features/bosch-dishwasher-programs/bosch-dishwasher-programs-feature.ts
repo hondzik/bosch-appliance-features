@@ -98,25 +98,9 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
             p => this.getBoolConfigVal("show_" + p.icon.toLowerCase().replace(/-/g, "_"), true)
         );
      
-        return this._config.show_as_button_bar === true 
-            ? this.getHaControlButtonGroup(filteredPrograms)
-            : html`<div>${filteredPrograms.map(p => this.getHaIconButton(p))}</div>`;
+        return html`<ha-control-button-group>${filteredPrograms.map(p => this.getHaControlButton(p))}</ha-control-button-group>`;
     }
 
-
-    /**
-     * Renders a ha-icon-button for the given program.
-     * @param program BoschDishwasherProgram
-     * @returns TemplateResult containing a ha-icon-button with the program icon and name.
-     */
-    private getHaIconButton(program: BoschDishwasherProgram): TemplateResult {
-        const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
-        return html`
-            <ha-icon-button .label=${program.name} title=${program.name} value=${program.program} @click=${() => this.changeProgram}>
-                ${until(svg, html`<ha-spinner size="small"></ha-spinner>`)}
-            </ha-icon-button>
-        `;
-    }
 
     private get entityPrefix(): string | undefined {
         if (this._entityPrefix === undefined) {
@@ -129,17 +113,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         return this._entityPrefix;
     }
 
-    private getHaControlButtonGroup(filteredPrograms: BoschDishwasherProgram[]): TemplateResult {
-        return html`
-            <ha-control-button-group 
-                direction="row" 
-                .value=${this.program} 
-                @value-changed=${(e: CustomEvent<{ value: string }>) => this.changeProgram(e)}
-            >
-                ${filteredPrograms.map(p => this.getHaControlButton(p))}
-            </ha-control-button-group>
-        `;
-    }
 
     /**
      * Renders a button for the given program.
@@ -149,7 +122,12 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     private getHaControlButton(program: BoschDishwasherProgram): TemplateResult {
         const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
         return html`
-            <ha-control-button .value=${program.program} title=${program.name}>
+            <ha-control-button 
+                .value=${program.program} 
+                class="${program.program == this.program ? 'active' : ''}"
+                title=${program.name} 
+                @click=${(e: CustomEvent<{ value: string }>) => this.changeProgram(e)}
+            >
                 <div class="icon-wrapper">${until(svg, html`<ha-spinner size="small"></ha-spinner>`)}</div>
             </ha-control-button>
         `;
@@ -187,24 +165,12 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
 
-    /**
-     * Retrieves the inline SVG for the given program icon.
-     * Takes into account the "icons_with_text" configuration option.
-     * @param program BoschDishwasherProgram
-     * @returns Promise<string> containing the SVG markup.
-     */
     private getIconForProgram(program: BoschDishwasherProgram): Promise<string> {
         const iconSuffix = this.getBoolConfigVal("icons_with_text", false) ? "_text" : "";
         return BoschDishwasherProgramsFeature.getInlineSVG(`${program.icon}${iconSuffix}`);
     }
 
 
-    /**
-     * Retrieves a boolean configuration value, with a default if not set.
-     * @param key Config key to look for
-     * @param defaultValue Default value if key is not set
-     * @returns Boolean value of the config key, or defaultValue if not set
-     */
     private getBoolConfigVal(key: string, defaultValue: boolean): boolean  {
         return (this._config && this._config[key] !== undefined ) ? !!this._config[key] : defaultValue;
     }
@@ -216,11 +182,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
 
-    /**
-     * Retrieves the inline SVG for the given icon name, using a cache to avoid redundant fetches.
-     * @param iconName Name of the icon (without path and .svg extension)
-     * @returns Promise<string> containing the inline SVG markup
-     */
     private static async getInlineSVG(iconName: string): Promise<string> {
         if (!this.iconCache.has(iconName)) {
             const res = await fetch(`/hacsfiles/bosch-appliance-features/${iconName}.svg?v=${version}`);
@@ -231,10 +192,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
 
-    /**
-     * Implements the LitElement method.
-     * Returns component properties (observed attributes).
-     */
     static get properties(): { [key: string]: any } {
         return {
             hass: { type: Object },
@@ -244,19 +201,11 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
 
-    /**
-     * Implements the CustomCardFeature interface method.
-     * @returns HTMLElement for configuring this feature (used in Lovelace UI editor).
-     */
     public static getConfigElement(): HTMLElement {
         return document.createElement('bosch-dishwasher-programs-editor');
     }
 
 
-    /**
-     * Implements the CustomCardFeature interface method.
-     * @returns Default configuration for this feature (used in Lovelace UI editor).
-     */
     static getStubConfig(): BoschDishwasherProgramsFeatureConfig {
         return {
             type: 'custom:bosch-dishwasher-programs-feature',
@@ -267,9 +216,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
 
-    /**
-     * Component styles (CSS-in-JS).
-     */
     static get styles(): CSSResultGroup {
         return BoschDishwasherProgramsFeatureStyles
     }
@@ -282,13 +228,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         };
     }
 
-    /**
-     * Check if the given entity supports the Bosch Dishwasher Programs feature.
-     * The check is based on the entity's device_class and friendly_name attributes.
-     * @param hass HomeAssistant instance
-     * @param context LovelaceCardFeatureContext containing the entity_id to check  
-     * @returns Boolean indicating whether the given entity supports the Bosch Dishwasher Programs feature.
-     */
     public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
         const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
         if (!stateObj) return false;
@@ -302,7 +241,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
 }
 
 
-// Register the feature in the global customCardFeatures array
 window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: "bosch-dishwasher-programs-feature",
