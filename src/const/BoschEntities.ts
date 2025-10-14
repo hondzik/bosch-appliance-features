@@ -1,4 +1,6 @@
-enum EBoschEntity {
+import { EBoschFeature } from "./BoschFeatures";
+
+export enum EBoschEntity {
     active_program,
     base_program,
     connected,
@@ -12,7 +14,7 @@ enum EBoschEntity {
     selected_program,
 }
 
-const boschEntitiesMap: Map<EBoschEntity, BoschEntity> = new Map([
+export const boschEntitiesMap: Map<EBoschEntity, BoschEntity> = new Map([
     [EBoschEntity.active_program, { type: "sensor", suffix: "active_program" }],
     [EBoschEntity.base_program, { type: "sensor", suffix: "bsh_common_option_baseprogram" }],
     [EBoschEntity.connected, { type: "binary_sensor", suffix: "connected" }],
@@ -26,7 +28,7 @@ const boschEntitiesMap: Map<EBoschEntity, BoschEntity> = new Map([
     [EBoschEntity.selected_program, { type: "sensor", suffix: "selected_program" }],
 ]);
 
-const boschFeatureEntitiesMap: Map<EBoschFeature, EBoschEntity[]> = new Map([
+export const boschFeatureEntitiesMap: Map<EBoschFeature, EBoschEntity[]> = new Map([
     [EBoschFeature.dishwasher_programs, [
         EBoschEntity.active_program,
         EBoschEntity.base_program,

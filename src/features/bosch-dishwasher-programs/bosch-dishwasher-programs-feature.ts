@@ -1,10 +1,14 @@
 import { LitElement, html, TemplateResult, CSSResultGroup, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators";
 import type { HomeAssistant } from "custom-card-helpers";
-import type { HassEntities, HassEntity } from "home-assistant-js-websocket";
+import type { HassEntity } from "home-assistant-js-websocket";
+import {EBoschModels } from "../../const/BoschModels"
 import { BoschDishwasherProgramsFeatureStyles } from "./bosch-dishwasher-programs.styles";
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
+import { boschDishwasherAllProgramsMap, boschDishwasherModelProgramsMap } from "../../const/BoschDishWasherPrograms";
+import { boschEntitiesMap, boschFeatureEntitiesMap, EBoschEntity } from "../../const/BoschEntities";
+import { EBoschFeature } from "../../const/BoschFeatures";
 import { version } from "../../../package.json";
 import "./bosch-dishwasher-programs-editor";
 
@@ -49,7 +53,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     private get programs(): BoschDishwasherProgram[] {
         if (this._programs.length == 0) {
             const modelName = "SMV8YCX01E";
-            const model = (Object.values(EBoschModels).includes(modelName as EBoschModels))
+            const model = (Object.values(EBoschModels) as string[]).includes(modelName)
                 ? modelName as EBoschModels
                 : undefined;
             if (!model) {
