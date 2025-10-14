@@ -35,23 +35,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         return this._entityPrefix;
     }
 
-    public setConfig(config: BoschDishwasherProgramsFeatureConfig): void {
-        if (!config) {
-            throw new Error("Invalid configuration");
-        }
-        this._config = config;
-        this._programs = [];
-
-        this.classList.toggle("buttons", this._config.show_as_button_bar === true);
-        this.classList.toggle("icons", this._config.show_as_button_bar !== true);
-    }
-
-    private get program(): string | null {
-        const program = this.getLinkedEntity(EBoschEntity.programs);
-        return program ? program.state : null;
-    }
-
-
     private set program(value: string) {
         const entityId = this.getLinkedEntity(EBoschEntity.programs)?.entity_id;
         console.log(`Setting ${entityId} to ${value}`)
@@ -61,7 +44,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
             console.error(`Cannot set ${entityId} to ${value}`)
         }
     }
-
 
     private _programs: BoschDishwasherProgram[];
     private get programs(): BoschDishwasherProgram[] {
@@ -81,7 +63,6 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         }
         return this._programs;
     }
-
 
     private _entities: Map<EBoschEntity, BoschEntity> = new Map();
     private get entities(): Map<EBoschEntity, BoschEntity> {
@@ -105,6 +86,45 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         return this._entities;
     }
 
+    private _online?: boolean;
+    private get online(): boolean {
+        if (this._online === undefined) {
+            // TODO: check if appliance is online, otherwise return false
+            this._online = true;
+        }
+        return this._online;
+    }
+    private set online(val: boolean | undefined) {
+        this._online = val
+    }
+
+    private _running?: boolean;
+    private get running(): boolean {
+        if (this._running === undefined) {
+            // TODO: check if appliance is running, otherwise return false
+            this._running = false;
+        }
+        return this._running;
+    }
+    private set running(val: boolean | undefined) {
+        this._running = val
+    }
+
+    public setConfig(config: BoschDishwasherProgramsFeatureConfig): void {
+        if (!config) {
+            throw new Error("Invalid configuration");
+        }
+        this._config = config;
+        this._programs = [];
+
+        this.classList.toggle("buttons", this._config.show_as_button_bar === true);
+        this.classList.toggle("icons", this._config.show_as_button_bar !== true);
+    }
+
+    private get program(): string | null {
+        const program = this.getLinkedEntity(EBoschEntity.programs);
+        return program ? program.state : null;
+    }
 
     protected shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
         if (changedProperties.has('context') || changedProperties.has('_config')) {
@@ -118,6 +138,8 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         const oldHass = changedProperties.get('hass') as HomeAssistant | undefined;
         if (!oldHass) return true; // first render
 
+        this.online = undefined;
+        this.running = undefined;
         for (const entity of this.entities.values()) {
             const entityId = `${entity.type}.${this.entityPrefix}_${entity.suffix}`;
             if (oldHass.states[entityId] !== this.hass.states[entityId]) {
@@ -144,9 +166,11 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
 
     private renderHaControlButton(program: BoschDishwasherProgram): TemplateResult {
         const svg = this.getIconForProgram(program).then(svg => unsafeHTML(svg));
+        const disabled = !this.online || this.running;
         return html`
             <ha-control-button 
-                .value=${program.program} 
+                .value=${program.program}
+                .disabled=${disabled}
                 class="${program.program == this.program ? 'active' : ''}"
                 title=${program.name} 
                 @click=${(e: CustomEvent<{ value: string }>) => this.changeProgram(e)}
