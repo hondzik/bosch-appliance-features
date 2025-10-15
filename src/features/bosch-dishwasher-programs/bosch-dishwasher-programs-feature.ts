@@ -209,13 +209,11 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
     private getLinkedEntityState(entity: EBoschEntity): HassEntity | undefined {
-        if (!this._config || !this.entityPrefix) {
-            console.error("Missing _config or entityPefix");
-            return undefined;
-        }
+        console.log("Getting entity state for " + entity)
+        if (!this.hass || !this.context) return undefined;
 
-        if (!this.entities.has(entity)) {
-            console.error(`Entity ${entity} not found in entities map`);
+        if (!this.entities.has(entity) || !this.entityPrefix) {
+            console.error(`Entity ${entity} with prefix ${!this.entityPrefix} not found in entities map`);
             return undefined;
         }
 
