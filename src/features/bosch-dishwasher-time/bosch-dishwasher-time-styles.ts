@@ -29,6 +29,7 @@ export const BoschDishwasherTimeFeatureStyles = css`
     }
 
     .bosh-dishwasher-time-feature .time-graph .background {
+        width: 100%
         height: 8px;
         border-radius: 5px;
         border: 1px solid rgba(var(--rgb-primary-color), 0.8);
@@ -41,7 +42,7 @@ export const BoschDishwasherTimeFeatureStyles = css`
     }
 
     .bosh-dishwasher-time-feature .time-remaining {
-        width: 45px;
+        width: 35px;
         justify-content: flex-end;  /* obsah zarovnán doprava */
         font-size: var(--ha-font-size-s);
         font-weight: var(--ha-font-weight-normal);

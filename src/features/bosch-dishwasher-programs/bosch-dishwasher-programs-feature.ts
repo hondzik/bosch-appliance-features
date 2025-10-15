@@ -2,15 +2,17 @@ import { LitElement, html, TemplateResult, CSSResultGroup, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators";
 import type { HomeAssistant } from "custom-card-helpers";
 import type { HassEntity } from "home-assistant-js-websocket";
-import {boschModelGroupMap, EBoschModel } from "../../const/BoschModels"
+import { boschModelGroupMap, EBoschModel, EBoschModelGroup } from "../../const/BoschModels"
 import { BoschDishwasherProgramsFeatureStyles } from "./bosch-dishwasher-programs-styles";
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
+import { $enum } from "ts-enum-util";
 import { boschDishwasherAllProgramsMap, boschDishwasherModelProgramsMap } from "../../const/BoschDishWasherPrograms";
 import { boschEntitiesMap, boschFeatureEntitiesMap, EBoschEntity } from "../../const/BoschEntities";
 import { EBoschFeature } from "../../const/BoschFeatures";
 import { version } from "../../../package.json";
 import "./bosch-dishwasher-programs-editor";
+import { enumFromKey } from "../../utils/enum";
 
 
 @customElement("bosch-dishwasher-programs-feature")
@@ -52,27 +54,32 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     private _programs: BoschDishwasherProgram[];
 
     private get programs(): BoschDishwasherProgram[] {
-        if (this._programs.length == 0) {
-            const modelName = "SMV8YCX01E";
-            const model = (Object.values(EBoschModel) as string[]).includes(modelName)
-                ? modelName as EBoschModel
-                : undefined;
-            if (!model) {
-                console.error(`Unsupported dishwasher model ${modelName}`);
-                return [];
-            }
-            const modelGroup = boschModelGroupMap.get(model);
-            if(!modelGroup) {
-                console.error(`Model group not defined for dishwasher model ${modelName}`)
-                return [];
-            }
-            this._programs = (boschDishwasherModelProgramsMap.get(modelGroup) || []).map(p => boschDishwasherAllProgramsMap.get(p)!).filter(Boolean);           
-            if (this._programs.length == 0) {
-                console.error(`No programs associated with model ${modelName} found`);
-            }
+    if (this._programs.length === 0) {
+        const modelName = "SMV8YCX01E"; // TODO: get from cfg?
+
+        const model = enumFromKey(EBoschModel, modelName);
+        if (model === undefined) {
+            console.error(`Unsupported dishwasher model ${modelName}`);
+            return [];
         }
-        return this._programs;
+
+        const modelGroup: EBoschModelGroup | undefined = boschModelGroupMap.get(model);
+        if (modelGroup === undefined) {
+            console.error(`Model group not defined for dishwasher model ${modelName}`);
+            return [];
+        }
+
+        const programKeys = boschDishwasherModelProgramsMap.get(modelGroup) || [];
+        this._programs = programKeys
+            .map(p => boschDishwasherAllProgramsMap.get(p))
+            .filter(Boolean) as BoschDishwasherProgram[];
+
+        if (this._programs.length === 0) {
+            console.error(`No programs associated with model ${modelName} found`);
+        }
     }
+
+    return this._programs;    }
 
     private set programs(programs: BoschDishwasherProgram[]) {
         this._programs = programs;
@@ -159,7 +166,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
             return true; // first render
         }
 
-        var linkedEntityChanged = false;
+        let linkedEntityChanged = false;
         for (const entity of this.entities.values()) {
             const entityId = `${entity.type}.${this.entityPrefix}_${entity.suffix}`;
             if (oldHass.states[entityId] !== this.hass.states[entityId]) {

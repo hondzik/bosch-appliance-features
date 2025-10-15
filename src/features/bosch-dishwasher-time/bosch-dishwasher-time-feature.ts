@@ -142,7 +142,7 @@ class BoschDishwasherTimeFeature extends LitElement implements LovelaceCardFeatu
     }
 
     private action(action: string): void {
-        var entity = undefined;
+        let entity = undefined;
         switch(action) {
             case "start_pause":
                 entity = this.getLinkedEntity(EBoschEntity.start_pause);

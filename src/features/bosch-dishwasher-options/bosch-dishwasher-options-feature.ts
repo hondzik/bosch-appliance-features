@@ -105,7 +105,7 @@ export class BoschDishwasherOptionsFeature extends LitElement implements Lovelac
             return true; // first render
         }
 
-        var linkedEntityChanged = false;
+        let linkedEntityChanged = false;
         for (const entity of this.entities.values()) {
             const entityId = `${entity.type}.${this.entityPrefix}_${entity.suffix}`;
             if (oldHass.states[entityId] !== this.hass.states[entityId]) {

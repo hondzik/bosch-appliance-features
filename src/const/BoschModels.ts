@@ -10,18 +10,14 @@ Bosch SMS8ECI02Z: Volně stojící myčka s Wi-Fi připojením a funkcí Home Co
 
 export enum EBoschModelGroup {
     // dishwashers
-    SMV8YCX01E,
-    SMV8YCX02E
-
-    // owens
+    SMV8YCX01E = "SMV8YCX01E",
+    SMV8YCX02E = "SMV8YCX02E",
 }
 
 export enum EBoschModel {
     // dishwashers
     SMV8YCX01E = "SMV8YCX01E",
-    SMV8YCX02E = "SMV8YCX02E"
-
-    // owens
+    SMV8YCX02E = "SMV8YCX02E",
 }
 
 export const boschModelGroupMap: Map<EBoschModel, EBoschModelGroup> = new Map([
