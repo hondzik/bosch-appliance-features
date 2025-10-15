@@ -1,10 +1,14 @@
-import { version } from "../package.json";
+import { version, repository, displayName, description } from "../package.json";
 
 import "./features/bosch-dishwasher-programs/bosch-dishwasher-programs-feature";
 import "./features/bosch-dishwasher-options/bosch-dishwasher-options-feature";
 import "./features/bosch-dishwasher-time/bosch-dishwasher-time-feature";
 
-console.info(
-  `Home Connect Alt Features for Tile cards - ${version}`,
-  "color: #ee5500; font-weight: 200;"
-);
+const commonStyle = "padding: 2px 4px; font-family: Roboto,Verdana,Geneva,sans-serif;";
+const nameStyle = `background-color: rgba(226, 59, 13, 1); color: rgba(39, 10, 66, 1); ${commonStyle}`;
+const versionStyle = `background-color: rgba(39, 10, 66, 1); color: #rgba(226, 59, 13, 1); ${commonStyle}`;
+
+console.groupCollapsed(`%c${displayName}%c${version}`, nameStyle, versionStyle);
+console.info(description);
+console.info(`Github: ${repository.url}`);
+console.groupEnd();

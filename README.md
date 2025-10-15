@@ -8,7 +8,7 @@
 
 [![My Home Assistant](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?repository=bosch-appliance-features&owner=hondzik&category=Plugin)
 
-This collection of Tile card 'features' is used display controls for various Bosch devices provided by Home Connect Alt integration.
+This collection of Tile card 'features' is used to display controls for various Bosch devices provided by [Home Connect Alt integration](https://github.com/ekutner/home-connect-hass).
 
 TEMP IMAGE
 ![Edit feature icon](docs/images/edit-feature-icon.png)

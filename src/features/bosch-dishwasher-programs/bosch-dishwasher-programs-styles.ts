@@ -4,13 +4,9 @@ export const BoschDishwasherProgramsFeatureStyles = css`
     :host {
         height: var(--feature-height, 42px);
         width: 100%;
-        border-radius: var(--feature-border-radius, 12px);
         padding: 0px;
         outline: 0px;
         overflow: hidden;
-        font-size: inherit;
-        color: inherit;
-        background-color: var(--disabled-color);
     }
 
     ha-control-button-group {
@@ -139,34 +135,4 @@ export const BoschDishwasherProgramsFeatureStyles = css`
     }
 `;
 
-
-const CommonEditorStyles = css`
-    .settings {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .settings ha-settings-row {
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    .settings ha-settings-row [slot="heading"] {
-        font-weight: 500;
-    }
-
-    .settings ha-settings-row [slot="description"] {
-        color: var(--secondary-text-color);
-        max-width: 70%; /* zabrání, aby text přetékal pod přepínač */
-        white-space: normal;
-    }
-
-    .settings ha-switch {
-        margin-left: auto; /* udrží přepínač vpravo */
-    }
-`;  
-
-export const BoschDishwasherProgramsEditorStyles = css`
-    ${CommonEditorStyles}
-`;
+export const BoschDishwasherProgramsEditorStyles = css``;

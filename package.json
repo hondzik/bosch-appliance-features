@@ -5,7 +5,12 @@
   },
   "license": "MIT",
   "name": "bosch-appliance-features",
-  "description": "Bosch Home Connect Alt features for Home Assistant Tile card",
+  "displayName": "Bosch Appliance Features",
+  "description": "Home Assistant Tile card features for Bosch Home Connect Alt devices",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hondzik/bosch-appliance-features"
+  },
   "keywords": [
     "home-assistant",
     "lovelace",

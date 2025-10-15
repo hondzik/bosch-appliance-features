@@ -2,140 +2,135 @@ import { LitElement, html, TemplateResult, CSSResultGroup, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators";
 import type { HomeAssistant } from "custom-card-helpers";
 import type { HassEntities, HassEntity } from "home-assistant-js-websocket";
-import { BoschDishwasherOptionsFeatureStyles } from "./bosch-dishwasher-options.styles";
+import { BoschDishwasherOptionsFeatureStyles } from "./bosch-dishwasher-options-styles";
 import "./bosch-dishwasher-options-editor";
+import { boschEntitiesMap, boschFeatureEntitiesMap, EBoschEntity } from "../../const/BoschEntities";
+import { EBoschFeature } from "../../const/BoschFeatures";
 
 @customElement("bosch-dishwasher-options-feature")
-export class BoschDishwasherOptionsFeature extends LitElement {
-    @state() _hass?: HomeAssistant;
-    @property({ attribute: false }) config?: any;
-    @property({ attribute: false }) stateObj?: HassEntity;
+export class BoschDishwasherOptionsFeature extends LitElement implements LovelaceCardFeature {
 
-    @state() 
-    private _config?: BoschDishwasherOptionsFeatureConfig;
+    @property({ attribute: false })
+    public hass?: HomeAssistant;
 
     @property({ attribute: false })
     public context?: LovelaceCardFeatureContext;
 
-    private static entities: Map<string, BoschEntity> = new Map([
-        ["remaining_program_time_is_estimated", { type: "binary_sensor", suffix: "bsh_common_option_remainingprogramtimeisestimated" }],
-        ["door_state", { type: "binary_sensor", suffix: "bsh_common_status_doorstate" }],
-        ["remote_control_active", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolactive" }],
-        ["remote_control_start_allowed", { type: "binary_sensor", suffix: "bsh_common_status_remotecontrolstartallowed" }],
-        ["connected", { type: "binary_sensor", suffix: "connected" }],
+    @state() 
+    private _config?: BoschDishwasherProgramsFeatureConfig;
 
-        ["start_pause", { type: "button", suffix: "start_pause" }],
-        ["stop", { type: "button", suffix: "stop" }],
+    private static iconCache = new Map<string, string>();
 
-        ["start_in_relative", { type: "select", suffix: "bsh_common_option_startinrelative" }],
-        ["programs", { type: "select", suffix: "programs" }],
-
-        ["active_program", { type: "sensor", suffix: "active_program" }],
-        ["base_program", { type: "sensor", suffix: "bsh_common_option_baseprogram" }],
-        ["program_name", { type: "sensor", suffix: "bsh_common_option_programname" }],
-        ["program_progress", { type: "sensor", suffix: "bsh_common_option_programprogress" }],
-        ["remaining_program_time", { type: "sensor", suffix: "bsh_common_option_remainingprogramtime" }],
-        ["operation_state", { type: "sensor", suffix: "bsh_common_status_operationstate" }],
-        ["selected_program", { type: "sensor", suffix: "selected_program" }],
-
-        ["power_state", { type: "switch", suffix: "bsh_common_setting_powerstate" }],
-        ["extra_dry", { type: "switch", suffix: "dishcare_dishwasher_option_extradry" }],
-        ["hygiene_plus", { type: "switch", suffix: "dishcare_dishwasher_option_hygieneplus" }],
-        ["intensive_zone", { type: "switch", suffix: "dishcare_dishwasher_option_intensivzone" }],
-        ["silence_on_demand", { type: "switch", suffix: "dishcare_dishwasher_option_silenceondemand" }],
-        ["vario_speed_plus", { type: "switch", suffix: "dishcare_dishwasher_option_variospeedplus" }],
-    ]);    
-
-    switches: HassEntities = {};
     private _entityPrefix?: string;
+    private get entityPrefix(): string | undefined {
+        if (this._entityPrefix === undefined) {
+            if (this.context?.entity_id) {
+                this._entityPrefix = this.context.entity_id.split(".")[1]?.split("_").slice(0, 2).join("_")
+            } else {
+                console.error("Cannot derive entityPrefix: context.entity_id is undefined");
+            }
+        }
+        return this._entityPrefix;
+    }
 
-    setConfig(config: BoschDishwasherOptionsFeatureConfig) {
+    private _entities: Map<EBoschEntity, BoschEntity> = new Map();
+
+    private get entities(): Map<EBoschEntity, BoschEntity> {
+        if (this._entities.size === 0) {
+            const feature = EBoschFeature.dishwasher_options;
+            const entityEnums = boschFeatureEntitiesMap.get(feature) ?? [];
+
+            this._entities = entityEnums.reduce((mapAcc, enumKey) => {
+                const entity = boschEntitiesMap.get(enumKey);
+                if (entity) {
+                    mapAcc.set(enumKey, entity);
+                }
+                return mapAcc;
+            }, new Map<EBoschEntity, BoschEntity>());
+
+            if (this._entities.size === 0) {
+                console.error(`No entities associated with feature ${feature} found`);
+            }
+        }
+
+        return this._entities;
+    }
+
+    private _online?: boolean;
+
+    private get online(): boolean {
+        if (this._online === undefined) {
+            // TODO: check if appliance is online, otherwise return false
+            this._online = true;
+        }
+        return this._online;
+    }
+
+    private set online(val: boolean | undefined) {
+        this._online = val
+    }
+
+    private _running?: boolean;
+
+    private get running(): boolean {
+        if (this._running === undefined) {
+            // TODO: check if appliance is running, otherwise return false
+            this._running = false;
+        }
+        return this._running;
+    }
+
+    private set running(val: boolean | undefined) {
+        this._running = val
+    }
+
+    public setConfig(config: BoschDishwasherProgramsFeatureConfig): void {
         if (!config) {
             throw new Error("Invalid configuration");
         }
         this._config = config;
     }
 
-    set hass(hass: HomeAssistant | undefined) {
-        this._hass = hass;
-        if (this.config && this.config.entity) {
-            this.stateObj = hass?.states?.[this.config.entity];
-            const entityPrefix = this.stateObj?.attributes?.common_prefix;
-            if (entityPrefix) {
-                this.switches = Object.values(hass?.states || {}).reduce((acc, entity) => {
-                    if (entity.entity_id.startsWith(`switch.${entityPrefix}_`)) {
-                    acc[entity.entity_id] = entity;
-                    }
-                    return acc;
-                }, {} as HassEntities);
-            } else {
-                this.switches = {};
-            }
-
+    protected shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
+        if (changedProperties.has('context') || changedProperties.has('_config')) {
+            return true;
         }
-    }
-
-    get hass(): HomeAssistant | undefined {
-        return this._hass;
-    }
-
-
-    /**
-     * Programs
-     * - Eco 50°C: Dishcare.Dishwasher.Program.Eco50
-     * - Auto 45-65°C: Dishcare.Dishwasher.Program.Auto2
-     * - Intensive 70°C: Dishcare.Dishwasher.Program.Intensiv70
-     * - Dishcare.Dishwasher.Program.Kurz60
-     * - Quick 45°C: Dishcare.Dishwasher.Program.Quick45
-     * - Glass 40°C: Dishcare.Dishwasher.Program.Glas40
-     * - Night Wash 50°C: Dishcare.Dishwasher.Program.NightWash
-     * - Machine Care: Dishcare.Dishwasher.Program.MachineCare
-     * Options:
-     * - Delayed Start
-     * - Remote Start
-     * - Extra Dry: switch.*_dishcare_dishwasher_option_extradry
-     * - Intensive Zone: switch.*_dishcare_dishwasher_option_intensivzone
-     * - HygienePlus: switch.*_dishcare_dishwasher_option_hygieneplus
-     * - PerfectSpeed+: switch.*_dishcare_dishwasher_option_variospeedplus
-     */
-    render(): TemplateResult {
-        if (!this.config || !this.hass || !this.stateObj || !BoschDishwasherOptionsFeature.isSupported(this.hass, this.context)) {
-            return html`
-                <div class="toners">
-                    <div>Unsupported feature</div>
-                </div>
-            `;
+        
+        if (!changedProperties.has('hass')) {
+            return false;
         }
 
-        return html``;
-    }
+        const oldHass = changedProperties.get('hass') as HomeAssistant | undefined;
+        if (!oldHass) {
+            return true; // first render
+        }
 
-    getEntity(type: string, suffix: string): string {
-        return `${type}.${this.entityPrefix}_${suffix}`;
-    }
-
-    private get entityPrefix(): string | undefined {
-        if (this._entityPrefix === undefined) {
-            if (this.context?.entity_id) {
-                this._entityPrefix = this.context.entity_id.split(".")[1]?.split("_").slice(0, 2).join("_")
-                console.log("Derived entityPrefix: ", this._entityPrefix);
-            } else {
-                console.warn("Cannot derive entityPrefix: context.entity_id is undefined");
+        var linkedEntityChanged = false;
+        for (const entity of this.entities.values()) {
+            const entityId = `${entity.type}.${this.entityPrefix}_${entity.suffix}`;
+            if (oldHass.states[entityId] !== this.hass.states[entityId]) {
+                linkedEntityChanged = true;
+                break;
             }
         }
-        return this._entityPrefix;
+
+        if (linkedEntityChanged) {
+            this.online = undefined;
+            this.running = undefined;
+        }
+
+        return linkedEntityChanged;
     }
 
-    /**
-     * Check if the given entity supports the Bosch Dishwasher Programs feature.
-     * The check is based on the entity's device_class and friendly_name attributes.
-     * @param hass HomeAssistant instance
-     * @param context LovelaceCardFeatureContext containing the entity_id to check  
-     * @returns Boolean indicating whether the given entity supports the Bosch Dishwasher Programs feature.
-     */
+    protected render(): TemplateResult | typeof nothing {
+        if (!this._config || !this.hass || !this.context || !BoschDishwasherOptionsFeature.isSupported(this.hass, this.context)) {
+            return nothing;
+        }
+
+        return html`<div class="toners"><div>Not implemented</div></div>`;
+    }
+
     public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
-        console.log("Checking support for Bosch Dishwasher Programs feature with context:", context);
-
         const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
         if (!stateObj) return false;
 
@@ -159,7 +154,7 @@ export class BoschDishwasherOptionsFeature extends LitElement {
 
     static getStubConfig(): any {
         return {
-            type: 'bosch-dishwasher-options-feature'
+            type: 'custom:bosch-dishwasher-options-feature'
         };
     }
 

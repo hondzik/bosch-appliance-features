@@ -2,28 +2,28 @@ import type { HomeAssistant } from "custom-card-helpers";
 import { LitElement, html, css, CSSResultGroup, TemplateResult } from "lit-element";
 import { customElement, property } from "lit/decorators.js";
 import setupCustomLocalize from "../../localize";
-import { BoschDishwasherProgramsEditorStyles } from "./bosch-dishwasher-programs.styles";
+import { BoschDishwasherProgramsEditorStyles } from "./bosch-dishwasher-programs-styles";
+import { CommonEditorStyles } from "../common/bosch-styles";
 
 @customElement("bosch-dishwasher-programs-editor")
 export class BoschDishwasherProgramsEditor extends LitElement {
     @property({ attribute: false }) hass?: HomeAssistant;
     @property({ type: Object }) config: BoschDishwasherProgramsFeatureConfig;
 
-    setConfig(config: BoschDishwasherProgramsFeatureConfig) {
+    public setConfig(config: BoschDishwasherProgramsFeatureConfig): void {
         this.config = { ...config };
     }
 
-    render(): TemplateResult {
+    protected render(): TemplateResult {
         return html`
             <div class="settings">
-                ${this.getBoolHaSettingsRow("show_as_button_bar", false)}
-                ${this.getBoolHaSettingsRow("icons_with_text", false)}
-                ${this.getBoolHaSettingsRow("show_machinecare", true)}
+                ${this.renderBoolHaSettingsRow("show_as_button_bar", true)}
+                ${this.renderBoolHaSettingsRow("show_machinecare", true)}
             </div>
         `;
     }
 
-    private getBoolHaSettingsRow(key: string, defaultVal: boolean): TemplateResult {
+    private renderBoolHaSettingsRow(key: string, defaultVal: boolean): TemplateResult {
         const customLocalize = setupCustomLocalize(this.hass);
         return html`
             <ha-settings-row>
@@ -34,7 +34,7 @@ export class BoschDishwasherProgramsEditor extends LitElement {
         `;
     }
 
-    private _onSettingChange(e: Event) {
+    private _onSettingChange(e: Event): void {
         const target = e.target as HTMLInputElement;
         const key = target.id || target.name;
         const value = target.checked ?? target.value;
@@ -46,7 +46,7 @@ export class BoschDishwasherProgramsEditor extends LitElement {
         return this.config && this.config[key] !== undefined ? !!this.config[key] : defaultValue;
     }
 
-    private _updateConfig(newConfig: any) {
+    private _updateConfig(newConfig: any): void {
         this.config = newConfig;
         this.dispatchEvent(
             new CustomEvent(
@@ -60,7 +60,10 @@ export class BoschDishwasherProgramsEditor extends LitElement {
         );
     }
 
-    static get styles(): CSSResultGroup {
-        return BoschDishwasherProgramsEditorStyles
+    public static get styles(): CSSResultGroup {
+        return [
+            CommonEditorStyles,
+            BoschDishwasherProgramsEditorStyles
+        ]
     }
 }
