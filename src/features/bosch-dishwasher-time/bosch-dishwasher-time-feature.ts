@@ -51,12 +51,12 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
           <div class="background">
             <div
               class="level"
-              style="width: ${this.getLinkedEntity(EBoschEntity.program_progress)?.state ?? '0'}%;"
+              style="width: ${this.getLinkedEntityState(EBoschEntity.program_progress)?.state ?? '0'}%;"
             ></div>
           </div>
         </div>
         <div class="time-remaining">
-          ${this.getLinkedEntity(EBoschEntity.remaining_program_time)?.state ?? '0:00'}
+          ${this.getLinkedEntityState(EBoschEntity.remaining_program_time)?.state ?? '0:00'}
         </div>
       </div>
     `;
@@ -66,10 +66,10 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
     let entity = undefined;
     switch (action) {
       case 'start_pause':
-        entity = this.getLinkedEntity(EBoschEntity.start_pause);
+        entity = this.getLinkedEntityState(EBoschEntity.start_pause);
         break;
       case 'stop':
-        entity = this.getLinkedEntity(EBoschEntity.stop);
+        entity = this.getLinkedEntityState(EBoschEntity.stop);
         break;
     }
     if (entity) {
