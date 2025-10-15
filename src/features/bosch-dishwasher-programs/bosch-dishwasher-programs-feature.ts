@@ -42,7 +42,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
     private set program(value: string) {
-        const entityId = this.getLinkedEntity(EBoschEntity.programs)?.entity_id;
+        const entityId = this.getLinkedEntityState(EBoschEntity.programs)?.entity_id;
         console.log(`Setting ${entityId} to ${value}`)
         if (entityId && this.hass) {
             this.hass.callService("select", "select_option", { entity_id: entityId, option: value });
@@ -148,7 +148,7 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
     }
 
     private get program(): string | null {
-        const program = this.getLinkedEntity(EBoschEntity.programs);
+        const program = this.getLinkedEntityState(EBoschEntity.programs);
         return program ? program.state : null;
     }
 
@@ -208,14 +208,26 @@ class BoschDishwasherProgramsFeature extends LitElement implements LovelaceCardF
         `;
     }
 
-    private getLinkedEntity(entity: EBoschEntity): HassEntity | undefined {
-        if (this.entities.has(entity) && this._config && this.entityPrefix) {
-            const entityDef = this.entities.get(entity)!;
-            const entityId = `${entityDef.type}.${this.entityPrefix}_${entityDef.suffix}`;
-            return this.hass?.states?.[entityId] || undefined;   
-        } 
-        console.error(`Entity for ${name} not found (prefix: ${this.entityPrefix})`);  
-        return undefined;  
+    private getLinkedEntityState(entity: EBoschEntity): HassEntity | undefined {
+        if (!this._config || !this.entityPrefix) {
+            console.error("Missing _config or entityPefix");
+            return undefined;
+        }
+
+        if (!this.entities.has(entity)) {
+            console.error(`Entity ${entity} not found in entities map`);
+            return undefined;
+        }
+
+        const entityDef = this.entities.get(entity)!;
+        const entityId = `${entityDef.type}.${this.entityPrefix}_${entityDef.suffix}`;
+        const state = this.hass?.states?.[entityId];
+
+        if (!state) {
+            console.error(`Entity for ${entity} not found (entityId: ${entityId})`);
+        }
+
+        return state
     }
 
     private getBoolConfigVal(key: string, defaultValue: boolean): boolean  {
