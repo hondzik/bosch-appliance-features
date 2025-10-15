@@ -5,26 +5,39 @@
             "editor": {
                 "show_as_button_bar": {
                     "title": "Show as button bar",
-                    "description": "Show the programs as a horizontal button bar instead of a grid of icons. (Default: disabled)"
+                    "description": "Show the programs as a horizontal button bar instead of a grid of buttons."
                 },
                 "show_machinecare": {
                     "title": "Show Machine Care program",
-                    "description": "Show the Machine Care program in the list of available programs. (Default: enabled)"
+                    "description": "Show the Machine Care program in the list of available programs."
                 }
             }
         },
         "options": {
-            "feature-name": "Dishwasher options"
+            "feature-name": "Dishwasher options",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Show as button bar",
+                    "description": "Show the programs as a horizontal button bar instead of a grid of buttons."
+                }
+            }
+
         },
-        "time-remaining": {
-            "feature-name": "Dishwasher time remaining"
+        "time": {
+            "feature-name": "Dishwasher time remaining",
+            "editor": {
+                "show_remaining_time": {
+                    "title": "Show remaining time",
+                    "description": "Show remaining time instead of finish time"
+                }
+            }
         }
     },
 	"oven": {
         "programs": {
             "feature-name": "Oven programs"
         },
-        "time-remaining": {
+        "time": {
             "feature-name": "Oven time remaining"
         }
 	}

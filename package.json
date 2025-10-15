@@ -21,6 +21,7 @@
     "dishwasher",
     "oven"
   ],
+  "type": "module",
   "version": "0.0.80",
   "source": "./src/bosch-appliance-features.ts",
   "module": "./dist/bosch-appliance-features.js",
@@ -33,13 +34,21 @@
   "scripts": {
     "watch": "parcel watch",
     "build": "parcel build --no-source-maps && node optimize-icons.mjs",
+    "lint": "eslint src --ext .ts,.js --fix",
+    "format": "prettier --write src/**/*.{ts,js,css,scss,html}",
     "optimize-icons": "node optimize-icons.mjs",
     "version MAJOR": "npm version major",
     "version MINOR": "npm version minor",
     "version PATCH": "npm version patch"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
+    "eslint": "^9.37.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
     "parcel": "^2.16.0",
+    "prettier": "^3.6.2",
     "svg-path-commander": "^2.1.11",
     "svgo": "^4.0.0",
     "typescript": "^5.9.3"

@@ -1,38 +1,32 @@
-import type { HomeAssistant } from "custom-card-helpers";
-import { LitElement, html, css, CSSResultGroup, TemplateResult } from "lit-element";
-import { customElement, property } from "lit/decorators.js";
-import setupCustomLocalize from "../../localize";
-import { BoschDishwasherOptionsEditorStyles } from "./bosch-dishwasher-options-styles";
+import type { HomeAssistant } from 'custom-card-helpers';
+import { html, CSSResultGroup, TemplateResult } from 'lit-element';
+import { customElement, property } from 'lit/decorators.js';
+import { BoschDishwasherOptionsEditorStyles } from './bosch-dishwasher-options-styles';
+import { CommonEditorStyles } from '../common/bosch-styles';
+import { BoschDishwasherOptionsFeatureConfig } from '../../types/BoschDishwasherFeaturesTypes';
+import { BoschBaseEditor } from '../../types/BaseBoschFeatureEditor';
 
-@customElement("bosch-dishwasher-options-editor")
-export class BoschDishwasherOptionsEditor extends LitElement {
-    @property({ attribute: false }) hass?: HomeAssistant;
-    @property({ type: Object }) config: any = {};
+@customElement('bosch-dishwasher-options-editor')
+export class BoschDishwasherOptionsEditor extends BoschBaseEditor {
+  @property({ attribute: false })
+  hass?: HomeAssistant;
 
-    setConfig(config: any) {
-        this.config = { ...config };
-    }
+  @property({ type: Object })
+  config: BoschDishwasherOptionsFeatureConfig;
 
-    render(): TemplateResult {
-        const customLocalize = setupCustomLocalize(this.hass);
-        return html`config editor not implemented yet`;
-    }
+  protected feature = 'options';
 
-    private _updateConfig(newConfig: any) {
-        this.config = newConfig;
-        this.dispatchEvent(
-            new CustomEvent(
-                "config-changed",
-                {
-                    detail: { config: this.config },
-                    bubbles: true,
-                    composed: true,
-                }
-            )
-        );
-    }
+  public setConfig(config: BoschDishwasherOptionsFeatureConfig): void {
+    this.config = { ...config };
+  }
 
-    static get styles(): CSSResultGroup {
-        return BoschDishwasherOptionsEditorStyles
-    }
+  protected render(): TemplateResult {
+    return html`
+      <div class="settings">${this.renderBoolHaSettingsRow('show_as_button_bar', true)}</div>
+    `;
+  }
+
+  public static get styles(): CSSResultGroup {
+    return [CommonEditorStyles, BoschDishwasherOptionsEditorStyles];
+  }
 }

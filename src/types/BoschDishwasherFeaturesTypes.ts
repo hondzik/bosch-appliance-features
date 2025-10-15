@@ -1,23 +1,27 @@
-type FeatureConfig = {
-    type: string;
+export type FeatureConfig = {
+  type: string;
 };
 
-type BoschDishwasherOptionsFeatureConfig = FeatureConfig & {};
-
-type BoschDishwasherTimeFeatureConfig = FeatureConfig & {};
-
-type BoschDishwasherProgramsFeatureConfig = FeatureConfig & {
-    show_as_button_bar?: boolean;
-    show_machinecare?: boolean;
+export type BoschDishwasherOptionsFeatureConfig = FeatureConfig & {
+  show_as_button_bar?: boolean;
 };
 
-type BoschDishwasherProgram = {
-    name: string;
-    icon: string;
-    program: string;
-}
+export type BoschDishwasherTimeFeatureConfig = FeatureConfig & {
+  show_remaining_time?: boolean;
+};
 
-type BoschEntity = {
-    type: string;
-    suffix: string;
-}
+export type BoschDishwasherProgramsFeatureConfig = FeatureConfig & {
+  show_as_button_bar?: boolean;
+  show_machinecare?: boolean;
+};
+
+export type BoschDishwasherProgram = {
+  name: string;
+  icon: string;
+  program: string;
+};
+
+export type BoschEntity = {
+  type: string;
+  suffix: string;
+};
