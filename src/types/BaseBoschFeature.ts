@@ -8,19 +8,14 @@ import { HassEntity } from 'home-assistant-js-websocket';
 import { version } from '../../package.json';
 
 export abstract class BaseBoschFeature extends LitElement {
-  @property({ attribute: false })
   public abstract hass?: HomeAssistant;
-
-  @property({ attribute: false })
   public abstract context?: LovelaceCardFeatureContext;
-
-  @state()
   protected abstract _config?: BoschDishwasherProgramsFeatureConfig;
 
   private static iconCache = new Map<string, string>();
 
   private _entityPrefix?: string;
-  protected get entityPrefix(): string | undefined {
+  private get entityPrefix(): string | undefined {
     if (this._entityPrefix === undefined) {
       if (this.context?.entity_id) {
         this._entityPrefix = this.context.entity_id.split('.')[1]?.split('_').slice(0, 2).join('_');
@@ -32,7 +27,7 @@ export abstract class BaseBoschFeature extends LitElement {
   }
 
   private _entities: Map<EBoschEntity, BoschEntity> = new Map();
-  protected get entities(): Map<EBoschEntity, BoschEntity> {
+  private get entities(): Map<EBoschEntity, BoschEntity> {
     if (this._entities.size === 0) {
       const feature = EBoschFeature.dishwasher_options;
       const entityEnums = boschFeatureEntitiesMap.get(feature) ?? [];
@@ -82,7 +77,8 @@ export abstract class BaseBoschFeature extends LitElement {
     if (!this.hass || !this.context) return undefined;
 
     if (!this.entities.has(entity) || !this.entityPrefix) {
-      console.error(`Entity ${entity} with prefix ${!this.entityPrefix} not found in entities map`);
+      console.error(`Entity ${entity} with prefix ${this.entityPrefix} not found in entities map`);
+      console.log(this.entities);
       return undefined;
     }
 
