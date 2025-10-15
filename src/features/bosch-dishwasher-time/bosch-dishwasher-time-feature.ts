@@ -6,6 +6,7 @@ import { BoschDishwasherTimeFeatureStyles } from './bosch-dishwasher-time-styles
 import { BoschDishwasherTimeFeatureConfig } from '../../types/BoschDishwasherFeaturesTypes';
 import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import './bosch-dishwasher-time-editor';
+import { EBoschFeature } from '../../const/BoschFeatures';
 
 @customElement('bosch-dishwasher-time-feature')
 export class BoschDishwasherTimeFeature extends BaseBoschFeature implements LovelaceCardFeature {
@@ -18,6 +19,8 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
   @state()
   protected _config?: BoschDishwasherTimeFeatureConfig;
 
+  protected feature = EBoschFeature.dishwasher_time;
+
   public setConfig(config: BoschDishwasherTimeFeatureConfig): void {
     if (!config) {
       throw new Error('Invalid configuration');
@@ -26,22 +29,13 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
   }
 
   protected render(): TemplateResult | typeof nothing {
-    if (
-      !this._config ||
-      !this.hass ||
-      !this.context ||
-      !BoschDishwasherTimeFeature.isSupported(this.hass, this.context)
-    ) {
+    if (!this._config || !this.hass || !this.context || !BoschDishwasherTimeFeature.isSupported(this.hass, this.context)) {
       return nothing;
     }
 
     return html`
       <div class="bosh-dishwasher-time-feature">
-        <ha-control-button
-          .disabled=${!this.online}
-          title=${this.running ? 'Pause' : 'Start'}
-          @click=${this.action('start_pause')}
-        >
+        <ha-control-button .disabled=${!this.online} title=${this.running ? 'Pause' : 'Start'} @click=${this.action('start_pause')}>
           <ha-icon icon=${this.running ? 'mdi:pause' : 'mdi:play'}></ha-icon>
         </ha-control-button>
         <ha-control-button .disabled=${!this.online} title="Stop" } @click=${this.action('stop')}>
@@ -49,15 +43,10 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
         </ha-control-button>
         <div class="time-graph">
           <div class="background">
-            <div
-              class="level"
-              style="width: ${this.getLinkedEntityState(EBoschEntity.program_progress)?.state ?? '0'}%;"
-            ></div>
+            <div class="level" style="width: ${this.getLinkedEntityState(EBoschEntity.program_progress)?.state ?? '0'}%;"></div>
           </div>
         </div>
-        <div class="time-remaining">
-          ${this.getLinkedEntityState(EBoschEntity.remaining_program_time)?.state ?? '0:00'}
-        </div>
+        <div class="time-remaining">${this.getLinkedEntityState(EBoschEntity.remaining_program_time)?.state ?? '0:00'}</div>
       </div>
     `;
   }

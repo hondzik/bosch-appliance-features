@@ -5,6 +5,7 @@ import { BoschDishwasherOptionsFeatureStyles } from './bosch-dishwasher-options-
 import { BoschDishwasherOptionsFeatureConfig } from '../../types/BoschDishwasherFeaturesTypes';
 import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import './bosch-dishwasher-options-editor';
+import { EBoschFeature } from '../../const/BoschFeatures';
 
 @customElement('bosch-dishwasher-options-feature')
 export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements LovelaceCardFeature {
@@ -17,6 +18,8 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
   @state()
   protected _config?: BoschDishwasherOptionsFeatureConfig;
 
+  protected feature = EBoschFeature.dishwasher_options;
+
   public setConfig(config: BoschDishwasherOptionsFeatureConfig): void {
     if (!config) {
       throw new Error('Invalid configuration');
@@ -25,12 +28,7 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
   }
 
   protected render(): TemplateResult | typeof nothing {
-    if (
-      !this._config ||
-      !this.hass ||
-      !this.context ||
-      !BoschDishwasherOptionsFeature.isSupported(this.hass, this.context)
-    ) {
+    if (!this._config || !this.hass || !this.context || !BoschDishwasherOptionsFeature.isSupported(this.hass, this.context)) {
       return nothing;
     }
 

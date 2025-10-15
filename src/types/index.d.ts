@@ -1,10 +1,6 @@
 import { HomeAssistant } from 'custom-card-helpers';
 import type { HassEntity } from 'home-assistant-js-websocket';
-import {
-  BoschDishwasherProgramsFeatureConfig,
-  BoschDishwasherOptionsFeatureConfig,
-  BoschDishwasherTimeFeatureConfig,
-} from './BoschDishwasherFeaturesTypes';
+import { BoschDishwasherProgramsFeatureConfig, BoschDishwasherOptionsFeatureConfig, BoschDishwasherTimeFeatureConfig } from './BoschDishwasherFeaturesTypes';
 
 export {};
 
@@ -26,10 +22,7 @@ declare global {
     };
   }
 
-  export type BoschApplianceCustomFeatureConfig =
-    | BoschDishwasherProgramsFeatureConfig
-    | BoschDishwasherOptionsFeatureConfig
-    | BoschDishwasherTimeFeatureConfig;
+  export type BoschApplianceCustomFeatureConfig = BoschDishwasherProgramsFeatureConfig | BoschDishwasherOptionsFeatureConfig | BoschDishwasherTimeFeatureConfig;
 
   export interface LovelaceCardFeature extends HTMLElement {
     hass?: HomeAssistant;

@@ -21,12 +21,7 @@ export class BoschDishwasherProgramsEditor extends BoschBaseEditor {
   }
 
   protected render(): TemplateResult {
-    return html`
-      <div class="settings">
-        ${this.renderBoolHaSettingsRow('show_as_button_bar', true)}
-        ${this.renderBoolHaSettingsRow('show_machinecare', true)}
-      </div>
-    `;
+    return html` <div class="settings">${this.renderBoolHaSettingsRow('show_as_button_bar', true)} ${this.renderBoolHaSettingsRow('show_machinecare', true)}</div> `;
   }
 
   public static get styles(): CSSResultGroup {

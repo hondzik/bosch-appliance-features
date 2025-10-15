@@ -21,9 +21,7 @@ export class BoschDishwasherTimeEditor extends BoschBaseEditor {
   }
 
   protected render(): TemplateResult {
-    return html`
-      <div class="settings">${this.renderBoolHaSettingsRow('show_remaining_time', true)}</div>
-    `;
+    return html` <div class="settings">${this.renderBoolHaSettingsRow('show_remaining_time', true)}</div> `;
   }
 
   public static get styles(): CSSResultGroup {

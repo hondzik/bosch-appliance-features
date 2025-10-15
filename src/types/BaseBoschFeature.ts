@@ -1,6 +1,5 @@
 import { HomeAssistant } from 'custom-card-helpers';
 import { LitElement } from 'lit';
-import { property, state } from 'lit/decorators';
 import { BoschDishwasherProgramsFeatureConfig, BoschEntity } from './BoschDishwasherFeaturesTypes';
 import { EBoschEntity, boschFeatureEntitiesMap, boschEntitiesMap } from '../const/BoschEntities';
 import { EBoschFeature } from '../const/BoschFeatures';
@@ -11,6 +10,7 @@ export abstract class BaseBoschFeature extends LitElement {
   public abstract hass?: HomeAssistant;
   public abstract context?: LovelaceCardFeatureContext;
   protected abstract _config?: BoschDishwasherProgramsFeatureConfig;
+  protected abstract feature: EBoschFeature;
 
   private static iconCache = new Map<string, string>();
 
@@ -29,8 +29,7 @@ export abstract class BaseBoschFeature extends LitElement {
   private _entities: Map<EBoschEntity, BoschEntity> = new Map();
   private get entities(): Map<EBoschEntity, BoschEntity> {
     if (this._entities.size === 0) {
-      const feature = EBoschFeature.dishwasher_options;
-      const entityEnums = boschFeatureEntitiesMap.get(feature) ?? [];
+      const entityEnums = boschFeatureEntitiesMap.get(this.feature) ?? [];
 
       this._entities = entityEnums.reduce((mapAcc, enumKey) => {
         const entity = boschEntitiesMap.get(enumKey);
@@ -41,7 +40,7 @@ export abstract class BaseBoschFeature extends LitElement {
       }, new Map<EBoschEntity, BoschEntity>());
 
       if (this._entities.size === 0) {
-        console.error(`No entities associated with feature ${feature} found`);
+        console.error(`No entities associated with feature ${this.feature} found`);
       }
     }
 
@@ -137,21 +136,13 @@ export abstract class BaseBoschFeature extends LitElement {
     return linkedEntityChanged;
   }
 
-  public static isSupported(
-    hass: HomeAssistant,
-    context: LovelaceCardFeatureContext,
-    subtype: string,
-  ): boolean {
+  public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext, subtype: string): boolean {
     const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
     if (!stateObj) return false;
 
     const deviceClass = stateObj.attributes.device_class?.toLowerCase() || '';
     const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || '';
 
-    return (
-      deviceClass.startsWith('home_connect_alt_') &&
-      friendlyName.includes('bosch') &&
-      friendlyName.includes(subtype)
-    );
+    return deviceClass.startsWith('home_connect_alt_') && friendlyName.includes('bosch') && friendlyName.includes(subtype);
   }
 }

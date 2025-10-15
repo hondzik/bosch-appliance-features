@@ -1,3 +1,4 @@
+import { BoschEntity } from '../types/BoschDishwasherFeaturesTypes';
 import { EBoschFeature } from './BoschFeatures';
 
 export enum EBoschEntity {
@@ -32,53 +33,29 @@ export enum EBoschEntity {
 export const boschEntitiesMap: Map<EBoschEntity, BoschEntity> = new Map([
   [EBoschEntity.active_program, { type: 'sensor', suffix: 'active_program' }],
   [EBoschEntity.base_program, { type: 'sensor', suffix: 'bsh_common_option_baseprogram' }],
-  [
-    EBoschEntity.brilliance_dry,
-    { type: 'switch', suffix: 'dishcare_dishwasher_option_brilliancedry' },
-  ],
+  [EBoschEntity.brilliance_dry, { type: 'switch', suffix: 'dishcare_dishwasher_option_brilliancedry' }],
   [EBoschEntity.connected, { type: 'binary_sensor', suffix: 'connected' }],
   [EBoschEntity.door_state, { type: 'binary_sensor', suffix: 'bsh_common_status_doorstate' }],
   [EBoschEntity.eco_dry, { type: 'switch', suffix: 'dishcare_dishwasher_option_ecodry' }],
   [EBoschEntity.extra_dry, { type: 'switch', suffix: 'dishcare_dishwasher_option_extradry' }],
   [EBoschEntity.half_load, { type: 'switch', suffix: 'dishcare_dishwasher_option_halfload' }],
   [EBoschEntity.hygiene_plus, { type: 'switch', suffix: 'dishcare_dishwasher_option_hygieneplus' }],
-  [
-    EBoschEntity.intensive_zone,
-    { type: 'switch', suffix: 'dishcare_dishwasher_option_intensivzone' },
-  ],
+  [EBoschEntity.intensive_zone, { type: 'switch', suffix: 'dishcare_dishwasher_option_intensivzone' }],
   [EBoschEntity.operation_state, { type: 'sensor', suffix: 'bsh_common_status_operationstate' }],
   [EBoschEntity.power_state, { type: 'switch', suffix: 'bsh_common_setting_powerstate' }],
   [EBoschEntity.program_name, { type: 'sensor', suffix: 'bsh_common_option_programname' }],
   [EBoschEntity.program_progress, { type: 'sensor', suffix: 'bsh_common_option_programprogress' }],
   [EBoschEntity.programs, { type: 'select', suffix: 'programs' }],
-  [
-    EBoschEntity.remaining_program_time,
-    { type: 'sensor', suffix: 'bsh_common_option_remainingprogramtime' },
-  ],
-  [
-    EBoschEntity.remaining_program_time_is_estimated,
-    { type: 'binary_sensor', suffix: 'bsh_common_option_remainingprogramtimeisestimated' },
-  ],
-  [
-    EBoschEntity.remote_control_active,
-    { type: 'binary_sensor', suffix: 'bsh_common_status_remotecontrolactive' },
-  ],
-  [
-    EBoschEntity.remote_control_start_allowed,
-    { type: 'binary_sensor', suffix: 'bsh_common_status_remotecontrolstartallowed' },
-  ],
+  [EBoschEntity.remaining_program_time, { type: 'sensor', suffix: 'bsh_common_option_remainingprogramtime' }],
+  [EBoschEntity.remaining_program_time_is_estimated, { type: 'binary_sensor', suffix: 'bsh_common_option_remainingprogramtimeisestimated' }],
+  [EBoschEntity.remote_control_active, { type: 'binary_sensor', suffix: 'bsh_common_status_remotecontrolactive' }],
+  [EBoschEntity.remote_control_start_allowed, { type: 'binary_sensor', suffix: 'bsh_common_status_remotecontrolstartallowed' }],
   [EBoschEntity.selected_program, { type: 'sensor', suffix: 'selected_program' }],
-  [
-    EBoschEntity.silence_on_demand,
-    { type: 'switch', suffix: 'dishcare_dishwasher_option_silenceondemand' },
-  ],
+  [EBoschEntity.silence_on_demand, { type: 'switch', suffix: 'dishcare_dishwasher_option_silenceondemand' }],
   [EBoschEntity.start_in_relative, { type: 'select', suffix: 'bsh_common_option_startinrelative' }],
   [EBoschEntity.start_pause, { type: 'button', suffix: 'start_pause' }],
   [EBoschEntity.stop, { type: 'button', suffix: 'stop' }],
-  [
-    EBoschEntity.vario_speed_plus,
-    { type: 'switch', suffix: 'dishcare_dishwasher_option_variospeedplus' },
-  ],
+  [EBoschEntity.vario_speed_plus, { type: 'switch', suffix: 'dishcare_dishwasher_option_variospeedplus' }],
   [EBoschEntity.zeolite_dry, { type: 'switch', suffix: 'dishcare_dishwasher_option_zeolitedry' }],
 ]);
 

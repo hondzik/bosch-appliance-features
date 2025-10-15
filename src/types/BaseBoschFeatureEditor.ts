@@ -12,18 +12,9 @@ export abstract class BoschBaseEditor extends LitElement {
     const customLocalize = setupCustomLocalize(this.hass);
     return html`
       <ha-settings-row>
-        <div slot="heading" data-for="${key}">
-          ${customLocalize(`dishwasher.${this.feature}.editor.${key}.title`)}
-        </div>
-        <div slot="description" data-for="${key}">
-          ${customLocalize(`dishwasher.${this.feature}.editor.${key}.description`)}
-        </div>
-        <ha-switch
-          id="${key}"
-          name="${key}"
-          @change=${this._onSettingChange}
-          .checked=${this.getBoolConfigVal(key, defaultVal)}
-        />
+        <div slot="heading" data-for="${key}">${customLocalize(`dishwasher.${this.feature}.editor.${key}.title`)}</div>
+        <div slot="description" data-for="${key}">${customLocalize(`dishwasher.${this.feature}.editor.${key}.description`)}</div>
+        <ha-switch id="${key}" name="${key}" @change=${this._onSettingChange} .checked=${this.getBoolConfigVal(key, defaultVal)} />
       </ha-settings-row>
     `;
   }
