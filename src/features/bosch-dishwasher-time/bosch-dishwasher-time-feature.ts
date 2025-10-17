@@ -34,7 +34,7 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
     }
 
     return html`
-      <div class="bosh-dishwasher-time-feature">
+      <div class="bosch-dishwasher-time-feature">
         <ha-control-button .disabled=${!this.online} title=${this.running ? 'Pause' : 'Start'} @click=${this.action('start_pause')}>
           <ha-icon icon=${this.running ? 'mdi:pause' : 'mdi:play'}></ha-icon>
         </ha-control-button>
@@ -60,7 +60,7 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
         break;
     }
     if (entity) {
-      this.hass.callService('button', 'press', { entity_id: 'button.xyz' });
+      this.hass?.callService('button', 'press', { entity_id: 'button.xyz' });
     }
   }
 

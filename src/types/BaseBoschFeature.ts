@@ -1,6 +1,6 @@
 import { HomeAssistant } from 'custom-card-helpers';
 import { LitElement } from 'lit';
-import { BoschDishwasherProgramsFeatureConfig, BoschEntity } from './BoschDishwasherFeaturesTypes';
+import { FeatureConfig, BoschEntity } from './BoschDishwasherFeaturesTypes';
 import { EBoschEntity, boschFeatureEntitiesMap, boschEntitiesMap } from '../const/BoschEntities';
 import { EBoschFeature } from '../const/BoschFeatures';
 import { HassEntity } from 'home-assistant-js-websocket';
@@ -9,7 +9,7 @@ import { version } from '../../package.json';
 export abstract class BaseBoschFeature extends LitElement {
   public abstract hass?: HomeAssistant;
   public abstract context?: LovelaceCardFeatureContext;
-  protected abstract _config?: BoschDishwasherProgramsFeatureConfig;
+  protected abstract _config?: FeatureConfig;
   protected abstract feature: EBoschFeature;
 
   private static iconCache = new Map<string, string>();
@@ -95,7 +95,7 @@ export abstract class BaseBoschFeature extends LitElement {
   }
 
   protected getBoolConfigVal(key: string, defaultValue: boolean): boolean {
-    return this._config && this._config[key] !== undefined ? !!this._config[key] : defaultValue;
+    return this._config && key in this._config ? !!(this._config as any)[key] : defaultValue;
   }
 
   protected static async getInlineSVG(iconName: string): Promise<string> {
@@ -124,7 +124,7 @@ export abstract class BaseBoschFeature extends LitElement {
     let linkedEntityChanged = false;
     for (const entity of this.entities.values()) {
       const entityId = `${entity.type}.${this.entityPrefix}_${entity.suffix}`;
-      if (oldHass.states[entityId] !== this.hass.states[entityId]) {
+      if (oldHass.states[entityId] !== this.hass?.states[entityId]) {
         linkedEntityChanged = true;
         break;
       }

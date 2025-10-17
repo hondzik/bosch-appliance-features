@@ -15,7 +15,7 @@ export const BoschDishwasherTimeFeatureStyles = css`
         justify-content: space-between; /* mezery mezi prvky */
         gap: 8px;               /* volitelně mezera mezi prvky */
         width: 100%;
-        height: 100%;
+        height: var(--feature-height, 42px);
     }
 
     .bosch-dishwasher-time-feature > * {

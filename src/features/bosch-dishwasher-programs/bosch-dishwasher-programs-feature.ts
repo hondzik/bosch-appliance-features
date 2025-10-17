@@ -36,7 +36,7 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
     }
   }
 
-  private _programs: BoschDishwasherProgram[];
+  private _programs: BoschDishwasherProgram[] = [];
 
   private get programs(): BoschDishwasherProgram[] {
     if (this._programs.length === 0) {

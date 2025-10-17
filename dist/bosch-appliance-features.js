@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","displayName":"Bosch Appliance Features","description":"Home Assistant Tile card features for Bosch Home Connect Alt devices","repository":{"type":"git","url":"https://github.com/hondzik/bosch-appliance-features"},"keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"type":"module","version":"0.0.80","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","lint":"eslint src --ext .ts,.js --fix","format":"prettier --write src/**/*.{ts,js,css,scss,html}","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"@typescript-eslint/eslint-plugin":"^8.46.1","@typescript-eslint/parser":"^8.46.1","eslint":"^9.37.0","eslint-config-prettier":"^10.1.8","eslint-plugin-prettier":"^5.5.4","parcel":"^2.16.0","prettier":"^3.6.2","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1","ts-enum-util":"^4.1.0"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","displayName":"Bosch Appliance Features","description":"Home Assistant Tile card features for Bosch Home Connect Alt devices","repository":{"type":"git","url":"https://github.com/hondzik/bosch-appliance-features"},"keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"type":"module","version":"0.0.88","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","lint":"eslint src --ext .ts,.js --fix","format":"prettier --write src/**/*.{ts,js,css,scss,html}","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"@typescript-eslint/eslint-plugin":"^8.46.1","@typescript-eslint/parser":"^8.46.1","eslint":"^9.37.0","eslint-config-prettier":"^10.1.8","eslint-plugin-prettier":"^5.5.4","parcel":"^2.16.0","prettier":"^3.6.2","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1","ts-enum-util":"^4.1.0"}}');
 
 
 /******************************************************************************
@@ -1431,17 +1431,11 @@ const $041ae069d715ccb9$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
         margin-right: 0px;
     }   
 
-    ha-control-button:hover {
-        background-color: rgba(var(--rgb-primary-color), 0.2);
-        color: var(--primary-color);
-        z-index: 2;
-    }
-
     ha-control-button.active,
-    ha-control-button.active:hover {
-        background-color: var(--primary-color);
-        color: var(--text-color);
-        z-index: 3;
+    ha-control-button:hover {
+        background-color: var(--tile-color);
+        transition: background-color 180ms ease-in-out, opacity 180ms ease-in-out;
+        opacity: var(--tile-opacity);
     }
 
     .icon-wrapper {
@@ -1450,13 +1444,14 @@ const $041ae069d715ccb9$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
         justify-content: center;
         width: 24px;
         height: 24px;
+        color: var(--tile-color);
     }
 
     svg {
         width: 100%;
         height: 100%;
-        stroke: currentColor;
-        fill: currentColor;
+        /*stroke: currentColor;
+        fill: currentColor;*/
     }
 
 
@@ -2039,8 +2034,6 @@ function $742472ad635a8957$export$77ffbca238424dbf(enumObj, key) {
 
 
 
-
-
 var $c302abf7983a4985$export$4ad3a6a09fb2916f = /*#__PURE__*/ function(EBoschFeature) {
     EBoschFeature[EBoschFeature["dishwasher_options"] = 0] = "dishwasher_options";
     EBoschFeature[EBoschFeature["dishwasher_programs"] = 1] = "dishwasher_programs";
@@ -2271,6 +2264,7 @@ const $2bd9259198ca0bf4$export$b74fc37d3b82988d = new Map([
             3,
             4,
             10,
+            11,
             12,
             14,
             16,
@@ -2304,16 +2298,13 @@ const $2bd9259198ca0bf4$export$b74fc37d3b82988d = new Map([
             11,
             13,
             15,
-            16,
             17,
             18,
-            21,
             22,
             23
         ]
     ]
 ]);
-
 
 
 
@@ -2330,14 +2321,13 @@ class $2eb7d861ff889d97$export$951251c678728e4c extends (0, $528e4332d1e3099e$ex
     }
     get entities() {
         if (this._entities.size === 0) {
-            const feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_options;
-            const entityEnums = (0, $2bd9259198ca0bf4$export$b74fc37d3b82988d).get(feature) ?? [];
+            const entityEnums = (0, $2bd9259198ca0bf4$export$b74fc37d3b82988d).get(this.feature) ?? [];
             this._entities = entityEnums.reduce((mapAcc, enumKey)=>{
                 const entity = (0, $2bd9259198ca0bf4$export$306b07a8235c3466).get(enumKey);
                 if (entity) mapAcc.set(enumKey, entity);
                 return mapAcc;
             }, new Map());
-            if (this._entities.size === 0) console.error(`No entities associated with feature ${feature} found`);
+            if (this._entities.size === 0) console.error(`No entities associated with feature ${this.feature} found`);
         }
         return this._entities;
     }
@@ -2357,21 +2347,21 @@ class $2eb7d861ff889d97$export$951251c678728e4c extends (0, $528e4332d1e3099e$ex
     set running(val) {
         this._running = val;
     }
-    getLinkedEntityState(entity) {
-        console.log('Getting entity state for ' + entity);
+    getLinkedEntityState(entityRef) {
         if (!this.hass || !this.context) return undefined;
-        if (!this.entities.has(entity) || !this.entityPrefix) {
-            console.error(`Entity ${entity} with prefix ${!this.entityPrefix} not found in entities map`);
+        if (!this.entities.has(entityRef) || !this.entityPrefix) {
+            console.error(`Entity ${entityRef} with prefix ${this.entityPrefix} not found in entities map`);
             return undefined;
         }
-        const entityDef = this.entities.get(entity);
+        const entityDef = this.entities.get(entityRef);
         const entityId = `${entityDef.type}.${this.entityPrefix}_${entityDef.suffix}`;
-        const state = this.hass?.states?.[entityId];
-        if (!state) console.error(`Entity for ${entity} not found (entityId: ${entityId})`);
-        return state;
+        const entity = this.hass?.states?.[entityId];
+        if (!entity) console.error(`Entity for ${entityRef} not found (entityId: ${entityId})`);
+        if (entity.state === 'unavailable' || entity.state === 'unknown') return undefined;
+        return entity;
     }
     getBoolConfigVal(key, defaultValue) {
-        return this._config && this._config[key] !== undefined ? !!this._config[key] : defaultValue;
+        return this._config && key in this._config ? !!this._config[key] : defaultValue;
     }
     static async getInlineSVG(iconName) {
         if (!this.iconCache.has(iconName)) {
@@ -2411,19 +2401,6 @@ class $2eb7d861ff889d97$export$951251c678728e4c extends (0, $528e4332d1e3099e$ex
         super(...args), this._entities = new Map();
     }
 }
-(0, $bb166217b384746d$export$29e00dfd3077644b)([
-    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
-        attribute: false
-    })
-], $2eb7d861ff889d97$export$951251c678728e4c.prototype, "hass", void 0);
-(0, $bb166217b384746d$export$29e00dfd3077644b)([
-    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
-        attribute: false
-    })
-], $2eb7d861ff889d97$export$951251c678728e4c.prototype, "context", void 0);
-(0, $bb166217b384746d$export$29e00dfd3077644b)([
-    (0, $0ede0742a0fa7bbd$export$ca000e230c0caa3e)()
-], $2eb7d861ff889d97$export$951251c678728e4c.prototype, "_config", void 0);
 
 
 
@@ -2466,19 +2443,62 @@ const $746d4ff12e3854a3$export$c61018cc7a2d300d = (0, $06bdd16cbb4a41b3$export$d
 
 
 // import { IntlMessageFormat } from "intl-messageformat";
+var $2b65a1b876bb1c9d$exports = {};
+$2b65a1b876bb1c9d$exports = JSON.parse('{"dishwasher":{"programs":{"feature-name":"Programy my\u010Dky","editor":{"show_as_button_bar":{"title":"Zobrazit jako panel tla\u010D\xedtek","description":"Zobraz\xed programy jako horizont\xe1ln\xed panel tla\u010D\xedtek m\xedsto m\u0159\xed\u017Eky tla\u010D\xedtek."},"show_machinecare":{"title":"Zobrazit program Machine Care","description":"Zobraz\xed program Machine Care v seznamu dostupn\xfdch program\u016F."}}},"options":{"feature-name":"Mo\u017Enosti my\u010Dky","editor":{"show_as_button_bar":{"title":"Zobrazit jako panel tla\u010D\xedtek","description":"Zobraz\xed programy jako horizont\xe1ln\xed panel tla\u010D\xedtek m\xedsto m\u0159\xed\u017Eky tla\u010D\xedtek."}}},"time":{"feature-name":"Zb\xfdvaj\xedc\xed \u010Das my\u010Dky","editor":{"show_remaining_time":{"title":"Zobrazit zb\xfdvaj\xedc\xed \u010Das","description":"Zobraz\xed zb\xfdvaj\xedc\xed \u010Das m\xedsto \u010Dasu dokon\u010Den\xed"}}}},"oven":{"programs":{"feature-name":"Programy trouby"},"time":{"feature-name":"Zb\xfdvaj\xedc\xed \u010Das trouby"}}}');
+
+
+var $76863c36101820a3$exports = {};
+$76863c36101820a3$exports = JSON.parse('{"dishwasher":{"programs":{"feature-name":"Geschirrsp\xfcler-Programme","editor":{"show_as_button_bar":{"title":"Als Schaltfl\xe4chenleiste anzeigen","description":"Zeigt die Programme als horizontale Schaltfl\xe4chenleiste anstelle eines Rasters an."},"show_machinecare":{"title":"Maschinenpflege-Programm anzeigen","description":"Zeigt das Maschinenpflege-Programm in der Liste der verf\xfcgbaren Programme an."}}},"options":{"feature-name":"Geschirrsp\xfcler-Optionen","editor":{"show_as_button_bar":{"title":"Als Schaltfl\xe4chenleiste anzeigen","description":"Zeigt die Programme als horizontale Schaltfl\xe4chenleiste anstelle eines Rasters an."}}},"time":{"feature-name":"Geschirrsp\xfcler Restzeit","editor":{"show_remaining_time":{"title":"Restzeit anzeigen","description":"Zeigt die verbleibende Zeit anstelle der Endzeit an"}}}},"oven":{"programs":{"feature-name":"Backofen-Programme"},"time":{"feature-name":"Backofen Restzeit"}}}');
+
+
 var $12255719fcb5db94$exports = {};
-$12255719fcb5db94$exports = JSON.parse("{\"dishwasher\":{\"programs\":{\"feature-name\":\"Dishwasher programs\",\"editor\":{\"show_as_button_bar\":{\"title\":\"Show as button bar\",\"description\":\"Show the programs as a horizontal button bar instead of a grid of buttons.\"},\"show_machinecare\":{\"title\":\"Show Machine Care program\",\"description\":\"Show the Machine Care program in the list of available programs.\"}}},\"options\":{\"feature-name\":\"Dishwasher options\",\"editor\":{\"show_as_button_bar\":{\"title\":\"Show as button bar\",\"description\":\"Show the programs as a horizontal button bar instead of a grid of buttons.\"}}},\"time\":{\"feature-name\":\"Dishwasher time remaining\",\"editor\":{\"show_remaining_time\":{\"title\":\"Show remaining time\",\"description\":\"Show remaining time instead of finish time\"}}}},\"oven\":{\"programs\":{\"feature-name\":\"Oven programs\"},\"time\":{\"feature-name\":\"Oven time remaining\"}}}");
+$12255719fcb5db94$exports = JSON.parse("{\"dishwasher\":{\"programs\":{\"feature-name\":\"Dishwasher programs\",\"editor\":{\"show_as_button_bar\":{\"title\":\"Show as button bar\",\"description\":\"Show the programs as a horizontal button bar instead of a grid of buttons.\"},\"show_machinecare\":{\"title\":\"Show Machine Care program\",\"description\":\"Show the Machine Care program in the list of available programs.\"}}},\"options\":{\"feature-name\":\"Dishwasher options\",\"editor\":{\"show_as_button_bar\":{\"title\":\"Show as button bar\",\"description\":\"Show the programs as a horizontal button bar instead of a grid of buttons.\"}}},\"time\":{\"feature-name\":\"Dishwasher time remaining\",\"editor\":{\"show_remaining_time\":{\"title\":\"Show remaining time\",\"description\":\"Show remaining time instead of finish time.\"}}}},\"oven\":{\"programs\":{\"feature-name\":\"Oven programs\"},\"time\":{\"feature-name\":\"Oven time remaining\"}}}");
 
 
-//import * as es from "./translations/es.json";
-//import * as fr from "./translations/fr.json";
-//import * as it from "./translations/it.json";
-//import * as pt from "./translations/pt.json";
-//import * as sk from "./translations/sk.json";
+var $cef4d15088828b93$exports = {};
+$cef4d15088828b93$exports = JSON.parse('{"dishwasher":{"programs":{"feature-name":"Programas del lavavajillas","editor":{"show_as_button_bar":{"title":"Mostrar como barra de botones","description":"Muestra los programas como una barra horizontal de botones en lugar de una cuadr\xedcula."},"show_machinecare":{"title":"Mostrar programa de cuidado de m\xe1quina","description":"Muestra el programa de cuidado de m\xe1quina en la lista de programas disponibles."}}},"options":{"feature-name":"Opciones del lavavajillas","editor":{"show_as_button_bar":{"title":"Mostrar como barra de botones","description":"Muestra los programas como una barra horizontal de botones en lugar de una cuadr\xedcula."}}},"time":{"feature-name":"Tiempo restante del lavavajillas","editor":{"show_remaining_time":{"title":"Mostrar tiempo restante","description":"Muestra el tiempo restante en lugar de la hora de finalizaci\xf3n"}}}},"oven":{"programs":{"feature-name":"Programas del horno"},"time":{"feature-name":"Tiempo restante del horno"}}}');
+
+
+var $f9190c022786ac10$exports = {};
+$f9190c022786ac10$exports = JSON.parse("{\"dishwasher\":{\"programs\":{\"feature-name\":\"Programmes du lave-vaisselle\",\"editor\":{\"show_as_button_bar\":{\"title\":\"Afficher comme barre de boutons\",\"description\":\"Affiche les programmes sous forme de barre horizontale de boutons au lieu d'une grille.\"},\"show_machinecare\":{\"title\":\"Afficher le programme d'entretien\",\"description\":\"Affiche le programme d'entretien dans la liste des programmes disponibles.\"}}},\"options\":{\"feature-name\":\"Options du lave-vaisselle\",\"editor\":{\"show_as_button_bar\":{\"title\":\"Afficher comme barre de boutons\",\"description\":\"Affiche les programmes sous forme de barre horizontale de boutons au lieu d'une grille.\"}}},\"time\":{\"feature-name\":\"Temps restant du lave-vaisselle\",\"editor\":{\"show_remaining_time\":{\"title\":\"Afficher le temps restant\",\"description\":\"Affiche le temps restant au lieu de l'heure de fin\"}}}},\"oven\":{\"programs\":{\"feature-name\":\"Programmes du four\"},\"time\":{\"feature-name\":\"Temps restant du four\"}}}");
+
+
+var $696ef0d177011e66$exports = {};
+$696ef0d177011e66$exports = JSON.parse('{"dishwasher":{"programs":{"feature-name":"Mosogat\xf3g\xe9p programok","editor":{"show_as_button_bar":{"title":"Megjelen\xedt\xe9s gombsork\xe9nt","description":"A programokat v\xedzszintes gombsork\xe9nt jelen\xedti meg a r\xe1cs helyett."},"show_machinecare":{"title":"G\xe9ptiszt\xedt\xf3 program megjelen\xedt\xe9se","description":"Megjelen\xedti a g\xe9ptiszt\xedt\xf3 programot az el\xe9rhet\u0151 programok list\xe1j\xe1ban."}}},"options":{"feature-name":"Mosogat\xf3g\xe9p be\xe1ll\xedt\xe1sok","editor":{"show_as_button_bar":{"title":"Megjelen\xedt\xe9s gombsork\xe9nt","description":"A programokat v\xedzszintes gombsork\xe9nt jelen\xedti meg a r\xe1cs helyett."}}},"time":{"feature-name":"Mosogat\xf3g\xe9p h\xe1tral\xe9v\u0151 id\u0151","editor":{"show_remaining_time":{"title":"H\xe1tral\xe9v\u0151 id\u0151 megjelen\xedt\xe9se","description":"A h\xe1tral\xe9v\u0151 id\u0151t mutatja a befejez\xe9si id\u0151 helyett"}}}},"oven":{"programs":{"feature-name":"S\xfct\u0151 programok"},"time":{"feature-name":"S\xfct\u0151 h\xe1tral\xe9v\u0151 id\u0151"}}}');
+
+
+var $f437c74ff9dd0ebe$exports = {};
+$f437c74ff9dd0ebe$exports = JSON.parse("{\"dishwasher\":{\"programs\":{\"feature-name\":\"Programmi lavastoviglie\",\"editor\":{\"show_as_button_bar\":{\"title\":\"Mostra come barra dei pulsanti\",\"description\":\"Mostra i programmi come barra orizzontale invece di una griglia di pulsanti.\"},\"show_machinecare\":{\"title\":\"Mostra programma di manutenzione\",\"description\":\"Mostra il programma di manutenzione nell'elenco dei programmi disponibili.\"}}},\"options\":{\"feature-name\":\"Opzioni lavastoviglie\",\"editor\":{\"show_as_button_bar\":{\"title\":\"Mostra come barra dei pulsanti\",\"description\":\"Mostra i programmi come barra orizzontale invece di una griglia di pulsanti.\"}}},\"time\":{\"feature-name\":\"Tempo rimanente lavastoviglie\",\"editor\":{\"show_remaining_time\":{\"title\":\"Mostra tempo rimanente\",\"description\":\"Mostra il tempo rimanente invece dell'ora di fine\"}}}},\"oven\":{\"programs\":{\"feature-name\":\"Programmi forno\"},\"time\":{\"feature-name\":\"Tempo rimanente forno\"}}}");
+
+
+var $da3b756d4cd107ae$exports = {};
+$da3b756d4cd107ae$exports = JSON.parse('{"dishwasher":{"programs":{"feature-name":"Programy zmywarki","editor":{"show_as_button_bar":{"title":"Poka\u017C jako pasek przycisk\xf3w","description":"Wy\u015Bwietla programy jako poziomy pasek przycisk\xf3w zamiast siatki."},"show_machinecare":{"title":"Poka\u017C program czyszczenia","description":"Wy\u015Bwietla program czyszczenia na li\u015Bcie dost\u0119pnych program\xf3w."}}},"options":{"feature-name":"Opcje zmywarki","editor":{"show_as_button_bar":{"title":"Poka\u017C jako pasek przycisk\xf3w","description":"Wy\u015Bwietla programy jako poziomy pasek przycisk\xf3w zamiast siatki."}}},"time":{"feature-name":"Pozosta\u0142y czas zmywarki","editor":{"show_remaining_time":{"title":"Poka\u017C pozosta\u0142y czas","description":"Pokazuje pozosta\u0142y czas zamiast czasu zako\u0144czenia"}}}},"oven":{"programs":{"feature-name":"Programy piekarnika"},"time":{"feature-name":"Pozosta\u0142y czas piekarnika"}}}');
+
+
+var $edb4109659f67458$exports = {};
+$edb4109659f67458$exports = JSON.parse('{"dishwasher":{"programs":{"feature-name":"Programas da m\xe1quina de lavar lou\xe7a","editor":{"show_as_button_bar":{"title":"Mostrar como barra de bot\xf5es","description":"Mostra os programas como uma barra horizontal de bot\xf5es em vez de uma grade."},"show_machinecare":{"title":"Mostrar programa de manuten\xe7\xe3o","description":"Mostra o programa de manuten\xe7\xe3o na lista de programas dispon\xedveis."}}},"options":{"feature-name":"Op\xe7\xf5es da m\xe1quina de lavar lou\xe7a","editor":{"show_as_button_bar":{"title":"Mostrar como barra de bot\xf5es","description":"Mostra os programas como uma barra horizontal de bot\xf5es em vez de uma grade."}}},"time":{"feature-name":"Tempo restante da m\xe1quina de lavar lou\xe7a","editor":{"show_remaining_time":{"title":"Mostrar tempo restante","description":"Mostra o tempo restante em vez da hora de t\xe9rmino"}}}},"oven":{"programs":{"feature-name":"Programas do forno"},"time":{"feature-name":"Tempo restante do forno"}}}');
+
+
+var $b421de365e0a2097$exports = {};
+$b421de365e0a2097$exports = JSON.parse('{"dishwasher":{"programs":{"feature-name":"Programy um\xfdva\u010Dky","editor":{"show_as_button_bar":{"title":"Zobrazi\u0165 ako panel tla\u010Didiel","description":"Zobraz\xed programy ako horizont\xe1lny panel tla\u010Didiel namiesto mrie\u017Eky tla\u010Didiel."},"show_machinecare":{"title":"Zobrazi\u0165 program Machine Care","description":"Zobraz\xed program Machine Care v zozname dostupn\xfdch programov."}}},"options":{"feature-name":"Mo\u017Enosti um\xfdva\u010Dky","editor":{"show_as_button_bar":{"title":"Zobrazi\u0165 ako panel tla\u010Didiel","description":"Zobraz\xed programy ako horizont\xe1lny panel tla\u010Didiel namiesto mrie\u017Eky tla\u010Didiel."}}},"time":{"feature-name":"Zost\xe1vaj\xfaci \u010Das um\xfdva\u010Dky","editor":{"show_remaining_time":{"title":"Zobrazi\u0165 zost\xe1vaj\xfaci \u010Das","description":"Zobraz\xed zost\xe1vaj\xfaci \u010Das namiesto \u010Dasu ukon\u010Denia"}}}},"oven":{"programs":{"feature-name":"Programy r\xfary"},"time":{"feature-name":"Zost\xe1vaj\xfaci \u010Das r\xfary"}}}');
+
+
+var $018b5e89128fe2ab$exports = {};
+$018b5e89128fe2ab$exports = JSON.parse('{"dishwasher":{"programs":{"feature-name":"\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u0438 \u043F\u043E\u0441\u0443\u0434\u043E\u043C\u0438\u0439\u043D\u043E\u0457 \u043C\u0430\u0448\u0438\u043D\u0438","editor":{"show_as_button_bar":{"title":"\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u0438 \u044F\u043A \u043F\u0430\u043D\u0435\u043B\u044C \u043A\u043D\u043E\u043F\u043E\u043A","description":"\u0412\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0430\u0454 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u0438 \u044F\u043A \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u0443 \u043F\u0430\u043D\u0435\u043B\u044C \u043A\u043D\u043E\u043F\u043E\u043A \u0437\u0430\u043C\u0456\u0441\u0442\u044C \u0441\u0456\u0442\u043A\u0438."},"show_machinecare":{"title":"\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u0438 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u0443 \u0434\u043E\u0433\u043B\u044F\u0434\u0443","description":"\u0412\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0430\u0454 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u0443 \u0434\u043E\u0433\u043B\u044F\u0434\u0443 \u0437\u0430 \u043C\u0430\u0448\u0438\u043D\u043E\u044E \u0443 \u0441\u043F\u0438\u0441\u043A\u0443 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0438\u0445 \u043F\u0440\u043E\u0433\u0440\u0430\u043C."}}},"options":{"feature-name":"\u041E\u043F\u0446\u0456\u0457 \u043F\u043E\u0441\u0443\u0434\u043E\u043C\u0438\u0439\u043D\u043E\u0457 \u043C\u0430\u0448\u0438\u043D\u0438","editor":{"show_as_button_bar":{"title":"\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u0438 \u044F\u043A \u043F\u0430\u043D\u0435\u043B\u044C \u043A\u043D\u043E\u043F\u043E\u043A","description":"\u0412\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0430\u0454 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u0438 \u044F\u043A \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u0443 \u043F\u0430\u043D\u0435\u043B\u044C \u043A\u043D\u043E\u043F\u043E\u043A \u0437\u0430\u043C\u0456\u0441\u0442\u044C \u0441\u0456\u0442\u043A\u0438."}}},"time":{"feature-name":"\u0427\u0430\u0441 \u0434\u043E \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u043D\u044F \u043C\u0438\u0442\u0442\u044F","editor":{"show_remaining_time":{"title":"\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u0438 \u0447\u0430\u0441, \u0449\u043E \u0437\u0430\u043B\u0438\u0448\u0438\u0432\u0441\u044F","description":"\u041F\u043E\u043A\u0430\u0437\u0443\u0454 \u0447\u0430\u0441, \u0449\u043E \u0437\u0430\u043B\u0438\u0448\u0438\u0432\u0441\u044F, \u0437\u0430\u043C\u0456\u0441\u0442\u044C \u0447\u0430\u0441\u0443 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u043D\u044F"}}}},"oven":{"programs":{"feature-name":"\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u0438 \u0434\u0443\u0445\u043E\u0432\u043A\u0438"},"time":{"feature-name":"\u0427\u0430\u0441 \u0434\u043E \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u043D\u044F \u0440\u043E\u0431\u043E\u0442\u0438 \u0434\u0443\u0445\u043E\u0432\u043A\u0438"}}}');
+
+
 const $f7e2ebf6156dc08b$var$languages = {
-    en: //  cs,
-    //  de,
-    $12255719fcb5db94$exports
+    cs: $2b65a1b876bb1c9d$exports,
+    de: $76863c36101820a3$exports,
+    en: $12255719fcb5db94$exports,
+    es: $cef4d15088828b93$exports,
+    fr: $f9190c022786ac10$exports,
+    hu: $696ef0d177011e66$exports,
+    it: $f437c74ff9dd0ebe$exports,
+    pl: $da3b756d4cd107ae$exports,
+    pt: $edb4109659f67458$exports,
+    sk: $b421de365e0a2097$exports,
+    uk: $018b5e89128fe2ab$exports
 };
 const $f7e2ebf6156dc08b$var$DEFAULT_LANG = 'en';
 function $f7e2ebf6156dc08b$var$getTranslatedString(key, lang) {
@@ -2517,18 +2537,9 @@ class $fb3480942ad4693b$export$48c0d7e7463991d6 extends (0, $528e4332d1e3099e$ex
         const customLocalize = (0, $f7e2ebf6156dc08b$export$2e2bcd8739ae039)(this.hass);
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
       <ha-settings-row>
-        <div slot="heading" data-for="${key}">
-          ${customLocalize(`dishwasher.${this.feature}.editor.${key}.title`)}
-        </div>
-        <div slot="description" data-for="${key}">
-          ${customLocalize(`dishwasher.${this.feature}.editor.${key}.description`)}
-        </div>
-        <ha-switch
-          id="${key}"
-          name="${key}"
-          @change=${this._onSettingChange}
-          .checked=${this.getBoolConfigVal(key, defaultVal)}
-        />
+        <div slot="heading" data-for="${key}">${customLocalize(`dishwasher.${this.feature}.editor.${key}.title`)}</div>
+        <div slot="description" data-for="${key}">${customLocalize(`dishwasher.${this.feature}.editor.${key}.description`)}</div>
+        <ha-switch id="${key}" name="${key}" @change=${this._onSettingChange} .checked=${this.getBoolConfigVal(key, defaultVal)} />
       </ha-settings-row>
     `;
     }
@@ -2564,12 +2575,7 @@ class $a3d36398cbb8abc5$export$5ad3d821964e0a36 extends (0, $fb3480942ad4693b$ex
         };
     }
     render() {
-        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
-      <div class="settings">
-        ${this.renderBoolHaSettingsRow('show_as_button_bar', true)}
-        ${this.renderBoolHaSettingsRow('show_machinecare', true)}
-      </div>
-    `;
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)` <div class="settings">${this.renderBoolHaSettingsRow('show_as_button_bar', true)} ${this.renderBoolHaSettingsRow('show_machinecare', true)}</div> `;
     }
     static get styles() {
         return [
@@ -2594,6 +2600,7 @@ class $a3d36398cbb8abc5$export$5ad3d821964e0a36 extends (0, $fb3480942ad4693b$ex
 $a3d36398cbb8abc5$export$5ad3d821964e0a36 = (0, $bb166217b384746d$export$29e00dfd3077644b)([
     (0, $4af75e4a7ed8f584$export$da64fc29f17f9d0e)('bosch-dishwasher-programs-editor')
 ], $a3d36398cbb8abc5$export$5ad3d821964e0a36);
+
 
 
 class $3fccb9d4d2156306$export$2abebcf1e6123836 extends (0, $2eb7d861ff889d97$export$951251c678728e4c) {
@@ -2642,11 +2649,7 @@ class $3fccb9d4d2156306$export$2abebcf1e6123836 extends (0, $2eb7d861ff889d97$ex
     render() {
         if (!this._config || !this.hass || !this.context || !$3fccb9d4d2156306$export$2abebcf1e6123836.isSupported(this.hass, this.context)) return 0, $d33ef1320595a3ac$export$45b790e32b2810ee;
         const filteredPrograms = this.programs.filter((p)=>this.getBoolConfigVal('show_' + p.icon, true));
-        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
-      <ha-control-button-group>
-        ${filteredPrograms.map((p)=>this.renderHaControlButton(p))}
-      </ha-control-button-group>
-    `;
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)` <ha-control-button-group> ${filteredPrograms.map((p)=>this.renderHaControlButton(p))} </ha-control-button-group> `;
     }
     renderHaControlButton(program) {
         const svg = $3fccb9d4d2156306$export$2abebcf1e6123836.getInlineSVG(program.icon).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
@@ -2705,6 +2708,9 @@ class $3fccb9d4d2156306$export$2abebcf1e6123836 extends (0, $2eb7d861ff889d97$ex
     static isSupported(hass, context) {
         return super.isSupported(hass, context, 'dishwasher');
     }
+    constructor(...args){
+        super(...args), this.feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_programs, this._programs = [];
+    }
 }
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
     (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
@@ -2752,9 +2758,7 @@ class $c45b3a62a020e969$export$777b72c3156c0d7d extends (0, $fb3480942ad4693b$ex
         };
     }
     render() {
-        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
-      <div class="settings">${this.renderBoolHaSettingsRow('show_as_button_bar', true)}</div>
-    `;
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)` <div class="settings">${this.renderBoolHaSettingsRow('show_as_button_bar', true)}</div> `;
     }
     static get styles() {
         return [
@@ -2779,6 +2783,7 @@ class $c45b3a62a020e969$export$777b72c3156c0d7d extends (0, $fb3480942ad4693b$ex
 $c45b3a62a020e969$export$777b72c3156c0d7d = (0, $bb166217b384746d$export$29e00dfd3077644b)([
     (0, $4af75e4a7ed8f584$export$da64fc29f17f9d0e)('bosch-dishwasher-options-editor')
 ], $c45b3a62a020e969$export$777b72c3156c0d7d);
+
 
 
 class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $2eb7d861ff889d97$export$951251c678728e4c) {
@@ -2817,6 +2822,9 @@ class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $2eb7d861ff889d97$ex
     }
     static get styles() {
         return 0, $d98ae74f16dab842$export$f0eb0d6ee1da2bba;
+    }
+    constructor(...args){
+        super(...args), this.feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_options;
     }
 }
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
@@ -2857,36 +2865,36 @@ const $ae6a689dca82854d$export$bd393bd8bf11a424 = (0, $06bdd16cbb4a41b3$export$d
         overflow: hidden;
     }
 
-    .bosh-dishwasher-time-feature {
+    .bosch-dishwasher-time-feature {
         display: flex;
         align-items: center;    /* vertikální zarovnání */
         justify-content: space-between; /* mezery mezi prvky */
         gap: 8px;               /* volitelně mezera mezi prvky */
         width: 100%;
+        height: var(--feature-height, 42px);
     }
 
-    .bosh-dishwasher-time-feature > * {
+    .bosch-dishwasher-time-feature > * {
         display: flex;
         align-items: center;
         justify-content: center;
         min-width: fit-content; /* jen tolik místa, kolik obsah potřebuje */
     }
 
-    .bosh-dishwasher-time-feature .time-graph {
+    .bosch-dishwasher-time-feature .time-graph {
         flex: 1; /* roztáhne se na zbylý prostor */
-    }
-
-    .bosh-dishwasher-time-feature .time-graph .background {
-        width: 100%
-        height: 8px;
+        position: relative;
+        min-height: 11px;
         border-radius: 5px;
-        border: 1px solid rgba(var(--rgb-primary-color), 0.8);
-        background-color: rgba(var(--rgb-primary-color), 0.3);
+
+        border: 1px solid var(--tile-color);
+        background-color: color-mix(in srgb, var(--tile-color) 70%, transparent);
+        transition: background-color 180ms ease-in-out, opacity 180ms ease-in-out;
     }    
     
     .bosh-dishwasher-time-feature .time-graph .level {
         height: 100%;
-        background-color: rgba(var(--rgb-primary-color), 0.7);
+        background-color: var(--tile-color);
     }
 
     .bosh-dishwasher-time-feature .time-remaining {
@@ -2915,9 +2923,7 @@ class $fc3158e92917286c$export$687095a8510429a6 extends (0, $fb3480942ad4693b$ex
         };
     }
     render() {
-        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
-      <div class="settings">${this.renderBoolHaSettingsRow('show_remaining_time', true)}</div>
-    `;
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)` <div class="settings">${this.renderBoolHaSettingsRow('show_remaining_time', true)}</div> `;
     }
     static get styles() {
         return [
@@ -2944,6 +2950,7 @@ $fc3158e92917286c$export$687095a8510429a6 = (0, $bb166217b384746d$export$29e00df
 ], $fc3158e92917286c$export$687095a8510429a6);
 
 
+
 class $e4104b77a0427686$export$7fc06ad2513928c extends (0, $2eb7d861ff889d97$export$951251c678728e4c) {
     setConfig(config) {
         if (!config) throw new Error('Invalid configuration');
@@ -2952,28 +2959,17 @@ class $e4104b77a0427686$export$7fc06ad2513928c extends (0, $2eb7d861ff889d97$exp
     render() {
         if (!this._config || !this.hass || !this.context || !$e4104b77a0427686$export$7fc06ad2513928c.isSupported(this.hass, this.context)) return 0, $d33ef1320595a3ac$export$45b790e32b2810ee;
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
-      <div class="bosh-dishwasher-time-feature">
-        <ha-control-button
-          .disabled=${!this.online}
-          title=${this.running ? 'Pause' : 'Start'}
-          @click=${this.action('start_pause')}
-        >
+      <div class="bosch-dishwasher-time-feature">
+        <ha-control-button .disabled=${!this.online} title=${this.running ? 'Pause' : 'Start'} @click=${this.action('start_pause')}>
           <ha-icon icon=${this.running ? 'mdi:pause' : 'mdi:play'}></ha-icon>
         </ha-control-button>
         <ha-control-button .disabled=${!this.online} title="Stop" } @click=${this.action('stop')}>
           <ha-icon icon="mdi:stop" }></ha-icon>
         </ha-control-button>
         <div class="time-graph">
-          <div class="background">
-            <div
-              class="level"
-              style="width: ${this.getLinkedEntity((0, $2bd9259198ca0bf4$export$46cdc11276e7e760).program_progress)?.state ?? '0'}%;"
-            ></div>
-          </div>
+          <div class="level" style="width: ${this.getLinkedEntityState((0, $2bd9259198ca0bf4$export$46cdc11276e7e760).program_progress)?.state ?? '0'}%;"></div>
         </div>
-        <div class="time-remaining">
-          ${this.getLinkedEntity((0, $2bd9259198ca0bf4$export$46cdc11276e7e760).remaining_program_time)?.state ?? '0:00'}
-        </div>
+        <div class="time-remaining">${this.getTimeRemaining()}</div>
       </div>
     `;
     }
@@ -2981,15 +2977,25 @@ class $e4104b77a0427686$export$7fc06ad2513928c extends (0, $2eb7d861ff889d97$exp
         let entity = undefined;
         switch(action){
             case 'start_pause':
-                entity = this.getLinkedEntity((0, $2bd9259198ca0bf4$export$46cdc11276e7e760).start_pause);
+                entity = this.getLinkedEntityState((0, $2bd9259198ca0bf4$export$46cdc11276e7e760).start_pause);
                 break;
             case 'stop':
-                entity = this.getLinkedEntity((0, $2bd9259198ca0bf4$export$46cdc11276e7e760).stop);
+                entity = this.getLinkedEntityState((0, $2bd9259198ca0bf4$export$46cdc11276e7e760).stop);
                 break;
         }
-        if (entity) this.hass.callService('button', 'press', {
+        if (entity) this.hass?.callService('button', 'press', {
             entity_id: 'button.xyz'
         });
+    }
+    getTimeRemaining() {
+        const remainingTime = this.getLinkedEntityState((0, $2bd9259198ca0bf4$export$46cdc11276e7e760).remaining_program_time);
+        if (!remainingTime) return '0:00';
+        const targetDate = new Date(remainingTime.state);
+        const diffMs = Math.max(targetDate.getTime() - new Date().getTime(), 0);
+        const totalMinutes = Math.floor(diffMs / 60000);
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        return `${hours}:${minutes.toString().padStart(2, '0')}`;
     }
     static getConfigElement() {
         return document.createElement('bosch-dishwasher-time-editor');
@@ -3005,6 +3011,9 @@ class $e4104b77a0427686$export$7fc06ad2513928c extends (0, $2eb7d861ff889d97$exp
     }
     static isSupported(hass, context) {
         return super.isSupported(hass, context, 'dishwasher');
+    }
+    constructor(...args){
+        super(...args), this.feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_time;
     }
 }
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
@@ -3033,8 +3042,8 @@ window.customCardFeatures.push({
 
 
 const $4ce9dd84d19e7dd4$var$commonStyle = 'padding: 2px 4px; font-family: Roboto,Verdana,Geneva,sans-serif;';
-const $4ce9dd84d19e7dd4$var$nameStyle = `background-color: rgba(243, 91, 49, 1); color: rgba(39, 10, 66, 1); ${$4ce9dd84d19e7dd4$var$commonStyle}`;
-const $4ce9dd84d19e7dd4$var$versionStyle = `background-color: rgba(39, 10, 66, 1); color: rgba(243, 91, 49, 1); ${$4ce9dd84d19e7dd4$var$commonStyle}`;
+const $4ce9dd84d19e7dd4$var$nameStyle = `background-color: rgb(255, 127, 15); color: rgb(0, 0, 49); ${$4ce9dd84d19e7dd4$var$commonStyle}`;
+const $4ce9dd84d19e7dd4$var$versionStyle = `background-color: rgb(0, 0, 49); color: rgb(255, 127, 15); ${$4ce9dd84d19e7dd4$var$commonStyle}`;
 console.groupCollapsed(`%c${(0, $db183fbae05d6b51$exports.displayName)}%c${(0, $db183fbae05d6b51$exports.version)}`, $4ce9dd84d19e7dd4$var$nameStyle, $4ce9dd84d19e7dd4$var$versionStyle);
 console.info((0, $db183fbae05d6b51$exports.description));
 console.info(`Github: ${(0, $db183fbae05d6b51$exports.repository).url}`);
