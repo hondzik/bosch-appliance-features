@@ -53,9 +53,9 @@ export const BoschDishwasherProgramsFeatureStyles = css`
 
     ha-control-button.active,
     ha-control-button:hover {
-        background-color: var(--tile-icon-color);
+        background-color: var(--tile-color);
         transition: background-color 180ms ease-in-out, opacity 180ms ease-in-out;
-        opacity: var(--tile-icon-opacity);
+        opacity: var(--tile-opacity);
     }
 
     .icon-wrapper {
@@ -64,6 +64,7 @@ export const BoschDishwasherProgramsFeatureStyles = css`
         justify-content: center;
         width: 24px;
         height: 24px;
+        color: var(--tile-color);
     }
 
     svg {
