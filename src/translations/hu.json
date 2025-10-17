@@ -1,0 +1,43 @@
+{
+    "dishwasher": {
+        "programs": {
+            "feature-name": "Mosogatógép programok",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Megjelenítés gombsorként",
+                    "description": "A programokat vízszintes gombsorként jeleníti meg a rács helyett."
+                },
+                "show_machinecare": {
+                    "title": "Géptisztító program megjelenítése",
+                    "description": "Megjeleníti a géptisztító programot az elérhető programok listájában."
+                }
+            }
+        },
+        "options": {
+            "feature-name": "Mosogatógép beállítások",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Megjelenítés gombsorként",
+                    "description": "A programokat vízszintes gombsorként jeleníti meg a rács helyett."
+                }
+            }
+        },
+        "time": {
+            "feature-name": "Mosogatógép hátralévő idő",
+            "editor": {
+                "show_remaining_time": {
+                    "title": "Hátralévő idő megjelenítése",
+                    "description": "A hátralévő időt mutatja a befejezési idő helyett"
+                }
+            }
+        }
+    },
+    "oven": {
+        "programs": {
+            "feature-name": "Sütő programok"
+        },
+        "time": {
+            "feature-name": "Sütő hátralévő idő"
+        }
+    }
+}

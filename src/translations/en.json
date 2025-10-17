@@ -28,7 +28,7 @@
             "editor": {
                 "show_remaining_time": {
                     "title": "Show remaining time",
-                    "description": "Show remaining time instead of finish time"
+                    "description": "Show remaining time instead of finish time."
                 }
             }
         }

@@ -1,0 +1,43 @@
+{
+    "dishwasher": {
+        "programs": {
+            "feature-name": "Programy zmywarki",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Pokaż jako pasek przycisków",
+                    "description": "Wyświetla programy jako poziomy pasek przycisków zamiast siatki."
+                },
+                "show_machinecare": {
+                    "title": "Pokaż program czyszczenia",
+                    "description": "Wyświetla program czyszczenia na liście dostępnych programów."
+                }
+            }
+        },
+        "options": {
+            "feature-name": "Opcje zmywarki",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Pokaż jako pasek przycisków",
+                    "description": "Wyświetla programy jako poziomy pasek przycisków zamiast siatki."
+                }
+            }
+        },
+        "time": {
+            "feature-name": "Pozostały czas zmywarki",
+            "editor": {
+                "show_remaining_time": {
+                    "title": "Pokaż pozostały czas",
+                    "description": "Pokazuje pozostały czas zamiast czasu zakończenia"
+                }
+            }
+        }
+    },
+    "oven": {
+        "programs": {
+            "feature-name": "Programy piekarnika"
+        },
+        "time": {
+            "feature-name": "Pozostały czas piekarnika"
+        }
+    }
+}

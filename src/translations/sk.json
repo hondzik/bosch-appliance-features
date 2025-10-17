@@ -1,0 +1,43 @@
+{
+    "dishwasher": {
+        "programs": {
+            "feature-name": "Programy umývačky",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Zobraziť ako panel tlačidiel",
+                    "description": "Zobrazí programy ako horizontálny panel tlačidiel namiesto mriežky tlačidiel."
+                },
+                "show_machinecare": {
+                    "title": "Zobraziť program Machine Care",
+                    "description": "Zobrazí program Machine Care v zozname dostupných programov."
+                }
+            }
+        },
+        "options": {
+            "feature-name": "Možnosti umývačky",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Zobraziť ako panel tlačidiel",
+                    "description": "Zobrazí programy ako horizontálny panel tlačidiel namiesto mriežky tlačidiel."
+                }
+            }
+        },
+        "time": {
+            "feature-name": "Zostávajúci čas umývačky",
+            "editor": {
+                "show_remaining_time": {
+                    "title": "Zobraziť zostávajúci čas",
+                    "description": "Zobrazí zostávajúci čas namiesto času ukončenia"
+                }
+            }
+        }
+    },
+    "oven": {
+        "programs": {
+            "feature-name": "Programy rúry"
+        },
+        "time": {
+            "feature-name": "Zostávajúci čas rúry"
+        }
+    }
+}

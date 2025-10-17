@@ -9,36 +9,36 @@ export const BoschDishwasherTimeFeatureStyles = css`
         overflow: hidden;
     }
 
-    .bosh-dishwasher-time-feature {
+    .bosch-dishwasher-time-feature {
         display: flex;
         align-items: center;    /* vertikální zarovnání */
         justify-content: space-between; /* mezery mezi prvky */
         gap: 8px;               /* volitelně mezera mezi prvky */
         width: 100%;
+        height: 100%;
     }
 
-    .bosh-dishwasher-time-feature > * {
+    .bosch-dishwasher-time-feature > * {
         display: flex;
         align-items: center;
         justify-content: center;
         min-width: fit-content; /* jen tolik místa, kolik obsah potřebuje */
     }
 
-    .bosh-dishwasher-time-feature .time-graph {
+    .bosch-dishwasher-time-feature .time-graph {
         flex: 1; /* roztáhne se na zbylý prostor */
-        display: block;
-        width: 100%;
-        height: 11px;
+        position: relative;
+        min-height: 11px;
         border-radius: 5px;
 
         border: 1px solid var(--tile-color);
-        background-color: var(--tile-color);
+        background-color: color-mix(in srgb, var(--tile-color) 70%, transparent);
         transition: background-color 180ms ease-in-out, opacity 180ms ease-in-out;
     }    
     
     .bosh-dishwasher-time-feature .time-graph .level {
         height: 100%;
-        background-color: rgba(var(--rgb-primary-color), 0.7);
+        background-color: var(--tile-color);
     }
 
     .bosh-dishwasher-time-feature .time-remaining {

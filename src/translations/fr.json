@@ -1,0 +1,43 @@
+{
+    "dishwasher": {
+        "programs": {
+            "feature-name": "Programmes du lave-vaisselle",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Afficher comme barre de boutons",
+                    "description": "Affiche les programmes sous forme de barre horizontale de boutons au lieu d'une grille."
+                },
+                "show_machinecare": {
+                    "title": "Afficher le programme d'entretien",
+                    "description": "Affiche le programme d'entretien dans la liste des programmes disponibles."
+                }
+            }
+        },
+        "options": {
+            "feature-name": "Options du lave-vaisselle",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Afficher comme barre de boutons",
+                    "description": "Affiche les programmes sous forme de barre horizontale de boutons au lieu d'une grille."
+                }
+            }
+        },
+        "time": {
+            "feature-name": "Temps restant du lave-vaisselle",
+            "editor": {
+                "show_remaining_time": {
+                    "title": "Afficher le temps restant",
+                    "description": "Affiche le temps restant au lieu de l'heure de fin"
+                }
+            }
+        }
+    },
+    "oven": {
+        "programs": {
+            "feature-name": "Programmes du four"
+        },
+        "time": {
+            "feature-name": "Temps restant du four"
+        }
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "dishwasher": {
+        "programs": {
+            "feature-name": "Geschirrspüler-Programme",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Als Schaltflächenleiste anzeigen",
+                    "description": "Zeigt die Programme als horizontale Schaltflächenleiste anstelle eines Rasters an."
+                },
+                "show_machinecare": {
+                    "title": "Maschinenpflege-Programm anzeigen",
+                    "description": "Zeigt das Maschinenpflege-Programm in der Liste der verfügbaren Programme an."
+                }
+            }
+        },
+        "options": {
+            "feature-name": "Geschirrspüler-Optionen",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Als Schaltflächenleiste anzeigen",
+                    "description": "Zeigt die Programme als horizontale Schaltflächenleiste anstelle eines Rasters an."
+                }
+            }
+        },
+        "time": {
+            "feature-name": "Geschirrspüler Restzeit",
+            "editor": {
+                "show_remaining_time": {
+                    "title": "Restzeit anzeigen",
+                    "description": "Zeigt die verbleibende Zeit anstelle der Endzeit an"
+                }
+            }
+        }
+    },
+    "oven": {
+        "programs": {
+            "feature-name": "Backofen-Programme"
+        },
+        "time": {
+            "feature-name": "Backofen Restzeit"
+        }
+    }
+}

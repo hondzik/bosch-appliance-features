@@ -1,0 +1,43 @@
+{
+    "dishwasher": {
+        "programs": {
+            "feature-name": "Programas del lavavajillas",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Mostrar como barra de botones",
+                    "description": "Muestra los programas como una barra horizontal de botones en lugar de una cuadrícula."
+                },
+                "show_machinecare": {
+                    "title": "Mostrar programa de cuidado de máquina",
+                    "description": "Muestra el programa de cuidado de máquina en la lista de programas disponibles."
+                }
+            }
+        },
+        "options": {
+            "feature-name": "Opciones del lavavajillas",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Mostrar como barra de botones",
+                    "description": "Muestra los programas como una barra horizontal de botones en lugar de una cuadrícula."
+                }
+            }
+        },
+        "time": {
+            "feature-name": "Tiempo restante del lavavajillas",
+            "editor": {
+                "show_remaining_time": {
+                    "title": "Mostrar tiempo restante",
+                    "description": "Muestra el tiempo restante en lugar de la hora de finalización"
+                }
+            }
+        }
+    },
+    "oven": {
+        "programs": {
+            "feature-name": "Programas del horno"
+        },
+        "time": {
+            "feature-name": "Tiempo restante del horno"
+        }
+    }
+}
