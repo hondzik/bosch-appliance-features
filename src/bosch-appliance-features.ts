@@ -5,8 +5,8 @@ import './features/bosch-dishwasher-options/bosch-dishwasher-options-feature';
 import './features/bosch-dishwasher-time/bosch-dishwasher-time-feature';
 
 const commonStyle = 'padding: 2px 4px; font-family: Roboto,Verdana,Geneva,sans-serif;';
-const nameStyle = `background-color: rgba(243, 91, 49, 1); color: rgba(39, 10, 66, 1); ${commonStyle}`;
-const versionStyle = `background-color: rgba(39, 10, 66, 1); color: rgba(243, 91, 49, 1); ${commonStyle}`;
+const nameStyle = `background-color: rgb(255, 127, 15); color: rgb(0, 0, 49); ${commonStyle}`;
+const versionStyle = `background-color: rgb(0, 0, 49); color: rgb(255, 127, 15); ${commonStyle}`;
 
 console.groupCollapsed(`%c${displayName}%c${version}`, nameStyle, versionStyle);
 console.info(description);

@@ -26,14 +26,12 @@ export const BoschDishwasherTimeFeatureStyles = css`
 
     .bosh-dishwasher-time-feature .time-graph {
         flex: 1; /* roztáhne se na zbylý prostor */
-    }
-
-    .bosh-dishwasher-time-feature .time-graph .background {
         width: 100%
-        height: 8px;
+        height: 11px;
         border-radius: 5px;
         border: 1px solid rgba(var(--rgb-primary-color), 0.8);
         background-color: rgba(var(--rgb-primary-color), 0.3);
+        align-items: left;
     }    
     
     .bosh-dishwasher-time-feature .time-graph .level {

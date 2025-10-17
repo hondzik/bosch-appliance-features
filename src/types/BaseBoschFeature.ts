@@ -72,12 +72,10 @@ export abstract class BaseBoschFeature extends LitElement {
   }
 
   protected getLinkedEntityState(entity: EBoschEntity): HassEntity | undefined {
-    console.log('Getting entity state for ' + entity);
     if (!this.hass || !this.context) return undefined;
 
     if (!this.entities.has(entity) || !this.entityPrefix) {
       console.error(`Entity ${entity} with prefix ${this.entityPrefix} not found in entities map`);
-      console.log(this.entities);
       return undefined;
     }
 

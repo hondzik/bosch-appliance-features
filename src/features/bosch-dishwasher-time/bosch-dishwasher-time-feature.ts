@@ -42,9 +42,7 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
           <ha-icon icon="mdi:stop" }></ha-icon>
         </ha-control-button>
         <div class="time-graph">
-          <div class="background">
-            <div class="level" style="width: ${this.getLinkedEntityState(EBoschEntity.program_progress)?.state ?? '0'}%;"></div>
-          </div>
+          <div class="level" style="width: ${this.getLinkedEntityState(EBoschEntity.program_progress)?.state ?? '0'}%;"></div>
         </div>
         <div class="time-remaining">${this.getLinkedEntityState(EBoschEntity.remaining_program_time)?.state ?? '0:00'}</div>
       </div>
