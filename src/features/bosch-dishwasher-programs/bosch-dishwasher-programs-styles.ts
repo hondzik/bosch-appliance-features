@@ -51,17 +51,11 @@ export const BoschDishwasherProgramsFeatureStyles = css`
         margin-right: 0px;
     }   
 
-    ha-control-button:hover {
-        background-color: rgba(var(--rgb-primary-color), 0.2);
-        color: var(--primary-color);
-        z-index: 2;
-    }
-
     ha-control-button.active,
-    ha-control-button.active:hover {
-        background-color: var(--primary-color);
-        color: var(--text-color);
-        z-index: 3;
+    ha-control-button:hover {
+        background-color: var(--tile-icon-color);
+        transition: background-color 180ms ease-in-out, opacity 180ms ease-in-out;
+        opacity: var(--tile-icon-opacity);
     }
 
     .icon-wrapper {
@@ -75,8 +69,8 @@ export const BoschDishwasherProgramsFeatureStyles = css`
     svg {
         width: 100%;
         height: 100%;
-        stroke: currentColor;
-        fill: currentColor;
+        /*stroke: currentColor;
+        fill: currentColor;*/
     }
 
 

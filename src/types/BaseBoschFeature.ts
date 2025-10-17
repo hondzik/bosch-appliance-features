@@ -71,23 +71,27 @@ export abstract class BaseBoschFeature extends LitElement {
     this._running = val;
   }
 
-  protected getLinkedEntityState(entity: EBoschEntity): HassEntity | undefined {
+  protected getLinkedEntityState(entityRef: EBoschEntity): HassEntity | undefined {
     if (!this.hass || !this.context) return undefined;
 
-    if (!this.entities.has(entity) || !this.entityPrefix) {
-      console.error(`Entity ${entity} with prefix ${this.entityPrefix} not found in entities map`);
+    if (!this.entities.has(entityRef) || !this.entityPrefix) {
+      console.error(`Entity ${entityRef} with prefix ${this.entityPrefix} not found in entities map`);
       return undefined;
     }
 
-    const entityDef = this.entities.get(entity)!;
+    const entityDef = this.entities.get(entityRef)!;
     const entityId = `${entityDef.type}.${this.entityPrefix}_${entityDef.suffix}`;
-    const state = this.hass?.states?.[entityId];
+    const entity = this.hass?.states?.[entityId];
 
-    if (!state) {
-      console.error(`Entity for ${entity} not found (entityId: ${entityId})`);
+    if (!entity) {
+      console.error(`Entity for ${entityRef} not found (entityId: ${entityId})`);
     }
 
-    return state;
+    if (entity.state === 'unavailable' || entity.state === 'unknown') {
+      return undefined;
+    }
+
+    return entity;
   }
 
   protected getBoolConfigVal(key: string, defaultValue: boolean): boolean {

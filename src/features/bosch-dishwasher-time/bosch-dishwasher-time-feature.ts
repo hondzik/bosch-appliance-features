@@ -44,7 +44,7 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
         <div class="time-graph">
           <div class="level" style="width: ${this.getLinkedEntityState(EBoschEntity.program_progress)?.state ?? '0'}%;"></div>
         </div>
-        <div class="time-remaining">${this.getLinkedEntityState(EBoschEntity.remaining_program_time)?.state ?? '0:00'}</div>
+        <div class="time-remaining">${this.getTimeRemaining()}</div>
       </div>
     `;
   }
@@ -62,6 +62,20 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
     if (entity) {
       this.hass.callService('button', 'press', { entity_id: 'button.xyz' });
     }
+  }
+
+  private getTimeRemaining(): string {
+    const remainingTime = this.getLinkedEntityState(EBoschEntity.remaining_program_time);
+    if (!remainingTime) return '0:00';
+
+    const targetDate = new Date(remainingTime.state);
+
+    const diffMs = Math.max(targetDate.getTime() - new Date().getTime(), 0);
+    const totalMinutes = Math.floor(diffMs / (1000 * 60));
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    return `${hours}:${minutes.toString().padStart(2, '0')}`;
   }
 
   static getConfigElement(): HTMLElement {
