@@ -3,7 +3,7 @@ import { html, CSSResultGroup, TemplateResult } from 'lit-element';
 import { customElement, property } from 'lit/decorators.js';
 import { BoschDishwasherOptionsEditorStyles } from './bosch-dishwasher-options-styles';
 import { CommonEditorStyles } from '../common/bosch-styles';
-import { BoschDishwasherOptionsFeatureConfig } from '../../types/BoschDishwasherFeaturesTypes';
+import { BoschDishwasherOptionsFeatureConfig } from '../../types/BoschFeaturesTypes';
 import { BoschBaseEditor } from '../../types/BaseBoschFeatureEditor';
 
 @customElement('bosch-dishwasher-options-editor')
@@ -12,7 +12,7 @@ export class BoschDishwasherOptionsEditor extends BoschBaseEditor {
   hass?: HomeAssistant;
 
   @property({ type: Object })
-  config: BoschDishwasherOptionsFeatureConfig;
+  config: BoschDishwasherOptionsFeatureConfig = { type: 'custom:bosch-dishwasher-options-feature' };
 
   protected feature = 'options';
 

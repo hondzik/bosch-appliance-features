@@ -3,10 +3,10 @@ import { html, TemplateResult, nothing, CSSResultGroup } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
 import { EBoschEntity } from '../../const/BoschEntities';
 import { BoschDishwasherTimeFeatureStyles } from './bosch-dishwasher-time-styles';
-import { BoschDishwasherTimeFeatureConfig } from '../../types/BoschDishwasherFeaturesTypes';
+import { BoschDishwasherTimeFeatureConfig } from '../../types/BoschFeaturesTypes';
 import { BaseBoschFeature } from '../../types/BaseBoschFeature';
-import './bosch-dishwasher-time-editor';
 import { EBoschFeature } from '../../const/BoschFeatures';
+import './bosch-dishwasher-time-editor';
 
 @customElement('bosch-dishwasher-time-feature')
 export class BoschDishwasherTimeFeature extends BaseBoschFeature implements LovelaceCardFeature {
@@ -20,6 +20,7 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
   protected _config?: BoschDishwasherTimeFeatureConfig;
 
   protected feature = EBoschFeature.dishwasher_time;
+  protected entityPrefixLength = 2;
 
   public setConfig(config: BoschDishwasherTimeFeatureConfig): void {
     if (!config) {

@@ -7,7 +7,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 import { boschDishwasherAllProgramsMap, boschDishwasherModelProgramsMap } from '../../const/BoschDishWasherPrograms';
 import { enumFromKey } from '../../utils/enum';
-import { BoschDishwasherProgram, BoschDishwasherProgramsFeatureConfig } from '../../types/BoschDishwasherFeaturesTypes';
+import { BoschDishwasherProgram, BoschDishwasherProgramsFeatureConfig } from '../../types/BoschFeaturesTypes';
 import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import { EBoschEntity } from '../../const/BoschEntities';
 import './bosch-dishwasher-programs-editor';
@@ -25,6 +25,7 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
   protected _config?: BoschDishwasherProgramsFeatureConfig;
 
   protected feature = EBoschFeature.dishwasher_programs;
+  protected entityPrefixLength = 2;
 
   private set program(value: string) {
     const entityId = this.getLinkedEntityState(EBoschEntity.programs)?.entity_id;
@@ -91,7 +92,10 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
     }
 
     const filteredPrograms = this.programs.filter((p) => this.getBoolConfigVal('show_' + p.icon, true));
-    return html` <ha-control-button-group> ${filteredPrograms.map((p) => this.renderHaControlButton(p))} </ha-control-button-group> `;
+
+    return this._config.show_as_button_bar === true
+      ? html`<ha-control-button-group> ${filteredPrograms.map((p) => this.renderHaControlButton(p))} </ha-control-button-group>`
+      : html`<div>${filteredPrograms.map((p) => this.renderHaIconButton(p))}</div>`;
   }
 
   private renderHaControlButton(program: BoschDishwasherProgram): TemplateResult {
@@ -107,6 +111,15 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
       >
         <div class="icon-wrapper">${until(svg, html`<ha-spinner size="small"></ha-spinner>`)}</div>
       </ha-control-button>
+    `;
+  }
+
+  private renderHaIconButton(program: BoschDishwasherProgram): TemplateResult {
+    const svg = BoschDishwasherProgramsFeature.getInlineSVG(program.icon).then((svg) => unsafeHTML(svg));
+    return html`
+      <ha-icon-button .label=${program.name} title=${program.name} value=${program.program} @click=${() => this.changeProgram}>
+        ${until(svg, html`<ha-spinner size="small"></ha-spinner>`)}
+      </ha-icon-button>
     `;
   }
 

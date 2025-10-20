@@ -1,16 +1,16 @@
 // import { IntlMessageFormat } from "intl-messageformat";
 import type { HomeAssistant } from 'custom-card-helpers';
-import * as cs from "./translations/cs.json";
-import * as de from "./translations/de.json";
+import * as cs from './translations/cs.json';
+import * as de from './translations/de.json';
 import * as en from './translations/en.json';
-import * as es from "./translations/es.json";
-import * as fr from "./translations/fr.json";
-import * as hu from "./translations/hu.json";
-import * as it from "./translations/it.json";
-import * as pl from "./translations/pl.json";
-import * as pt from "./translations/pt.json";
-import * as sk from "./translations/sk.json";
-import * as uk from "./translations/uk.json";
+import * as es from './translations/es.json';
+import * as fr from './translations/fr.json';
+import * as hu from './translations/hu.json';
+import * as it from './translations/it.json';
+import * as pl from './translations/pl.json';
+import * as pt from './translations/pt.json';
+import * as sk from './translations/sk.json';
+import * as uk from './translations/uk.json';
 
 const languages: Record<string, unknown> = {
   cs,
@@ -23,7 +23,7 @@ const languages: Record<string, unknown> = {
   pl,
   pt,
   sk,
-  uk
+  uk,
 };
 
 const DEFAULT_LANG = 'en';

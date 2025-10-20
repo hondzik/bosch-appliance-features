@@ -15,6 +15,8 @@ export type BoschDishwasherProgramsFeatureConfig = FeatureConfig & {
   show_machinecare?: boolean;
 };
 
+export type BoschOvenControlsFeatureConfig = FeatureConfig & {};
+
 export type BoschDishwasherProgram = {
   name: string;
   icon: string;

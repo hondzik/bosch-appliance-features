@@ -26,20 +26,20 @@ export const BoschDishwasherProgramsFeatureStyles = css`
         outline: 0px;
         overflow: hidden;
         flex-basis: 100%;
-        background-color: var(--disabled-color);
+        background-color: var(--control-button-background-color);
     }
 
 
     ha-control-button {
         margin-left: calc(var(--feature-border-radius, 12px) * -0.5);
         margin-right: calc(var(--feature-border-radius, 12px) * -0.5);
-        background-color: var(--disabled-color);
-        border-radius: var(--feature-border-radius, 12px);
+        /*background-color: var(--disabled-color);*/
+        /*border-radius: var(--feature-border-radius, 12px);*/
         height:  var(--feature-height, 42px);
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+        /*transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;*/
         z-idnex: 1;
         flex: 1;
     }
@@ -56,6 +56,7 @@ export const BoschDishwasherProgramsFeatureStyles = css`
         background-color: var(--tile-color);
         transition: background-color 180ms ease-in-out, opacity 180ms ease-in-out;
         opacity: var(--tile-opacity);
+        z-index: 1;
     }
 
     .icon-wrapper {

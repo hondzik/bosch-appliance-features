@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","displayName":"Bosch Appliance Features","description":"Home Assistant Tile card features for Bosch Home Connect Alt devices","repository":{"type":"git","url":"https://github.com/hondzik/bosch-appliance-features"},"keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"type":"module","version":"0.0.88","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","lint":"eslint src --ext .ts,.js --fix","format":"prettier --write src/**/*.{ts,js,css,scss,html}","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"@typescript-eslint/eslint-plugin":"^8.46.1","@typescript-eslint/parser":"^8.46.1","eslint":"^9.37.0","eslint-config-prettier":"^10.1.8","eslint-plugin-prettier":"^5.5.4","parcel":"^2.16.0","prettier":"^3.6.2","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1","ts-enum-util":"^4.1.0"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","displayName":"Bosch Appliance Features","description":"Home Assistant Tile card features for Bosch Home Connect Alt devices","repository":{"type":"git","url":"https://github.com/hondzik/bosch-appliance-features"},"keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"type":"module","version":"0.0.89","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","lint":"eslint src --ext .ts,.js --fix","format":"prettier --write src/**/*.{ts,js,css,scss,html}","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"@typescript-eslint/eslint-plugin":"^8.46.1","@typescript-eslint/parser":"^8.46.1","eslint":"^9.37.0","eslint-config-prettier":"^10.1.8","eslint-plugin-prettier":"^5.5.4","parcel":"^2.16.0","prettier":"^3.6.2","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1","ts-enum-util":"^4.1.0"}}');
 
 
 /******************************************************************************
@@ -1406,20 +1406,20 @@ const $041ae069d715ccb9$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
         outline: 0px;
         overflow: hidden;
         flex-basis: 100%;
-        background-color: var(--disabled-color);
+        background-color: var(--control-button-background-color);
     }
 
 
     ha-control-button {
         margin-left: calc(var(--feature-border-radius, 12px) * -0.5);
         margin-right: calc(var(--feature-border-radius, 12px) * -0.5);
-        background-color: var(--disabled-color);
-        border-radius: var(--feature-border-radius, 12px);
+        /*background-color: var(--disabled-color);*/
+        /*border-radius: var(--feature-border-radius, 12px);*/
         height:  var(--feature-height, 42px);
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+        /*transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;*/
         z-idnex: 1;
         flex: 1;
     }
@@ -1436,6 +1436,7 @@ const $041ae069d715ccb9$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
         background-color: var(--tile-color);
         transition: background-color 180ms ease-in-out, opacity 180ms ease-in-out;
         opacity: var(--tile-opacity);
+        z-index: 1;
     }
 
     .icon-wrapper {
@@ -2038,37 +2039,53 @@ var $c302abf7983a4985$export$4ad3a6a09fb2916f = /*#__PURE__*/ function(EBoschFea
     EBoschFeature[EBoschFeature["dishwasher_options"] = 0] = "dishwasher_options";
     EBoschFeature[EBoschFeature["dishwasher_programs"] = 1] = "dishwasher_programs";
     EBoschFeature[EBoschFeature["dishwasher_time"] = 2] = "dishwasher_time";
+    EBoschFeature[EBoschFeature["oven_controls"] = 3] = "oven_controls";
     return EBoschFeature;
 }({});
 
 
 var $2bd9259198ca0bf4$export$46cdc11276e7e760 = /*#__PURE__*/ function(EBoschEntity) {
     EBoschEntity[EBoschEntity["active_program"] = 0] = "active_program";
-    EBoschEntity[EBoschEntity["base_program"] = 1] = "base_program";
-    EBoschEntity[EBoschEntity["brilliance_dry"] = 2] = "brilliance_dry";
-    EBoschEntity[EBoschEntity["connected"] = 3] = "connected";
-    EBoschEntity[EBoschEntity["door_state"] = 4] = "door_state";
-    EBoschEntity[EBoschEntity["eco_dry"] = 5] = "eco_dry";
-    EBoschEntity[EBoschEntity["extra_dry"] = 6] = "extra_dry";
-    EBoschEntity[EBoschEntity["half_load"] = 7] = "half_load";
-    EBoschEntity[EBoschEntity["hygiene_plus"] = 8] = "hygiene_plus";
-    EBoschEntity[EBoschEntity["intensive_zone"] = 9] = "intensive_zone";
-    EBoschEntity[EBoschEntity["operation_state"] = 10] = "operation_state";
-    EBoschEntity[EBoschEntity["power_state"] = 11] = "power_state";
-    EBoschEntity[EBoschEntity["program_name"] = 12] = "program_name";
-    EBoschEntity[EBoschEntity["program_progress"] = 13] = "program_progress";
-    EBoschEntity[EBoschEntity["programs"] = 14] = "programs";
-    EBoschEntity[EBoschEntity["remaining_program_time"] = 15] = "remaining_program_time";
-    EBoschEntity[EBoschEntity["remaining_program_time_is_estimated"] = 16] = "remaining_program_time_is_estimated";
-    EBoschEntity[EBoschEntity["remote_control_active"] = 17] = "remote_control_active";
-    EBoschEntity[EBoschEntity["remote_control_start_allowed"] = 18] = "remote_control_start_allowed";
-    EBoschEntity[EBoschEntity["selected_program"] = 19] = "selected_program";
-    EBoschEntity[EBoschEntity["silence_on_demand"] = 20] = "silence_on_demand";
-    EBoschEntity[EBoschEntity["start_in_relative"] = 21] = "start_in_relative";
-    EBoschEntity[EBoschEntity["start_pause"] = 22] = "start_pause";
-    EBoschEntity[EBoschEntity["stop"] = 23] = "stop";
-    EBoschEntity[EBoschEntity["vario_speed_plus"] = 24] = "vario_speed_plus";
-    EBoschEntity[EBoschEntity["zeolite_dry"] = 25] = "zeolite_dry";
+    EBoschEntity[EBoschEntity["alarm_clock"] = 1] = "alarm_clock";
+    EBoschEntity[EBoschEntity["alarm_clock_value"] = 2] = "alarm_clock_value";
+    EBoschEntity[EBoschEntity["base_program"] = 3] = "base_program";
+    EBoschEntity[EBoschEntity["brilliance_dry"] = 4] = "brilliance_dry";
+    EBoschEntity[EBoschEntity["childlock"] = 5] = "childlock";
+    EBoschEntity[EBoschEntity["connected"] = 6] = "connected";
+    EBoschEntity[EBoschEntity["current_cavity_temperature"] = 7] = "current_cavity_temperature";
+    EBoschEntity[EBoschEntity["door_state"] = 8] = "door_state";
+    EBoschEntity[EBoschEntity["duration"] = 9] = "duration";
+    EBoschEntity[EBoschEntity["elapsed_program_time"] = 10] = "elapsed_program_time";
+    EBoschEntity[EBoschEntity["eco_dry"] = 11] = "eco_dry";
+    EBoschEntity[EBoschEntity["extra_dry"] = 12] = "extra_dry";
+    EBoschEntity[EBoschEntity["fast_preheat"] = 13] = "fast_preheat";
+    EBoschEntity[EBoschEntity["half_load"] = 14] = "half_load";
+    EBoschEntity[EBoschEntity["hygiene_plus"] = 15] = "hygiene_plus";
+    EBoschEntity[EBoschEntity["intensive_zone"] = 16] = "intensive_zone";
+    EBoschEntity[EBoschEntity["interior_illumination_active"] = 17] = "interior_illumination_active";
+    EBoschEntity[EBoschEntity["local_control_active"] = 18] = "local_control_active";
+    EBoschEntity[EBoschEntity["operation_state"] = 19] = "operation_state";
+    EBoschEntity[EBoschEntity["power_state"] = 20] = "power_state";
+    EBoschEntity[EBoschEntity["program_name"] = 21] = "program_name";
+    EBoschEntity[EBoschEntity["program_progress"] = 22] = "program_progress";
+    EBoschEntity[EBoschEntity["programs"] = 23] = "programs";
+    EBoschEntity[EBoschEntity["remaining_program_time"] = 24] = "remaining_program_time";
+    EBoschEntity[EBoschEntity["remaining_program_time_is_estimated"] = 25] = "remaining_program_time_is_estimated";
+    EBoschEntity[EBoschEntity["remote_control_active"] = 26] = "remote_control_active";
+    EBoschEntity[EBoschEntity["remote_control_start_allowed"] = 27] = "remote_control_start_allowed";
+    EBoschEntity[EBoschEntity["sabbath_mode"] = 28] = "sabbath_mode";
+    EBoschEntity[EBoschEntity["selected_program"] = 29] = "selected_program";
+    EBoschEntity[EBoschEntity["set_point_temperature"] = 30] = "set_point_temperature";
+    EBoschEntity[EBoschEntity["set_point_temperature_value"] = 31] = "set_point_temperature_value";
+    EBoschEntity[EBoschEntity["silence_on_demand"] = 32] = "silence_on_demand";
+    EBoschEntity[EBoschEntity["start_in_relative"] = 33] = "start_in_relative";
+    EBoschEntity[EBoschEntity["start_in_relative_value"] = 34] = "start_in_relative_value";
+    EBoschEntity[EBoschEntity["start_pause"] = 35] = "start_pause";
+    EBoschEntity[EBoschEntity["steam_assist_level"] = 36] = "steam_assist_level";
+    EBoschEntity[EBoschEntity["stop"] = 37] = "stop";
+    EBoschEntity[EBoschEntity["vario_speed_plus"] = 38] = "vario_speed_plus";
+    EBoschEntity[EBoschEntity["weight"] = 39] = "weight";
+    EBoschEntity[EBoschEntity["zeolite_dry"] = 40] = "zeolite_dry";
     return EBoschEntity;
 }({});
 const $2bd9259198ca0bf4$export$306b07a8235c3466 = new Map([
@@ -2083,172 +2100,277 @@ const $2bd9259198ca0bf4$export$306b07a8235c3466 = new Map([
         1,
         {
             type: 'sensor',
-            suffix: 'bsh_common_option_baseprogram'
+            suffix: 'bsh_common_setting_alarmclock'
         }
     ],
     [
         2,
+        {
+            type: 'number',
+            suffix: 'bsh_common_setting_alarmclock'
+        }
+    ],
+    [
+        3,
+        {
+            type: 'sensor',
+            suffix: 'bsh_common_option_baseprogram'
+        }
+    ],
+    [
+        4,
         {
             type: 'switch',
             suffix: 'dishcare_dishwasher_option_brilliancedry'
         }
     ],
     [
-        3,
+        5,
+        {
+            type: 'binary_sensor',
+            suffix: 'bsh_common_setting_childlock'
+        }
+    ],
+    [
+        6,
         {
             type: 'binary_sensor',
             suffix: 'connected'
         }
     ],
     [
-        4,
+        7,
+        {
+            type: 'sensor',
+            suffix: 'cooking_oven_status_currentcavitytemperature'
+        }
+    ],
+    [
+        8,
         {
             type: 'binary_sensor',
             suffix: 'bsh_common_status_doorstate'
         }
     ],
     [
-        5,
-        {
-            type: 'switch',
-            suffix: 'dishcare_dishwasher_option_ecodry'
-        }
-    ],
-    [
-        6,
-        {
-            type: 'switch',
-            suffix: 'dishcare_dishwasher_option_extradry'
-        }
-    ],
-    [
-        7,
-        {
-            type: 'switch',
-            suffix: 'dishcare_dishwasher_option_halfload'
-        }
-    ],
-    [
-        8,
-        {
-            type: 'switch',
-            suffix: 'dishcare_dishwasher_option_hygieneplus'
-        }
-    ],
-    [
         9,
         {
-            type: 'switch',
-            suffix: 'dishcare_dishwasher_option_intensivzone'
+            type: 'sensor',
+            suffix: 'bsh_common_option_duration'
         }
     ],
     [
         10,
         {
             type: 'sensor',
-            suffix: 'bsh_common_status_operationstate'
+            suffix: 'bsh_common_option_elapsedprogramtime'
         }
     ],
     [
         11,
         {
             type: 'switch',
-            suffix: 'bsh_common_setting_powerstate'
+            suffix: 'dishcare_dishwasher_option_ecodry'
         }
     ],
     [
         12,
         {
-            type: 'sensor',
-            suffix: 'bsh_common_option_programname'
+            type: 'switch',
+            suffix: 'dishcare_dishwasher_option_extradry'
         }
     ],
     [
         13,
         {
-            type: 'sensor',
-            suffix: 'bsh_common_option_programprogress'
+            type: 'switch',
+            suffix: 'cooking_oven_option_fastpreheat'
         }
     ],
     [
         14,
         {
-            type: 'select',
-            suffix: 'programs'
+            type: 'switch',
+            suffix: 'dishcare_dishwasher_option_halfload'
         }
     ],
     [
         15,
         {
-            type: 'sensor',
-            suffix: 'bsh_common_option_remainingprogramtime'
+            type: 'switch',
+            suffix: 'dishcare_dishwasher_option_hygieneplus'
         }
     ],
     [
         16,
         {
-            type: 'binary_sensor',
-            suffix: 'bsh_common_option_remainingprogramtimeisestimated'
+            type: 'switch',
+            suffix: 'dishcare_dishwasher_option_intensivzone'
         }
     ],
     [
         17,
         {
             type: 'binary_sensor',
-            suffix: 'bsh_common_status_remotecontrolactive'
+            suffix: 'bsh_common_status_interiorilluminationactive'
         }
     ],
     [
         18,
         {
             type: 'binary_sensor',
-            suffix: 'bsh_common_status_remotecontrolstartallowed'
+            suffix: 'bsh_common_status_localcontrolactive'
         }
     ],
     [
         19,
         {
             type: 'sensor',
-            suffix: 'selected_program'
+            suffix: 'bsh_common_status_operationstate'
         }
     ],
     [
         20,
         {
             type: 'switch',
-            suffix: 'dishcare_dishwasher_option_silenceondemand'
+            suffix: 'bsh_common_setting_powerstate'
         }
     ],
     [
         21,
+        {
+            type: 'sensor',
+            suffix: 'bsh_common_option_programname'
+        }
+    ],
+    [
+        22,
+        {
+            type: 'sensor',
+            suffix: 'bsh_common_option_programprogress'
+        }
+    ],
+    [
+        23,
+        {
+            type: 'select',
+            suffix: 'programs'
+        }
+    ],
+    [
+        24,
+        {
+            type: 'sensor',
+            suffix: 'bsh_common_option_remainingprogramtime'
+        }
+    ],
+    [
+        25,
+        {
+            type: 'binary_sensor',
+            suffix: 'bsh_common_option_remainingprogramtimeisestimated'
+        }
+    ],
+    [
+        26,
+        {
+            type: 'binary_sensor',
+            suffix: 'bsh_common_status_remotecontrolactive'
+        }
+    ],
+    [
+        27,
+        {
+            type: 'binary_sensor',
+            suffix: 'bsh_common_status_remotecontrolstartallowed'
+        }
+    ],
+    [
+        28,
+        {
+            type: 'switch',
+            suffix: 'cooking_oven_setting_sabbathmode'
+        }
+    ],
+    [
+        29,
+        {
+            type: 'sensor',
+            suffix: 'selected_program'
+        }
+    ],
+    [
+        30,
+        {
+            type: 'sensor',
+            suffix: 'cooking_oven_option_setpointtemperature'
+        }
+    ],
+    [
+        31,
+        {
+            type: 'number',
+            suffix: 'cooking_oven_option_setpointtemperature'
+        }
+    ],
+    [
+        32,
+        {
+            type: 'switch',
+            suffix: 'dishcare_dishwasher_option_silenceondemand'
+        }
+    ],
+    [
+        33,
         {
             type: 'select',
             suffix: 'bsh_common_option_startinrelative'
         }
     ],
     [
-        22,
+        34,
+        {
+            type: 'number',
+            suffix: 'bsh_common_option_startinrelative'
+        }
+    ],
+    [
+        35,
         {
             type: 'button',
             suffix: 'start_pause'
         }
     ],
     [
-        23,
+        36,
+        {
+            type: 'sensor',
+            suffix: 'cooking_oven_option_steamassistlevel'
+        }
+    ],
+    [
+        37,
         {
             type: 'button',
             suffix: 'stop'
         }
     ],
     [
-        24,
+        38,
         {
             type: 'switch',
             suffix: 'dishcare_dishwasher_option_variospeedplus'
         }
     ],
     [
-        25,
+        39,
+        {
+            type: 'sensor',
+            suffix: 'cooking_oven_option_weight'
+        }
+    ],
+    [
+        40,
         {
             type: 'switch',
             suffix: 'dishcare_dishwasher_option_zeolitedry'
@@ -2260,48 +2382,83 @@ const $2bd9259198ca0bf4$export$b74fc37d3b82988d = new Map([
         (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_programs,
         [
             0,
-            1,
             3,
-            4,
-            10,
-            11,
-            12,
-            14,
-            16,
-            17,
-            18,
-            19
+            6,
+            8,
+            19,
+            20,
+            21,
+            23,
+            25,
+            26,
+            27,
+            29
         ]
     ],
     [
         (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_options,
         [
-            3,
-            4,
             6,
             8,
-            9,
-            10,
-            11,
-            17,
-            18,
+            12,
+            15,
+            16,
+            19,
             20,
-            24
+            26,
+            27,
+            32,
+            38
         ]
     ],
     [
         (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_time,
         [
-            3,
-            4,
+            6,
+            8,
+            19,
+            20,
+            22,
+            24,
+            26,
+            27,
+            35,
+            37
+        ]
+    ],
+    [
+        (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).oven_controls,
+        [
+            0,
+            1,
+            2,
+            5,
+            6,
+            7,
+            8,
+            9,
             10,
-            11,
             13,
-            15,
             17,
             18,
+            19,
+            20,
             22,
-            23
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            33,
+            34,
+            35,
+            36,
+            37,
+            39
         ]
     ]
 ]);
@@ -2314,7 +2471,7 @@ class $2eb7d861ff889d97$export$951251c678728e4c extends (0, $528e4332d1e3099e$ex
     }
     get entityPrefix() {
         if (this._entityPrefix === undefined) {
-            if (this.context?.entity_id) this._entityPrefix = this.context.entity_id.split('.')[1]?.split('_').slice(0, 2).join('_');
+            if (this.context?.entity_id) this._entityPrefix = this.context.entity_id.split('.')[1]?.split('_').slice(0, this.entityPrefixLength).join('_');
             else console.error('Cannot derive entityPrefix: context.entity_id is undefined');
         }
         return this._entityPrefix;
@@ -2379,7 +2536,7 @@ class $2eb7d861ff889d97$export$951251c678728e4c extends (0, $528e4332d1e3099e$ex
         let linkedEntityChanged = false;
         for (const entity of this.entities.values()){
             const entityId = `${entity.type}.${this.entityPrefix}_${entity.suffix}`;
-            if (oldHass.states[entityId] !== this.hass.states[entityId]) {
+            if (oldHass.states[entityId] !== this.hass?.states[entityId]) {
                 linkedEntityChanged = true;
                 break;
             }
@@ -2584,7 +2741,9 @@ class $a3d36398cbb8abc5$export$5ad3d821964e0a36 extends (0, $fb3480942ad4693b$ex
         ];
     }
     constructor(...args){
-        super(...args), this.feature = 'time';
+        super(...args), this.config = {
+            type: 'custom:bosch-dishwasher-programs-feature'
+        }, this.feature = 'time';
     }
 }
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
@@ -2649,7 +2808,7 @@ class $3fccb9d4d2156306$export$2abebcf1e6123836 extends (0, $2eb7d861ff889d97$ex
     render() {
         if (!this._config || !this.hass || !this.context || !$3fccb9d4d2156306$export$2abebcf1e6123836.isSupported(this.hass, this.context)) return 0, $d33ef1320595a3ac$export$45b790e32b2810ee;
         const filteredPrograms = this.programs.filter((p)=>this.getBoolConfigVal('show_' + p.icon, true));
-        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)` <ha-control-button-group> ${filteredPrograms.map((p)=>this.renderHaControlButton(p))} </ha-control-button-group> `;
+        return this._config.show_as_button_bar === true ? (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<ha-control-button-group> ${filteredPrograms.map((p)=>this.renderHaControlButton(p))} </ha-control-button-group>` : (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div>${filteredPrograms.map((p)=>this.renderHaIconButton(p))}</div>`;
     }
     renderHaControlButton(program) {
         const svg = $3fccb9d4d2156306$export$2abebcf1e6123836.getInlineSVG(program.icon).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
@@ -2664,6 +2823,14 @@ class $3fccb9d4d2156306$export$2abebcf1e6123836 extends (0, $2eb7d861ff889d97$ex
       >
         <div class="icon-wrapper">${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<ha-spinner size="small"></ha-spinner>`)}</div>
       </ha-control-button>
+    `;
+    }
+    renderHaIconButton(program) {
+        const svg = $3fccb9d4d2156306$export$2abebcf1e6123836.getInlineSVG(program.icon).then((svg)=>(0, $97d09910a4ba4421$export$b6e69390c23686fb)(svg));
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`
+      <ha-icon-button .label=${program.name} title=${program.name} value=${program.program} @click=${()=>this.changeProgram}>
+        ${(0, $f35354e62b171f38$export$a40009bd2c363351)(svg, (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<ha-spinner size="small"></ha-spinner>`)}
+      </ha-icon-button>
     `;
     }
     changeProgram(e) {
@@ -2709,7 +2876,7 @@ class $3fccb9d4d2156306$export$2abebcf1e6123836 extends (0, $2eb7d861ff889d97$ex
         return super.isSupported(hass, context, 'dishwasher');
     }
     constructor(...args){
-        super(...args), this.feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_programs, this._programs = [];
+        super(...args), this.feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_programs, this.entityPrefixLength = 2, this._programs = [];
     }
 }
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
@@ -2767,7 +2934,9 @@ class $c45b3a62a020e969$export$777b72c3156c0d7d extends (0, $fb3480942ad4693b$ex
         ];
     }
     constructor(...args){
-        super(...args), this.feature = 'options';
+        super(...args), this.config = {
+            type: 'custom:bosch-dishwasher-options-feature'
+        }, this.feature = 'options';
     }
 }
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
@@ -2824,7 +2993,7 @@ class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $2eb7d861ff889d97$ex
         return 0, $d98ae74f16dab842$export$f0eb0d6ee1da2bba;
     }
     constructor(...args){
-        super(...args), this.feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_options;
+        super(...args), this.feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_options, this.entityPrefixLength = 2;
     }
 }
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
@@ -2857,56 +3026,59 @@ window.customCardFeatures.push({
 
 
 const $ae6a689dca82854d$export$bd393bd8bf11a424 = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)`
-    :host {
-        height: var(--feature-height, 42px);
-        width: 100%;
-        padding: 0px;
-        outline: 0px;
-        overflow: hidden;
-    }
+  :host {
+    height: var(--feature-height, 42px);
+    width: 100%;
+    padding: 0px;
+    outline: 0px;
+    overflow: hidden;
+  }
 
-    .bosch-dishwasher-time-feature {
-        display: flex;
-        align-items: center;    /* vertikální zarovnání */
-        justify-content: space-between; /* mezery mezi prvky */
-        gap: 8px;               /* volitelně mezera mezi prvky */
-        width: 100%;
-        height: var(--feature-height, 42px);
-    }
+  .bosch-dishwasher-time-feature {
+    display: flex;
+    align-items: center; /* vertikální zarovnání */
+    justify-content: space-between; /* mezery mezi prvky */
+    gap: 8px; /* volitelně mezera mezi prvky */
+    width: 100%;
+    height: var(--feature-height, 42px);
+  }
 
-    .bosch-dishwasher-time-feature > * {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: fit-content; /* jen tolik místa, kolik obsah potřebuje */
-    }
+  .bosch-dishwasher-time-feature > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: fit-content; /* jen tolik místa, kolik obsah potřebuje */
+  }
 
-    .bosch-dishwasher-time-feature .time-graph {
-        flex: 1; /* roztáhne se na zbylý prostor */
-        position: relative;
-        min-height: 11px;
-        border-radius: 5px;
+  .bosch-dishwasher-time-feature .time-graph {
+    flex: 1; /* roztáhne se na zbylý prostor */
+    position: relative;
+    min-height: 11px;
+    border-radius: 5px;
 
-        border: 1px solid var(--tile-color);
-        background-color: color-mix(in srgb, var(--tile-color) 70%, transparent);
-        transition: background-color 180ms ease-in-out, opacity 180ms ease-in-out;
-    }    
-    
-    .bosh-dishwasher-time-feature .time-graph .level {
-        height: 100%;
-        background-color: var(--tile-color);
-    }
+    border: 1px solid var(--tile-color);
+    background-color: color-mix(in srgb, var(--tile-color) 70%, transparent);
+    transition:
+      background-color 180ms ease-in-out,
+      opacity 180ms ease-in-out;
+  }
 
-    .bosh-dishwasher-time-feature .time-remaining {
-        width: 35px;
-        justify-content: flex-end;  /* obsah zarovnán doprava */
-        font-size: var(--ha-font-size-s);
-        font-weight: var(--ha-font-weight-normal);
-        letter-spacing: 0.4px;
-        color: var(--primary-text-color);
-    }        
+  .bosh-dishwasher-time-feature .time-graph .level {
+    height: 100%;
+    background-color: var(--tile-color);
+  }
+
+  .bosh-dishwasher-time-feature .time-remaining {
+    width: 35px;
+    justify-content: flex-end; /* obsah zarovnán doprava */
+    font-size: var(--ha-font-size-s);
+    font-weight: var(--ha-font-weight-normal);
+    letter-spacing: 0.4px;
+    color: var(--primary-text-color);
+  }
 `;
 const $ae6a689dca82854d$export$7a756a828eb685fc = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)``;
+
 
 
 
@@ -2932,7 +3104,9 @@ class $fc3158e92917286c$export$687095a8510429a6 extends (0, $fb3480942ad4693b$ex
         ];
     }
     constructor(...args){
-        super(...args), this.feature = 'program';
+        super(...args), this.config = {
+            type: 'custom:bosch-dishwasher-time-feature'
+        }, this.feature = 'program';
     }
 }
 (0, $bb166217b384746d$export$29e00dfd3077644b)([
@@ -2948,7 +3122,6 @@ class $fc3158e92917286c$export$687095a8510429a6 extends (0, $fb3480942ad4693b$ex
 $fc3158e92917286c$export$687095a8510429a6 = (0, $bb166217b384746d$export$29e00dfd3077644b)([
     (0, $4af75e4a7ed8f584$export$da64fc29f17f9d0e)('bosch-dishwasher-time-editor')
 ], $fc3158e92917286c$export$687095a8510429a6);
-
 
 
 class $e4104b77a0427686$export$7fc06ad2513928c extends (0, $2eb7d861ff889d97$export$951251c678728e4c) {
@@ -3013,7 +3186,7 @@ class $e4104b77a0427686$export$7fc06ad2513928c extends (0, $2eb7d861ff889d97$exp
         return super.isSupported(hass, context, 'dishwasher');
     }
     constructor(...args){
-        super(...args), this.feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_time;
+        super(...args), this.feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_time, this.entityPrefixLength = 2;
     }
 }
 (0, $bb166217b384746d$export$29e00dfd3077644b)([

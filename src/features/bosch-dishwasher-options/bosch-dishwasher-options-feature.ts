@@ -2,7 +2,7 @@ import { html, TemplateResult, CSSResultGroup, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
 import type { HomeAssistant } from 'custom-card-helpers';
 import { BoschDishwasherOptionsFeatureStyles } from './bosch-dishwasher-options-styles';
-import { BoschDishwasherOptionsFeatureConfig } from '../../types/BoschDishwasherFeaturesTypes';
+import { BoschDishwasherOptionsFeatureConfig } from '../../types/BoschFeaturesTypes';
 import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import './bosch-dishwasher-options-editor';
 import { EBoschFeature } from '../../const/BoschFeatures';
@@ -19,6 +19,7 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
   protected _config?: BoschDishwasherOptionsFeatureConfig;
 
   protected feature = EBoschFeature.dishwasher_options;
+  protected entityPrefixLength = 2;
 
   public setConfig(config: BoschDishwasherOptionsFeatureConfig): void {
     if (!config) {

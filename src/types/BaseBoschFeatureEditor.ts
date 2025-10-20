@@ -1,7 +1,7 @@
 import { html, LitElement, TemplateResult } from 'lit';
 import setupCustomLocalize from '../localize';
 import { HomeAssistant } from 'custom-card-helpers/dist/types';
-import { FeatureConfig } from './BoschDishwasherFeaturesTypes';
+import { FeatureConfig } from './BoschFeaturesTypes';
 
 export abstract class BoschBaseEditor extends LitElement {
   protected abstract config: FeatureConfig;

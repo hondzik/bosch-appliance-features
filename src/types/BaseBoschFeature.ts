@@ -1,6 +1,6 @@
 import { HomeAssistant } from 'custom-card-helpers';
 import { LitElement } from 'lit';
-import { FeatureConfig, BoschEntity } from './BoschDishwasherFeaturesTypes';
+import { FeatureConfig, BoschEntity } from './BoschFeaturesTypes';
 import { EBoschEntity, boschFeatureEntitiesMap, boschEntitiesMap } from '../const/BoschEntities';
 import { EBoschFeature } from '../const/BoschFeatures';
 import { HassEntity } from 'home-assistant-js-websocket';
@@ -11,6 +11,7 @@ export abstract class BaseBoschFeature extends LitElement {
   public abstract context?: LovelaceCardFeatureContext;
   protected abstract _config?: FeatureConfig;
   protected abstract feature: EBoschFeature;
+  protected abstract entityPrefixLength: number;
 
   private static iconCache = new Map<string, string>();
 
@@ -18,7 +19,7 @@ export abstract class BaseBoschFeature extends LitElement {
   private get entityPrefix(): string | undefined {
     if (this._entityPrefix === undefined) {
       if (this.context?.entity_id) {
-        this._entityPrefix = this.context.entity_id.split('.')[1]?.split('_').slice(0, 2).join('_');
+        this._entityPrefix = this.context.entity_id.split('.')[1]?.split('_').slice(0, this.entityPrefixLength).join('_');
       } else {
         console.error('Cannot derive entityPrefix: context.entity_id is undefined');
       }

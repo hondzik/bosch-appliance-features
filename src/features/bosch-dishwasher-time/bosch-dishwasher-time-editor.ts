@@ -3,7 +3,7 @@ import { TemplateResult, html, CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators';
 import { BoschDishwasherTimeEditorStyles } from './bosch-dishwasher-time-styles';
 import { CommonEditorStyles } from '../common/bosch-styles';
-import { BoschDishwasherTimeFeatureConfig } from '../../types/BoschDishwasherFeaturesTypes';
+import { BoschDishwasherTimeFeatureConfig } from '../../types/BoschFeaturesTypes';
 import { BoschBaseEditor } from '../../types/BaseBoschFeatureEditor';
 
 @customElement('bosch-dishwasher-time-editor')
@@ -12,7 +12,7 @@ export class BoschDishwasherTimeEditor extends BoschBaseEditor {
   hass?: HomeAssistant;
 
   @property({ type: Object })
-  config: BoschDishwasherTimeFeatureConfig;
+  config: BoschDishwasherTimeFeatureConfig = { type: 'custom:bosch-dishwasher-time-feature' };
 
   protected feature = 'program';
 
