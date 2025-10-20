@@ -22,7 +22,7 @@
     "oven"
   ],
   "type": "module",
-  "version": "0.0.91",
+  "version": "0.0.92",
   "source": "./src/bosch-appliance-features.ts",
   "module": "./dist/bosch-appliance-features.js",
   "targets": {
