@@ -171,5 +171,6 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
   type: 'bosch-dishwasher-programs-feature',
   name: 'Bosch Dishwasher Programs Panel',
+  supported: BoschDishwasherProgramsFeature.isSupported,
   configurable: true,
 });
