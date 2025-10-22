@@ -145,7 +145,6 @@ export abstract class BaseBoschFeature extends LitElement {
 
     const deviceClass = stateObj.attributes.device_class?.toLowerCase() || '';
     const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || '';
-    console.log('isSupported check:', { deviceClass, friendlyName, subtype });
 
     return deviceClass.startsWith('home_connect_alt_') && friendlyName.includes('bosch') && friendlyName.includes(subtype);
   }

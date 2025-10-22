@@ -7,6 +7,7 @@ import { BoschDishwasherTimeFeatureConfig } from '../../types/BoschFeaturesTypes
 import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import { EBoschFeature } from '../../const/BoschFeatures';
 import './bosch-dishwasher-time-editor';
+import { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
 
 @customElement('bosch-dishwasher-time-feature')
 export class BoschDishwasherTimeFeature extends BaseBoschFeature implements LovelaceCardFeature {
@@ -94,6 +95,13 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
     return BoschDishwasherTimeFeatureStyles;
   }
 
+  public static getGridOptions(): LovelaceGridOptions {
+    return {
+      min_rows: 1,
+      min_columns: 6,
+    };
+  }
+
   public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
     return super.isSupported(hass, context, 'dishwasher');
   }
@@ -104,5 +112,6 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
   type: 'bosch-dishwasher-time-feature',
   name: 'Bosch Dishwasher Time Panel',
+  supported: BoschDishwasherTimeFeature.isSupported,
   configurable: true,
 });

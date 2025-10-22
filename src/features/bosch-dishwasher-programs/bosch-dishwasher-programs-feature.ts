@@ -12,6 +12,7 @@ import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import { EBoschEntity } from '../../const/BoschEntities';
 import './bosch-dishwasher-programs-editor';
 import { EBoschFeature } from '../../const/BoschFeatures';
+import { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
 
 @customElement('bosch-dishwasher-programs-feature')
 export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements LovelaceCardFeature {
@@ -154,11 +155,10 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
     return BoschDishwasherProgramsFeatureStyles;
   }
 
-  public static getGridOptions() {
+  public static getGridOptions(): LovelaceGridOptions {
     return {
-      rows: 1,
-      columns: 12,
-      min_rows: 12,
+      min_rows: 1,
+      min_columns: 12,
     };
   }
 

@@ -6,6 +6,7 @@ import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import { BoschOvenControlsFeatureStyles } from './bosch-oven-controls-styles';
 import { BoschOvenControlsFeatureConfig } from '../../types/BoschFeaturesTypes';
 import './bosch-oven-controls-editor';
+import { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
 
 @customElement('bosch-oven-controls-feature')
 export class BoschOvenControlsFeature extends BaseBoschFeature implements LovelaceCardFeature {
@@ -90,6 +91,13 @@ switch.bosch_hsg636xs6_68a40e80aee4_cooking_oven_setting_sabbathmode
     };
   }
 
+  public static getGridOptions(): LovelaceGridOptions {
+    return {
+      min_rows: 1,
+      min_columns: 12,
+    };
+  }
+
   static get styles(): CSSResultGroup {
     return BoschOvenControlsFeatureStyles;
   }
@@ -99,5 +107,6 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
   type: 'bosch-oven-controls-feature',
   name: 'Bosch Oven Controls Panel',
+  supported: BoschOvenControlsFeature.isSupported,
   configurable: true,
 });

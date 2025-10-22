@@ -68,5 +68,6 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
   type: 'bosch-dishwasher-options-feature',
   name: 'Bosch Dishwasher Program Options Panel',
+  supported: BoschDishwasherOptionsFeature.isSupported,
   configurable: true,
 });
