@@ -1,9 +1,9 @@
 /**
  * Sizing in Sections view
- * 
- * You can define a getGridOptions method that returns the min, max and default number of cells your card will take in the grid if your card is used in the sections view. 
+ *
+ * You can define a getGridOptions method that returns the min, max and default number of cells your card will take in the grid if your card is used in the sections view.
  * Each section is divided in 12 columns. If you don't define this method, the card will take 12 columns and will ignore the rows of the grid.
- * 
+ *
  * A cell of the grid is defined with the following dimension:
  *  - width: width of the section divided by 12 (approximately 30px)
  *  - height: 56px

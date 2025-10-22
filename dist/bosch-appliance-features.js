@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","displayName":"Bosch Appliance Features","description":"Home Assistant Tile card features for Bosch Home Connect Alt devices","repository":{"type":"git","url":"https://github.com/hondzik/bosch-appliance-features"},"keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"type":"module","version":"0.0.89","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","lint":"eslint src --ext .ts,.js --fix","format":"prettier --write src/**/*.{ts,js,css,scss,html}","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"@typescript-eslint/eslint-plugin":"^8.46.1","@typescript-eslint/parser":"^8.46.1","eslint":"^9.37.0","eslint-config-prettier":"^10.1.8","eslint-plugin-prettier":"^5.5.4","parcel":"^2.16.0","prettier":"^3.6.2","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1","ts-enum-util":"^4.1.0"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","displayName":"Bosch Appliance Features","description":"Home Assistant Tile card features for Bosch Home Connect Alt devices","repository":{"type":"git","url":"https://github.com/hondzik/bosch-appliance-features"},"keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"type":"module","version":"0.0.92","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","lint":"eslint src --ext .ts,.js --fix","format":"prettier --write src/**/*.{ts,js,css,scss,html}","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"@typescript-eslint/eslint-plugin":"^8.46.1","@typescript-eslint/parser":"^8.46.1","eslint":"^9.37.0","eslint-config-prettier":"^10.1.8","eslint-plugin-prettier":"^5.5.4","parcel":"^2.16.0","prettier":"^3.6.2","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1","ts-enum-util":"^4.1.0"}}');
 
 
 /******************************************************************************
@@ -2867,9 +2867,8 @@ class $3fccb9d4d2156306$export$2abebcf1e6123836 extends (0, $2eb7d861ff889d97$ex
     }
     static getGridOptions() {
         return {
-            rows: 1,
-            columns: 12,
-            min_rows: 12
+            min_rows: 1,
+            min_columns: 12
         };
     }
     static isSupported(hass, context) {
@@ -2899,6 +2898,7 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: 'bosch-dishwasher-programs-feature',
     name: 'Bosch Dishwasher Programs Panel',
+    supported: $3fccb9d4d2156306$export$2abebcf1e6123836.isSupported,
     configurable: true
 });
 
@@ -3016,6 +3016,7 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: 'bosch-dishwasher-options-feature',
     name: 'Bosch Dishwasher Program Options Panel',
+    supported: $77c64735a69c1828$export$80a2f62778bb11ea.isSupported,
     configurable: true
 });
 
@@ -3182,6 +3183,12 @@ class $e4104b77a0427686$export$7fc06ad2513928c extends (0, $2eb7d861ff889d97$exp
     static get styles() {
         return 0, $ae6a689dca82854d$export$bd393bd8bf11a424;
     }
+    static getGridOptions() {
+        return {
+            min_rows: 1,
+            min_columns: 6
+        };
+    }
     static isSupported(hass, context) {
         return super.isSupported(hass, context, 'dishwasher');
     }
@@ -3210,6 +3217,161 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: 'bosch-dishwasher-time-feature',
     name: 'Bosch Dishwasher Time Panel',
+    supported: $e4104b77a0427686$export$7fc06ad2513928c.isSupported,
+    configurable: true
+});
+
+
+
+
+
+
+
+
+const $b23a93e7a594dc41$export$35ea47264c17a762 = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)``;
+const $b23a93e7a594dc41$export$b6505f99632eb968 = (0, $06bdd16cbb4a41b3$export$dbf350e5966cf602)``;
+
+
+
+
+
+
+
+
+class $89202ea70c91c27a$export$5ccb48bf553800e4 extends (0, $fb3480942ad4693b$export$48c0d7e7463991d6) {
+    setConfig(config) {
+        this.config = {
+            ...config
+        };
+    }
+    render() {
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)` <div class="settings">Nothing to configure</div> `;
+    }
+    static get styles() {
+        return [
+            (0, $746d4ff12e3854a3$export$c61018cc7a2d300d),
+            (0, $b23a93e7a594dc41$export$b6505f99632eb968)
+        ];
+    }
+    constructor(...args){
+        super(...args), this.config = {
+            type: 'custom:bosch-oven-controls-feature'
+        }, this.feature = 'program';
+    }
+}
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
+        attribute: false
+    })
+], $89202ea70c91c27a$export$5ccb48bf553800e4.prototype, "hass", void 0);
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
+        type: Object
+    })
+], $89202ea70c91c27a$export$5ccb48bf553800e4.prototype, "config", void 0);
+$89202ea70c91c27a$export$5ccb48bf553800e4 = (0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $4af75e4a7ed8f584$export$da64fc29f17f9d0e)('bosch-oven-controls-editor')
+], $89202ea70c91c27a$export$5ccb48bf553800e4);
+
+
+class $7e7c4cdb018aa395$export$45c23ac36f4762a4 extends (0, $2eb7d861ff889d97$export$951251c678728e4c) {
+    setConfig(config) {
+        if (!config) throw new Error('Invalid configuration');
+        this._config = config;
+    }
+    /*
+binary_sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_setting_childlock
+binary_sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_status_doorstate
+binary_sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_status_interiorilluminationactive
+binary_sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_status_localcontrolactive
+binary_sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_status_remotecontrolactive
+binary_sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_status_remotecontrolstartallowed
+binary_sensor.bosch_hsg636xs6_68a40e80aee4_connected
+binary_sensor.bosch_hsg636xs6_68a40e80aee4_cooking_oven_option_fastpreheat
+binary_sensor.bosch_hsg636xs6_68a40e80aee4_cooking_oven_setting_sabbathmode
+button.bosch_hsg636xs6_68a40e80aee4_start_pause
+button.bosch_hsg636xs6_68a40e80aee4_stop
+number.bosch_hsg636xs6_68a40e80aee4_bsh_common_setting_alarmclock
+number.bosch_hsg636xs6_68a40e80aee4_cooking_oven_option_setpointtemperature
+select.bosch_hsg636xs6_68a40e80aee4_bsh_common_setting_powerstate
+select.bosch_hsg636xs6_68a40e80aee4_programs
+sensor.bosch_hsg636xs6_68a40e80aee4_active_program
+sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_option_duration
+sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_option_elapsedprogramtime
+sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_option_programprogress
+sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_option_startinrelative
+sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_setting_alarmclock
+sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_setting_powerstate
+sensor.bosch_hsg636xs6_68a40e80aee4_bsh_common_status_operationstate
+sensor.bosch_hsg636xs6_68a40e80aee4_cooking_oven_option_setpointtemperature
+sensor.bosch_hsg636xs6_68a40e80aee4_cooking_oven_option_steamassistlevel
+sensor.bosch_hsg636xs6_68a40e80aee4_cooking_oven_option_weight
+sensor.bosch_hsg636xs6_68a40e80aee4_cooking_oven_status_currentcavitytemperature
+switch.bosch_hsg636xs6_68a40e80aee4_bsh_common_setting_childlock
+switch.bosch_hsg636xs6_68a40e80aee4_cooking_oven_option_fastpreheat
+switch.bosch_hsg636xs6_68a40e80aee4_cooking_oven_setting_sabbathmode
+*/ render() {
+        if (!this._config || !this.hass || !this.context || !$7e7c4cdb018aa395$export$45c23ac36f4762a4.isSupported(this.hass, this.context)) return 0, $d33ef1320595a3ac$export$45b790e32b2810ee;
+        return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div class="toners"><div>Not implemented</div></div>`;
+    }
+    static isSupported(hass, context) {
+        return super.isSupported(hass, context, 'oven');
+    }
+    static get properties() {
+        return {
+            hass: {
+                type: Object
+            },
+            config: {
+                type: Object
+            },
+            stateObj: {
+                type: Object
+            }
+        };
+    }
+    static getConfigElement() {
+        return document.createElement('bosch-oven-controls-editor');
+    }
+    static getStubConfig() {
+        return {
+            type: 'custom:bosch-oven-controls-feature'
+        };
+    }
+    static getGridOptions() {
+        return {
+            min_rows: 1,
+            min_columns: 12
+        };
+    }
+    static get styles() {
+        return 0, $b23a93e7a594dc41$export$35ea47264c17a762;
+    }
+    constructor(...args){
+        super(...args), this.feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).oven_controls, this.entityPrefixLength = 3;
+    }
+}
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
+        attribute: false
+    })
+], $7e7c4cdb018aa395$export$45c23ac36f4762a4.prototype, "hass", void 0);
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $80d080f0d3adcf1c$export$d541bacb2bda4494)({
+        attribute: false
+    })
+], $7e7c4cdb018aa395$export$45c23ac36f4762a4.prototype, "context", void 0);
+(0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $0ede0742a0fa7bbd$export$ca000e230c0caa3e)()
+], $7e7c4cdb018aa395$export$45c23ac36f4762a4.prototype, "_config", void 0);
+$7e7c4cdb018aa395$export$45c23ac36f4762a4 = (0, $bb166217b384746d$export$29e00dfd3077644b)([
+    (0, $4af75e4a7ed8f584$export$da64fc29f17f9d0e)('bosch-oven-controls-feature')
+], $7e7c4cdb018aa395$export$45c23ac36f4762a4);
+window.customCardFeatures ||= [];
+window.customCardFeatures.push({
+    type: 'bosch-oven-controls-feature',
+    name: 'Bosch Oven Controls Panel',
+    supported: $7e7c4cdb018aa395$export$45c23ac36f4762a4.isSupported,
     configurable: true
 });
 
