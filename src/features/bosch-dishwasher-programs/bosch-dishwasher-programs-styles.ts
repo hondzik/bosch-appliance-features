@@ -34,7 +34,7 @@ export const BoschDishwasherProgramsFeatureStyles = css`
         margin-left: calc(var(--feature-border-radius, 12px) * -0.5);
         margin-right: calc(var(--feature-border-radius, 12px) * -0.5);
         /*background-color: var(--disabled-color);*/
-        /*border-radius: var(--feature-border-radius, 12px);*/
+        border-radius: var(--feature-border-radius, 12px);
         height:  var(--feature-height, 42px);
         display: flex;
         align-items: center;

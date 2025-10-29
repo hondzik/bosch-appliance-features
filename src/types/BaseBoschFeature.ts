@@ -140,11 +140,17 @@ export abstract class BaseBoschFeature extends LitElement {
   }
 
   public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext, subtype: string): boolean {
+    console.log('BaseBoschFeature isSupported check for subtype:', subtype);
+    console.log('Context entity_id:', context.entity_id);
+
     const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
     if (!stateObj) return false;
 
     const deviceClass = stateObj.attributes.device_class?.toLowerCase() || '';
     const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || '';
+
+    console.log('Device class:', deviceClass);
+    console.log('Friendly name:', friendlyName);  
 
     return deviceClass.startsWith('home_connect_alt_') && friendlyName.includes('bosch') && friendlyName.includes(subtype);
   }
