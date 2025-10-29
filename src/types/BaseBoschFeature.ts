@@ -101,7 +101,7 @@ export abstract class BaseBoschFeature extends LitElement {
 
   protected static async getInlineSVG(iconName: string): Promise<string> {
     if (!this.iconCache.has(iconName)) {
-      const res = await fetch(`/hacsfiles/bosch-appliance-features/${iconName}.svg?v=${version}`);
+      const res = await fetch(`/hacsfiles/bosch-appliance-features/icons/${iconName}.svg?v=${version}`);
       const svgText = (await res.text()).replace(/#000000|#000/g, 'currentColor');
       this.iconCache.set(iconName, svgText);
     }
