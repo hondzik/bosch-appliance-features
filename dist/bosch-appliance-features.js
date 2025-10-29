@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","displayName":"Bosch Appliance Features","description":"Home Assistant Tile card features for Bosch Home Connect Alt devices","repository":{"type":"git","url":"https://github.com/hondzik/bosch-appliance-features"},"keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"type":"module","version":"0.0.93","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","lint":"eslint src --ext .ts,.js --fix","format":"prettier --write src/**/*.{ts,js,css,scss,html}","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"@typescript-eslint/eslint-plugin":"^8.46.2","@typescript-eslint/parser":"^8.46.2","eslint":"^9.38.0","eslint-config-prettier":"^10.1.8","eslint-plugin-prettier":"^5.5.4","parcel":"^2.16.0","prettier":"^3.6.2","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","displayName":"Bosch Appliance Features","description":"Home Assistant Tile card features for Bosch Home Connect Alt devices","repository":{"type":"git","url":"https://github.com/hondzik/bosch-appliance-features"},"keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"type":"module","version":"0.0.96","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","lint":"eslint src --ext .ts,.js --fix","format":"prettier --write src/**/*.{ts,js,css,scss,html}","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"@typescript-eslint/eslint-plugin":"^8.46.2","@typescript-eslint/parser":"^8.46.2","eslint":"^9.38.0","eslint-config-prettier":"^10.1.8","eslint-plugin-prettier":"^5.5.4","parcel":"^2.16.0","prettier":"^3.6.2","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -1414,7 +1414,7 @@ const $041ae069d715ccb9$export$864cc654a388aa38 = (0, $06bdd16cbb4a41b3$export$d
         margin-left: calc(var(--feature-border-radius, 12px) * -0.5);
         margin-right: calc(var(--feature-border-radius, 12px) * -0.5);
         /*background-color: var(--disabled-color);*/
-        /*border-radius: var(--feature-border-radius, 12px);*/
+        border-radius: var(--feature-border-radius, 12px);
         height:  var(--feature-height, 42px);
         display: flex;
         align-items: center;
@@ -2522,7 +2522,7 @@ class $2eb7d861ff889d97$export$951251c678728e4c extends (0, $528e4332d1e3099e$ex
     }
     static async getInlineSVG(iconName) {
         if (!this.iconCache.has(iconName)) {
-            const res = await fetch(`/hacsfiles/bosch-appliance-features/${iconName}.svg?v=${(0, $db183fbae05d6b51$exports.version)}`);
+            const res = await fetch(`/hacsfiles/bosch-appliance-features/icons/${iconName}.svg?v=${(0, $db183fbae05d6b51$exports.version)}`);
             const svgText = (await res.text()).replace(/#000000|#000/g, 'currentColor');
             this.iconCache.set(iconName, svgText);
         }
@@ -2548,10 +2548,14 @@ class $2eb7d861ff889d97$export$951251c678728e4c extends (0, $528e4332d1e3099e$ex
         return linkedEntityChanged;
     }
     static isSupported(hass, context, subtype) {
+        console.log('BaseBoschFeature isSupported check for subtype:', subtype);
+        console.log('Context entity_id:', context.entity_id);
         const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
         if (!stateObj) return false;
         const deviceClass = stateObj.attributes.device_class?.toLowerCase() || '';
         const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || '';
+        console.log('Device class:', deviceClass);
+        console.log('Friendly name:', friendlyName);
         return deviceClass.startsWith('home_connect_alt_') && friendlyName.includes('bosch') && friendlyName.includes(subtype);
     }
     constructor(...args){
