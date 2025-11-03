@@ -6,6 +6,11 @@ import { BoschDishwasherOptionsFeatureConfig } from '../../types/BoschFeaturesTy
 import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import './bosch-dishwasher-options-editor';
 import { EBoschFeature } from '../../const/BoschFeatures';
+import { HassEntity } from 'home-assistant-js-websocket';
+
+const supportsBoschDishwasherOptionsFeature = (stateObj: HassEntity) => {
+  return BaseBoschFeature.isApplianceTypeSupported(stateObj, BoschDishwasherOptionsFeature.applianceType);
+};
 
 @customElement('bosch-dishwasher-options-feature')
 export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements LovelaceCardFeature {
@@ -21,6 +26,10 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
   protected feature = EBoschFeature.dishwasher_options;
   protected entityPrefixLength = 2;
 
+  static override get applianceType(): string {
+    return 'dishwasher';
+  }
+
   public setConfig(config: BoschDishwasherOptionsFeatureConfig): void {
     if (!config) {
       throw new Error('Invalid configuration');
@@ -34,10 +43,6 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
     }
 
     return html`<div class="toners"><div>Not implemented</div></div>`;
-  }
-
-  public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
-    return super.isSupported(hass, context, 'dishwasher');
   }
 
   static get properties(): { [key: string]: any } {
@@ -68,6 +73,6 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
   type: 'bosch-dishwasher-options-feature',
   name: 'Bosch Dishwasher Program Options Panel',
-  supported: BoschDishwasherOptionsFeature.isSupported,
+  supported: supportsBoschDishwasherOptionsFeature,
   configurable: true,
 });

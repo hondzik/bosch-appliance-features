@@ -6,8 +6,13 @@ import { BoschDishwasherTimeFeatureStyles } from './bosch-dishwasher-time-styles
 import { BoschDishwasherTimeFeatureConfig } from '../../types/BoschFeaturesTypes';
 import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import { EBoschFeature } from '../../const/BoschFeatures';
-import './bosch-dishwasher-time-editor';
 import { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
+import { HassEntity } from 'home-assistant-js-websocket/dist/types';
+import './bosch-dishwasher-time-editor';
+
+const supportsDishwasherTimeFeature = (stateObj: HassEntity) => {
+  return BaseBoschFeature.isApplianceTypeSupported(stateObj, BoschDishwasherTimeFeature.applianceType);
+};
 
 @customElement('bosch-dishwasher-time-feature')
 export class BoschDishwasherTimeFeature extends BaseBoschFeature implements LovelaceCardFeature {
@@ -22,6 +27,10 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
 
   protected feature = EBoschFeature.dishwasher_time;
   protected entityPrefixLength = 2;
+
+  static override get applianceType(): string {
+    return 'dishwasher';
+  }
 
   public setConfig(config: BoschDishwasherTimeFeatureConfig): void {
     if (!config) {
@@ -101,10 +110,6 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
       min_columns: 6,
     };
   }
-
-  public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
-    return super.isSupported(hass, context, 'dishwasher');
-  }
 }
 
 // Register the feature in the global customCardFeatures array
@@ -112,6 +117,6 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
   type: 'bosch-dishwasher-time-feature',
   name: 'Bosch Dishwasher Time Panel',
-  supported: BoschDishwasherTimeFeature.isSupported,
+  supported: supportsDishwasherTimeFeature,
   configurable: true,
 });

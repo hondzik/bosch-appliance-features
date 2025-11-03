@@ -13,7 +13,7 @@ declare global {
     type: string;
     name: string;
     configurable?: boolean;
-    supported?: (hass: HomeAssistant, context: LovelaceCardFeatureContext) => boolean;
+    supported?: (stateObj: HassEntity) => boolean;
   }
 
   interface TileWithConfig extends HTMLElement {

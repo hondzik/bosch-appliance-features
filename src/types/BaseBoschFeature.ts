@@ -13,7 +13,9 @@ export abstract class BaseBoschFeature extends LitElement {
   protected abstract feature: EBoschFeature;
   protected abstract entityPrefixLength: number;
 
-  private static iconCache = new Map<string, string>();
+  static get applianceType(): string {
+    throw new Error("Must be implemented by subclass");
+  }
 
   private _entityPrefix?: string;
   private get entityPrefix(): string | undefined {
@@ -99,6 +101,7 @@ export abstract class BaseBoschFeature extends LitElement {
     return this._config && key in this._config ? !!(this._config as any)[key] : defaultValue;
   }
 
+  private static iconCache = new Map<string, string>();
   protected static async getInlineSVG(iconName: string): Promise<string> {
     if (!this.iconCache.has(iconName)) {
       const res = await fetch(`/hacsfiles/bosch-appliance-features/icons/${iconName}.svg?v=${version}`);
@@ -139,19 +142,21 @@ export abstract class BaseBoschFeature extends LitElement {
     return linkedEntityChanged;
   }
 
-  public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext, subtype: string): boolean {
-    console.log('BaseBoschFeature isSupported check for subtype:', subtype);
-    console.log('Context entity_id:', context.entity_id);
+  public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
+    console.log('isSupported: Context entity_id:', context.entity_id);
 
     const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
     if (!stateObj) return false;
 
+    return this.isApplianceTypeSupported(stateObj, this.applianceType);
+  }
+
+  public static isApplianceTypeSupported(stateObj: HassEntity, applianceType: string): boolean {
+    console.log('isApplianceTypeSupported: check for subtype:', applianceType);
+
     const deviceClass = stateObj.attributes.device_class?.toLowerCase() || '';
     const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || '';
 
-    console.log('Device class:', deviceClass);
-    console.log('Friendly name:', friendlyName);  
-
-    return deviceClass.startsWith('home_connect_alt_') && friendlyName.includes('bosch') && friendlyName.includes(subtype);
+    return deviceClass.startsWith('home_connect_alt_') && friendlyName.includes('bosch') && friendlyName.includes(applianceType);
   }
 }

@@ -10,9 +10,14 @@ import { enumFromKey } from '../../utils/enum';
 import { BoschDishwasherProgram, BoschDishwasherProgramsFeatureConfig } from '../../types/BoschFeaturesTypes';
 import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import { EBoschEntity } from '../../const/BoschEntities';
-import './bosch-dishwasher-programs-editor';
 import { EBoschFeature } from '../../const/BoschFeatures';
 import { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
+import { HassEntity } from 'home-assistant-js-websocket';
+import './bosch-dishwasher-programs-editor';
+
+const supportsBoschDishwasherProgramsFeature = (stateObj: HassEntity) => {
+  return BaseBoschFeature.isApplianceTypeSupported(stateObj, BoschDishwasherProgramsFeature.applianceType);
+};
 
 @customElement('bosch-dishwasher-programs-feature')
 export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements LovelaceCardFeature {
@@ -27,6 +32,10 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
 
   protected feature = EBoschFeature.dishwasher_programs;
   protected entityPrefixLength = 2;
+
+  static override get applianceType(): string {
+    return 'dishwasher';
+  }
 
   private set program(value: string) {
     const entityId = this.getLinkedEntityState(EBoschEntity.programs)?.entity_id;
@@ -161,16 +170,12 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
       min_columns: 12,
     };
   }
-
-  public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
-    return super.isSupported(hass, context, 'dishwasher');
-  }
 }
 
 window.customCardFeatures ||= [];
 window.customCardFeatures.push({
   type: 'bosch-dishwasher-programs-feature',
   name: 'Bosch Dishwasher Programs Panel',
-  supported: BoschDishwasherProgramsFeature.isSupported,
+  supported: supportsBoschDishwasherProgramsFeature,
   configurable: true,
 });

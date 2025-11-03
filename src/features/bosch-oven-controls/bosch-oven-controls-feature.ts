@@ -5,8 +5,13 @@ import { EBoschFeature } from '../../const/BoschFeatures';
 import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import { BoschOvenControlsFeatureStyles } from './bosch-oven-controls-styles';
 import { BoschOvenControlsFeatureConfig } from '../../types/BoschFeaturesTypes';
-import './bosch-oven-controls-editor';
 import { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
+import { HassEntity } from 'home-assistant-js-websocket';
+import './bosch-oven-controls-editor';
+
+const supportsBoschOvenControlsFeature = (stateObj: HassEntity) => {
+  return BaseBoschFeature.isApplianceTypeSupported(stateObj, BoschOvenControlsFeature.applianceType);
+};
 
 @customElement('bosch-oven-controls-feature')
 export class BoschOvenControlsFeature extends BaseBoschFeature implements LovelaceCardFeature {
@@ -21,6 +26,10 @@ export class BoschOvenControlsFeature extends BaseBoschFeature implements Lovela
 
   protected feature = EBoschFeature.oven_controls;
   protected entityPrefixLength = 3;
+
+  static override get applianceType(): string {
+    return 'oven';
+  }
 
   public setConfig(config: BoschOvenControlsFeatureConfig): void {
     if (!config) {
@@ -69,10 +78,6 @@ switch.bosch_hsg636xs6_68a40e80aee4_cooking_oven_setting_sabbathmode
     return html`<div class="toners"><div>Not implemented</div></div>`;
   }
 
-  public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
-    return super.isSupported(hass, context, 'oven');
-  }
-
   static get properties(): { [key: string]: any } {
     return {
       hass: { type: Object },
@@ -107,6 +112,6 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
   type: 'bosch-oven-controls-feature',
   name: 'Bosch Oven Controls Panel',
-  supported: BoschOvenControlsFeature.isSupported,
+  supported: supportsBoschOvenControlsFeature,
   configurable: true,
 });

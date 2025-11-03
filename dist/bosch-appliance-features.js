@@ -1,5 +1,5 @@
 var $db183fbae05d6b51$exports = {};
-$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","displayName":"Bosch Appliance Features","description":"Home Assistant Tile card features for Bosch Home Connect Alt devices","repository":{"type":"git","url":"https://github.com/hondzik/bosch-appliance-features"},"keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"type":"module","version":"0.0.96","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node optimize-icons.mjs","lint":"eslint src --ext .ts,.js --fix","format":"prettier --write src/**/*.{ts,js,css,scss,html}","optimize-icons":"node optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"@typescript-eslint/eslint-plugin":"^8.46.2","@typescript-eslint/parser":"^8.46.2","eslint":"^9.38.0","eslint-config-prettier":"^10.1.8","eslint-plugin-prettier":"^5.5.4","parcel":"^2.16.0","prettier":"^3.6.2","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
+$db183fbae05d6b51$exports = JSON.parse('{"author":{"name":"Jakub Krop\xe1\u010D","email":"honza@kropac.net"},"license":"MIT","name":"bosch-appliance-features","displayName":"Bosch Appliance Features","description":"Home Assistant Tile card features for Bosch Home Connect Alt devices","repository":{"type":"git","url":"https://github.com/hondzik/bosch-appliance-features"},"keywords":["home-assistant","lovelace","custom-card","feature","home_connect_alt","apppliance","dishwasher","oven"],"type":"module","version":"0.0.97","source":"./src/bosch-appliance-features.ts","module":"./dist/bosch-appliance-features.js","targets":{"module":{"includeNodeModules":true,"outputFormat":"esmodule"}},"scripts":{"watch":"parcel watch","build":"parcel build --no-source-maps && node scripts/optimize-icons.mjs && node scripts/copy-to-haos.js","copy to HAOS":"parcel build --no-source-maps && node scripts/copy-to-haos.js","lint":"eslint src --ext .ts,.js --fix","format":"prettier --write src/**/*.{ts,js,css,scss,html}","optimize-icons":"node scripts/optimize-icons.mjs","version MAJOR":"npm version major","version MINOR":"npm version minor","version PATCH":"npm version patch"},"devDependencies":{"@typescript-eslint/eslint-plugin":"^8.46.2","@typescript-eslint/parser":"^8.46.2","dotenv":"^17.2.3","eslint":"^9.38.0","eslint-config-prettier":"^10.1.8","eslint-plugin-prettier":"^5.5.4","parcel":"^2.16.0","prettier":"^3.6.2","smb2":"^0.2.11","svg-path-commander":"^2.1.11","svgo":"^4.0.0","typescript":"^5.9.3"},"dependencies":{"custom-card-helpers":"^1.9.0","home-assistant-js-websocket":"^9.5.0","lit":"^3.3.1"}}');
 
 
 /******************************************************************************
@@ -2466,8 +2466,8 @@ const $2bd9259198ca0bf4$export$b74fc37d3b82988d = new Map([
 
 
 class $2eb7d861ff889d97$export$951251c678728e4c extends (0, $528e4332d1e3099e$export$3f2f9f5909897157) {
-    static{
-        this.iconCache = new Map();
+    static get applianceType() {
+        throw new Error("Must be implemented by subclass");
     }
     get entityPrefix() {
         if (this._entityPrefix === undefined) {
@@ -2520,6 +2520,9 @@ class $2eb7d861ff889d97$export$951251c678728e4c extends (0, $528e4332d1e3099e$ex
     getBoolConfigVal(key, defaultValue) {
         return this._config && key in this._config ? !!this._config[key] : defaultValue;
     }
+    static{
+        this.iconCache = new Map();
+    }
     static async getInlineSVG(iconName) {
         if (!this.iconCache.has(iconName)) {
             const res = await fetch(`/hacsfiles/bosch-appliance-features/icons/${iconName}.svg?v=${(0, $db183fbae05d6b51$exports.version)}`);
@@ -2547,16 +2550,17 @@ class $2eb7d861ff889d97$export$951251c678728e4c extends (0, $528e4332d1e3099e$ex
         }
         return linkedEntityChanged;
     }
-    static isSupported(hass, context, subtype) {
-        console.log('BaseBoschFeature isSupported check for subtype:', subtype);
-        console.log('Context entity_id:', context.entity_id);
+    static isSupported(hass, context) {
+        console.log('isSupported: Context entity_id:', context.entity_id);
         const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
         if (!stateObj) return false;
+        return this.isApplianceTypeSupported(stateObj, this.applianceType);
+    }
+    static isApplianceTypeSupported(stateObj, applianceType) {
+        console.log('isApplianceTypeSupported: check for subtype:', applianceType);
         const deviceClass = stateObj.attributes.device_class?.toLowerCase() || '';
         const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || '';
-        console.log('Device class:', deviceClass);
-        console.log('Friendly name:', friendlyName);
-        return deviceClass.startsWith('home_connect_alt_') && friendlyName.includes('bosch') && friendlyName.includes(subtype);
+        return deviceClass.startsWith('home_connect_alt_') && friendlyName.includes('bosch') && friendlyName.includes(applianceType);
     }
     constructor(...args){
         super(...args), this._entities = new Map();
@@ -2766,7 +2770,13 @@ $a3d36398cbb8abc5$export$5ad3d821964e0a36 = (0, $bb166217b384746d$export$29e00df
 
 
 
+const $3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature = (stateObj)=>{
+    return (0, $2eb7d861ff889d97$export$951251c678728e4c).isApplianceTypeSupported(stateObj, $3fccb9d4d2156306$export$2abebcf1e6123836.applianceType);
+};
 class $3fccb9d4d2156306$export$2abebcf1e6123836 extends (0, $2eb7d861ff889d97$export$951251c678728e4c) {
+    static get applianceType() {
+        return 'dishwasher';
+    }
     set program(value) {
         const entityId = this.getLinkedEntityState((0, $2bd9259198ca0bf4$export$46cdc11276e7e760).programs)?.entity_id;
         console.log(`Setting ${entityId} to ${value}`);
@@ -2875,9 +2885,6 @@ class $3fccb9d4d2156306$export$2abebcf1e6123836 extends (0, $2eb7d861ff889d97$ex
             min_columns: 12
         };
     }
-    static isSupported(hass, context) {
-        return super.isSupported(hass, context, 'dishwasher');
-    }
     constructor(...args){
         super(...args), this.feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_programs, this.entityPrefixLength = 2, this._programs = [];
     }
@@ -2902,7 +2909,7 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: 'bosch-dishwasher-programs-feature',
     name: 'Bosch Dishwasher Programs Panel',
-    supported: $3fccb9d4d2156306$export$2abebcf1e6123836.isSupported,
+    supported: $3fccb9d4d2156306$var$supportsBoschDishwasherProgramsFeature,
     configurable: true
 });
 
@@ -2959,7 +2966,13 @@ $c45b3a62a020e969$export$777b72c3156c0d7d = (0, $bb166217b384746d$export$29e00df
 
 
 
+const $77c64735a69c1828$var$supportsBoschDishwasherOptionsFeature = (stateObj)=>{
+    return (0, $2eb7d861ff889d97$export$951251c678728e4c).isApplianceTypeSupported(stateObj, $77c64735a69c1828$export$80a2f62778bb11ea.applianceType);
+};
 class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $2eb7d861ff889d97$export$951251c678728e4c) {
+    static get applianceType() {
+        return 'dishwasher';
+    }
     setConfig(config) {
         if (!config) throw new Error('Invalid configuration');
         this._config = config;
@@ -2967,9 +2980,6 @@ class $77c64735a69c1828$export$80a2f62778bb11ea extends (0, $2eb7d861ff889d97$ex
     render() {
         if (!this._config || !this.hass || !this.context || !$77c64735a69c1828$export$80a2f62778bb11ea.isSupported(this.hass, this.context)) return 0, $d33ef1320595a3ac$export$45b790e32b2810ee;
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div class="toners"><div>Not implemented</div></div>`;
-    }
-    static isSupported(hass, context) {
-        return super.isSupported(hass, context, 'dishwasher');
     }
     static get properties() {
         return {
@@ -3020,7 +3030,7 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: 'bosch-dishwasher-options-feature',
     name: 'Bosch Dishwasher Program Options Panel',
-    supported: $77c64735a69c1828$export$80a2f62778bb11ea.isSupported,
+    supported: $77c64735a69c1828$var$supportsBoschDishwasherOptionsFeature,
     configurable: true
 });
 
@@ -3129,7 +3139,13 @@ $fc3158e92917286c$export$687095a8510429a6 = (0, $bb166217b384746d$export$29e00df
 ], $fc3158e92917286c$export$687095a8510429a6);
 
 
+const $e4104b77a0427686$var$supportsDishwasherTimeFeature = (stateObj)=>{
+    return (0, $2eb7d861ff889d97$export$951251c678728e4c).isApplianceTypeSupported(stateObj, $e4104b77a0427686$export$7fc06ad2513928c.applianceType);
+};
 class $e4104b77a0427686$export$7fc06ad2513928c extends (0, $2eb7d861ff889d97$export$951251c678728e4c) {
+    static get applianceType() {
+        return 'dishwasher';
+    }
     setConfig(config) {
         if (!config) throw new Error('Invalid configuration');
         this._config = config;
@@ -3193,9 +3209,6 @@ class $e4104b77a0427686$export$7fc06ad2513928c extends (0, $2eb7d861ff889d97$exp
             min_columns: 6
         };
     }
-    static isSupported(hass, context) {
-        return super.isSupported(hass, context, 'dishwasher');
-    }
     constructor(...args){
         super(...args), this.feature = (0, $c302abf7983a4985$export$4ad3a6a09fb2916f).dishwasher_time, this.entityPrefixLength = 2;
     }
@@ -3221,7 +3234,7 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: 'bosch-dishwasher-time-feature',
     name: 'Bosch Dishwasher Time Panel',
-    supported: $e4104b77a0427686$export$7fc06ad2513928c.isSupported,
+    supported: $e4104b77a0427686$var$supportsDishwasherTimeFeature,
     configurable: true
 });
 
@@ -3278,7 +3291,13 @@ $89202ea70c91c27a$export$5ccb48bf553800e4 = (0, $bb166217b384746d$export$29e00df
 ], $89202ea70c91c27a$export$5ccb48bf553800e4);
 
 
+const $7e7c4cdb018aa395$var$supportsBoschOvenControlsFeature = (stateObj)=>{
+    return (0, $2eb7d861ff889d97$export$951251c678728e4c).isApplianceTypeSupported(stateObj, $7e7c4cdb018aa395$export$45c23ac36f4762a4.applianceType);
+};
 class $7e7c4cdb018aa395$export$45c23ac36f4762a4 extends (0, $2eb7d861ff889d97$export$951251c678728e4c) {
+    static get applianceType() {
+        return 'oven';
+    }
     setConfig(config) {
         if (!config) throw new Error('Invalid configuration');
         this._config = config;
@@ -3317,9 +3336,6 @@ switch.bosch_hsg636xs6_68a40e80aee4_cooking_oven_setting_sabbathmode
 */ render() {
         if (!this._config || !this.hass || !this.context || !$7e7c4cdb018aa395$export$45c23ac36f4762a4.isSupported(this.hass, this.context)) return 0, $d33ef1320595a3ac$export$45b790e32b2810ee;
         return (0, $d33ef1320595a3ac$export$c0bb0b647f701bb5)`<div class="toners"><div>Not implemented</div></div>`;
-    }
-    static isSupported(hass, context) {
-        return super.isSupported(hass, context, 'oven');
     }
     static get properties() {
         return {
@@ -3375,7 +3391,7 @@ window.customCardFeatures ||= [];
 window.customCardFeatures.push({
     type: 'bosch-oven-controls-feature',
     name: 'Bosch Oven Controls Panel',
-    supported: $7e7c4cdb018aa395$export$45c23ac36f4762a4.isSupported,
+    supported: $7e7c4cdb018aa395$var$supportsBoschOvenControlsFeature,
     configurable: true
 });
 
