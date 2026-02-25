@@ -1,10 +1,11 @@
-import { HomeAssistant } from 'custom-card-helpers';
-import { TemplateResult, html, CSSResultGroup } from 'lit';
-import { customElement, property } from 'lit/decorators';
-import { BoschDishwasherTimeEditorStyles } from './bosch-dishwasher-time-styles';
-import { CommonEditorStyles } from '../common/bosch-styles';
-import { BoschDishwasherTimeFeatureConfig } from '../../types/BoschFeaturesTypes';
+import { html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { BoschBaseEditor } from '../../types/BaseBoschFeatureEditor';
+import { CommonEditorStyles } from '../common/bosch-styles';
+import { BoschDishwasherTimeEditorStyles } from './bosch-dishwasher-time-styles';
+import type { BoschDishwasherTimeFeatureConfig } from '../../types/BoschFeaturesTypes';
+import type { HomeAssistant } from 'custom-card-helpers';
+import type { TemplateResult, CSSResultGroup } from 'lit';
 
 @customElement('bosch-dishwasher-time-editor')
 export class BoschDishwasherTimeEditor extends BoschBaseEditor {

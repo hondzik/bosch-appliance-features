@@ -1,13 +1,14 @@
-import { HomeAssistant } from 'custom-card-helpers';
-import { html, TemplateResult, nothing, CSSResultGroup } from 'lit';
-import { customElement, property, state } from 'lit/decorators';
+import { html, nothing } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 import { EBoschEntity } from '../../const/BoschEntities';
-import { BoschDishwasherTimeFeatureStyles } from './bosch-dishwasher-time-styles';
-import { BoschDishwasherTimeFeatureConfig } from '../../types/BoschFeaturesTypes';
-import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import { EBoschFeature } from '../../const/BoschFeatures';
-import { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
-import { HassEntity } from 'home-assistant-js-websocket/dist/types';
+import { BaseBoschFeature } from '../../types/BaseBoschFeature';
+import { BoschDishwasherTimeFeatureStyles } from './bosch-dishwasher-time-styles';
+import type { BoschDishwasherTimeFeatureConfig } from '../../types/BoschFeaturesTypes';
+import type { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
+import type { HomeAssistant } from 'custom-card-helpers';
+import type { HassEntity } from 'home-assistant-js-websocket';
+import type { TemplateResult, CSSResultGroup } from 'lit';
 import './bosch-dishwasher-time-editor';
 
 const supportsDishwasherTimeFeature = (stateObj: HassEntity) => {

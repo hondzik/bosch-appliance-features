@@ -1,5 +1,5 @@
-import { BoschDishwasherProgram } from '../types/BoschFeaturesTypes';
 import { EBoschModelGroup } from './BoschModels';
+import type { BoschDishwasherProgram } from '../types/BoschFeaturesTypes';
 
 export enum EBoschDishwasherProgram {
   auto_1,

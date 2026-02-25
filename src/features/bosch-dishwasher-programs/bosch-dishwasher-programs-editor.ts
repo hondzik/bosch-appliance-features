@@ -1,10 +1,11 @@
-import type { HomeAssistant } from 'custom-card-helpers';
-import { html, CSSResultGroup, TemplateResult } from 'lit-element';
 import { customElement, property } from 'lit/decorators.js';
-import { BoschDishwasherProgramsEditorStyles } from './bosch-dishwasher-programs-styles';
-import { CommonEditorStyles } from '../common/bosch-styles';
-import { BoschDishwasherProgramsFeatureConfig } from '../../types/BoschFeaturesTypes';
+import { html } from 'lit-element';
 import { BoschBaseEditor } from '../../types/BaseBoschFeatureEditor';
+import { CommonEditorStyles } from '../common/bosch-styles';
+import { BoschDishwasherProgramsEditorStyles } from './bosch-dishwasher-programs-styles';
+import type { BoschDishwasherProgramsFeatureConfig } from '../../types/BoschFeaturesTypes';
+import type { HomeAssistant } from 'custom-card-helpers';
+import type { CSSResultGroup, TemplateResult } from 'lit-element';
 
 @customElement('bosch-dishwasher-programs-editor')
 export class BoschDishwasherProgramsEditor extends BoschBaseEditor {

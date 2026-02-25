@@ -1,10 +1,11 @@
-import { HomeAssistant } from 'custom-card-helpers';
 import { LitElement } from 'lit';
-import { FeatureConfig, BoschEntity } from './BoschFeaturesTypes';
-import { EBoschEntity, boschFeatureEntitiesMap, boschEntitiesMap } from '../const/BoschEntities';
-import { EBoschFeature } from '../const/BoschFeatures';
-import { HassEntity } from 'home-assistant-js-websocket';
 import { version } from '../../package.json';
+import { boschFeatureEntitiesMap, boschEntitiesMap } from '../const/BoschEntities';
+import type { FeatureConfig, BoschEntity } from './BoschFeaturesTypes';
+import type { EBoschEntity } from '../const/BoschEntities';
+import type { EBoschFeature } from '../const/BoschFeatures';
+import type { HomeAssistant } from 'custom-card-helpers';
+import type { HassEntity } from 'home-assistant-js-websocket';
 
 export abstract class BaseBoschFeature extends LitElement {
   public abstract hass?: HomeAssistant;
@@ -14,7 +15,7 @@ export abstract class BaseBoschFeature extends LitElement {
   protected abstract entityPrefixLength: number;
 
   static get applianceType(): string {
-    throw new Error("Must be implemented by subclass");
+    throw new Error('Must be implemented by subclass');
   }
 
   private _entityPrefix?: string;
@@ -142,11 +143,20 @@ export abstract class BaseBoschFeature extends LitElement {
     return linkedEntityChanged;
   }
 
-  public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
+  public static async isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): Promise<boolean> {
     console.log('isSupported: Context entity_id:', context.entity_id);
 
     const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
     if (!stateObj) return false;
+
+    const devices = await hass.connection.sendMessagePromise({
+      type: 'config/device_registry/list',
+    });
+
+    // Ensure devices is an array before using .find
+    const devicesArray = Array.isArray(devices) ? devices : [];
+    const matchedDevice = devicesArray.find((device: any) => device.entities && device.entities.includes(context.entity_id));
+    console.log('isSupported: Matched device:', matchedDevice);
 
     return this.isApplianceTypeSupported(stateObj, this.applianceType);
   }
@@ -156,6 +166,8 @@ export abstract class BaseBoschFeature extends LitElement {
 
     const deviceClass = stateObj.attributes.device_class?.toLowerCase() || '';
     const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || '';
+
+    console.log(`isApplianceTypeSupported: ${deviceClass.startsWith('home_connect_alt_')}, ${friendlyName.includes('bosch')}, ${friendlyName.includes(applianceType)}`);
 
     return deviceClass.startsWith('home_connect_alt_') && friendlyName.includes('bosch') && friendlyName.includes(applianceType);
   }

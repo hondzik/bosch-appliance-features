@@ -1,12 +1,13 @@
-import { HomeAssistant } from 'custom-card-helpers';
-import { TemplateResult, nothing, html, CSSResultGroup } from 'lit';
-import { customElement, property, state } from 'lit/decorators';
+import { nothing, html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 import { EBoschFeature } from '../../const/BoschFeatures';
 import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import { BoschOvenControlsFeatureStyles } from './bosch-oven-controls-styles';
-import { BoschOvenControlsFeatureConfig } from '../../types/BoschFeaturesTypes';
-import { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
-import { HassEntity } from 'home-assistant-js-websocket';
+import type { BoschOvenControlsFeatureConfig } from '../../types/BoschFeaturesTypes';
+import type { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
+import type { HomeAssistant } from 'custom-card-helpers';
+import type { HassEntity } from 'home-assistant-js-websocket';
+import type { TemplateResult, CSSResultGroup } from 'lit';
 import './bosch-oven-controls-editor';
 
 const supportsBoschOvenControlsFeature = (stateObj: HassEntity) => {

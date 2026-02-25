@@ -1,18 +1,20 @@
-import { html, TemplateResult, CSSResultGroup, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators';
-import type { HomeAssistant } from 'custom-card-helpers';
-import { boschModelGroupMap, EBoschModel, EBoschModelGroup } from '../../const/BoschModels';
-import { BoschDishwasherProgramsFeatureStyles } from './bosch-dishwasher-programs-styles';
+import { html, nothing } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 import { boschDishwasherAllProgramsMap, boschDishwasherModelProgramsMap } from '../../const/BoschDishWasherPrograms';
-import { enumFromKey } from '../../utils/enum';
-import { BoschDishwasherProgram, BoschDishwasherProgramsFeatureConfig } from '../../types/BoschFeaturesTypes';
-import { BaseBoschFeature } from '../../types/BaseBoschFeature';
 import { EBoschEntity } from '../../const/BoschEntities';
 import { EBoschFeature } from '../../const/BoschFeatures';
-import { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
-import { HassEntity } from 'home-assistant-js-websocket';
+import { boschModelGroupMap, EBoschModel } from '../../const/BoschModels';
+import { BaseBoschFeature } from '../../types/BaseBoschFeature';
+import { enumFromKey } from '../../utils/enum';
+import { BoschDishwasherProgramsFeatureStyles } from './bosch-dishwasher-programs-styles';
+import type { EBoschModelGroup } from '../../const/BoschModels';
+import type { BoschDishwasherProgram, BoschDishwasherProgramsFeatureConfig } from '../../types/BoschFeaturesTypes';
+import type { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
+import type { HomeAssistant } from 'custom-card-helpers';
+import type { HassEntity } from 'home-assistant-js-websocket';
+import type { TemplateResult, CSSResultGroup } from 'lit';
 import './bosch-dishwasher-programs-editor';
 
 const supportsBoschDishwasherProgramsFeature = (stateObj: HassEntity) => {

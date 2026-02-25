@@ -1,5 +1,5 @@
-import { BoschEntity } from '../types/BoschFeaturesTypes';
 import { EBoschFeature } from './BoschFeatures';
+import type { BoschEntity } from '../types/BoschFeaturesTypes';
 
 export enum EBoschEntity {
   active_program,

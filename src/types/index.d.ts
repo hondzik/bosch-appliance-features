@@ -1,6 +1,6 @@
-import { HomeAssistant } from 'custom-card-helpers';
+import type { BoschDishwasherProgramsFeatureConfig, BoschDishwasherOptionsFeatureConfig, BoschDishwasherTimeFeatureConfig } from './BoschFeaturesTypes';
+import type { HomeAssistant } from 'custom-card-helpers';
 import type { HassEntity } from 'home-assistant-js-websocket';
-import { BoschDishwasherProgramsFeatureConfig, BoschDishwasherOptionsFeatureConfig, BoschDishwasherTimeFeatureConfig } from './BoschFeaturesTypes';
 
 export {};
 

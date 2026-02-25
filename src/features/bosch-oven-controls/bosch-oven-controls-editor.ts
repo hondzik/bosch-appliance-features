@@ -1,10 +1,11 @@
-import { HomeAssistant } from 'custom-card-helpers';
-import { TemplateResult, html, CSSResultGroup } from 'lit';
-import { customElement, property } from 'lit/decorators';
-import { BoschOvenControlsEditorStyles } from './bosch-oven-controls-styles';
-import { CommonEditorStyles } from '../common/bosch-styles';
-import { BoschOvenControlsFeatureConfig } from '../../types/BoschFeaturesTypes';
+import { html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { BoschBaseEditor } from '../../types/BaseBoschFeatureEditor';
+import { CommonEditorStyles } from '../common/bosch-styles';
+import { BoschOvenControlsEditorStyles } from './bosch-oven-controls-styles';
+import type { BoschOvenControlsFeatureConfig } from '../../types/BoschFeaturesTypes';
+import type { HomeAssistant } from 'custom-card-helpers';
+import type { TemplateResult, CSSResultGroup } from 'lit';
 
 @customElement('bosch-oven-controls-editor')
 export class BoschOvenControlsEditor extends BoschBaseEditor {

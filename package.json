@@ -23,40 +23,39 @@
   ],
   "type": "module",
   "version": "0.0.97",
-  "source": "./src/bosch-appliance-features.ts",
   "module": "./dist/bosch-appliance-features.js",
-  "targets": {
-    "module": {
-      "includeNodeModules": true,
-      "outputFormat": "esmodule"
-    }
-  },
   "scripts": {
-    "watch": "parcel watch",
-    "build": "parcel build --no-source-maps && node scripts/optimize-icons.mjs",
-    "copy to HAOS": "node scripts/copy-to-haos.js",
-    "lint": "eslint src --ext .ts,.js --fix",
-    "format": "prettier --write src/**/*.{ts,js,css,scss,html}",
+    "watch": "rollup -c -w",
+    "build": "rollup -c && node scripts/optimize-icons.mjs",
+    "copy to HAOS": "rollup -c && node scripts/copy-to-haos.js",
+    "lint & format": "eslint src --ext .ts,.js --fix && prettier --write src/**/*.{ts,js,css,scss,html}",
     "optimize-icons": "node scripts/optimize-icons.mjs",
     "version MAJOR": "npm version major",
     "version MINOR": "npm version minor",
     "version PATCH": "npm version patch"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.46.2",
-    "@typescript-eslint/parser": "^8.46.2",
-    "eslint": "^9.39.0",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
+    "eslint": "^9.0.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
-    "parcel": "^2.16.0",
-    "prettier": "^3.6.2",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.1",
+    "rollup": "^4.59.0",
+    "rollup-plugin-summary": "^3.0.1",
     "svg-path-commander": "^2.1.11",
     "svgo": "^4.0.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "custom-card-helpers": "^1.9.0",
-    "home-assistant-js-websocket": "^9.5.0",
-    "lit": "^3.3.1"
+    "custom-card-helpers": "^2.0.0",
+    "home-assistant-js-websocket": "^9.6.0",
+    "lit": "^3.3.2"
   }
 }

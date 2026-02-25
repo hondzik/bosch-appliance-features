@@ -3,7 +3,7 @@
     "isolatedModules": true,
     "target": "ES2021",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "resolveJsonModule": true,

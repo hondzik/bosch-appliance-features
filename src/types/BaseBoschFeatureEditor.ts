@@ -1,10 +1,11 @@
-import { html, LitElement, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
 import setupCustomLocalize from '../localize';
-import { HomeAssistant } from 'custom-card-helpers/dist/types';
-import { FeatureConfig } from './BoschFeaturesTypes';
+import type { FeatureConfig } from './BoschFeaturesTypes';
+import type { HomeAssistant } from 'custom-card-helpers/dist/types';
+import type { TemplateResult } from 'lit';
 
-export abstract class BoschBaseEditor extends LitElement {
-  protected abstract config: FeatureConfig;
+export abstract class BoschBaseEditor<TConfig extends FeatureConfig = FeatureConfig> extends LitElement {
+  protected abstract config: TConfig;
   protected abstract hass?: HomeAssistant;
   protected abstract feature: string;
 
@@ -27,7 +28,7 @@ export abstract class BoschBaseEditor extends LitElement {
   }
 
   protected getBoolConfigVal(key: string, defaultValue: boolean): boolean {
-    return this.config && this.config[key] !== undefined ? !!this.config[key] : defaultValue;
+    return this.config && key in this.config ? !!(this.config as any)[key] : defaultValue;
   }
 
   protected _updateConfig(newConfig: any): void {

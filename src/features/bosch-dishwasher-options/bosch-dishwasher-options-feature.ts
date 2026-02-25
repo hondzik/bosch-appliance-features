@@ -1,12 +1,13 @@
-import { html, TemplateResult, CSSResultGroup, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators';
-import type { HomeAssistant } from 'custom-card-helpers';
-import { BoschDishwasherOptionsFeatureStyles } from './bosch-dishwasher-options-styles';
-import { BoschDishwasherOptionsFeatureConfig } from '../../types/BoschFeaturesTypes';
-import { BaseBoschFeature } from '../../types/BaseBoschFeature';
-import './bosch-dishwasher-options-editor';
+import { html, nothing } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 import { EBoschFeature } from '../../const/BoschFeatures';
-import { HassEntity } from 'home-assistant-js-websocket';
+import { BaseBoschFeature } from '../../types/BaseBoschFeature';
+import { BoschDishwasherOptionsFeatureStyles } from './bosch-dishwasher-options-styles';
+import type { BoschDishwasherOptionsFeatureConfig } from '../../types/BoschFeaturesTypes';
+import type { HomeAssistant } from 'custom-card-helpers';
+import type { HassEntity } from 'home-assistant-js-websocket';
+import type { TemplateResult, CSSResultGroup } from 'lit';
+import './bosch-dishwasher-options-editor';
 
 const supportsBoschDishwasherOptionsFeature = (stateObj: HassEntity) => {
   return BaseBoschFeature.isApplianceTypeSupported(stateObj, BoschDishwasherOptionsFeature.applianceType);
