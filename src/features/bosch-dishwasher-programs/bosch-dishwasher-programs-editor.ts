@@ -15,7 +15,7 @@ export class BoschDishwasherProgramsEditor extends BoschBaseEditor {
   @property({ type: Object })
   config: BoschDishwasherProgramsFeatureConfig = { type: 'custom:bosch-dishwasher-programs-feature' };
 
-  protected feature = 'time';
+  protected feature = 'programs';
 
   public setConfig(config: BoschDishwasherProgramsFeatureConfig): void {
     this.config = { ...config };

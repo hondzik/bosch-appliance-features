@@ -53,7 +53,11 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
 
   private get programs(): BoschDishwasherProgram[] {
     if (this._programs.length === 0) {
-      const modelName = 'SMV8YCX01E'; // TODO: get from cfg?
+      const modelName = this.deviceModel;
+      if (!modelName) {
+        console.error('Cannot determine dishwasher model from the device registry');
+        return [];
+      }
 
       const model = enumFromKey(EBoschModel, modelName);
       if (model === undefined) {
@@ -107,7 +111,7 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
 
     return this._config.show_as_button_bar === true
       ? html`<ha-control-button-group> ${filteredPrograms.map((p) => this.renderHaControlButton(p))} </ha-control-button-group>`
-      : html`<div>${filteredPrograms.map((p) => this.renderHaIconButton(p))}</div>`;
+      : html`<div class="icon-bar">${filteredPrograms.map((p) => this.renderHaIconButton(p))}</div>`;
   }
 
   private renderHaControlButton(program: BoschDishwasherProgram): TemplateResult {

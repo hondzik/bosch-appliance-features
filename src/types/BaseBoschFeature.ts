@@ -103,6 +103,28 @@ export abstract class BaseBoschFeature extends LitElement {
     return this._config && key in this._config ? !!(this._config as any)[key] : defaultValue;
   }
 
+  protected get deviceModel(): string | undefined {
+    if (!this.hass || !this.context?.entity_id) return undefined;
+
+    // hass.entities/hass.devices are populated by the HA frontend but not declared on custom-card-helpers' HomeAssistant type.
+    const hass = this.hass as unknown as {
+      entities?: Record<string, { device_id?: string }>;
+      devices?: Record<string, { model?: string }>;
+    };
+
+    const deviceId = hass.entities?.[this.context.entity_id]?.device_id;
+    if (!deviceId) {
+      console.error(`Cannot resolve device_id for entity ${this.context.entity_id}`);
+      return undefined;
+    }
+
+    const model = hass.devices?.[deviceId]?.model;
+    if (!model) {
+      console.error(`Device ${deviceId} has no model set in the device registry`);
+    }
+    return model;
+  }
+
   private static iconCache = new Map<string, string>();
   protected static async getInlineSVG(iconName: string): Promise<string> {
     if (!this.iconCache.has(iconName)) {

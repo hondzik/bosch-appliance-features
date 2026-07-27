@@ -32,13 +32,12 @@ export const BoschDishwasherProgramsFeatureStyles = css`
   ha-control-button {
     margin-left: calc(var(--feature-border-radius, 12px) * -0.5);
     margin-right: calc(var(--feature-border-radius, 12px) * -0.5);
-    /*background-color: var(--disabled-color);*/
+    background-color: transparent;
     border-radius: var(--feature-border-radius, 12px);
     height: var(--feature-height, 42px);
     display: flex;
     align-items: center;
     justify-content: center;
-    /*transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;*/
     z-index: 1;
     flex: 1;
   }
@@ -57,7 +56,7 @@ export const BoschDishwasherProgramsFeatureStyles = css`
       background-color 180ms ease-in-out,
       opacity 180ms ease-in-out;
     opacity: var(--tile-opacity);
-    z-index: 1;
+    z-index: 2;
   }
 
   .icon-wrapper {
@@ -67,6 +66,12 @@ export const BoschDishwasherProgramsFeatureStyles = css`
     width: 24px;
     height: 24px;
     color: var(--tile-color);
+    transition: color 180ms ease-in-out;
+  }
+
+  ha-control-button.active .icon-wrapper,
+  ha-control-button:hover .icon-wrapper {
+    color: white;
   }
 
   svg {
@@ -76,18 +81,26 @@ export const BoschDishwasherProgramsFeatureStyles = css`
         fill: currentColor;*/
   }
 
-  .switches {
+  .icon-bar {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
+    flex-flow: row;
+    justify-content: space-evenly;
     align-items: center;
-    padding: 8px;
+    height: 100%;
+    width: 100%;
+    border-radius: var(--feature-border-radius, 12px);
+    background-color: var(--control-button-background-color);
+    overflow: hidden;
+  }
+
+  .icon-bar ha-icon-button {
+    flex: 1;
+    height: 100%;
   }
 
   ha-icon-button {
-    --mdc-icon-button-size: 48px;
-    --mdc-icon-size: 32px;
+    --mdc-icon-button-size: var(--feature-height, 42px);
+    --mdc-icon-size: 24px;
     width: var(--mdc-icon-button-size);
     height: var(--mdc-icon-button-size);
     color: var(--primary-text-color);
