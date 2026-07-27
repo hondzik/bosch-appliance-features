@@ -1,0 +1,44 @@
+{
+    "dishwasher": {
+        "programs": {
+            "feature-name": "Diskmaskinsprogram",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Visa som knappfält",
+                    "description": "Visar programmen som ett horisontellt knappfält istället för ett rutnät med knappar."
+                },
+                "show_machinecare": {
+                    "title": "Visa maskinvårdsprogram",
+                    "description": "Visar maskinvårdsprogrammet i listan över tillgängliga program."
+                }
+            }
+        },
+        "options": {
+            "feature-name": "Diskmaskinsalternativ",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Visa som knappfält",
+                    "description": "Visar programmen som ett horisontellt knappfält istället för ett rutnät med knappar."
+                }
+            }
+
+        },
+        "time": {
+            "feature-name": "Återstående tid diskmaskin",
+            "editor": {
+                "show_remaining_time": {
+                    "title": "Visa återstående tid",
+                    "description": "Visar återstående tid istället för sluttid."
+                }
+            }
+        }
+    },
+	"oven": {
+        "programs": {
+            "feature-name": "Ugnsprogram"
+        },
+        "time": {
+            "feature-name": "Återstående tid ugn"
+        }
+	}
+}

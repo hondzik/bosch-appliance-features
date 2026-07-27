@@ -1,0 +1,44 @@
+{
+    "dishwasher": {
+        "programs": {
+            "feature-name": "Vaatwasserprogramma's",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Weergeven als knoppenbalk",
+                    "description": "Toont de programma's als een horizontale knoppenbalk in plaats van een raster met knoppen."
+                },
+                "show_machinecare": {
+                    "title": "Machineonderhoud-programma tonen",
+                    "description": "Toont het machineonderhoud-programma in de lijst met beschikbare programma's."
+                }
+            }
+        },
+        "options": {
+            "feature-name": "Vaatwasseropties",
+            "editor": {
+                "show_as_button_bar": {
+                    "title": "Weergeven als knoppenbalk",
+                    "description": "Toont de programma's als een horizontale knoppenbalk in plaats van een raster met knoppen."
+                }
+            }
+
+        },
+        "time": {
+            "feature-name": "Resterende tijd vaatwasser",
+            "editor": {
+                "show_remaining_time": {
+                    "title": "Resterende tijd weergeven",
+                    "description": "Toont de resterende tijd in plaats van de eindtijd."
+                }
+            }
+        }
+    },
+	"oven": {
+        "programs": {
+            "feature-name": "Ovenprogramma's"
+        },
+        "time": {
+            "feature-name": "Resterende tijd oven"
+        }
+	}
+}

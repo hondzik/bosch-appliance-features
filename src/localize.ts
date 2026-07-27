@@ -6,9 +6,12 @@ import * as es from './translations/es.json';
 import * as fr from './translations/fr.json';
 import * as hu from './translations/hu.json';
 import * as it from './translations/it.json';
+import * as nl from './translations/nl.json';
+import * as no from './translations/no.json';
 import * as pl from './translations/pl.json';
 import * as pt from './translations/pt.json';
 import * as sk from './translations/sk.json';
+import * as sv from './translations/sv.json';
 import * as uk from './translations/uk.json';
 import type { HomeAssistant } from 'custom-card-helpers';
 
@@ -20,9 +23,12 @@ const languages: Record<string, unknown> = {
   fr,
   hu,
   it,
+  nl,
+  no,
   pl,
   pt,
   sk,
+  sv,
   uk,
 };
 
