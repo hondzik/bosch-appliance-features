@@ -89,6 +89,7 @@ export abstract class BaseBoschFeature extends LitElement {
 
     if (!entity) {
       console.error(`Entity for ${entityRef} not found (entityId: ${entityId})`);
+      return undefined;
     }
 
     if (entity.state === 'unavailable' || entity.state === 'unknown') {

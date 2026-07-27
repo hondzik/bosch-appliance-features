@@ -1,134 +1,131 @@
 import { css } from 'lit';
 
 export const BoschDishwasherProgramsFeatureStyles = css`
-    :host {
-        height: var(--feature-height, 42px);
-        width: 100%;
-        padding: 0px;
-        outline: 0px;
-        overflow: hidden;
-    }
+  :host {
+    height: var(--feature-height, 42px);
+    width: 100%;
+    padding: 0px;
+    outline: 0px;
+    overflow: hidden;
+  }
 
-    ha-control-button-group {
-        gap: 0px!important;
-        display: flex;
-        flex-flow: column;
-        place-content: center space-evenly;
-        justify-content: space-evenly;
-        align-items: center;
-        position: relative;
-        height: height: 100%;
-        width: 100%;
-        border: none;
-        border-radius: var(--feature-border-radius, 12px);
-        padding: 0px;
-        margin: 0px;
-        outline: 0px;
-        overflow: hidden;
-        flex-basis: 100%;
-        background-color: var(--control-button-background-color);
-    }
+  ha-control-button-group {
+    gap: 0px !important;
+    display: flex;
+    flex-flow: column;
+    place-content: center space-evenly;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: var(--feature-border-radius, 12px);
+    padding: 0px;
+    margin: 0px;
+    outline: 0px;
+    overflow: hidden;
+    flex-basis: 100%;
+    background-color: var(--control-button-background-color);
+  }
 
+  ha-control-button {
+    margin-left: calc(var(--feature-border-radius, 12px) * -0.5);
+    margin-right: calc(var(--feature-border-radius, 12px) * -0.5);
+    /*background-color: var(--disabled-color);*/
+    border-radius: var(--feature-border-radius, 12px);
+    height: var(--feature-height, 42px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;*/
+    z-index: 1;
+    flex: 1;
+  }
 
-    ha-control-button {
-        margin-left: calc(var(--feature-border-radius, 12px) * -0.5);
-        margin-right: calc(var(--feature-border-radius, 12px) * -0.5);
-        /*background-color: var(--disabled-color);*/
-        border-radius: var(--feature-border-radius, 12px);
-        height:  var(--feature-height, 42px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        /*transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;*/
-        z-idnex: 1;
-        flex: 1;
-    }
-    
-    ha-control-button:first-child {
-        margin-left: 0px;
-    }   
-    ha-control-button:last-child {
-        margin-right: 0px;
-    }   
+  ha-control-button:first-child {
+    margin-left: 0px;
+  }
+  ha-control-button:last-child {
+    margin-right: 0px;
+  }
 
-    ha-control-button.active,
-    ha-control-button:hover {
-        background-color: var(--tile-color);
-        transition: background-color 180ms ease-in-out, opacity 180ms ease-in-out;
-        opacity: var(--tile-opacity);
-        z-index: 1;
-    }
+  ha-control-button.active,
+  ha-control-button:hover {
+    background-color: var(--tile-color);
+    transition:
+      background-color 180ms ease-in-out,
+      opacity 180ms ease-in-out;
+    opacity: var(--tile-opacity);
+    z-index: 1;
+  }
 
-    .icon-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        color: var(--tile-color);
-    }
+  .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: var(--tile-color);
+  }
 
-    svg {
-        width: 100%;
-        height: 100%;
-        /*stroke: currentColor;
+  svg {
+    width: 100%;
+    height: 100%;
+    /*stroke: currentColor;
         fill: currentColor;*/
-    }
+  }
 
+  .switches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+  }
 
- 
-    .switches {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: center;
-        align-items: center;
-        padding: 8px;
-    }
+  ha-icon-button {
+    --mdc-icon-button-size: 48px;
+    --mdc-icon-size: 32px;
+    width: var(--mdc-icon-button-size);
+    height: var(--mdc-icon-button-size);
+    color: var(--primary-text-color);
+  }
 
-    ha-icon-button {
-        --mdc-icon-button-size: 48px;
-        --mdc-icon-size: 32px;
-        width: var(--mdc-icon-button-size);
-        height: var(--mdc-icon-button-size);
-        color: var(--primary-text-color);
-    }
+  ha-icon-button:hover {
+    color: var(--primary-color);
+  }
 
-    ha-icon-button:hover {
-        color: var(--primary-color);
-    }
+  ha-icon-button svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+  }
 
-    ha-icon-button 
-    svg {
-        width: 100%;
-        height: 100%;
-        stroke: currentColor;
-    }
+  .programs-list ha-control-button .icon-wrapper {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+  }
 
+  .programs-list ha-control-button .icon-wrapper svg {
+    width: 24px;
+    height: 24px;
+  }
 
-    .programs-list ha-control-button .icon-wrapper {
-        width: 48px;
-        height: 48px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 8px;
-    }
+  .programs-list .icon-wrapper {
+    background: white;
+    color: var(--primary-color);
+  }
 
-    .programs-list ha-control-button .icon-wrapper svg {
-        width: 24px;
-        height: 24px;
-    }
-
-    .programs-list .icon-wrapper {
-        background: white;
-        color: var(--primary-color);
-    }
-
-    .programs-list .icon-wrapper.active {
-        background: var(--primary-color);
-        color: white;
-    }
+  .programs-list .icon-wrapper.active {
+    background: var(--primary-color);
+    color: white;
+  }
 `;
 
 export const BoschDishwasherProgramsEditorStyles = css``;

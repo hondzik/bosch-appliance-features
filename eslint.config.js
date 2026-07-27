@@ -1,6 +1,6 @@
 import tsParser from "@typescript-eslint/parser";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
-import importPlugin from "eslint-plugin-import";
+import importXPlugin from "eslint-plugin-import-x";
 
 export default [
   {
@@ -14,7 +14,7 @@ export default [
     },
     plugins: {
       "@typescript-eslint": tsPlugin,
-      "import": importPlugin,
+      "import-x": importXPlugin,
     },
     rules: {
       "@typescript-eslint/no-unused-vars": "error",
@@ -24,7 +24,7 @@ export default [
       }],
       "semi": ["error", "always"],
       // Import sorting rules
-      "import/order": ["error", {
+      "import-x/order": ["error", {
         "groups": [
           "builtin",   // Node.js built-in modules
           "external",  // External packages
@@ -40,7 +40,7 @@ export default [
           "caseInsensitive": true
         }
       }],
-      "import/newline-after-import": ["error", { "count": 1 }],
+      "import-x/newline-after-import": ["error", { "count": 1 }],
     },
   },
 ];

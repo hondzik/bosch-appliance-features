@@ -129,7 +129,7 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
   private renderHaIconButton(program: BoschDishwasherProgram): TemplateResult {
     const svg = BoschDishwasherProgramsFeature.getInlineSVG(program.icon).then((svg) => unsafeHTML(svg));
     return html`
-      <ha-icon-button .label=${program.name} title=${program.name} value=${program.program} @click=${() => this.changeProgram}>
+      <ha-icon-button .label=${program.name} title=${program.name} value=${program.program} @click=${(e: Event) => this.changeProgram(e)}>
         ${until(svg, html`<ha-spinner size="small"></ha-spinner>`)}
       </ha-icon-button>
     `;

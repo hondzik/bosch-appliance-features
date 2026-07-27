@@ -47,11 +47,11 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
 
     return html`
       <div class="bosch-dishwasher-time-feature">
-        <ha-control-button .disabled=${!this.online} title=${this.running ? 'Pause' : 'Start'} @click=${this.action('start_pause')}>
+        <ha-control-button .disabled=${!this.online} title=${this.running ? 'Pause' : 'Start'} @click=${() => this.action('start_pause')}>
           <ha-icon icon=${this.running ? 'mdi:pause' : 'mdi:play'}></ha-icon>
         </ha-control-button>
-        <ha-control-button .disabled=${!this.online} title="Stop" } @click=${this.action('stop')}>
-          <ha-icon icon="mdi:stop" }></ha-icon>
+        <ha-control-button .disabled=${!this.online} title="Stop" @click=${() => this.action('stop')}>
+          <ha-icon icon="mdi:stop"></ha-icon>
         </ha-control-button>
         <div class="time-graph">
           <div class="level" style="width: ${this.getLinkedEntityState(EBoschEntity.program_progress)?.state ?? '0'}%;"></div>
@@ -72,7 +72,7 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
         break;
     }
     if (entity) {
-      this.hass?.callService('button', 'press', { entity_id: 'button.xyz' });
+      this.hass?.callService('button', 'press', { entity_id: entity.entity_id });
     }
   }
 

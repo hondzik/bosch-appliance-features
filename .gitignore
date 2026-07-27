@@ -13,3 +13,6 @@ coverage
 *.old
 *.orig
 .env
+CLAUDE.md
+.claude
+.mcp.json
