@@ -30,9 +30,10 @@ export const BoschDishwasherProgramsFeatureStyles = css`
   }
 
   ha-control-button {
+    --control-button-background-color: transparent;
+    --control-button-background-opacity: 1;
     margin-left: calc(var(--feature-border-radius, 12px) * -0.5);
     margin-right: calc(var(--feature-border-radius, 12px) * -0.5);
-    background-color: transparent;
     border-radius: var(--feature-border-radius, 12px);
     height: var(--feature-height, 42px);
     display: flex;
@@ -51,11 +52,8 @@ export const BoschDishwasherProgramsFeatureStyles = css`
 
   ha-control-button.active,
   ha-control-button:hover {
-    background-color: var(--tile-color);
-    transition:
-      background-color 180ms ease-in-out,
-      opacity 180ms ease-in-out;
-    opacity: var(--tile-opacity);
+    --control-button-background-color: var(--tile-color);
+    --control-button-background-opacity: var(--tile-opacity);
     z-index: 2;
   }
 
