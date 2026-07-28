@@ -33,7 +33,7 @@ jobs:
                   {
                       echo "## Changes"
                       echo
-                      git log "$RANGE" --no-merges --pretty=format:'- %s (%h)'
+                      git log "$RANGE" --no-merges --pretty=format:'### %s (%h)%n%n%b%n---%n'
                   } > release_notes.md
                   cat release_notes.md
 
