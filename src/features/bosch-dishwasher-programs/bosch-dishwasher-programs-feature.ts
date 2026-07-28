@@ -32,8 +32,13 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
   @state()
   protected _config?: BoschDishwasherProgramsFeatureConfig;
 
+  @state()
+  private _pendingProgram?: string;
+
+  private _pendingTimeoutId?: ReturnType<typeof setTimeout>;
+
   protected feature = EBoschFeature.dishwasher_programs;
-  protected entityPrefixLength = 2;
+  protected entityPrefixLength = 1;
 
   static override get applianceType(): string {
     return 'dishwasher';
@@ -92,9 +97,6 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
     }
     this._config = config;
     this.programs = [];
-
-    this.classList.toggle('buttons', this._config.show_as_button_bar === true);
-    this.classList.toggle('icons', this._config.show_as_button_bar !== true);
   }
 
   private get program(): string | null {
@@ -109,41 +111,67 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
 
     const filteredPrograms = this.programs.filter((p) => this.getBoolConfigVal('show_' + p.icon, true));
 
-    return this._config.show_as_button_bar === true
-      ? html`<ha-control-button-group> ${filteredPrograms.map((p) => this.renderHaControlButton(p))} </ha-control-button-group>`
-      : html`<div class="icon-bar">${filteredPrograms.map((p) => this.renderHaIconButton(p))}</div>`;
+    return html`<ha-control-button-group> ${filteredPrograms.map((p) => this.renderHaControlButton(p))} </ha-control-button-group>`;
+  }
+
+  private get controlsDisabled(): boolean {
+    return !this.online || this.running;
   }
 
   private renderHaControlButton(program: BoschDishwasherProgram): TemplateResult {
+    const isPending = this._pendingProgram === program.program;
     const svg = BoschDishwasherProgramsFeature.getInlineSVG(program.icon).then((svg) => unsafeHTML(svg));
-    const disabled = !this.online || this.running;
+    const classes = [
+      program.program == this.program ? 'active' : '',
+      this.controlsDisabled || (this._pendingProgram !== undefined && !isPending) ? 'unavailable' : '',
+      isPending ? 'pending' : '',
+    ]
+      .join(' ')
+      .trim();
     return html`
-      <ha-control-button
-        .value=${program.program}
-        .disabled=${disabled}
-        class="${program.program == this.program ? 'active' : ''}"
-        title=${program.name}
-        @click=${(e: CustomEvent<{ value: string }>) => this.changeProgram(e)}
-      >
-        <div class="icon-wrapper">${until(svg, html`<ha-spinner size="small"></ha-spinner>`)}</div>
+      <ha-control-button .value=${program.program} class=${classes} title=${program.name} @click=${(e: CustomEvent<{ value: string }>) => this.changeProgram(e)}>
+        <div class="icon-wrapper">${isPending ? html`<ha-spinner size="small"></ha-spinner>` : until(svg, html`<ha-spinner size="small"></ha-spinner>`)}</div>
       </ha-control-button>
     `;
   }
 
-  private renderHaIconButton(program: BoschDishwasherProgram): TemplateResult {
-    const svg = BoschDishwasherProgramsFeature.getInlineSVG(program.icon).then((svg) => unsafeHTML(svg));
-    return html`
-      <ha-icon-button .label=${program.name} title=${program.name} value=${program.program} @click=${(e: Event) => this.changeProgram(e)}>
-        ${until(svg, html`<ha-spinner size="small"></ha-spinner>`)}
-      </ha-icon-button>
-    `;
-  }
-
   private changeProgram(e: Event) {
+    if (this.controlsDisabled || this._pendingProgram !== undefined) return;
     const target = e.currentTarget as any;
     const value = target?.value;
     if (!value) return;
+    this._pendingProgram = value;
     this.program = value;
+    this._pendingTimeoutId = setTimeout(() => this.clearPending(), 15000);
+  }
+
+  private clearPending(): void {
+    if (this._pendingTimeoutId !== undefined) {
+      clearTimeout(this._pendingTimeoutId);
+      this._pendingTimeoutId = undefined;
+    }
+    this._pendingProgram = undefined;
+  }
+
+  protected shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
+    if (changedProperties.has('_pendingProgram')) {
+      return true;
+    }
+    return super.shouldUpdate(changedProperties);
+  }
+
+  protected updated(changedProperties: Map<PropertyKey, unknown>): void {
+    super.updated(changedProperties);
+    if (this._pendingProgram !== undefined && this.program === this._pendingProgram) {
+      this.clearPending();
+    }
+  }
+
+  public disconnectedCallback(): void {
+    super.disconnectedCallback();
+    if (this._pendingTimeoutId !== undefined) {
+      clearTimeout(this._pendingTimeoutId);
+    }
   }
 
   static get properties(): { [key: string]: any } {
@@ -161,7 +189,6 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
   public static getStubConfig(): BoschDishwasherProgramsFeatureConfig {
     return {
       type: 'custom:bosch-dishwasher-programs-feature',
-      show_as_button_bar: true,
       show_machinecare: true,
     };
   }

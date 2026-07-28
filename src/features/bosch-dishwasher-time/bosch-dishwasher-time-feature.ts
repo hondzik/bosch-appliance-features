@@ -27,7 +27,7 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
   protected _config?: BoschDishwasherTimeFeatureConfig;
 
   protected feature = EBoschFeature.dishwasher_time;
-  protected entityPrefixLength = 2;
+  protected entityPrefixLength = 1;
 
   static override get applianceType(): string {
     return 'dishwasher';
@@ -47,10 +47,10 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
 
     return html`
       <div class="bosch-dishwasher-time-feature">
-        <ha-control-button .disabled=${!this.online} title=${this.running ? 'Pause' : 'Start'} @click=${() => this.action('start_pause')}>
+        <ha-control-button class=${this.online ? '' : 'unavailable'} title=${this.running ? 'Pause' : 'Start'} @click=${() => this.action('start_pause')}>
           <ha-icon icon=${this.running ? 'mdi:pause' : 'mdi:play'}></ha-icon>
         </ha-control-button>
-        <ha-control-button .disabled=${!this.online} title="Stop" @click=${() => this.action('stop')}>
+        <ha-control-button class=${this.online ? '' : 'unavailable'} title="Stop" @click=${() => this.action('stop')}>
           <ha-icon icon="mdi:stop"></ha-icon>
         </ha-control-button>
         <div class="time-graph">
@@ -62,6 +62,8 @@ export class BoschDishwasherTimeFeature extends BaseBoschFeature implements Love
   }
 
   private action(action: string): void {
+    if (!this.online) return;
+
     let entity = undefined;
     switch (action) {
       case 'start_pause':

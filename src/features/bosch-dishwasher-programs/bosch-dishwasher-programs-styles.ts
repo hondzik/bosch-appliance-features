@@ -32,8 +32,7 @@ export const BoschDishwasherProgramsFeatureStyles = css`
   ha-control-button {
     --control-button-background-color: transparent;
     --control-button-background-opacity: 1;
-    margin-left: calc(var(--feature-border-radius, 12px) * -0.5);
-    margin-right: calc(var(--feature-border-radius, 12px) * -0.5);
+    --control-button-border-radius: var(--feature-border-radius, 12px);
     border-radius: var(--feature-border-radius, 12px);
     height: var(--feature-height, 42px);
     display: flex;
@@ -43,18 +42,16 @@ export const BoschDishwasherProgramsFeatureStyles = css`
     flex: 1;
   }
 
-  ha-control-button:first-child {
-    margin-left: 0px;
-  }
-  ha-control-button:last-child {
-    margin-right: 0px;
-  }
-
   ha-control-button.active,
-  ha-control-button:hover {
+  ha-control-button.pending,
+  ha-control-button:not(.unavailable):hover {
     --control-button-background-color: var(--tile-color);
     --control-button-background-opacity: var(--tile-opacity);
     z-index: 2;
+  }
+
+  ha-control-button.unavailable {
+    opacity: 0.4;
   }
 
   .icon-wrapper {
@@ -68,7 +65,8 @@ export const BoschDishwasherProgramsFeatureStyles = css`
   }
 
   ha-control-button.active .icon-wrapper,
-  ha-control-button:hover .icon-wrapper {
+  ha-control-button.pending .icon-wrapper,
+  ha-control-button:not(.unavailable):hover .icon-wrapper {
     color: white;
   }
 
@@ -77,65 +75,6 @@ export const BoschDishwasherProgramsFeatureStyles = css`
     height: 100%;
     /*stroke: currentColor;
         fill: currentColor;*/
-  }
-
-  .icon-bar {
-    display: flex;
-    flex-flow: row;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    border-radius: var(--feature-border-radius, 12px);
-    background-color: var(--control-button-background-color);
-    overflow: hidden;
-  }
-
-  .icon-bar ha-icon-button {
-    flex: 1;
-    height: 100%;
-  }
-
-  ha-icon-button {
-    --mdc-icon-button-size: var(--feature-height, 42px);
-    --mdc-icon-size: 24px;
-    width: var(--mdc-icon-button-size);
-    height: var(--mdc-icon-button-size);
-    color: var(--primary-text-color);
-  }
-
-  ha-icon-button:hover {
-    color: var(--primary-color);
-  }
-
-  ha-icon-button svg {
-    width: 100%;
-    height: 100%;
-    stroke: currentColor;
-  }
-
-  .programs-list ha-control-button .icon-wrapper {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-  }
-
-  .programs-list ha-control-button .icon-wrapper svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .programs-list .icon-wrapper {
-    background: white;
-    color: var(--primary-color);
-  }
-
-  .programs-list .icon-wrapper.active {
-    background: var(--primary-color);
-    color: white;
   }
 `;
 

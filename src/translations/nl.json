@@ -3,10 +3,6 @@
         "programs": {
             "feature-name": "Vaatwasserprogramma's",
             "editor": {
-                "show_as_button_bar": {
-                    "title": "Weergeven als knoppenbalk",
-                    "description": "Toont de programma's als een horizontale knoppenbalk in plaats van een raster met knoppen."
-                },
                 "show_machinecare": {
                     "title": "Machineonderhoud-programma tonen",
                     "description": "Toont het machineonderhoud-programma in de lijst met beschikbare programma's."
@@ -14,14 +10,7 @@
             }
         },
         "options": {
-            "feature-name": "Vaatwasseropties",
-            "editor": {
-                "show_as_button_bar": {
-                    "title": "Weergeven als knoppenbalk",
-                    "description": "Toont de programma's als een horizontale knoppenbalk in plaats van een raster met knoppen."
-                }
-            }
-
+            "feature-name": "Vaatwasseropties"
         },
         "time": {
             "feature-name": "Resterende tijd vaatwasser",

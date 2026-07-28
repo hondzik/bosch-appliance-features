@@ -3,10 +3,6 @@
         "programs": {
             "feature-name": "Geschirrspüler-Programme",
             "editor": {
-                "show_as_button_bar": {
-                    "title": "Als Schaltflächenleiste anzeigen",
-                    "description": "Zeigt die Programme als horizontale Schaltflächenleiste anstelle eines Rasters an."
-                },
                 "show_machinecare": {
                     "title": "Maschinenpflege-Programm anzeigen",
                     "description": "Zeigt das Maschinenpflege-Programm in der Liste der verfügbaren Programme an."
@@ -14,13 +10,7 @@
             }
         },
         "options": {
-            "feature-name": "Geschirrspüler-Optionen",
-            "editor": {
-                "show_as_button_bar": {
-                    "title": "Als Schaltflächenleiste anzeigen",
-                    "description": "Zeigt die Programme als horizontale Schaltflächenleiste anstelle eines Rasters an."
-                }
-            }
+            "feature-name": "Geschirrspüler-Optionen"
         },
         "time": {
             "feature-name": "Geschirrspüler Restzeit",

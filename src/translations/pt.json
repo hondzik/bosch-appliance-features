@@ -3,10 +3,6 @@
         "programs": {
             "feature-name": "Programas da máquina de lavar louça",
             "editor": {
-                "show_as_button_bar": {
-                    "title": "Mostrar como barra de botões",
-                    "description": "Mostra os programas como uma barra horizontal de botões em vez de uma grade."
-                },
                 "show_machinecare": {
                     "title": "Mostrar programa de manutenção",
                     "description": "Mostra o programa de manutenção na lista de programas disponíveis."
@@ -14,13 +10,7 @@
             }
         },
         "options": {
-            "feature-name": "Opções da máquina de lavar louça",
-            "editor": {
-                "show_as_button_bar": {
-                    "title": "Mostrar como barra de botões",
-                    "description": "Mostra os programas como uma barra horizontal de botões em vez de uma grade."
-                }
-            }
+            "feature-name": "Opções da máquina de lavar louça"
         },
         "time": {
             "feature-name": "Tempo restante da máquina de lavar louça",

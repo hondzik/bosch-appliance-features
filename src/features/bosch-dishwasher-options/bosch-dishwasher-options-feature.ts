@@ -25,7 +25,7 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
   protected _config?: BoschDishwasherOptionsFeatureConfig;
 
   protected feature = EBoschFeature.dishwasher_options;
-  protected entityPrefixLength = 2;
+  protected entityPrefixLength = 1;
 
   static override get applianceType(): string {
     return 'dishwasher';
@@ -43,7 +43,7 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
       return nothing;
     }
 
-    return html`<div class="toners"><div>Not implemented</div></div>`;
+    return html`<div><div>Not implemented yet</div></div>`;
   }
 
   static get properties(): { [key: string]: any } {
@@ -61,7 +61,6 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
   static getStubConfig(): BoschDishwasherOptionsFeatureConfig {
     return {
       type: 'custom:bosch-dishwasher-options-feature',
-      show_as_button_bar: true,
     };
   }
 

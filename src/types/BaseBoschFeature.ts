@@ -1,8 +1,7 @@
 import { LitElement } from 'lit';
-import { version } from '../../package.json';
-import { boschFeatureEntitiesMap, boschEntitiesMap } from '../const/BoschEntities';
+import { name as appName, version } from '../../package.json';
+import { boschFeatureEntitiesMap, boschEntitiesMap, EBoschEntity } from '../const/BoschEntities';
 import type { FeatureConfig, BoschEntity } from './BoschFeaturesTypes';
-import type { EBoschEntity } from '../const/BoschEntities';
 import type { EBoschFeature } from '../const/BoschFeatures';
 import type { HomeAssistant } from 'custom-card-helpers';
 import type { HassEntity } from 'home-assistant-js-websocket';
@@ -54,8 +53,7 @@ export abstract class BaseBoschFeature extends LitElement {
   private _online?: boolean;
   protected get online(): boolean {
     if (this._online === undefined) {
-      // TODO: check if appliance is online, otherwise return false
-      this._online = true;
+      this._online = this.getLinkedEntityState(EBoschEntity.power_state)?.state === 'on';
     }
     return this._online;
   }
@@ -128,7 +126,7 @@ export abstract class BaseBoschFeature extends LitElement {
   private static iconCache = new Map<string, string>();
   protected static async getInlineSVG(iconName: string): Promise<string> {
     if (!this.iconCache.has(iconName)) {
-      const res = await fetch(`/hacsfiles/bosch-appliance-features/icons/${iconName}.svg?v=${version}`);
+      const res = await fetch(`/hacsfiles/${appName}/icons/${iconName}.svg?v=${version}`);
       const svgText = (await res.text()).replace(/#000000|#000/g, 'currentColor');
       this.iconCache.set(iconName, svgText);
     }

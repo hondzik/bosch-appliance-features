@@ -3,10 +3,6 @@
         "programs": {
             "feature-name": "Programy umývačky",
             "editor": {
-                "show_as_button_bar": {
-                    "title": "Zobraziť ako panel tlačidiel",
-                    "description": "Zobrazí programy ako horizontálny panel tlačidiel namiesto mriežky tlačidiel."
-                },
                 "show_machinecare": {
                     "title": "Zobraziť program Machine Care",
                     "description": "Zobrazí program Machine Care v zozname dostupných programov."
@@ -14,13 +10,7 @@
             }
         },
         "options": {
-            "feature-name": "Možnosti umývačky",
-            "editor": {
-                "show_as_button_bar": {
-                    "title": "Zobraziť ako panel tlačidiel",
-                    "description": "Zobrazí programy ako horizontálny panel tlačidiel namiesto mriežky tlačidiel."
-                }
-            }
+            "feature-name": "Možnosti umývačky"
         },
         "time": {
             "feature-name": "Zostávajúci čas umývačky",

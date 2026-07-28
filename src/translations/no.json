@@ -3,10 +3,6 @@
         "programs": {
             "feature-name": "Oppvaskmaskinprogrammer",
             "editor": {
-                "show_as_button_bar": {
-                    "title": "Vis som knapperad",
-                    "description": "Viser programmene som en horisontal knapperad i stedet for et rutenett med knapper."
-                },
                 "show_machinecare": {
                     "title": "Vis Maskinvedlikehold-program",
                     "description": "Viser Maskinvedlikehold-programmet i listen over tilgjengelige programmer."
@@ -14,14 +10,7 @@
             }
         },
         "options": {
-            "feature-name": "Oppvaskmaskinvalg",
-            "editor": {
-                "show_as_button_bar": {
-                    "title": "Vis som knapperad",
-                    "description": "Viser programmene som en horisontal knapperad i stedet for et rutenett med knapper."
-                }
-            }
-
+            "feature-name": "Oppvaskmaskinvalg"
         },
         "time": {
             "feature-name": "Gjenværende tid oppvaskmaskin",

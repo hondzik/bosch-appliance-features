@@ -3,10 +3,6 @@
         "programs": {
             "feature-name": "Mosogatógép programok",
             "editor": {
-                "show_as_button_bar": {
-                    "title": "Megjelenítés gombsorként",
-                    "description": "A programokat vízszintes gombsorként jeleníti meg a rács helyett."
-                },
                 "show_machinecare": {
                     "title": "Géptisztító program megjelenítése",
                     "description": "Megjeleníti a géptisztító programot az elérhető programok listájában."
@@ -14,13 +10,7 @@
             }
         },
         "options": {
-            "feature-name": "Mosogatógép beállítások",
-            "editor": {
-                "show_as_button_bar": {
-                    "title": "Megjelenítés gombsorként",
-                    "description": "A programokat vízszintes gombsorként jeleníti meg a rács helyett."
-                }
-            }
+            "feature-name": "Mosogatógép beállítások"
         },
         "time": {
             "feature-name": "Mosogatógép hátralévő idő",

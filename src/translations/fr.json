@@ -3,10 +3,6 @@
         "programs": {
             "feature-name": "Programmes du lave-vaisselle",
             "editor": {
-                "show_as_button_bar": {
-                    "title": "Afficher comme barre de boutons",
-                    "description": "Affiche les programmes sous forme de barre horizontale de boutons au lieu d'une grille."
-                },
                 "show_machinecare": {
                     "title": "Afficher le programme d'entretien",
                     "description": "Affiche le programme d'entretien dans la liste des programmes disponibles."
@@ -14,13 +10,7 @@
             }
         },
         "options": {
-            "feature-name": "Options du lave-vaisselle",
-            "editor": {
-                "show_as_button_bar": {
-                    "title": "Afficher comme barre de boutons",
-                    "description": "Affiche les programmes sous forme de barre horizontale de boutons au lieu d'une grille."
-                }
-            }
+            "feature-name": "Options du lave-vaisselle"
         },
         "time": {
             "feature-name": "Temps restant du lave-vaisselle",

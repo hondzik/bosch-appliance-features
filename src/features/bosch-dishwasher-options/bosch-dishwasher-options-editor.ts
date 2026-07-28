@@ -22,7 +22,7 @@ export class BoschDishwasherOptionsEditor extends BoschBaseEditor {
   }
 
   protected render(): TemplateResult {
-    return html` <div class="settings">${this.renderBoolHaSettingsRow('show_as_button_bar', true)}</div> `;
+    return html` <div class="settings">Nothing to configure</div> `;
   }
 
   public static get styles(): CSSResultGroup {

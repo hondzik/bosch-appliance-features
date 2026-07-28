@@ -27,7 +27,6 @@
   "scripts": {
     "watch": "rollup -c -w",
     "build": "rollup -c && node scripts/optimize-icons.mjs",
-    "copy to HAOS": "rollup -c && node scripts/copy-to-haos.js",
     "lint & format": "eslint src --ext .ts,.js --fix && prettier --write src/**/*.{ts,js,css,scss,html}",
     "optimize-icons": "node scripts/optimize-icons.mjs",
     "version MAJOR": "npm version major",

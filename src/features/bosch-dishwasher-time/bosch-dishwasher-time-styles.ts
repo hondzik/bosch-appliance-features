@@ -25,6 +25,10 @@ export const BoschDishwasherTimeFeatureStyles = css`
     min-width: fit-content; /* jen tolik místa, kolik obsah potřebuje */
   }
 
+  .bosch-dishwasher-time-feature ha-control-button.unavailable {
+    opacity: 0.4;
+  }
+
   .bosch-dishwasher-time-feature .time-graph {
     flex: 1; /* roztáhne se na zbylý prostor */
     position: relative;

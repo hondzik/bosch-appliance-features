@@ -3,10 +3,6 @@
         "programs": {
             "feature-name": "Diskmaskinsprogram",
             "editor": {
-                "show_as_button_bar": {
-                    "title": "Visa som knappfält",
-                    "description": "Visar programmen som ett horisontellt knappfält istället för ett rutnät med knappar."
-                },
                 "show_machinecare": {
                     "title": "Visa maskinvårdsprogram",
                     "description": "Visar maskinvårdsprogrammet i listan över tillgängliga program."
@@ -14,14 +10,7 @@
             }
         },
         "options": {
-            "feature-name": "Diskmaskinsalternativ",
-            "editor": {
-                "show_as_button_bar": {
-                    "title": "Visa som knappfält",
-                    "description": "Visar programmen som ett horisontellt knappfält istället för ett rutnät med knappar."
-                }
-            }
-
+            "feature-name": "Diskmaskinsalternativ"
         },
         "time": {
             "feature-name": "Återstående tid diskmaskin",

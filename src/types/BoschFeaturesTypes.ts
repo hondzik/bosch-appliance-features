@@ -2,16 +2,13 @@ export type FeatureConfig = {
   type: string;
 };
 
-export type BoschDishwasherOptionsFeatureConfig = FeatureConfig & {
-  show_as_button_bar?: boolean;
-};
+export type BoschDishwasherOptionsFeatureConfig = FeatureConfig & {};
 
 export type BoschDishwasherTimeFeatureConfig = FeatureConfig & {
   show_remaining_time?: boolean;
 };
 
 export type BoschDishwasherProgramsFeatureConfig = FeatureConfig & {
-  show_as_button_bar?: boolean;
   show_machinecare?: boolean;
 };
 

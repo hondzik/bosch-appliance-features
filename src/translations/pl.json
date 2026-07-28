@@ -3,10 +3,6 @@
         "programs": {
             "feature-name": "Programy zmywarki",
             "editor": {
-                "show_as_button_bar": {
-                    "title": "Pokaż jako pasek przycisków",
-                    "description": "Wyświetla programy jako poziomy pasek przycisków zamiast siatki."
-                },
                 "show_machinecare": {
                     "title": "Pokaż program czyszczenia",
                     "description": "Wyświetla program czyszczenia na liście dostępnych programów."
@@ -14,13 +10,7 @@
             }
         },
         "options": {
-            "feature-name": "Opcje zmywarki",
-            "editor": {
-                "show_as_button_bar": {
-                    "title": "Pokaż jako pasek przycisków",
-                    "description": "Wyświetla programy jako poziomy pasek przycisków zamiast siatki."
-                }
-            }
+            "feature-name": "Opcje zmywarki"
         },
         "time": {
             "feature-name": "Pozostały czas zmywarki",

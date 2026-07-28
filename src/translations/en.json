@@ -3,10 +3,6 @@
         "programs": {
             "feature-name": "Dishwasher programs",
             "editor": {
-                "show_as_button_bar": {
-                    "title": "Show as button bar",
-                    "description": "Show the programs as a horizontal button bar instead of a grid of buttons."
-                },
                 "show_machinecare": {
                     "title": "Show Machine Care program",
                     "description": "Show the Machine Care program in the list of available programs."
@@ -14,14 +10,7 @@
             }
         },
         "options": {
-            "feature-name": "Dishwasher options",
-            "editor": {
-                "show_as_button_bar": {
-                    "title": "Show as button bar",
-                    "description": "Show the programs as a horizontal button bar instead of a grid of buttons."
-                }
-            }
-
+            "feature-name": "Dishwasher options"
         },
         "time": {
             "feature-name": "Dishwasher time remaining",
