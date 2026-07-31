@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Mosogatógép programok",
             "editor": {
-                "show_machinecare": {
-                    "title": "Géptisztító program megjelenítése",
-                    "description": "Megjeleníti a géptisztító programot az elérhető programok listájában."
+                "program_order": {
+                    "title": "Programok sorrendje és láthatósága",
+                    "description": "Húzza a programokat az átrendezéshez, és a szem ikonnal jelenítheti meg vagy rejtheti el őket."
+                },
+                "no_entity": {
+                    "title": "Ehhez az eszközhöz nem található programok entitás."
                 }
             }
         },
         "options": {
-            "feature-name": "Mosogatógép beállítások"
+            "feature-name": "Mosogatógép beállítások",
+            "editor": {
+                "option_order": {
+                    "title": "Beállítások sorrendje és láthatósága",
+                    "description": "Húzza a beállításokat az átrendezéshez, és a szem ikonnal jelenítheti meg vagy rejtheti el őket."
+                },
+                "no_entity": {
+                    "title": "Ehhez az eszközhöz nem található beállítások entitás."
+                }
+            }
         },
         "time": {
             "feature-name": "Mosogatógép hátralévő idő",

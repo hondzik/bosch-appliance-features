@@ -1,0 +1,45 @@
+{
+    "dishwasher": {
+        "programs": {
+            "feature-name": "洗碗机程序",
+            "editor": {
+                "program_order": {
+                    "title": "程序顺序与可见性",
+                    "description": "拖动以更改程序顺序，使用眼睛图标显示或隐藏程序。"
+                },
+                "no_entity": {
+                    "title": "未找到该设备的程序实体。"
+                }
+            }
+        },
+        "options": {
+            "feature-name": "洗碗机选项",
+            "editor": {
+                "option_order": {
+                    "title": "选项顺序与可见性",
+                    "description": "拖动以更改选项顺序，使用眼睛图标显示或隐藏选项。"
+                },
+                "no_entity": {
+                    "title": "未找到该设备的选项实体。"
+                }
+            }
+        },
+        "time": {
+            "feature-name": "洗碗机剩余时间",
+            "editor": {
+                "show_remaining_time": {
+                    "title": "显示剩余时间",
+                    "description": "显示剩余时间而不是结束时间。"
+                }
+            }
+        }
+    },
+    "oven": {
+        "programs": {
+            "feature-name": "烤箱程序"
+        },
+        "time": {
+            "feature-name": "烤箱剩余时间"
+        }
+    }
+}

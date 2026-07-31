@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Dishwasher programs",
             "editor": {
-                "show_machinecare": {
-                    "title": "Show Machine Care program",
-                    "description": "Show the Machine Care program in the list of available programs."
+                "program_order": {
+                    "title": "Program order & visibility",
+                    "description": "Drag to reorder programs and use the eye icon to show or hide them."
+                },
+                "no_entity": {
+                    "title": "No programs entity found for this device."
                 }
             }
         },
         "options": {
-            "feature-name": "Dishwasher options"
+            "feature-name": "Dishwasher options",
+            "editor": {
+                "option_order": {
+                    "title": "Option order & visibility",
+                    "description": "Drag to reorder options and use the eye icon to show or hide them."
+                },
+                "no_entity": {
+                    "title": "No options entity found for this device."
+                }
+            }
         },
         "time": {
             "feature-name": "Dishwasher time remaining",

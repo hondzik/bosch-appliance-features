@@ -1,166 +1,52 @@
-import { EBoschModelGroup } from './BoschModels';
+import { orderKeys } from '../utils/orderKeys';
 import type { BoschDishwasherProgram } from '../types/BoschFeaturesTypes';
+import type { OrderedKey } from '../utils/orderKeys';
 
-export enum EBoschDishwasherProgram {
-  auto_1,
-  auto_2,
-  auto_3,
-  auto_half_load,
-  eco_50,
-  express_60,
-  express_sparkle_65,
-  glass_40,
-  glass_care,
-  intelligent,
-  intensive_45,
-  intensive_70,
-  intensive_power,
-  magic_daily,
-  machinecare,
-  maximum_cleaning,
-  mixed_load,
-  night_wash,
-  normal_45,
-  normal_65,
-  pre_rinse,
-  quick_45,
-  quick_65,
-  quick_n_dry,
-  steam_fresh,
-  super_60,
+export const BOSCH_DISHWASHER_PROGRAM_PREFIX = 'Dishcare.Dishwasher.Program.';
+
+/**
+ * Programs without an `icon` fall back to BOSCH_PROGRAM_FALLBACK_ICON until a matching SVG is
+ * added to src/assets/icons/: AutoHalfLoad, ExpressSparkle65, GlassCare, LearningDishwasher,
+ * Intensiv45, IntensivPower, MagicDaily, MaximumCleaning, MixedLoad, Normal45, Normal65, PreRinse,
+ * Quick65, QuickD, SteamFresh, Super60.
+ */
+export const boschDishwasherAllProgramsMap: Map<string, BoschDishwasherProgram> = new Map([
+  ['Auto1', { name: 'Auto 43-45°C', icon: 'auto' }],
+  ['Auto2', { name: 'Auto 45-65°C', icon: 'auto' }],
+  ['Auto3', { name: 'Auto 65-75°C', icon: 'auto' }],
+  ['AutoHalfLoad', { name: 'Auto Half Load' }],
+  ['Eco50', { name: 'Eco 50°C', icon: 'eco_50' }],
+  ['Kurz60', { name: 'Express 60°C', icon: 'express_60' }],
+  ['ExpressSparkle65', { name: 'Express Sparkle 65°C' }],
+  ['Glas40', { name: 'Glass 40°C', icon: 'glass_40' }],
+  ['GlassCare', { name: 'Glass Care' }],
+  ['LearningDishwasher', { name: 'Intelligent' }],
+  ['Intensiv45', { name: 'Intensive 45°C' }],
+  ['Intensiv70', { name: 'Intensive 70°C', icon: 'intensive_70' }],
+  ['IntensivPower', { name: 'Intensive Power' }],
+  ['MagicDaily', { name: 'Magic Daily' }],
+  ['MachineCare', { name: 'Machine Care', icon: 'machinecare' }],
+  ['MaximumCleaning', { name: 'Maximum Cleaning' }],
+  ['MixedLoad', { name: 'Mixed Load' }],
+  ['NightWash', { name: 'Silent 50°C', icon: 'silent_50' }],
+  ['Normal45', { name: 'Normal 45°C' }],
+  ['Normal65', { name: 'Normal 65°C' }],
+  ['PreRinse', { name: 'Pre-rinse' }],
+  ['Quick45', { name: 'Quick 45°C', icon: 'express_45' }],
+  ['Quick65', { name: 'Quick 65°C' }],
+  ['QuickD', { name: 'Quick Wash & Dry' }],
+  ['SteamFresh', { name: 'Steam Fresh' }],
+  ['Super60', { name: 'Super 60°C' }],
+]);
+
+export type OrderedProgram = OrderedKey;
+
+/**
+ * Merges the programs actually reported by the device (`options`, full option IDs) with the
+ * user-configured order/visibility. Programs no longer reported drop out; new ones appear at the
+ * end, visible.
+ */
+export function orderPrograms(options: string[], config: { program_order?: string[]; program_hidden?: string[] }): OrderedProgram[] {
+  const keys = options.map((o) => o.slice(BOSCH_DISHWASHER_PROGRAM_PREFIX.length));
+  return orderKeys(keys, config.program_order, config.program_hidden);
 }
-
-export const boschDishwasherAllProgramsMap: Map<EBoschDishwasherProgram, BoschDishwasherProgram> = new Map([
-  [EBoschDishwasherProgram.auto_1, { name: 'Auto 43-45°C', icon: 'auto', program: 'Dishcare.Dishwasher.Program.Auto1' }],
-  [EBoschDishwasherProgram.auto_2, { name: 'Auto 45-65°C', icon: 'auto', program: 'Dishcare.Dishwasher.Program.Auto2' }],
-  [EBoschDishwasherProgram.auto_3, { name: 'Auto 65-75°C', icon: 'auto', program: 'Dishcare.Dishwasher.Program.Auto3' }],
-  [
-    EBoschDishwasherProgram.auto_half_load,
-    {
-      name: 'Auto Half Load',
-      icon: 'auto_half_load',
-      program: 'Dishcare.Dishwasher.Program.AutoHalfLoad',
-    },
-  ], // TODO: icon
-  [EBoschDishwasherProgram.eco_50, { name: 'Eco 50°C', icon: 'eco_50', program: 'Dishcare.Dishwasher.Program.Eco50' }],
-  [EBoschDishwasherProgram.express_60, { name: 'Express 60°C', icon: 'express_60', program: 'Dishcare.Dishwasher.Program.Kurz60' }],
-  [
-    EBoschDishwasherProgram.express_sparkle_65,
-    {
-      name: 'Express Sparkle 65°C',
-      icon: 'express_sparkle_65',
-      program: 'Dishcare.Dishwasher.Program.ExpressSparkle65',
-    },
-  ], // TODO: icon
-  [EBoschDishwasherProgram.glass_40, { name: 'Glass 40°C', icon: 'glass_40', program: 'Dishcare.Dishwasher.Program.Glas40' }],
-  [EBoschDishwasherProgram.glass_care, { name: 'Glass Care', icon: 'glass_care', program: 'Dishcare.Dishwasher.Program.GlassCare' }], // TODO: icon
-  [
-    EBoschDishwasherProgram.intelligent,
-    {
-      name: 'Intelligent',
-      icon: 'intelligent',
-      program: 'Dishcare.Dishwasher.Program.LearningDishwasher',
-    },
-  ], // TODO: icon
-  [
-    EBoschDishwasherProgram.intensive_45,
-    {
-      name: 'Intensive 45°C',
-      icon: 'intensive_45',
-      program: 'Dishcare.Dishwasher.Program.Intensiv45',
-    },
-  ], // TODO: icon
-  [
-    EBoschDishwasherProgram.intensive_70,
-    {
-      name: 'Intensive 70°C',
-      icon: 'intensive_70',
-      program: 'Dishcare.Dishwasher.Program.Intensiv70',
-    },
-  ],
-  [
-    EBoschDishwasherProgram.intensive_power,
-    {
-      name: 'Intensive Power',
-      icon: 'intensive_power',
-      program: 'Dishcare.Dishwasher.Program.IntensivPower',
-    },
-  ], // TODO: icon
-  [
-    EBoschDishwasherProgram.magic_daily,
-    {
-      name: 'Magic Daily',
-      icon: 'magic_daily',
-      program: 'Dishcare.Dishwasher.Program.MagicDaily',
-    },
-  ], // TODO: icon
-  [
-    EBoschDishwasherProgram.machinecare,
-    {
-      name: 'Machine Care',
-      icon: 'machinecare',
-      program: 'Dishcare.Dishwasher.Program.MachineCare',
-    },
-  ],
-  [
-    EBoschDishwasherProgram.maximum_cleaning,
-    {
-      name: 'Maximum Cleaning',
-      icon: 'maximum_cleaning',
-      program: 'Dishcare.Dishwasher.Program.MaximumCleaning',
-    },
-  ], // TODO: icon
-  [EBoschDishwasherProgram.mixed_load, { name: 'Mixed Load', icon: 'mixed_load', program: 'Dishcare.Dishwasher.Program.MixedLoad' }], // TODO: icon
-  [EBoschDishwasherProgram.night_wash, { name: 'Silent 50°C', icon: 'silent_50', program: 'Dishcare.Dishwasher.Program.NightWash' }],
-  [EBoschDishwasherProgram.normal_45, { name: 'Normal 45°C', icon: 'normal_45', program: 'Dishcare.Dishwasher.Program.Normal45' }], // TODO: icon
-  [EBoschDishwasherProgram.normal_65, { name: 'Normal 65°C', icon: 'normal_65', program: 'Dishcare.Dishwasher.Program.Normal65' }], // TODO: icon
-  [EBoschDishwasherProgram.pre_rinse, { name: 'Pre-rinse', icon: 'pre_rinse', program: 'Dishcare.Dishwasher.Program.PreRinse' }], // TODO: icon
-  [EBoschDishwasherProgram.quick_45, { name: 'Quick 45°C', icon: 'express_45', program: 'Dishcare.Dishwasher.Program.Quick45' }],
-  [EBoschDishwasherProgram.quick_65, { name: 'Quick 65°C', icon: 'express_65', program: 'Dishcare.Dishwasher.Program.Quick65' }], // TODO: icon
-  [
-    EBoschDishwasherProgram.quick_n_dry,
-    {
-      name: 'Quick Wash & Dry',
-      icon: 'quick_n_dry',
-      program: 'Dishcare.Dishwasher.Program.QuickD',
-    },
-  ], // TODO: icon
-  [
-    EBoschDishwasherProgram.steam_fresh,
-    {
-      name: 'Steam Fresh',
-      icon: 'steam_fresh',
-      program: 'Dishcare.Dishwasher.Program.SteamFresh',
-    },
-  ], // TODO: icon
-  [EBoschDishwasherProgram.super_60, { name: 'Super 60°C', icon: 'super_60', program: 'Dishcare.Dishwasher.Program.Super60' }], // TODO: icon
-]);
-
-export const boschDishwasherModelProgramsMap: Map<EBoschModelGroup, EBoschDishwasherProgram[]> = new Map([
-  [
-    EBoschModelGroup.SMV8YCX01E,
-    [
-      EBoschDishwasherProgram.eco_50,
-      EBoschDishwasherProgram.auto_2,
-      EBoschDishwasherProgram.intensive_70,
-      EBoschDishwasherProgram.express_60,
-      EBoschDishwasherProgram.quick_45,
-      EBoschDishwasherProgram.glass_40,
-      EBoschDishwasherProgram.night_wash,
-      EBoschDishwasherProgram.machinecare,
-    ],
-  ],
-  [
-    EBoschModelGroup.SMV8YCX02E,
-    [
-      EBoschDishwasherProgram.eco_50,
-      EBoschDishwasherProgram.auto_2,
-      EBoschDishwasherProgram.intensive_70,
-      EBoschDishwasherProgram.express_60,
-      EBoschDishwasherProgram.intelligent,
-      EBoschDishwasherProgram.glass_40,
-      EBoschDishwasherProgram.night_wash,
-      EBoschDishwasherProgram.machinecare,
-    ],
-  ],
-]);

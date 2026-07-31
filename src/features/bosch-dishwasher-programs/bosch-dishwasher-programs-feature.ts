@@ -1,16 +1,13 @@
 import { html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { until } from 'lit/directives/until.js';
-import { boschDishwasherAllProgramsMap, boschDishwasherModelProgramsMap } from '../../const/BoschDishWasherPrograms';
+import { BOSCH_DISHWASHER_PROGRAM_PREFIX, boschDishwasherAllProgramsMap, orderPrograms } from '../../const/BoschDishWasherPrograms';
 import { EBoschEntity } from '../../const/BoschEntities';
 import { EBoschFeature } from '../../const/BoschFeatures';
-import { boschModelGroupMap, EBoschModel } from '../../const/BoschModels';
 import { BaseBoschFeature } from '../../types/BaseBoschFeature';
-import { enumFromKey } from '../../utils/enum';
+import { renderBoschIcon } from '../../utils/boschIcon';
+import { CommonFeatureButtonBarStyles } from '../common/bosch-styles';
 import { BoschDishwasherProgramsFeatureStyles } from './bosch-dishwasher-programs-styles';
-import type { EBoschModelGroup } from '../../const/BoschModels';
-import type { BoschDishwasherProgram, BoschDishwasherProgramsFeatureConfig } from '../../types/BoschFeaturesTypes';
+import type { BoschDishwasherProgramsFeatureConfig } from '../../types/BoschFeaturesTypes';
 import type { LovelaceGridOptions } from '../../types/LovelaceGrigOptions';
 import type { HomeAssistant } from 'custom-card-helpers';
 import type { HassEntity } from 'home-assistant-js-websocket';
@@ -18,7 +15,7 @@ import type { TemplateResult, CSSResultGroup } from 'lit';
 import './bosch-dishwasher-programs-editor';
 
 const supportsBoschDishwasherProgramsFeature = (stateObj: HassEntity) => {
-  return BaseBoschFeature.isApplianceTypeSupported(stateObj, BoschDishwasherProgramsFeature.applianceType);
+  return BaseBoschFeature.isHomeConnectAltEntity(stateObj);
 };
 
 @customElement('bosch-dishwasher-programs-feature')
@@ -54,49 +51,11 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
     }
   }
 
-  private _programs: BoschDishwasherProgram[] = [];
-
-  private get programs(): BoschDishwasherProgram[] {
-    if (this._programs.length === 0) {
-      const modelName = this.deviceModel;
-      if (!modelName) {
-        console.error('Cannot determine dishwasher model from the device registry');
-        return [];
-      }
-
-      const model = enumFromKey(EBoschModel, modelName);
-      if (model === undefined) {
-        console.error(`Unsupported dishwasher model ${modelName}`);
-        return [];
-      }
-
-      const modelGroup: EBoschModelGroup | undefined = boschModelGroupMap.get(model);
-      if (modelGroup === undefined) {
-        console.error(`Model group not defined for dishwasher model ${modelName}`);
-        return [];
-      }
-
-      const programKeys = boschDishwasherModelProgramsMap.get(modelGroup) || [];
-      this._programs = programKeys.map((p) => boschDishwasherAllProgramsMap.get(p)).filter(Boolean) as BoschDishwasherProgram[];
-
-      if (this._programs.length === 0) {
-        console.error(`No programs associated with model ${modelName} found`);
-      }
-    }
-
-    return this._programs;
-  }
-
-  private set programs(programs: BoschDishwasherProgram[]) {
-    this._programs = programs;
-  }
-
   public setConfig(config: BoschDishwasherProgramsFeatureConfig): void {
     if (!config) {
       throw new Error('Invalid configuration');
     }
     this._config = config;
-    this.programs = [];
   }
 
   private get program(): string | null {
@@ -109,28 +68,31 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
       return nothing;
     }
 
-    const filteredPrograms = this.programs.filter((p) => this.getBoolConfigVal('show_' + p.icon, true));
+    const options: string[] = this.getLinkedEntityState(EBoschEntity.programs)?.attributes.options ?? [];
+    const visiblePrograms = orderPrograms(options, this._config)
+      .filter((p) => !p.hidden)
+      .map((p) => p.key);
 
-    return html`<ha-control-button-group> ${filteredPrograms.map((p) => this.renderHaControlButton(p))} </ha-control-button-group>`;
+    return html`<ha-control-button-group> ${visiblePrograms.map((key) => this.renderHaControlButton(key))} </ha-control-button-group>`;
   }
 
   private get controlsDisabled(): boolean {
     return !this.online || this.running;
   }
 
-  private renderHaControlButton(program: BoschDishwasherProgram): TemplateResult {
-    const isPending = this._pendingProgram === program.program;
-    const svg = BoschDishwasherProgramsFeature.getInlineSVG(program.icon).then((svg) => unsafeHTML(svg));
-    const classes = [
-      program.program == this.program ? 'active' : '',
-      this.controlsDisabled || (this._pendingProgram !== undefined && !isPending) ? 'unavailable' : '',
-      isPending ? 'pending' : '',
-    ]
+  private renderHaControlButton(key: string): TemplateResult {
+    const fullProgram = `${BOSCH_DISHWASHER_PROGRAM_PREFIX}${key}`;
+    const isPending = this._pendingProgram === fullProgram;
+    const program = boschDishwasherAllProgramsMap.get(key);
+    const stateObj = this.getLinkedEntityState(EBoschEntity.programs);
+    const hass = this.hass as unknown as { formatEntityState?: (s: HassEntity, v: string) => string };
+    const title = (stateObj && hass.formatEntityState?.(stateObj, fullProgram)) || program?.name || key;
+    const classes = [fullProgram == this.program ? 'active' : '', this.controlsDisabled || (this._pendingProgram !== undefined && !isPending) ? 'unavailable' : '', isPending ? 'pending' : '']
       .join(' ')
       .trim();
     return html`
-      <ha-control-button .value=${program.program} class=${classes} title=${program.name} @click=${(e: CustomEvent<{ value: string }>) => this.changeProgram(e)}>
-        <div class="icon-wrapper">${isPending ? html`<ha-spinner size="small"></ha-spinner>` : until(svg, html`<ha-spinner size="small"></ha-spinner>`)}</div>
+      <ha-control-button .value=${fullProgram} class=${classes} title=${title} @click=${(e: CustomEvent<{ value: string }>) => this.changeProgram(e)}>
+        <div class="icon-wrapper">${isPending ? html`<ha-spinner size="small"></ha-spinner>` : renderBoschIcon(program)}</div>
       </ha-control-button>
     `;
   }
@@ -189,12 +151,11 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
   public static getStubConfig(): BoschDishwasherProgramsFeatureConfig {
     return {
       type: 'custom:bosch-dishwasher-programs-feature',
-      show_machinecare: true,
     };
   }
 
   public static get styles(): CSSResultGroup {
-    return BoschDishwasherProgramsFeatureStyles;
+    return [CommonFeatureButtonBarStyles, BoschDishwasherProgramsFeatureStyles];
   }
 
   public static getGridOptions(): LovelaceGridOptions {

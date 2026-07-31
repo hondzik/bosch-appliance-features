@@ -12,7 +12,7 @@ import type { TemplateResult, CSSResultGroup } from 'lit';
 import './bosch-dishwasher-time-editor';
 
 const supportsDishwasherTimeFeature = (stateObj: HassEntity) => {
-  return BaseBoschFeature.isApplianceTypeSupported(stateObj, BoschDishwasherTimeFeature.applianceType);
+  return BaseBoschFeature.isHomeConnectAltEntity(stateObj);
 };
 
 @customElement('bosch-dishwasher-time-feature')

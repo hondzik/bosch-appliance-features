@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Programas del lavavajillas",
             "editor": {
-                "show_machinecare": {
-                    "title": "Mostrar programa de cuidado de máquina",
-                    "description": "Muestra el programa de cuidado de máquina en la lista de programas disponibles."
+                "program_order": {
+                    "title": "Orden y visibilidad de los programas",
+                    "description": "Arrastra para reordenar los programas y usa el icono del ojo para mostrarlos u ocultarlos."
+                },
+                "no_entity": {
+                    "title": "No se encontró ninguna entidad de programas para este dispositivo."
                 }
             }
         },
         "options": {
-            "feature-name": "Opciones del lavavajillas"
+            "feature-name": "Opciones del lavavajillas",
+            "editor": {
+                "option_order": {
+                    "title": "Orden y visibilidad de las opciones",
+                    "description": "Arrastra para reordenar las opciones y usa el icono del ojo para mostrarlas u ocultarlas."
+                },
+                "no_entity": {
+                    "title": "No se encontró ninguna entidad de opciones para este dispositivo."
+                }
+            }
         },
         "time": {
             "feature-name": "Tiempo restante del lavavajillas",

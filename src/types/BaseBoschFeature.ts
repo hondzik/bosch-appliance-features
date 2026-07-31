@@ -1,6 +1,7 @@
 import { LitElement } from 'lit';
-import { name as appName, version } from '../../package.json';
 import { boschFeatureEntitiesMap, boschEntitiesMap, EBoschEntity } from '../const/BoschEntities';
+import { getDeviceEntityIds } from '../utils/deviceEntities';
+import { resolveEntityPrefix } from '../utils/entityPrefix';
 import type { FeatureConfig, BoschEntity } from './BoschFeaturesTypes';
 import type { EBoschFeature } from '../const/BoschFeatures';
 import type { HomeAssistant } from 'custom-card-helpers';
@@ -20,9 +21,8 @@ export abstract class BaseBoschFeature extends LitElement {
   private _entityPrefix?: string;
   private get entityPrefix(): string | undefined {
     if (this._entityPrefix === undefined) {
-      if (this.context?.entity_id) {
-        this._entityPrefix = this.context.entity_id.split('.')[1]?.split('_').slice(0, this.entityPrefixLength).join('_');
-      } else {
+      this._entityPrefix = resolveEntityPrefix(this.context?.entity_id, this.entityPrefixLength);
+      if (this._entityPrefix === undefined) {
         console.error('Cannot derive entityPrefix: context.entity_id is undefined');
       }
     }
@@ -101,38 +101,6 @@ export abstract class BaseBoschFeature extends LitElement {
     return this._config && key in this._config ? !!(this._config as any)[key] : defaultValue;
   }
 
-  protected get deviceModel(): string | undefined {
-    if (!this.hass || !this.context?.entity_id) return undefined;
-
-    // hass.entities/hass.devices are populated by the HA frontend but not declared on custom-card-helpers' HomeAssistant type.
-    const hass = this.hass as unknown as {
-      entities?: Record<string, { device_id?: string }>;
-      devices?: Record<string, { model?: string }>;
-    };
-
-    const deviceId = hass.entities?.[this.context.entity_id]?.device_id;
-    if (!deviceId) {
-      console.error(`Cannot resolve device_id for entity ${this.context.entity_id}`);
-      return undefined;
-    }
-
-    const model = hass.devices?.[deviceId]?.model;
-    if (!model) {
-      console.error(`Device ${deviceId} has no model set in the device registry`);
-    }
-    return model;
-  }
-
-  private static iconCache = new Map<string, string>();
-  protected static async getInlineSVG(iconName: string): Promise<string> {
-    if (!this.iconCache.has(iconName)) {
-      const res = await fetch(`/hacsfiles/${appName}/icons/${iconName}.svg?v=${version}`);
-      const svgText = (await res.text()).replace(/#000000|#000/g, 'currentColor');
-      this.iconCache.set(iconName, svgText);
-    }
-    return this.iconCache.get(iconName)!;
-  }
-
   protected shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
     if (changedProperties.has('context') || changedProperties.has('_config')) {
       return true;
@@ -164,32 +132,27 @@ export abstract class BaseBoschFeature extends LitElement {
     return linkedEntityChanged;
   }
 
-  public static async isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): Promise<boolean> {
-    console.log('isSupported: Context entity_id:', context.entity_id);
+  // Home Connect Alt derives these object_id fragments from the Home Connect API's own
+  // appliance namespace (e.g. `dishcare_dishwasher_option_ecodry`, `cooking_oven_setting_sabbathmode`),
+  // not from the user-configurable friendly_name — safe to match on regardless of naming template.
+  private static readonly applianceTypeEntityMarkers: Record<string, string> = {
+    dishwasher: 'dishcare_dishwasher_',
+    oven: 'cooking_oven_',
+  };
 
-    const stateObj = context.entity_id ? hass.states[context.entity_id] : undefined;
-    if (!stateObj) return false;
-
-    const devices = await hass.connection.sendMessagePromise({
-      type: 'config/device_registry/list',
-    });
-
-    // Ensure devices is an array before using .find
-    const devicesArray = Array.isArray(devices) ? devices : [];
-    const matchedDevice = devicesArray.find((device: any) => device.entities && device.entities.includes(context.entity_id));
-    console.log('isSupported: Matched device:', matchedDevice);
-
-    return this.isApplianceTypeSupported(stateObj, this.applianceType);
+  public static isHomeConnectAltEntity(stateObj: HassEntity): boolean {
+    const deviceClass = stateObj.attributes.device_class?.toLowerCase() || '';
+    return deviceClass.startsWith('home_connect_alt_');
   }
 
-  public static isApplianceTypeSupported(stateObj: HassEntity, applianceType: string): boolean {
-    console.log('isApplianceTypeSupported: check for subtype:', applianceType);
+  public static isSupported(hass: HomeAssistant, context: LovelaceCardFeatureContext): boolean {
+    const entityId = context.entity_id;
+    const stateObj = entityId ? hass.states[entityId] : undefined;
+    if (!stateObj || !this.isHomeConnectAltEntity(stateObj)) return false;
 
-    const deviceClass = stateObj.attributes.device_class?.toLowerCase() || '';
-    const friendlyName = stateObj.attributes.friendly_name?.toLowerCase() || '';
+    const marker = this.applianceTypeEntityMarkers[this.applianceType];
+    if (!marker) return false;
 
-    console.log(`isApplianceTypeSupported: ${deviceClass.startsWith('home_connect_alt_')}, ${friendlyName.includes('bosch')}, ${friendlyName.includes(applianceType)}`);
-
-    return deviceClass.startsWith('home_connect_alt_') && friendlyName.includes('bosch') && friendlyName.includes(applianceType);
+    return getDeviceEntityIds(hass, entityId).some((id) => id.includes(marker));
   }
 }

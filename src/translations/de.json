@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Geschirrspüler-Programme",
             "editor": {
-                "show_machinecare": {
-                    "title": "Maschinenpflege-Programm anzeigen",
-                    "description": "Zeigt das Maschinenpflege-Programm in der Liste der verfügbaren Programme an."
+                "program_order": {
+                    "title": "Reihenfolge & Sichtbarkeit der Programme",
+                    "description": "Programme per Drag & Drop neu anordnen und mit dem Augensymbol ein- oder ausblenden."
+                },
+                "no_entity": {
+                    "title": "Keine Programme-Entität für dieses Gerät gefunden."
                 }
             }
         },
         "options": {
-            "feature-name": "Geschirrspüler-Optionen"
+            "feature-name": "Geschirrspüler-Optionen",
+            "editor": {
+                "option_order": {
+                    "title": "Reihenfolge & Sichtbarkeit der Optionen",
+                    "description": "Optionen per Drag & Drop neu anordnen und mit dem Augensymbol ein- oder ausblenden."
+                },
+                "no_entity": {
+                    "title": "Keine Optionen-Entität für dieses Gerät gefunden."
+                }
+            }
         },
         "time": {
             "feature-name": "Geschirrspüler Restzeit",

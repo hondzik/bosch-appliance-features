@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Diskmaskinsprogram",
             "editor": {
-                "show_machinecare": {
-                    "title": "Visa maskinvårdsprogram",
-                    "description": "Visar maskinvårdsprogrammet i listan över tillgängliga program."
+                "program_order": {
+                    "title": "Programordning och synlighet",
+                    "description": "Dra för att ändra ordningen på programmen och använd ögonikonen för att visa eller dölja dem."
+                },
+                "no_entity": {
+                    "title": "Ingen programentitet hittades för den här enheten."
                 }
             }
         },
         "options": {
-            "feature-name": "Diskmaskinsalternativ"
+            "feature-name": "Diskmaskinsalternativ",
+            "editor": {
+                "option_order": {
+                    "title": "Alternativordning och synlighet",
+                    "description": "Dra för att ändra ordningen på alternativen och använd ögonikonen för att visa eller dölja dem."
+                },
+                "no_entity": {
+                    "title": "Ingen alternativentitet hittades för den här enheten."
+                }
+            }
         },
         "time": {
             "feature-name": "Återstående tid diskmaskin",

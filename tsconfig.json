@@ -13,5 +13,6 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
+    "skipLibCheck": true
   }
 }

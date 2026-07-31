@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Oppvaskmaskinprogrammer",
             "editor": {
-                "show_machinecare": {
-                    "title": "Vis Maskinvedlikehold-program",
-                    "description": "Viser Maskinvedlikehold-programmet i listen over tilgjengelige programmer."
+                "program_order": {
+                    "title": "Rekkefølge og synlighet for programmer",
+                    "description": "Dra for å endre rekkefølgen på programmene, og bruk øyeikonet for å vise eller skjule dem."
+                },
+                "no_entity": {
+                    "title": "Fant ingen programenhet for denne enheten."
                 }
             }
         },
         "options": {
-            "feature-name": "Oppvaskmaskinvalg"
+            "feature-name": "Oppvaskmaskinvalg",
+            "editor": {
+                "option_order": {
+                    "title": "Rekkefølge og synlighet for valg",
+                    "description": "Dra for å endre rekkefølgen på valgene, og bruk øyeikonet for å vise eller skjule dem."
+                },
+                "no_entity": {
+                    "title": "Fant ingen valgenhet for denne enheten."
+                }
+            }
         },
         "time": {
             "feature-name": "Gjenværende tid oppvaskmaskin",

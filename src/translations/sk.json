@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Programy umývačky",
             "editor": {
-                "show_machinecare": {
-                    "title": "Zobraziť program Machine Care",
-                    "description": "Zobrazí program Machine Care v zozname dostupných programov."
+                "program_order": {
+                    "title": "Poradie a viditeľnosť programov",
+                    "description": "Presunutím zmeníte poradie programov, ikonou oka ich zobrazíte alebo skryjete."
+                },
+                "no_entity": {
+                    "title": "Pre toto zariadenie sa nenašla entita programov."
                 }
             }
         },
         "options": {
-            "feature-name": "Možnosti umývačky"
+            "feature-name": "Možnosti umývačky",
+            "editor": {
+                "option_order": {
+                    "title": "Poradie a viditeľnosť možností",
+                    "description": "Presunutím zmeníte poradie možností, ikonou oka ich zobrazíte alebo skryjete."
+                },
+                "no_entity": {
+                    "title": "Pre toto zariadenie sa nenašla entita možností."
+                }
+            }
         },
         "time": {
             "feature-name": "Zostávajúci čas umývačky",

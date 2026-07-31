@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Programmi lavastoviglie",
             "editor": {
-                "show_machinecare": {
-                    "title": "Mostra programma di manutenzione",
-                    "description": "Mostra il programma di manutenzione nell'elenco dei programmi disponibili."
+                "program_order": {
+                    "title": "Ordine e visibilità dei programmi",
+                    "description": "Trascina per riordinare i programmi e usa l'icona a forma di occhio per mostrarli o nasconderli."
+                },
+                "no_entity": {
+                    "title": "Nessuna entità dei programmi trovata per questo dispositivo."
                 }
             }
         },
         "options": {
-            "feature-name": "Opzioni lavastoviglie"
+            "feature-name": "Opzioni lavastoviglie",
+            "editor": {
+                "option_order": {
+                    "title": "Ordine e visibilità delle opzioni",
+                    "description": "Trascina per riordinare le opzioni e usa l'icona a forma di occhio per mostrarle o nasconderle."
+                },
+                "no_entity": {
+                    "title": "Nessuna entità delle opzioni trovata per questo dispositivo."
+                }
+            }
         },
         "time": {
             "feature-name": "Tempo rimanente lavastoviglie",

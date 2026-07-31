@@ -10,14 +10,18 @@ export abstract class BoschBaseEditor<TConfig extends FeatureConfig = FeatureCon
   protected abstract feature: string;
 
   protected renderBoolHaSettingsRow(key: string, defaultVal: boolean): TemplateResult {
-    const customLocalize = setupCustomLocalize(this.hass);
     return html`
       <ha-settings-row>
-        <div slot="heading" data-for="${key}">${customLocalize(`dishwasher.${this.feature}.editor.${key}.title`)}</div>
-        <div slot="description" data-for="${key}">${customLocalize(`dishwasher.${this.feature}.editor.${key}.description`)}</div>
+        <div slot="heading" data-for="${key}">${this.localizeEditorKey(key, 'title')}</div>
+        <div slot="description" data-for="${key}">${this.localizeEditorKey(key, 'description')}</div>
         <ha-switch id="${key}" name="${key}" @change=${this._onSettingChange} .checked=${this.getBoolConfigVal(key, defaultVal)} />
       </ha-settings-row>
     `;
+  }
+
+  protected localizeEditorKey(key: string, part: 'title' | 'description'): string {
+    const customLocalize = setupCustomLocalize(this.hass);
+    return customLocalize(`dishwasher.${this.feature}.editor.${key}.${part}`);
   }
 
   protected _onSettingChange(e: Event): void {

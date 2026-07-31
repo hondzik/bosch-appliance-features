@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Programmes du lave-vaisselle",
             "editor": {
-                "show_machinecare": {
-                    "title": "Afficher le programme d'entretien",
-                    "description": "Affiche le programme d'entretien dans la liste des programmes disponibles."
+                "program_order": {
+                    "title": "Ordre et visibilité des programmes",
+                    "description": "Faites glisser pour réorganiser les programmes et utilisez l'icône en forme d'œil pour les afficher ou les masquer."
+                },
+                "no_entity": {
+                    "title": "Aucune entité de programmes trouvée pour cet appareil."
                 }
             }
         },
         "options": {
-            "feature-name": "Options du lave-vaisselle"
+            "feature-name": "Options du lave-vaisselle",
+            "editor": {
+                "option_order": {
+                    "title": "Ordre et visibilité des options",
+                    "description": "Faites glisser pour réorganiser les options et utilisez l'icône en forme d'œil pour les afficher ou les masquer."
+                },
+                "no_entity": {
+                    "title": "Aucune entité d'options trouvée pour cet appareil."
+                }
+            }
         },
         "time": {
             "feature-name": "Temps restant du lave-vaisselle",

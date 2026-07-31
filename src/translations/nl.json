@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Vaatwasserprogramma's",
             "editor": {
-                "show_machinecare": {
-                    "title": "Machineonderhoud-programma tonen",
-                    "description": "Toont het machineonderhoud-programma in de lijst met beschikbare programma's."
+                "program_order": {
+                    "title": "Volgorde en zichtbaarheid van programma's",
+                    "description": "Sleep om programma's opnieuw te ordenen en gebruik het oogicoon om ze te tonen of te verbergen."
+                },
+                "no_entity": {
+                    "title": "Geen programma-entiteit gevonden voor dit apparaat."
                 }
             }
         },
         "options": {
-            "feature-name": "Vaatwasseropties"
+            "feature-name": "Vaatwasseropties",
+            "editor": {
+                "option_order": {
+                    "title": "Volgorde en zichtbaarheid van opties",
+                    "description": "Sleep om opties opnieuw te ordenen en gebruik het oogicoon om ze te tonen of te verbergen."
+                },
+                "no_entity": {
+                    "title": "Geen opties-entiteit gevonden voor dit apparaat."
+                }
+            }
         },
         "time": {
             "feature-name": "Resterende tijd vaatwasser",

@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Programy zmywarki",
             "editor": {
-                "show_machinecare": {
-                    "title": "Pokaż program czyszczenia",
-                    "description": "Wyświetla program czyszczenia na liście dostępnych programów."
+                "program_order": {
+                    "title": "Kolejność i widoczność programów",
+                    "description": "Przeciągnij, aby zmienić kolejność programów, i użyj ikony oka, aby je pokazać lub ukryć."
+                },
+                "no_entity": {
+                    "title": "Nie znaleziono encji programów dla tego urządzenia."
                 }
             }
         },
         "options": {
-            "feature-name": "Opcje zmywarki"
+            "feature-name": "Opcje zmywarki",
+            "editor": {
+                "option_order": {
+                    "title": "Kolejność i widoczność opcji",
+                    "description": "Przeciągnij, aby zmienić kolejność opcji, i użyj ikony oka, aby je pokazać lub ukryć."
+                },
+                "no_entity": {
+                    "title": "Nie znaleziono encji opcji dla tego urządzenia."
+                }
+            }
         },
         "time": {
             "feature-name": "Pozostały czas zmywarki",

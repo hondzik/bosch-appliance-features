@@ -11,7 +11,7 @@ import type { TemplateResult, CSSResultGroup } from 'lit';
 import './bosch-oven-controls-editor';
 
 const supportsBoschOvenControlsFeature = (stateObj: HassEntity) => {
-  return BaseBoschFeature.isApplianceTypeSupported(stateObj, BoschOvenControlsFeature.applianceType);
+  return BaseBoschFeature.isHomeConnectAltEntity(stateObj);
 };
 
 @customElement('bosch-oven-controls-feature')

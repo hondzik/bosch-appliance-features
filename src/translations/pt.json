@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Programas da máquina de lavar louça",
             "editor": {
-                "show_machinecare": {
-                    "title": "Mostrar programa de manutenção",
-                    "description": "Mostra o programa de manutenção na lista de programas disponíveis."
+                "program_order": {
+                    "title": "Ordem e visibilidade dos programas",
+                    "description": "Arraste para reordenar os programas e use o ícone do olho para mostrá-los ou ocultá-los."
+                },
+                "no_entity": {
+                    "title": "Nenhuma entidade de programas encontrada para este dispositivo."
                 }
             }
         },
         "options": {
-            "feature-name": "Opções da máquina de lavar louça"
+            "feature-name": "Opções da máquina de lavar louça",
+            "editor": {
+                "option_order": {
+                    "title": "Ordem e visibilidade das opções",
+                    "description": "Arraste para reordenar as opções e use o ícone do olho para mostrá-las ou ocultá-las."
+                },
+                "no_entity": {
+                    "title": "Nenhuma entidade de opções encontrada para este dispositivo."
+                }
+            }
         },
         "time": {
             "feature-name": "Tempo restante da máquina de lavar louça",

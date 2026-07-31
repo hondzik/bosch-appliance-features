@@ -1,0 +1,45 @@
+{
+    "dishwasher": {
+        "programs": {
+            "feature-name": "食洗機プログラム",
+            "editor": {
+                "program_order": {
+                    "title": "プログラムの順序と表示",
+                    "description": "ドラッグしてプログラムの順序を変更し、目のアイコンで表示・非表示を切り替えます。"
+                },
+                "no_entity": {
+                    "title": "この機器のプログラムエンティティが見つかりません。"
+                }
+            }
+        },
+        "options": {
+            "feature-name": "食洗機オプション",
+            "editor": {
+                "option_order": {
+                    "title": "オプションの順序と表示",
+                    "description": "ドラッグしてオプションの順序を変更し、目のアイコンで表示・非表示を切り替えます。"
+                },
+                "no_entity": {
+                    "title": "この機器のオプションエンティティが見つかりません。"
+                }
+            }
+        },
+        "time": {
+            "feature-name": "食洗機の残り時間",
+            "editor": {
+                "show_remaining_time": {
+                    "title": "残り時間を表示",
+                    "description": "終了時刻の代わりに残り時間を表示します。"
+                }
+            }
+        }
+    },
+    "oven": {
+        "programs": {
+            "feature-name": "オーブンプログラム"
+        },
+        "time": {
+            "feature-name": "オーブンの残り時間"
+        }
+    }
+}

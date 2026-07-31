@@ -3,14 +3,26 @@
         "programs": {
             "feature-name": "Programy myčky",
             "editor": {
-                "show_machinecare": {
-                    "title": "Zobrazit program Machine Care",
-                    "description": "Zobrazí program Machine Care v seznamu dostupných programů."
+                "program_order": {
+                    "title": "Pořadí a viditelnost programů",
+                    "description": "Přetažením změníte pořadí programů, ikonou oka je zobrazíte nebo skryjete."
+                },
+                "no_entity": {
+                    "title": "Pro toto zařízení nebyla nalezena entita programů."
                 }
             }
         },
         "options": {
-            "feature-name": "Možnosti myčky"
+            "feature-name": "Možnosti myčky",
+            "editor": {
+                "option_order": {
+                    "title": "Pořadí a viditelnost možností",
+                    "description": "Přetažením změníte pořadí možností, ikonou oka je zobrazíte nebo skryjete."
+                },
+                "no_entity": {
+                    "title": "Pro toto zařízení nebyla nalezena entita možností."
+                }
+            }
         },
         "time": {
             "feature-name": "Zbývající čas myčky",
