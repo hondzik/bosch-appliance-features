@@ -10,5 +10,4 @@
 
 This collection of Tile card 'features' is used to display controls for various Bosch devices provided by [Home Connect Alt integration](https://github.com/ekutner/home-connect-hass).
 
-TEMP IMAGE
 ![Edit feature icon](docs/images/edit-feature-icon.png)

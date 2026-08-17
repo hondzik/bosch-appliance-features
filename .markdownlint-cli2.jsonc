@@ -1,0 +1,9 @@
+{
+  "config": {
+    "default": true,
+    // sladěno s Prettier printWidth; badge řádky v README mají 177-201 znaků
+    "MD013": { "line_length": 192 }
+  },
+  "globs": ["**/*.md"],
+  "ignores": ["node_modules", "dist", "CLAUDE.md", ".claude"]
+}
