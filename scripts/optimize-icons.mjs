@@ -8,13 +8,18 @@ import SVGPathCommander from "svg-path-commander";
 const iconsDir = path.resolve('./src/assets/icons/');
 const outputDir = path.resolve('./dist/icons/');
 
-// Vytvoření výstupní složky
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
+// Rekurzivní nalezení všech SVG souborů (zachovává podsložky, např. dishwasher/, oven/)
+function findSvgFiles(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
+    const entryPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      return findSvgFiles(entryPath);
+    }
+    return entry.name.endsWith('.svg') ? [entryPath] : [];
+  });
 }
 
-// Načtení všech SVG souborů
-const files = fs.readdirSync(iconsDir).filter(f => f.endsWith('.svg'));
+const files = findSvgFiles(iconsDir).map(f => path.relative(iconsDir, f));
 
 files.forEach(file => {
   const filePath = path.join(iconsDir, file);
@@ -97,6 +102,7 @@ files.forEach(file => {
     );
 
     const outputPath = path.join(outputDir, file);
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
     fs.writeFileSync(outputPath, result.data, 'utf8');
     console.log(`✅ Optimized: ${file}`);
 });

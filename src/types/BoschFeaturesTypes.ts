@@ -18,12 +18,7 @@ export type BoschDishwasherProgramsFeatureConfig = FeatureConfig & {
 
 export type BoschOvenControlsFeatureConfig = FeatureConfig & {};
 
-export type BoschDishwasherProgram = {
-  name: string;
-  icon?: string;
-};
-
-export type BoschDishwasherOption = {
+export type BoschCatalogItem = {
   name: string;
   icon?: string;
 };

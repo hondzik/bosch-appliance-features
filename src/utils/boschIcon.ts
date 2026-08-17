@@ -20,6 +20,14 @@ export async function getInlineSVG(iconName: string): Promise<string> {
   return iconCache.get(iconName)!;
 }
 
+/**
+ * Namespaces every `icon` in a catalog Map under `prefix` (e.g. `'dishwasher/programs'`), so
+ * catalog entries only need to name their SVG (`'eco_50'`) rather than its full path.
+ */
+export function withIconPrefix<T extends { icon?: string }>(prefix: string, entries: Map<string, T>): Map<string, T> {
+  return new Map([...entries].map(([key, value]) => [key, value.icon ? { ...value, icon: `${prefix}/${value.icon}` } : value]));
+}
+
 export function renderBoschIcon(item: { icon?: string } | undefined): TemplateResult {
   if (!item?.icon) {
     return html`<ha-icon .icon=${BOSCH_FALLBACK_ICON}></ha-icon>`;

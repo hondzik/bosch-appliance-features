@@ -1,5 +1,6 @@
+import { withIconPrefix } from '../utils/boschIcon';
 import { orderKeys } from '../utils/orderKeys';
-import type { BoschDishwasherOption } from '../types/BoschFeaturesTypes';
+import type { BoschCatalogItem } from '../types/BoschFeaturesTypes';
 import type { OrderedKey } from '../utils/orderKeys';
 
 export const BOSCH_DISHWASHER_OPTION_MARKER = 'dishcare_dishwasher_option_';
@@ -7,22 +8,25 @@ export const BOSCH_START_IN_RELATIVE_SUFFIX = 'bsh_common_option_startinrelative
 export const BOSCH_START_IN_RELATIVE_KEY = 'startinrelative';
 
 /**
- * None of these have a matching SVG in src/assets/icons/ yet (the catalog used to reference
- * start_time, extra_dry, hygiene_plus, intensive_zone, perfect_speed_plus, none of which exist) —
- * every option falls back to BOSCH_FALLBACK_ICON until icons are added.
+ * None of these have a matching SVG in src/assets/icons/dishwasher/options/ yet (the catalog used
+ * to reference start_time, extra_dry, hygiene_plus, intensive_zone, perfect_speed_plus, none of
+ * which exist) — every option falls back to BOSCH_FALLBACK_ICON until icons are added.
  */
-export const boschDishwasherAllOptionsMap: Map<string, BoschDishwasherOption> = new Map([
-  [BOSCH_START_IN_RELATIVE_KEY, { name: 'Start time' }],
-  ['brilliancedry', { name: 'BrilliantDry' }],
-  ['ecodry', { name: 'EcoDry' }],
-  ['extradry', { name: 'ExtraDry' }],
-  ['halfload', { name: 'Half Load' }],
-  ['hygieneplus', { name: 'Hygiene+' }],
-  ['intensivzone', { name: 'IntensiveZone' }],
-  ['silenceondemand', { name: 'Silence on Demand' }],
-  ['variospeedplus', { name: 'SpeedPerfect+' }],
-  ['zeolitedry', { name: 'ZeoliteDry' }],
-]);
+export const boschDishwasherAllOptionsMap: Map<string, BoschCatalogItem> = withIconPrefix<BoschCatalogItem>(
+  'dishwasher/options',
+  new Map([
+    [BOSCH_START_IN_RELATIVE_KEY, { name: 'Start time', icon: 'startinrelative' }],
+    ['brilliancedry', { name: 'BrilliantDry' }],
+    ['ecodry', { name: 'EcoDry' }],
+    ['extradry', { name: 'ExtraDry', icon: 'extradry' }],
+    ['halfload', { name: 'Half Load', icon: 'halfload' }],
+    ['hygieneplus', { name: 'Hygiene+' }],
+    ['intensivzone', { name: 'IntensiveZone', icon: 'intensivezone' }],
+    ['silenceondemand', { name: 'Silence on Demand' }],
+    ['variospeedplus', { name: 'SpeedPerfect+' }],
+    ['zeolitedry', { name: 'ZeoliteDry' }],
+  ]),
+);
 
 export type DiscoveredOption = { key: string; entityId: string; kind: 'switch' | 'startInRelative' };
 

@@ -1,8 +1,12 @@
 {
   "config": {
     "default": true,
-    // sladěno s Prettier printWidth; badge řádky v README mají 177-201 znaků
-    "MD013": { "line_length": 192 }
+    // hand-authored prose (badge links, long descriptive sentences) routinely exceeds any
+    // reasonable limit and MD013 has no --fix; not worth enforcing on Markdown docs
+    "MD013": false,
+    // repeated subsection headings under different parents (e.g. "How it works" per feature
+    // section) are a normal README pattern, not a structural mistake
+    "MD024": { "siblings_only": true }
   },
   "globs": ["**/*.md"],
   "ignores": ["node_modules", "dist", "CLAUDE.md", ".claude"]

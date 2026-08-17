@@ -30,6 +30,11 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
   @state()
   protected _config?: BoschDishwasherOptionsFeatureConfig;
 
+  @state()
+  private _pending: Map<string, string> = new Map();
+
+  private _pendingTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
+
   protected feature = EBoschFeature.dishwasher_options;
   protected entityPrefixLength = 1;
 
@@ -80,11 +85,12 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
     const entity = this.hass?.states[discovered.entityId];
     const isActive = entity?.state === 'on';
     const isUnavailable = !entity || entity.state === 'unavailable' || entity.state === 'unknown';
-    const classes = [isActive ? 'active' : '', this.controlsDisabled || isUnavailable ? 'unavailable' : ''].join(' ').trim();
+    const isPending = this._pending.has(discovered.key);
+    const classes = [isActive ? 'active' : '', this.controlsDisabled || isUnavailable || isPending ? 'unavailable' : '', isPending ? 'pending' : ''].join(' ').trim();
 
     return html`
       <ha-control-button class=${classes} title=${option?.name ?? discovered.key} @click=${() => this.toggleSwitchOption(discovered)}>
-        <div class="icon-wrapper">${renderBoschIcon(option)}</div>
+        <div class="icon-wrapper">${isPending ? html`<ha-spinner size="small"></ha-spinner>` : renderBoschIcon(option)}</div>
       </ha-control-button>
     `;
   }
@@ -96,14 +102,20 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
     const options: string[] = entity?.attributes.options ?? [];
     const isActive = value !== '0:00';
     const isUnavailable = !entity || entity.state === 'unavailable' || entity.state === 'unknown';
-    const classes = [isActive ? 'active' : '', this.controlsDisabled || isUnavailable ? 'unavailable' : ''].join(' ').trim();
+    const isPending = this._pending.has(discovered.key);
+    const classes = [isActive ? 'active' : '', this.controlsDisabled || isUnavailable || isPending ? 'unavailable' : '', isPending ? 'pending' : ''].join(' ').trim();
 
     return html`
       <div class="start-in-relative">
         <ha-control-button class=${classes} title=${option?.name ?? discovered.key} @click=${() => this.toggleDelayedStart(discovered, value)}>
-          <div class="icon-wrapper">${renderBoschIcon(option)}</div>
+          <div class="icon-wrapper">${isPending ? html`<ha-spinner size="small"></ha-spinner>` : renderBoschIcon(option)}</div>
         </ha-control-button>
-        <select class="start-in-relative-select" ?disabled=${this.controlsDisabled || isUnavailable} .value=${value} @change=${(e: Event) => this.changeDelayedStartValue(discovered, e)}>
+        <select
+          class="start-in-relative-select"
+          ?disabled=${this.controlsDisabled || isUnavailable || isPending}
+          .value=${value}
+          @change=${(e: Event) => this.changeDelayedStartValue(discovered, e)}
+        >
           ${options.map((time) => html`<option value=${time}>${time}</option>`)}
         </select>
       </div>
@@ -111,25 +123,61 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
   }
 
   private toggleSwitchOption(discovered: DiscoveredOption): void {
-    if (this.controlsDisabled || !this.hass) return;
+    if (this.controlsDisabled || !this.hass || this._pending.has(discovered.key)) return;
     const entity = this.hass.states[discovered.entityId];
     if (!entity) return;
 
-    this.hass.callService('switch', entity.state === 'on' ? 'turn_off' : 'turn_on', { entity_id: discovered.entityId });
+    const targetState = entity.state === 'on' ? 'off' : 'on';
+    this.setPending(discovered.key, targetState);
+    this.hass.callService('switch', targetState === 'on' ? 'turn_on' : 'turn_off', { entity_id: discovered.entityId });
   }
 
   private toggleDelayedStart(discovered: DiscoveredOption, currentValue: string): void {
-    if (this.controlsDisabled || !this.hass) return;
-    this.hass.callService('select', 'select_option', { entity_id: discovered.entityId, option: currentValue === '0:00' ? '0:30' : '0:00' });
+    if (this.controlsDisabled || !this.hass || this._pending.has(discovered.key)) return;
+    const targetValue = currentValue === '0:00' ? '0:30' : '0:00';
+    this.setPending(discovered.key, targetValue);
+    this.hass.callService('select', 'select_option', { entity_id: discovered.entityId, option: targetValue });
   }
 
   private changeDelayedStartValue(discovered: DiscoveredOption, e: Event): void {
-    if (!this.hass) return;
+    if (!this.hass || this._pending.has(discovered.key)) return;
     const target = e.target as HTMLSelectElement;
+    this.setPending(discovered.key, target.value);
     this.hass.callService('select', 'select_option', { entity_id: discovered.entityId, option: target.value });
   }
 
+  private setPending(key: string, targetValue: string): void {
+    const existingTimeoutId = this._pendingTimeouts.get(key);
+    if (existingTimeoutId !== undefined) {
+      clearTimeout(existingTimeoutId);
+    }
+    const next = new Map(this._pending);
+    next.set(key, targetValue);
+    this._pending = next;
+    this._pendingTimeouts.set(
+      key,
+      setTimeout(() => this.clearPending(key), 15000),
+    );
+  }
+
+  private clearPending(key: string): void {
+    const timeoutId = this._pendingTimeouts.get(key);
+    if (timeoutId !== undefined) {
+      clearTimeout(timeoutId);
+      this._pendingTimeouts.delete(key);
+    }
+    if (this._pending.has(key)) {
+      const next = new Map(this._pending);
+      next.delete(key);
+      this._pending = next;
+    }
+  }
+
   protected shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
+    if (changedProperties.has('_pending')) {
+      return true;
+    }
+
     if (super.shouldUpdate(changedProperties)) {
       return true;
     }
@@ -142,6 +190,28 @@ export class BoschDishwasherOptionsFeature extends BaseBoschFeature implements L
     if (!oldHass) return false;
 
     return this.discovered.some((d) => oldHass.states[d.entityId] !== this.hass?.states[d.entityId]);
+  }
+
+  protected updated(changedProperties: Map<PropertyKey, unknown>): void {
+    super.updated(changedProperties);
+    if (this._pending.size === 0 || !this.hass) return;
+
+    const discoveredByKey = new Map(this.discovered.map((d) => [d.key, d]));
+    for (const [key, targetValue] of this._pending) {
+      const entityId = discoveredByKey.get(key)?.entityId;
+      const entity = entityId ? this.hass.states[entityId] : undefined;
+      if (entity?.state === targetValue) {
+        this.clearPending(key);
+      }
+    }
+  }
+
+  public disconnectedCallback(): void {
+    super.disconnectedCallback();
+    for (const timeoutId of this._pendingTimeouts.values()) {
+      clearTimeout(timeoutId);
+    }
+    this._pendingTimeouts.clear();
   }
 
   static get properties(): { [key: string]: any } {

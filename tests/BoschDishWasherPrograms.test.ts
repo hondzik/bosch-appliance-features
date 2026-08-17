@@ -5,7 +5,7 @@ const opt = (key: string) => `${BOSCH_DISHWASHER_PROGRAM_PREFIX}${key}`;
 
 describe('boschDishwasherAllProgramsMap', () => {
   it('has an icon for known programs and no icon for programs pending an SVG', () => {
-    expect(boschDishwasherAllProgramsMap.get('Eco50')?.icon).toBe('eco_50');
+    expect(boschDishwasherAllProgramsMap.get('Eco50')?.icon).toBe('dishwasher/programs/eco_50');
     expect(boschDishwasherAllProgramsMap.get('PreRinse')?.icon).toBeUndefined();
   });
 });
