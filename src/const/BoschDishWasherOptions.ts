@@ -20,10 +20,10 @@ export const boschDishwasherAllOptionsMap: Map<string, BoschCatalogItem> = withI
     ['ecodry', { name: 'EcoDry' }],
     ['extradry', { name: 'ExtraDry', icon: 'extradry' }],
     ['halfload', { name: 'Half Load', icon: 'halfload' }],
-    ['hygieneplus', { name: 'Hygiene+' }],
+    ['hygieneplus', { name: 'Hygiene+', icon: 'hygieneplus' }],
     ['intensivzone', { name: 'IntensiveZone', icon: 'intensivezone' }],
-    ['silenceondemand', { name: 'Silence on Demand' }],
-    ['variospeedplus', { name: 'SpeedPerfect+' }],
+    ['silenceondemand', { name: 'Silence on Demand', icon: 'silenceondemand' }],
+    ['variospeedplus', { name: 'SpeedPerfect+', icon: 'perfectspeedplus' }],
     ['zeolitedry', { name: 'ZeoliteDry' }],
   ]),
 );

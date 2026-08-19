@@ -34,7 +34,7 @@ export const boschDishwasherAllProgramsMap: Map<string, BoschCatalogItem> = with
     ['NightWash', { name: 'Silent 50°C', icon: 'silent_50' }],
     ['Normal45', { name: 'Normal 45°C' }],
     ['Normal65', { name: 'Normal 65°C' }],
-    ['PreRinse', { name: 'Pre-rinse' }],
+    ['PreRinse', { name: 'Pre-rinse', icon: 'prerinse' }],
     ['Quick45', { name: 'Quick 45°C', icon: 'express_45' }],
     ['Quick65', { name: 'Quick 65°C' }],
     ['QuickD', { name: 'Quick Wash & Dry' }],
