@@ -23,7 +23,7 @@ export const boschDishwasherAllProgramsMap: Map<string, BoschCatalogItem> = with
     ['ExpressSparkle65', { name: 'Express Sparkle 65°C' }],
     ['Glas40', { name: 'Glass 40°C', icon: 'glass_40' }],
     ['GlassCare', { name: 'Glass Care' }],
-    ['LearningDishwasher', { name: 'Intelligent' }],
+    ['LearningDishwasher', { name: 'Intelligent', icon: 'intelligent' }],
     ['Intensiv45', { name: 'Intensive 45°C' }],
     ['Intensiv70', { name: 'Intensive 70°C', icon: 'intensive_70' }],
     ['IntensivPower', { name: 'Intensive Power' }],
