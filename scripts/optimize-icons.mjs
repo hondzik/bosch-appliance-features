@@ -66,7 +66,11 @@ files.forEach(file => {
             "removeRasterImages",
             "removeUselessStrokeAndFill",
             "removeTitle",
-            "removeUnknownsAndDefaults",
+            // defaultAttrs: false — jinak SVGO odstraní fill="#000000" jako "shodné s výchozí
+            // hodnotou" (černá je SVG default), a runtime záměna #000 → currentColor (getInlineSVG
+            // v boschIcon.ts) pak nemá co nahradit, takže ikony bez explicitního stroke (jen fill,
+            // např. auto.svg) zůstanou natvrdo černé místo obarvení podle motivu.
+            { name: "removeUnknownsAndDefaults", params: { defaultAttrs: false } },
             "removeUselessDefs",
             "removeXMLProcInst",
 
@@ -103,7 +107,10 @@ files.forEach(file => {
 
     const outputPath = path.join(outputDir, file);
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-    fs.writeFileSync(outputPath, result.data, 'utf8');
+    // Normalizace na LF — zdrojové SVG (např. exportované z Inkscape na Windows) mívají CRLF,
+    // což se bez normalizace propíše i do výstupu a soubory pak mají v gitu i po nasazení na
+    // HA nekonzistentní konce řádků oproti čistě LF bundlovanému JS.
+    fs.writeFileSync(outputPath, result.data.replace(/\r\n/g, '\n'), 'utf8');
     console.log(`✅ Optimized: ${file}`);
 });
 

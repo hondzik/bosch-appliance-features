@@ -36,7 +36,7 @@ export const boschDishwasherAllProgramsMap: Map<string, BoschCatalogItem> = with
     ['Normal65', { name: 'Normal 65°C' }],
     ['PreRinse', { name: 'Pre-rinse', icon: 'prerinse' }],
     ['Quick45', { name: 'Quick 45°C', icon: 'express_45' }],
-    ['Quick65', { name: 'Quick 65°C' }],
+    ['Quick65', { name: 'Quick 65°C', icon: 'express_65' }],
     ['QuickD', { name: 'Quick Wash & Dry' }],
     ['SteamFresh', { name: 'Steam Fresh' }],
     ['Super60', { name: 'Super 60°C' }],

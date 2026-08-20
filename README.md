@@ -6,9 +6,7 @@
 ![Github](https://img.shields.io/github/followers/hondzik.svg?style=for-the-badge)
 [![GitHub Activity](https://img.shields.io/github/last-commit/hondzik/bosch-appliance-features?style=for-the-badge)](https://github.com/hondzik/bosch-appliance-features/commits/main)
 
-[![My Home Assistant](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?repository=bosch-appliance-features&owner=hondzik&category=Plugin)
-
-This is a collection of Home Assistant Lovelace **Tile card features** that add Bosch-specific controls and status panels to a Tile card, the same way built-in features like "Cover open/close" or "Light brightness" attach to a Tile card. It's built for Bosch appliances exposed by the [Home Connect Alt integration](https://github.com/ekutner/home-connect-hass) (`home_connect_alt`).
+This is a collection of Home Assistant Lovelace **Tile card features** that add Bosch-specific controls and status panels to a Tile card, the same way built-in features like "Cover open/close" or "Light brightness" attach to a Tile card. It's built for Bosch dishwashers exposed by the [Home Connect Alt integration](https://github.com/ekutner/home-connect-hass) (`home_connect_alt`).
 
 <!-- TODO: screenshot — a dishwasher Tile card with all three dishwasher features stacked underneath it (programs button bar, options button bar including the start-in-relative control, and the start/pause/stop + progress bar) -->
 
@@ -16,19 +14,18 @@ This is a collection of Home Assistant Lovelace **Tile card features** that add 
 
 ## What's in this bundle
 
-| Feature | Appliance | What it adds | Status |
-| ------- | --------- | ------------- | ------ |
-| `bosch-dishwasher-programs-feature` | Dishwasher | A button bar to pick the active wash program. | ✅ Working |
-| `bosch-dishwasher-options-feature` | Dishwasher | A button bar to toggle program options (ExtraDry, Hygiene+, ...) plus a delayed-start control. | ✅ Working |
-| `bosch-dishwasher-time-feature` | Dishwasher | Start/pause/stop buttons, a progress bar and the remaining time. | ✅ Working |
-| `bosch-oven-controls-feature` | Oven | Reserved for oven controls. | 🚧 Not implemented yet — shows a "Not implemented" placeholder |
+| Feature | Appliance | What it adds |
+| ------- | --------- | ------------- |
+| `bosch-dishwasher-programs-feature` | Dishwasher | A button bar to pick the active wash program. |
+| `bosch-dishwasher-options-feature` | Dishwasher | A button bar to toggle program options (ExtraDry, Hygiene+, ...) plus a delayed-start control. |
+| `bosch-dishwasher-time-feature` | Dishwasher | Start/pause/stop buttons, a progress bar and the remaining time. |
 
-The dishwasher features read their program/option list **live from your device** rather than from a fixed per-model catalog, so they work on any Bosch dishwasher without a code change — including options your specific model exposes that this bundle doesn't otherwise know a nice name for (those still show up, just with a generic icon and their raw name).
+The dishwasher features read their program/option list **live from your device** rather than from a fixed per-model catalog, so they work on any Bosch dishwasher without a code change — including options your specific model exposes that this bundle doesn't otherwise know a nice name for (those still show up, just with a generic icon and their raw name). If you run into one, please let me know and I'll add the specific name and icon for it.
 
 ## Requirements
 
 - The [Home Connect Alt integration](https://github.com/ekutner/home-connect-hass) (`home_connect_alt`) set up and working for your appliance.
-- A Bosch dishwasher (all three working features) — oven support is not implemented yet.
+- A Bosch dishwasher.
 
 ## Installation
 
@@ -45,9 +42,9 @@ type: tile
 entity: switch.dishwasher_bsh_common_setting_powerstate
 features_position: bottom
 features:
+  - type: custom:bosch-dishwasher-time-feature
   - type: custom:bosch-dishwasher-programs-feature
   - type: custom:bosch-dishwasher-options-feature
-  - type: custom:bosch-dishwasher-time-feature
 ```
 
 > If the button bar looks clipped or leaves dead space below it, increase the Tile card's `grid_options.rows` — how much room is needed depends on how many programs/options you leave visible.
@@ -66,7 +63,7 @@ The feature reads the full list of programs your dishwasher supports directly of
 
 - The currently selected program is highlighted.
 - Clicking a different program sends the change to the appliance; the button shows a spinner while the change is pending.
-- All buttons are disabled while the appliance is offline (or, once running-state detection is implemented, while a cycle is in progress).
+- All buttons are disabled while the appliance is offline or while a cycle is already running.
 - A program with no matching icon in this bundle falls back to a generic icon — it still works, it just doesn't have custom artwork yet.
 
 <!-- TODO: screenshot — the programs button bar with one program selected (highlighted) and the rest idle -->
@@ -171,9 +168,7 @@ Renders Start/Pause and Stop buttons, a progress bar for the running cycle, and 
 
 | Option | Type | Default | Description |
 | ------ | ---- | ------- | ----------- |
-| `show_remaining_time` | `boolean` | `true` | Intended to switch between showing remaining time and finish time. |
-
-> ⚠️ This toggle exists in the settings dialog but isn't wired up to the display yet — the feature currently always shows the remaining time regardless of this setting.
+| `show_remaining_time` | `boolean` | `true` | Switches between showing the remaining time and the estimated finish time (clock time). |
 
 ```yaml
 features:
@@ -188,18 +183,10 @@ Open the feature's settings via the pencil icon to see the `show_remaining_time`
 
 ![Dishwasher time editor](docs/images/dishwasher/time-editor.png)
 
----
-
-## Oven controls
-
-`type: custom:bosch-oven-controls-feature`
-
-Not implemented yet — adding it to a Tile card currently just shows a "Not implemented" placeholder. The entity plumbing and config scaffolding are already in place; screenshots and documentation will follow once it renders real controls.
-
 ## Troubleshooting
 
 - **A feature doesn't show up in the Lovelace feature picker at all** — it needs an entity whose `device_class` starts with `home_connect_alt_`; confirm the Tile card's `entity` actually comes from the Home Connect Alt integration.
-- **A feature is pickable but renders nothing on the card** — the feature picker doesn't distinguish appliance types, so e.g. the dishwasher features are technically selectable on an oven's Tile card too, but only render for the appliance they're built for.
+- **A feature is pickable but renders nothing on the card** — the feature picker doesn't distinguish appliance types, so these features are technically selectable on any Home Connect Alt Tile card, but only render for a dishwasher.
 - **Controls are permanently greyed out / unclickable even though the appliance is on** — this can happen if the integration's entity IDs for your specific device don't match the naming pattern this bundle expects when resolving related entities from the Tile card's own entity. If this happens, please open an issue with the entity IDs Home Connect Alt created for your device.
 - **An option or program shows a generic icon instead of custom artwork** — expected for anything not yet in this bundle's icon set; it's still fully functional.
 

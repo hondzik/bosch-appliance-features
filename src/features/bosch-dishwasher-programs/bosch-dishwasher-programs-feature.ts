@@ -29,11 +29,6 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
   @state()
   protected _config?: BoschDishwasherProgramsFeatureConfig;
 
-  @state()
-  private _pendingProgram?: string;
-
-  private _pendingTimeoutId?: ReturnType<typeof setTimeout>;
-
   protected feature = EBoschFeature.dishwasher_programs;
   protected entityPrefixLength = 1;
 
@@ -42,7 +37,7 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
   }
 
   private set program(value: string) {
-    const entityId = this.getLinkedEntityState(EBoschEntity.programs)?.entity_id;
+    const entityId = this.getLinkedEntityRaw(EBoschEntity.programs)?.entity_id;
     console.log(`Setting ${entityId} to ${value}`);
     if (entityId && this.hass) {
       this.hass.callService('select', 'select_option', { entity_id: entityId, option: value });
@@ -68,7 +63,7 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
       return nothing;
     }
 
-    const options: string[] = this.getLinkedEntityState(EBoschEntity.programs)?.attributes.options ?? [];
+    const options: string[] = this.getLinkedEntityRaw(EBoschEntity.programs)?.attributes.options ?? [];
     const visiblePrograms = orderPrograms(options, this._config)
       .filter((p) => !p.hidden)
       .map((p) => p.key);
@@ -82,12 +77,12 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
 
   private renderHaControlButton(key: string): TemplateResult {
     const fullProgram = `${BOSCH_DISHWASHER_PROGRAM_PREFIX}${key}`;
-    const isPending = this._pendingProgram === fullProgram;
+    const isPending = this.getPending('program') === fullProgram;
     const program = boschDishwasherAllProgramsMap.get(key);
     const stateObj = this.getLinkedEntityState(EBoschEntity.programs);
     const hass = this.hass as unknown as { formatEntityState?: (s: HassEntity, v: string) => string };
     const title = (stateObj && hass.formatEntityState?.(stateObj, fullProgram)) || program?.name || key;
-    const classes = [fullProgram == this.program ? 'active' : '', this.controlsDisabled || (this._pendingProgram !== undefined && !isPending) ? 'unavailable' : '', isPending ? 'pending' : '']
+    const classes = [fullProgram == this.program ? 'active' : '', this.controlsDisabled || (this.hasPendingAction && !isPending) ? 'unavailable' : '', isPending ? 'pending' : '']
       .join(' ')
       .trim();
     return html`
@@ -98,41 +93,19 @@ export class BoschDishwasherProgramsFeature extends BaseBoschFeature implements 
   }
 
   private changeProgram(e: Event) {
-    if (this.controlsDisabled || this._pendingProgram !== undefined) return;
+    if (this.controlsDisabled || this.hasPendingAction) return;
     const target = e.currentTarget as any;
     const value = target?.value;
     if (!value) return;
-    this._pendingProgram = value;
+    this.setPending('program', value);
     this.program = value;
-    this._pendingTimeoutId = setTimeout(() => this.clearPending(), 15000);
-  }
-
-  private clearPending(): void {
-    if (this._pendingTimeoutId !== undefined) {
-      clearTimeout(this._pendingTimeoutId);
-      this._pendingTimeoutId = undefined;
-    }
-    this._pendingProgram = undefined;
-  }
-
-  protected shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
-    if (changedProperties.has('_pendingProgram')) {
-      return true;
-    }
-    return super.shouldUpdate(changedProperties);
   }
 
   protected updated(changedProperties: Map<PropertyKey, unknown>): void {
     super.updated(changedProperties);
-    if (this._pendingProgram !== undefined && this.program === this._pendingProgram) {
-      this.clearPending();
-    }
-  }
-
-  public disconnectedCallback(): void {
-    super.disconnectedCallback();
-    if (this._pendingTimeoutId !== undefined) {
-      clearTimeout(this._pendingTimeoutId);
+    const pendingProgram = this.getPending('program');
+    if (pendingProgram !== undefined && this.program === pendingProgram) {
+      this.clearPending('program');
     }
   }
 

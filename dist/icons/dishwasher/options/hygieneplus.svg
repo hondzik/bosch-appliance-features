@@ -1,7 +1,7 @@
-<svg width="24" height="24" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-  <path d="M5.607 8.426v9.065M.548 8.426v9.064M.6 13.036h4.843m2.59-1.813 1.89 6.034m2.047-6.034-1.943 7.096-.414 1.14s-.204.35-.363.466c-.141.103-.321.145-.492.181-.144.03-.297.06-.44.026-.136-.032-.363-.207-.363-.207" fill="none" stroke="#000" stroke-width="1.097" stroke-linecap="square" stroke-linejoin="round"/>
-  <ellipse cx="15.671" cy="12.904" rx="1.858" ry="1.858" fill="none" stroke="#000" stroke-width="1.097" stroke-linecap="square" stroke-linejoin="round"/>
-  <ellipse cx="15.88" cy="18.513" rx="2.201" ry="1.696" fill="none" stroke="#000" stroke-width="1.097" stroke-linecap="square" stroke-linejoin="round"/>
-  <path d="M14.637 14.564s-.548.643-.674 1.036c-.063.197-.1.427-.025.621.119.314.543.648.543.648m2.642-5.491c.371-.316.742-.245 1.114-.155" fill="none" stroke="#000" stroke-width="1.097" stroke-linecap="square" stroke-linejoin="round"/>
-  <path d="M23.451 6.963h-6.344m3.26-3.172-.002 6.344" fill="none" stroke-width="1.097" stroke-linecap="round" stroke-linejoin="round" stroke="#000"/>
+<svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <path d="M5.607 8.426v9.065M.548 8.426v9.064M.6 13.036h4.843m2.59-1.813 1.89 6.034m2.047-6.034-1.943 7.096-.414 1.14s-.204.35-.363.466c-.141.103-.321.145-.492.181-.144.03-.297.06-.44.026-.136-.032-.363-.207-.363-.207" fill="none" stroke="#000" stroke-width="1.097" stroke-linecap="square" stroke-linejoin="round" stroke-dasharray="none" stroke-opacity="1"/>
+  <ellipse cx="15.671" cy="12.904" rx="1.858" ry="1.858" fill="none" stroke="#000" stroke-width="1.097" stroke-linecap="square" stroke-linejoin="round" stroke-dasharray="none" stroke-opacity="1"/>
+  <ellipse cx="15.88" cy="18.513" rx="2.201" ry="1.696" fill="none" stroke="#000" stroke-width="1.097" stroke-linecap="square" stroke-linejoin="round" stroke-dasharray="none" stroke-opacity="1"/>
+  <path d="M14.637 14.564s-.548.643-.674 1.036c-.063.197-.1.427-.025.621.119.314.543.648.543.648m2.642-5.491c.371-.316.742-.245 1.114-.155" fill="none" stroke="#000" stroke-width="1.097" stroke-linecap="square" stroke-linejoin="round" stroke-dasharray="none" stroke-opacity="1"/>
+  <path d="M23.451 6.963h-6.344m3.26-3.172-.002 6.344" fill="none" stroke-width="1.097" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="none" stroke="#000" stroke-opacity="1"/>
 </svg>
