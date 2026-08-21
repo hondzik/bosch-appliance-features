@@ -66,7 +66,6 @@ The feature reads the full list of programs your dishwasher supports directly of
 - All buttons are disabled while the appliance is offline or while a cycle is already running.
 - A program with no matching icon in this bundle falls back to a generic icon — it still works, it just doesn't have custom artwork yet.
 
-
 ### Configuration options
 
 All options are settable either through YAML or the visual editor (pencil icon on the feature, see [below](#using-the-visual-editor)):
@@ -114,7 +113,6 @@ Unlike programs, there's no single entity listing every option, so this feature 
 - Home Connect only allows switching some options depending on the currently selected program — an option showing up but greyed out/unclickable usually means it just isn't available for the current program, not that something is broken.
 - An option this bundle doesn't have a friendly name for yet still shows up (using its raw name and a generic icon) — it never gets silently dropped.
 
-
 ### Configuration options
 
 | Option | Type | Default | Description |
@@ -150,7 +148,6 @@ The dialog shows every option your device reports as a draggable list: drag the 
 ![Dishwasher time feature](docs/images/dishwasher/time.png)
 
 `type: custom:bosch-dishwasher-time-feature`
-
 
 ### How it works
 
