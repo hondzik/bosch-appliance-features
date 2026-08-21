@@ -8,8 +8,6 @@
 
 This is a collection of Home Assistant Lovelace **Tile card features** that add Bosch-specific controls and status panels to a Tile card, the same way built-in features like "Cover open/close" or "Light brightness" attach to a Tile card. It's built for Bosch dishwashers exposed by the [Home Connect Alt integration](https://github.com/ekutner/home-connect-hass) (`home_connect_alt`).
 
-<!-- TODO: screenshot — a dishwasher Tile card with all three dishwasher features stacked underneath it (programs button bar, options button bar including the start-in-relative control, and the start/pause/stop + progress bar) -->
-
 ![Dishwasher features overview](docs/images/dishwasher/overview.png)
 
 ## What's in this bundle
@@ -55,6 +53,8 @@ The sections below cover each feature's own behavior and configuration in detail
 
 ## Dishwasher programs
 
+![Dishwasher programs feature](docs/images/dishwasher/programs.png)
+
 `type: custom:bosch-dishwasher-programs-feature`
 
 ### How it works
@@ -66,9 +66,6 @@ The feature reads the full list of programs your dishwasher supports directly of
 - All buttons are disabled while the appliance is offline or while a cycle is already running.
 - A program with no matching icon in this bundle falls back to a generic icon — it still works, it just doesn't have custom artwork yet.
 
-<!-- TODO: screenshot — the programs button bar with one program selected (highlighted) and the rest idle -->
-
-![Dishwasher programs feature](docs/images/dishwasher/programs.png)
 
 ### Configuration options
 
@@ -94,17 +91,17 @@ features:
 
 Click the "Edit feature" (pencil) icon next to the feature in the card's feature list to open its settings:
 
-![Edit feature icon](docs/images/edit-feature-icon.png)
+![Edit feature icon](docs/images/dishwasher/programs-config.png)
 
 The dialog shows every program your device reports as a draggable list: drag the handle to reorder, and use the eye icon to show or hide a program. Changes apply immediately, no separate save step needed.
-
-<!-- TODO: screenshot — the programs editor's drag-to-reorder list, with one program toggled to hidden (dimmed row) -->
 
 ![Dishwasher programs editor](docs/images/dishwasher/programs-editor.png)
 
 ---
 
 ## Dishwasher options
+
+![Dishwasher options feature](docs/images/dishwasher/options.png)
 
 `type: custom:bosch-dishwasher-options-feature`
 
@@ -117,9 +114,6 @@ Unlike programs, there's no single entity listing every option, so this feature 
 - Home Connect only allows switching some options depending on the currently selected program — an option showing up but greyed out/unclickable usually means it just isn't available for the current program, not that something is broken.
 - An option this bundle doesn't have a friendly name for yet still shows up (using its raw name and a generic icon) — it never gets silently dropped.
 
-<!-- TODO: screenshot — the options button bar with a couple of options active/inactive and the delayed-start control showing a selected time -->
-
-![Dishwasher options feature](docs/images/dishwasher/options.png)
 
 ### Configuration options
 
@@ -141,9 +135,11 @@ features:
 
 ### Using the visual editor
 
-Same pattern as the programs editor: open it via the pencil icon, then drag to reorder and use the eye icon to show/hide options.
+Click the "Edit feature" (pencil) icon next to the feature in the card's feature list to open its settings:
 
-<!-- TODO: screenshot — the options editor's drag-to-reorder list -->
+![Edit feature icon](docs/images/dishwasher/options-config.png)
+
+The dialog shows every option your device reports as a draggable list: drag the handle to reorder, and use the eye icon to show or hide an option. Changes apply immediately, no separate save step needed.
 
 ![Dishwasher options editor](docs/images/dishwasher/options-editor.png)
 
@@ -151,18 +147,17 @@ Same pattern as the programs editor: open it via the pencil icon, then drag to r
 
 ## Dishwasher time
 
+![Dishwasher time feature](docs/images/dishwasher/time.png)
+
 `type: custom:bosch-dishwasher-time-feature`
+
 
 ### How it works
 
 Renders Start/Pause and Stop buttons, a progress bar for the running cycle, and the remaining time.
 
-- Both buttons are disabled while the appliance is offline.
-- The progress bar reflects the appliance's own reported program progress.
-
-<!-- TODO: screenshot — the time feature showing the progress bar partway filled and a remaining time value -->
-
-![Dishwasher time feature](docs/images/dishwasher/time.png)
+- Both buttons are disabled while the appliance is offline; Stop is additionally disabled unless a cycle is actually running.
+- The progress bar reflects the appliance's own reported program progress — if your dishwasher doesn't report that, it falls back to an estimate based on elapsed vs. remaining time.
 
 ### Configuration options
 
@@ -177,9 +172,11 @@ features:
 
 ### Using the visual editor
 
-Open the feature's settings via the pencil icon to see the `show_remaining_time` toggle described above.
+Click the "Edit feature" (pencil) icon next to the feature in the card's feature list to open its settings:
 
-<!-- TODO: screenshot — the time feature's editor dialog with the "Show remaining time" toggle -->
+![Edit feature icon](docs/images/dishwasher/time-config.png)
+
+The dialog shows the `show_remaining_time` toggle that switches between showing the remaining time and the estimated finish time (clock time).
 
 ![Dishwasher time editor](docs/images/dishwasher/time-editor.png)
 
