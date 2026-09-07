@@ -7,7 +7,7 @@ import { getDeviceEntityIds } from '../../utils/deviceEntities';
 import { CommonEditorStyles } from '../common/bosch-styles';
 import type { BoschSortableListItem } from '../../components/bosch-sortable-list/bosch-sortable-list';
 import type { BoschDishwasherOptionsFeatureConfig } from '../../types/BoschFeaturesTypes';
-import type { HomeAssistant } from 'custom-card-helpers';
+import type { HomeAssistant } from '../../types/HomeAssistant';
 import type { CSSResultGroup, TemplateResult } from 'lit-element';
 import '../../components/bosch-sortable-list/bosch-sortable-list';
 

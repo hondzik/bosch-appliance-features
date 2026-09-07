@@ -4,7 +4,7 @@ import { BoschBaseEditor } from '../../types/BaseBoschFeatureEditor';
 import { CommonEditorStyles } from '../common/bosch-styles';
 import { BoschDishwasherTimeEditorStyles } from './bosch-dishwasher-time-styles';
 import type { BoschDishwasherTimeFeatureConfig } from '../../types/BoschFeaturesTypes';
-import type { HomeAssistant } from 'custom-card-helpers';
+import type { HomeAssistant } from '../../types/HomeAssistant';
 import type { TemplateResult, CSSResultGroup } from 'lit';
 
 @customElement('bosch-dishwasher-time-editor')

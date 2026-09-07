@@ -4,7 +4,7 @@ import { BoschBaseEditor } from '../../types/BaseBoschFeatureEditor';
 import { CommonEditorStyles } from '../common/bosch-styles';
 import { BoschOvenControlsEditorStyles } from './bosch-oven-controls-styles';
 import type { BoschOvenControlsFeatureConfig } from '../../types/BoschFeaturesTypes';
-import type { HomeAssistant } from 'custom-card-helpers';
+import type { HomeAssistant } from '../../types/HomeAssistant';
 import type { TemplateResult, CSSResultGroup } from 'lit';
 
 @customElement('bosch-oven-controls-editor')

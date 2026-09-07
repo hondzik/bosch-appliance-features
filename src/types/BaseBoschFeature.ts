@@ -4,8 +4,8 @@ import { boschFeatureEntitiesMap, boschEntitiesMap, EBoschEntity } from '../cons
 import { getDeviceEntityIds } from '../utils/deviceEntities';
 import { resolveEntityPrefix } from '../utils/entityPrefix';
 import type { FeatureConfig, BoschEntity } from './BoschFeaturesTypes';
+import type { HomeAssistant } from './HomeAssistant';
 import type { EBoschFeature } from '../const/BoschFeatures';
-import type { HomeAssistant } from 'custom-card-helpers';
 import type { HassEntity } from 'home-assistant-js-websocket';
 
 export abstract class BaseBoschFeature extends LitElement {

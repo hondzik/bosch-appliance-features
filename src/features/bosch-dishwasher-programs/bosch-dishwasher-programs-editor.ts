@@ -8,7 +8,7 @@ import { resolveEntityPrefix } from '../../utils/entityPrefix';
 import { CommonEditorStyles } from '../common/bosch-styles';
 import type { BoschSortableListItem } from '../../components/bosch-sortable-list/bosch-sortable-list';
 import type { BoschDishwasherProgramsFeatureConfig } from '../../types/BoschFeaturesTypes';
-import type { HomeAssistant } from 'custom-card-helpers';
+import type { HomeAssistant } from '../../types/HomeAssistant';
 import type { HassEntity } from 'home-assistant-js-websocket';
 import type { CSSResultGroup, TemplateResult } from 'lit-element';
 import '../../components/bosch-sortable-list/bosch-sortable-list';

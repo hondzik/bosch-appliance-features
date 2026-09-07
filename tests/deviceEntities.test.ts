@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { getDeviceEntityIds } from '../src/utils/deviceEntities';
-import type { HomeAssistant } from 'custom-card-helpers';
+import type { HomeAssistant } from '../src/types/HomeAssistant';
 
 function makeHass(entities: Record<string, { device_id?: string }>): HomeAssistant {
   return { entities } as unknown as HomeAssistant;

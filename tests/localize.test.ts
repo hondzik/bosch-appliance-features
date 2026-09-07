@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import setupCustomLocalize from '../src/localize';
-import type { HomeAssistant } from 'custom-card-helpers';
+import type { HomeAssistant } from '../src/types/HomeAssistant';
 
 const hassWithLang = (language: string) => ({ locale: { language } }) as unknown as HomeAssistant;
 

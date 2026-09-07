@@ -1,7 +1,7 @@
 import { html, LitElement } from 'lit';
 import setupCustomLocalize from '../localize';
 import type { FeatureConfig } from './BoschFeaturesTypes';
-import type { HomeAssistant } from 'custom-card-helpers/dist/types';
+import type { HomeAssistant } from './HomeAssistant';
 import type { TemplateResult } from 'lit';
 
 export abstract class BoschBaseEditor<TConfig extends FeatureConfig = FeatureConfig> extends LitElement {
