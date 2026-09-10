@@ -6,6 +6,31 @@
 ![Github](https://img.shields.io/github/followers/hondzik.svg?style=for-the-badge)
 [![GitHub Activity](https://img.shields.io/github/last-commit/hondzik/bosch-appliance-features?style=for-the-badge)](https://github.com/hondzik/bosch-appliance-features/commits/main)
 
+## Table of contents
+
+- [Description](#description)
+- [What's in this bundle](#whats-in-this-bundle)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Adding a feature to a Tile card](#adding-a-feature-to-a-tile-card)
+- [Feature: Dishwasher programs](#feature-dishwasher-programs)
+  - [How it works](#how-it-works)
+  - [Configuration options](#configuration-options)
+  - [Using the visual editor](#using-the-visual-editor)
+- [Feature: Dishwasher options](#feature-dishwasher-options)
+  - [How it works](#how-it-works-1)
+  - [Configuration options](#configuration-options-1)
+  - [Using the visual editor](#using-the-visual-editor-1)
+- [Feature: Dishwasher time](#feature-dishwasher-time)
+  - [How it works](#how-it-works-2)
+  - [Configuration options](#configuration-options-2)
+  - [Using the visual editor](#using-the-visual-editor-2)
+- [Troubleshooting](#troubleshooting)
+- [Translations](#translations)
+- [Contributors](#contributors)
+
+## Description
+
 This is a collection of Home Assistant Lovelace **Tile card features** that add Bosch-specific controls and status panels to a Tile card, the same way built-in features like "Cover open/close" or "Light brightness" attach to a Tile card. It's built for Bosch dishwashers exposed by the [Home Connect Alt integration](https://github.com/ekutner/home-connect-hass) (`home_connect_alt`).
 
 ![Dishwasher features overview](docs/images/dishwasher/overview.png)
@@ -51,7 +76,7 @@ The sections below cover each feature's own behavior and configuration in detail
 
 ---
 
-## Dishwasher programs
+## Feature: Dishwasher programs
 
 ![Dishwasher programs feature](docs/images/dishwasher/programs.png)
 
@@ -98,7 +123,7 @@ The dialog shows every program your device reports as a draggable list: drag the
 
 ---
 
-## Dishwasher options
+## Feature: Dishwasher options
 
 ![Dishwasher options feature](docs/images/dishwasher/options.png)
 
@@ -143,7 +168,7 @@ The dialog shows every option your device reports as a draggable list: drag the 
 
 ---
 
-## Dishwasher time
+## Feature: Dishwasher time
 
 ![Dishwasher time feature](docs/images/dishwasher/time.png)
 
