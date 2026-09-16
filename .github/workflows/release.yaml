@@ -45,6 +45,6 @@ jobs:
                   body_path: release_notes.md
                   files: |
                     dist/*.js
-                    dist/icons/*
+                    dist/icons/**/*
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
