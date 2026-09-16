@@ -1,14 +1,13 @@
 name: HACS Action
 
+# Only on a published release. With `zip_release` in hacs.json the plugin file
+# (bosch-appliance-features.zip) exists solely as a release asset, so HACS's
+# structure check can never pass against the repository tree — validating a
+# push/PR/default branch would always fail. A published release is the only ref
+# where the check is meaningful.
 on:
-  push:
-    branches:
-      - main
   release:
     types: [published]
-  pull_request:
-  schedule:
-    - cron: '0 0 * * *'
 
 jobs:
   validate:

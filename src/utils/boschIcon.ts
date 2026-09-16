@@ -1,16 +1,24 @@
 import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
-import { name as appName, version } from '../../package.json';
+import { version } from '../../package.json';
 import type { TemplateResult } from 'lit';
 
 export const BOSCH_FALLBACK_ICON = 'mdi:block-helper';
+
+/**
+ * Base URL of the shipped `icons/` directory, derived from this module's own location instead of
+ * being hardcoded: HACS serves the bundle from `/hacsfiles/<repo>/`, a manual install from
+ * `/local/<wherever>/`, and both keep `icons/` as a sibling of the bundle — so resolving relative
+ * to `import.meta.url` works for either without knowing which one we're in.
+ */
+const ICONS_BASE_URL = new URL('./icons/', import.meta.url).href;
 
 const iconCache = new Map<string, string>();
 
 export async function getInlineSVG(iconName: string): Promise<string> {
   if (!iconCache.has(iconName)) {
-    const res = await fetch(`/hacsfiles/${appName}/icons/${iconName}.svg?v=${version}`);
+    const res = await fetch(`${ICONS_BASE_URL}${iconName}.svg?v=${version}`);
     if (!res.ok) {
       return '';
     }
