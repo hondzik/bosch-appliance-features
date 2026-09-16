@@ -16,11 +16,26 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Setup Node.js
+              uses: actions/setup-node@v5
+              with:
+                  node-version: "24"
+                  cache: "npm"
+
             - name: Install dependencies
               run: npm ci
 
             - name: Build
               run: npm run build
+
+            # HACS (zip_release) unpacks this archive straight into
+            # www/community/bosch-appliance-features/, so it must contain the
+            # *contents* of dist/ at its root — not a dist/ folder.
+            - name: Package dist into HACS zip
+              run: |
+                  cd dist
+                  zip -r ../bosch-appliance-features.zip .
+                  unzip -l ../bosch-appliance-features.zip
 
             - name: Generate release notes from commits
               run: |
@@ -43,5 +58,7 @@ jobs:
               with:
                   draft: true
                   body_path: release_notes.md
+                  files: |
+                      bosch-appliance-features.zip
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
