@@ -22,7 +22,7 @@
     "oven"
   ],
   "type": "module",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "module": "./dist/bosch-appliance-features.js",
   "scripts": {
     "watch": "rollup -c -w",
