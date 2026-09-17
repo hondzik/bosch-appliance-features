@@ -28,15 +28,6 @@ jobs:
             - name: Build
               run: npm run build
 
-            # HACS (zip_release) unpacks this archive straight into
-            # www/community/bosch-appliance-features/, so it must contain the
-            # *contents* of dist/ at its root — not a dist/ folder.
-            - name: Package dist into HACS zip
-              run: |
-                  cd dist
-                  zip -r ../bosch-appliance-features.zip .
-                  unzip -l ../bosch-appliance-features.zip
-
             - name: Generate release notes from commits
               run: |
                   PREV_TAG=$(git describe --tags --abbrev=0 "${{ github.ref_name }}^" 2>/dev/null || true)
@@ -59,6 +50,6 @@ jobs:
                   draft: true
                   body_path: release_notes.md
                   files: |
-                      bosch-appliance-features.zip
+                      dist/*.js
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -26,7 +26,7 @@
   "module": "./dist/bosch-appliance-features.js",
   "scripts": {
     "watch": "rollup -c -w",
-    "build": "rollup -c && node scripts/optimize-icons.mjs",
+    "build": "node scripts/optimize-icons.mjs && rollup -c",
     "lint & format": "eslint src README.md --ext .ts,.js --fix && prettier --write src/**/*.{ts,js,css,scss,html} && markdownlint-cli2 --fix",
     "lint:check": "eslint src README.md --ext .ts,.js && prettier --check src/**/*.{ts,js,css,scss,html} && markdownlint-cli2",
     "optimize-icons": "node scripts/optimize-icons.mjs",

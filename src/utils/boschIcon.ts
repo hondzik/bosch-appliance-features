@@ -1,31 +1,19 @@
 import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { until } from 'lit/directives/until.js';
-import { version } from '../../package.json';
+import { BOSCH_ICONS } from '../generated/icons';
 import type { TemplateResult } from 'lit';
 
 export const BOSCH_FALLBACK_ICON = 'mdi:block-helper';
 
 /**
- * Base URL of the shipped `icons/` directory, derived from this module's own location instead of
- * being hardcoded: HACS serves the bundle from `/hacsfiles/<repo>/`, a manual install from
- * `/local/<wherever>/`, and both keep `icons/` as a sibling of the bundle — so resolving relative
- * to `import.meta.url` works for either without knowing which one we're in.
+ * Looks an icon up in the build-time-generated `BOSCH_ICONS` map (see scripts/optimize-icons.mjs).
+ * The SVGs are inlined into the bundle rather than fetched from `icons/` at runtime, because a
+ * HACS plugin install only ever delivers the single file named in hacs.json's `filename` — nested
+ * subdirectories never arrive, so there is nothing to fetch. Returns an empty string for an
+ * unknown name; callers fall back to BOSCH_FALLBACK_ICON.
  */
-const ICONS_BASE_URL = new URL('./icons/', import.meta.url).href;
-
-const iconCache = new Map<string, string>();
-
-export async function getInlineSVG(iconName: string): Promise<string> {
-  if (!iconCache.has(iconName)) {
-    const res = await fetch(`${ICONS_BASE_URL}${iconName}.svg?v=${version}`);
-    if (!res.ok) {
-      return '';
-    }
-    const svgText = (await res.text()).replace(/#000000|#000/g, 'currentColor');
-    iconCache.set(iconName, svgText);
-  }
-  return iconCache.get(iconName)!;
+export function getInlineSVG(iconName: string): string {
+  return BOSCH_ICONS[iconName] ?? '';
 }
 
 /**
@@ -37,9 +25,9 @@ export function withIconPrefix<T extends { icon?: string }>(prefix: string, entr
 }
 
 export function renderBoschIcon(item: { icon?: string } | undefined): TemplateResult {
-  if (!item?.icon) {
+  const svg = item?.icon ? getInlineSVG(item.icon) : '';
+  if (!svg) {
     return html`<ha-icon .icon=${BOSCH_FALLBACK_ICON}></ha-icon>`;
   }
-  const svg = getInlineSVG(item.icon).then((s) => unsafeHTML(s));
-  return html`${until(svg, html`<ha-spinner size="small"></ha-spinner>`)}`;
+  return html`${unsafeHTML(svg)}`;
 }
