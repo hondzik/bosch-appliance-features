@@ -27,8 +27,8 @@
   "scripts": {
     "watch": "rollup -c conf/rollup.config.js -w",
     "build": "node scripts/optimize-icons.mjs && rollup -c conf/rollup.config.js",
-    "lint & format": "eslint src README.md --ext .ts,.js --fix && prettier --config conf/.prettierrc.json --ignore-path conf/.prettierignore --write src/**/*.{ts,js,css,scss,html} && markdownlint-cli2 --config conf/.markdownlint-cli2.jsonc --fix",
-    "lint:check": "eslint src README.md --ext .ts,.js && prettier --config conf/.prettierrc.json --ignore-path conf/.prettierignore --check src/**/*.{ts,js,css,scss,html} && markdownlint-cli2 --config conf/.markdownlint-cli2.jsonc",
+    "lint & format": "eslint --config conf/eslint.config.js src README.md --ext .ts,.js --fix && prettier --config conf/.prettierrc.json --ignore-path conf/.prettierignore --write src/**/*.{ts,js,css,scss,html} && markdownlint-cli2 --config conf/.markdownlint-cli2.jsonc --fix",
+    "lint:check": "eslint --config conf/eslint.config.js src README.md --ext .ts,.js && prettier --config conf/.prettierrc.json --ignore-path conf/.prettierignore --check src/**/*.{ts,js,css,scss,html} && markdownlint-cli2 --config conf/.markdownlint-cli2.jsonc",
     "optimize-icons": "node scripts/optimize-icons.mjs",
     "test": "vitest run --coverage --config conf/vitest.config.ts --root .",
     "test:watch": "vitest --config conf/vitest.config.ts --root .",
