@@ -1,4 +1,4 @@
-# Bosch Home Connect Alt features for Home Assistant Tile card
+# Bosch Home Connect Alt features for Home Assistant Tile card <!-- omit from toc -->
 
 [![GitHub Release](https://img.shields.io/github/release/hondzik/bosch-appliance-features.svg?style=for-the-badge)](https://github.com/hondzik/bosch-appliance-features/releases)
 [![License](https://img.shields.io/github/license/hondzik/bosch-appliance-features.svg?style=for-the-badge)](LICENSE)
@@ -6,7 +6,7 @@
 ![Github](https://img.shields.io/github/followers/hondzik.svg?style=for-the-badge)
 [![GitHub Activity](https://img.shields.io/github/last-commit/hondzik/bosch-appliance-features?style=for-the-badge)](https://github.com/hondzik/bosch-appliance-features/commits/main)
 
-## Table of contents
+## Table of contents <!-- omit from toc -->
 
 - [Description](#description)
 - [What's in this bundle](#whats-in-this-bundle)
