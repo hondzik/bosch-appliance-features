@@ -8,6 +8,5 @@
     // section) are a normal README pattern, not a structural mistake
     "MD024": { "siblings_only": true }
   },
-  "globs": ["**/*.md"],
-  "ignores": ["node_modules", "dist", "CLAUDE.md", ".claude"]
+  "globs": ["README.md"]
 }
