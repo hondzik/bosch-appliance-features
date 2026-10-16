@@ -64,5 +64,9 @@
   "dependencies": {
     "home-assistant-js-websocket": "^9.7.1",
     "lit": "^3.3.3"
+  },
+  "overrides": {
+    "katex": "^0.19.0",
+    "smol-toml": "^1.9.1"
   }
 }
